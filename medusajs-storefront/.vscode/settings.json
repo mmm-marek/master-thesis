@@ -1,0 +1,15 @@
+{
+	"i18n-ally.sourceLanguage": "en",
+	"i18n-ally.displayLanguage": "en",
+	"i18n-ally.localesPaths": ["src/locales"],
+	"i18n-ally.tabStyle": "tab",
+	"i18n-ally.indent": 4,
+	"i18n-ally.keystyle": "nested",
+	"i18n-ally.theme.annotation": "green",
+	"i18n-ally.theme.annotationBorder": "green",
+	"i18n-ally.theme.annotationMissing": "red",
+	"i18n-ally.theme.annotationMissingBorder": "red",
+	"i18n-ally.review.enabled": false,
+	"i18n-ally.usage.scanningIgnore": ["src/utils/intl.ts"],
+	"i18n-ally.keepFulfilled": true
+}

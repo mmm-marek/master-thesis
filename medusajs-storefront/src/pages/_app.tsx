@@ -1,0 +1,112 @@
+import { HydrationBoundary, QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { ConfigProvider as AntdProvider } from 'antd'
+import { Locale } from 'antd/lib/locale'
+import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+import isBetween from 'dayjs/plugin/isBetween'
+import isSameOrAfterPlugin from 'dayjs/plugin/isSameOrAfter'
+import isSameOrBeforePlugin from 'dayjs/plugin/isSameOrBefore'
+import minMax from 'dayjs/plugin/minMax'
+import timezonePlugin from 'dayjs/plugin/timezone'
+import utcPlugin from 'dayjs/plugin/utc'
+import { NextPage } from 'next'
+import { Open_Sans } from 'next/font/google'
+import { useRouter } from 'next/router'
+import { NextIntlClientProvider } from 'next-intl'
+import { ReactElement, ReactNode, useEffect, useState } from 'react'
+import { z } from 'zod'
+
+import AppInit from '@/components/AppInit'
+import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
+import { useLoader } from '@/hooks/loader/useLoader'
+import AppStateProvider from '@/providers/AppProvider'
+import ThemeProvider from '@/providers/ThemeProvider'
+import { DEFAULT_LANGUAGE, ERROR_BOUNDARY_TYPE, LANGUAGE, LOCALES } from '@/utils/enums'
+import { defaultErrorMap } from '@/utils/globalZod'
+
+import type { AppProps } from 'next/app'
+
+import 'dayjs/locale/sk'
+import 'dayjs/locale/en'
+
+// dayjs plugins
+dayjs.extend(isBetween)
+dayjs.extend(utcPlugin)
+dayjs.extend(isSameOrBeforePlugin)
+dayjs.extend(isSameOrAfterPlugin)
+dayjs.extend(customParseFormat)
+dayjs.extend(timezonePlugin)
+dayjs.extend(minMax)
+dayjs.locale(LOCALES[DEFAULT_LANGUAGE].countryCode)
+
+export const openSansFont = Open_Sans({ subsets: ['latin', 'latin-ext'], variable: '--open-sans-font', style: ['normal', 'italic'] })
+
+// set default errors for ZOD
+z.setErrorMap(defaultErrorMap)
+
+// Per-Page Layouts: https://nextjs.org/docs/basic-features/layouts#with-typescript
+type NextPageWithLayout = NextPage & {
+	getLayout?: (page: ReactElement, props?: any) => ReactNode
+}
+
+type AppPropsWithLayout = AppProps & {
+	Component: NextPageWithLayout
+}
+
+const App = ({ Component, pageProps }: AppPropsWithLayout) => {
+	const router = useRouter()
+	const [antdLocale, setAntdLocale] = useState<Locale>(LOCALES[DEFAULT_LANGUAGE].antD)
+	const [timeZone, setTimeZone] = useState<string>(LOCALES[DEFAULT_LANGUAGE].timeZone)
+
+	// client side navigation loader initialisation
+	useLoader()
+
+	// dayjs and antd locale setup
+	useEffect(() => {
+		const locale = LOCALES[router.locale as LANGUAGE] || LOCALES[DEFAULT_LANGUAGE]
+		dayjs.locale(locale.ISO_639)
+		setAntdLocale(locale.antD)
+		setTimeZone(locale.timeZone)
+	}, [router.locale])
+
+	// query client setup
+	const [queryClient] = useState(
+		() =>
+			new QueryClient({
+				defaultOptions: {
+					queries: {
+						refetchOnWindowFocus: false,
+						retry: false,
+						// Disable caching by default
+						gcTime: 0
+					}
+				}
+			})
+	)
+
+	// Per-Page Layouts: https://nextjs.org/docs/basic-features/layouts#with-typescript
+	// Use the layout defined at the page level, if available
+	const getLayout = Component.getLayout ?? ((page) => page)
+
+	return (
+		<NextIntlClientProvider messages={pageProps.locales} locale={router.locale} timeZone={timeZone}>
+			<ErrorBoundary fallbackType={ERROR_BOUNDARY_TYPE.REPORT_DIALOG}>
+				<QueryClientProvider client={queryClient}>
+					<HydrationBoundary state={pageProps.dehydratedState}>
+						<AntdProvider locale={antdLocale}>
+							<AppStateProvider>
+								<ThemeProvider>
+									<AppInit>{getLayout(<Component {...pageProps} />, pageProps)}</AppInit>
+								</ThemeProvider>
+							</AppStateProvider>
+						</AntdProvider>
+					</HydrationBoundary>
+					<ReactQueryDevtools initialIsOpen={false} />
+				</QueryClientProvider>
+			</ErrorBoundary>
+		</NextIntlClientProvider>
+	)
+}
+
+export default App

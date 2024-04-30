@@ -1,0 +1,6 @@
+{
+	"extends": ["@goodrequest/eslint-config-typescript-next"],
+	"rules": {
+        "@typescript-eslint/no-explicit-any": "warn"
+	}
+}

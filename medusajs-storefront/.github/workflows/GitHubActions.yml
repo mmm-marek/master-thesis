@@ -1,0 +1,29 @@
+name: GitHub Actions
+
+on:
+  push:
+    branches: [ 'next-admin' ]
+  pull_request:
+    types:
+      [ 'opened', 'synchronize' ]
+    branches:
+      [ 'next-admin' ]
+
+jobs:
+  PR:
+    if: |
+      github.event_name == 'push' || (
+        github.event_name == 'pull_request' &&
+        github.event.action != 'closed'
+      )
+
+    uses: GoodRequest/Actions-Default/.github/workflows/MultiImageWorkflow.yml@main
+
+    with:
+      type: true
+
+      node_version: '18.16'
+
+      docker: false
+
+    secrets: inherit

@@ -1,0 +1,83 @@
+import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/router'
+import { ColumnsType, TableProps } from 'antd/lib/table'
+
+import Table from '@/components/Table/Table'
+import { normalizeDirectionKeys } from '@/utils/helpers'
+import { PATHS, TABLE_SCROLL } from '@/utils/enums'
+import { Paths } from '@/types/api'
+import Error from '@/components/Error/Error'
+import Loading from '@/components/Loading/Loading'
+import { useParseQuery } from '@/hooks/useQueryParser'
+import useGet{{ pascalCase name }} from '@/hooks/{{ camelCase name }}/useGet{{ pascalCase name}}'
+import { {{ pascalCase name }}QuerySchema } from '@/schemas/{{ camelCase name }}Schemas'
+
+type TableItem = Paths.GetApiTo{{ pascalCase name }}.Responses.$200['{{ camelCase name }}'][0]
+
+const {{ pascalCase name }} = () => {
+	const t = useTranslations('containers.{{ camelCase name }}')
+	const router = useRouter()
+	const [query, setQueryParams] = useParseQuery({{ pascalCase name }}QuerySchema, router.query)
+
+	const { isLoading, data, isFetching, isError } = useGet{{ pascalCase name }}(query)
+
+	const columns: ColumnsType<TableItem> = [
+		{
+			title: t('table.name'),
+			dataIndex: ['name'],
+			key: 'name',
+			ellipsis: true
+		}
+	]
+
+	const onChangeTable: TableProps<TableItem>['onChange'] = (pagination, filters: any, sorter) => {
+		if (!(sorter instanceof Array)) {
+			setQueryParams({
+				...query,
+				limit: pagination.pageSize,
+				page: pagination.pageSize === data?.pagination?.limit ? pagination.current : 1,
+				orderDirection: sorter.order ? normalizeDirectionKeys(sorter.order) : undefined,
+				orderBy: sorter.order ? (sorter.columnKey as string) : undefined
+			})
+		}
+	}
+
+	if (isLoading) {
+		return <Loading />
+	}
+
+	if (isError) {
+		return <Error />
+	}
+
+	return (
+		<Table<TableItem>
+			columns={columns}
+			dataSource={data?.{{ camelCase name }} || []}
+			loading={isFetching}
+			rowClickable
+			onChange={onChangeTable}
+			scroll={ { x: TABLE_SCROLL.LG.x } }
+			onRow={(record) => {
+				return {
+					onClick: () => {
+						router.push({
+							pathname: `${PATHS.{{ upperCase name }} }/[{{ camelCase (singular name )}}Id]`,
+							query: {
+								{{ camelCase (singular name)}}Id: record.id
+							}
+						})
+					}
+				}
+			}}
+			pagination={ {
+				pageSize: data?.pagination.limit,
+				total: data?.pagination.totalCount,
+				current: data?.pagination.page,
+				disabled: isLoading
+			} }
+		/>
+	)
+}
+
+export default {{ pascalCase name }}

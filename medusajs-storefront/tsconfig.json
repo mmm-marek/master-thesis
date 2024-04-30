@@ -1,0 +1,42 @@
+{
+	"compilerOptions": {
+		/* Projects */
+		"incremental": true,
+
+		/* Language and Environment */
+		"target": "es5",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"jsx": "preserve",
+
+		/* Modules */
+		"module": "esnext",
+		"moduleResolution": "node",
+		"paths": {
+			"@/*": ["./src/*"]
+		},
+		"typeRoots": ["node_modules/@types", "./src/types"],
+		"resolveJsonModule": true,
+
+		/* JavaScript Support */
+		"allowJs": true,
+
+		/* Emit */
+		"noEmit": true,
+
+		/* Interop Constraints */
+		"isolatedModules": true,
+		// "allowSyntheticDefaultImports": true, // NOTE: this seems not to be necessary anymore
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+
+		/* Type Checking */
+		"strict": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUncheckedIndexedAccess": true,
+
+		/* Completeness */
+		"skipLibCheck": true
+	},
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "./next.config.mjs", "./svgo.config.js", "./scripts/**/*", "./plopfile.js"],
+	"exclude": ["node_modules"]
+}

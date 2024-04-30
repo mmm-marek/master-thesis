@@ -1,0 +1,32 @@
+import { ReactElement } from 'react'
+import { GetStaticProps } from 'next'
+import { PAGE_IDS } from '@/utils/enums'
+import { getLocales } from '@/utils/locales'
+import PrivateWrapper from '@/auth/PrivateWrapper'
+import MainLayout from '@/layouts/MainLayout/MainLayout'
+import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
+import {{ pascalCase (singular name) }} from '@/containers/{{ camelCase name }}/{{ pascalCase (singular name) }}'
+
+export const getServerSideProps: GetStaticProps = async ({ locale }) => {
+	return {
+		props: {
+			locales: await getLocales(locale)
+		}
+	}
+}
+
+type Props = {}
+
+const {{ pascalCase (singular name) }}Page = (props: Props) => <{{ pascalCase (singular name) }} {...props} />
+
+{{ pascalCase (singular name) }}Page.getLayout = function getLayout(page: ReactElement, props: Props) {
+	return (
+		<PrivateWrapper>
+			<MainLayout {...props} pageID={PAGE_IDS.{{ upperCase (singular name) }} }>
+				<ErrorBoundary>{page}</ErrorBoundary>
+			</MainLayout>
+		</PrivateWrapper>
+	)
+}
+
+export default {{ pascalCase (singular name) }}Page

@@ -1,0 +1,261 @@
+{
+	"atoms": {
+		"empty": {
+			"noData": "No data"
+		},
+		"filterSelectField": {
+			"all": "All",
+			"search": "Search",
+			"selectAll": "Select all"
+		}
+	},
+	"components": {
+		"error": {
+			"somethingWentWrong": "Something went wrong.",
+			"tryAgain": "Try again",
+			"tryLater": "Please try again later."
+		},
+		"errorBoundary": {
+			"close": "Close",
+			"contactUs": "Please contact us",
+			"errorDescription": "Description of the error",
+			"name": "Name",
+			"reportSent": "Your report has been sent. Thank you!",
+			"sendErrorReport": "Send error report",
+			"somethingWentWrong": "Oops, something went wrong",
+			"tryAgain": "Try again",
+			"unexpectedErrorOccured": "An unexpected error has occurred."
+		},
+		"modal": {
+			"cancel": "Cancel",
+			"delete": "Delete",
+			"save": "Save"
+		},
+		"table": {
+			"itemsPerPage": "Items per page",
+			"resultsRange": "Results { rangeFrom }-{ rangeTo } of { total }"
+		}
+	},
+	"containers": {
+		"confirmAccountInvite": {
+			"confirmAccountInviteForm": {
+				"confirmAccount": "Confirm account",
+				"firstName": "First name",
+				"lastName": "Last name",
+				"password": "Password",
+				"phone": "Phone",
+				"repeatPassword": "Repeat the password"
+			},
+			"confirmAccountInviteFormSchema": {
+				"emailValidationRule": "At least 8 characters, 1 number, 1 uppercase, 1 lowercase and 1 special character",
+				"passwordsDoNotMatch": "Passwords do not match"
+			}
+		},
+		"error": {
+			"backButton": "Back to dashboard"
+		},
+		"forgottenPassword": {
+			"forgottenPasswordForm": {
+				"backButton": "Back to log in",
+				"email": "Email",
+				"enterEmail": "Enter your email",
+				"forgotPassword": "Forgot password",
+				"resetInstructions": "No worries, we’ll send you reset instructions.",
+				"resetPassword": "Reset password"
+			},
+			"forgottenPasswordSuccess": {
+				"backButton": "Back to log in",
+				"checkYourEmail": "Check your email",
+				"clickToResend": "Click to resend",
+				"didntReceiveEmail": "Didn’t receive the email",
+				"openEmailApp": "Open email app",
+				"passwordResetLinkSent": "We sent a password reset link to <styledEmail>{email}</styledEmail>"
+			}
+		},
+		"hookForm": {
+			"submit": "Submit",
+			"longTextLabel": "Long text",
+			"longTextPlaceholder": "Long text",
+			"emailLabel": "Email",
+			"emailPlaceholder": "Email"
+		},
+		"login": {
+			"loginForm": {
+				"email": "Email",
+				"enterEmail": "Enter your email",
+				"enterPassword": "Enter your password",
+				"forgotPassword": "Forgot password",
+				"logIn": "Log in",
+				"noAccount": "Don’t have an account?",
+				"password": "Password",
+				"signUp": "Sign up",
+				"welcomeBack": "Welcome back",
+				"welcomeBackEnterDetails": "Welcome back! Please enter your details."
+			}
+		},
+		"profile": {
+			"appearance": "Appearance",
+			"appearanceForm": {
+				"theme": "Theme"
+			},
+			"manageProfileSettings": "Manage your profile settings here.",
+			"profileSettings": "Profile settings"
+		},
+		"queryParams": {
+			"error": {
+				"title": "Missing query param",
+				"description": "URL must contains numeric value for query parameter 'score'"
+			},
+			"title": "Input for URL queries testing. Prefilled values are from URL",
+			"note": "NOTE: Use JSON structure of query params to correct parsing into TS object (without error)",
+			"buttonLabel": "Change queries in URL"
+		},
+		"resetPassword": {
+			"resetPasswordForm": {
+				"backButton": "Back to log in",
+				"enterPassword": "Enter your password",
+				"newPassword": "Set new password",
+				"password": "Password",
+				"repeatPassword": "Repeat the password",
+				"resetPassword": "Reset password",
+				"selectDifferentPassword": "Your new password must be different to previously used passwords."
+			},
+			"resetPasswordFormSchema": {
+				"emailValidationRule": "At least 8 characters, 1 number, 1 uppercase, 1 lowercase and 1 special character",
+				"passwordsDontMatch": "Passwords do not match"
+			},
+			"resetPasswordSuccess": {
+				"backButton": "Back to log in",
+				"continue": "Continue",
+				"passwordReset": "Password reset",
+				"passwordResetSuccess": "Your password has been successfully reset. Click below to log in magically."
+			}
+		},
+		"signUp": {
+			"signUpForm": {
+				"alreadyHaveAccount": "Already have an account",
+				"createAccount": "Create account",
+				"email": "Email",
+				"enterEmail": "Enter your email",
+				"enterPasssword": "Enter your password",
+				"logIn": "Log in",
+				"password": "Password",
+				"startFreeTrial": "Start your 30-day free trial."
+			}
+		},
+		"users": {
+			"action": "Action",
+			"delete": "Delete",
+			"edit": "Edit",
+			"email": "Email",
+			"inviteUser": "Invite user",
+			"manageTeamMembers": "Manage your team members and their account permissions here.",
+			"name": "Name",
+			"role": "Role",
+			"state": "State",
+			"userManagement": "User management",
+			"deleteUserModal": {
+				"confirmDelete": "Are you sure you want to delete <styledEmail>{email}</styledEmail>? ",
+				"deleteUser": "Delete user",
+				"deleteWarning": "User will no longer have access to the app."
+			},
+			"editUserForm": {
+				"editUser": "Edit user",
+				"enterName": "Enter name",
+				"enterPhoneNumber": "Enter phone number",
+				"enterSurname": "Enter surname",
+				"name": "Name",
+				"phone": "Phone",
+				"role": "Role",
+				"selectRole": "Select role",
+				"surname": "Surname"
+			},
+			"inviteUserForm": {
+				"email": "Email",
+				"enterEmail": "Enter email",
+				"info": "Once a new user is added, an invitation link will be sent to the following email",
+				"inviteUser": "Invite user",
+				"role": "Role",
+				"selectRole": "Select role",
+				"sendInvite": "Send invite"
+			},
+			"usersFilter": {
+				"role": "Role",
+				"state": "State",
+				"search": "Search by name and e-mail"
+			}
+		}
+	},
+	"layouts": {
+		"mainLayout": {
+			"dashboard": "Dashboard",
+			"users": "Users",
+			"navbar": {
+				"avatar": "avatar"
+			}
+		}
+	},
+	"pages": {
+		"403": {
+			"forbiddenAccess": "Forbidden access",
+			"noPermission": "You do not have permission for the page you are trying to view. If you think you should have access, please contact us."
+		},
+		"404": {
+			"notFound": "Link not found",
+			"notFoundInfo": "The page you are trying to access does not exist."
+		},
+		"error": {
+			"internalServerError": "Internal Server Error",
+			"internalServerErrorInfo": "The page you are trying to access does not working not working properly."
+		}
+	},
+	"utils": {
+		"globalZod": {
+			"emailValidationRule": "At least 10 characters, 1 number, 1 uppercase, 1 lowercase and 1 special character",
+			"invalidUrl": "Invalid URL",
+			"invalidUuidFormat": "Invalid UUID format",
+			"maxCharacters": "Max. number of characters is {max}",
+			"maxItems": "Max. number of items is {max}",
+			"maxValue": "Max. value is {max}",
+			"minValue": "Min. value is {min}",
+			"requiredField": "This field is required",
+			"wrongEmailFormat": "Wrong e-mail address format",
+			"wrongInputFormat": "Wrong input value format",
+			"wrongUuidFormat": "Wrong UUID format"
+		},
+		"helpers": {
+			"active": "Active",
+			"administrator": "Administrator",
+			"darkMode": "Dark mode",
+			"goodrequestAdminTemplate": "GoodRequest admin template",
+			"lightMode": "Light mode",
+			"pendingInvitation": "Pending invitation",
+			"systemPreferences": "System preferences",
+			"systemPreferencesTheme": "System preferences ({ theme })",
+			"user": "User",
+			"utilsHelpersError": "Error",
+			"utilsHelpersInfo": "Info",
+			"utilsHelpersSuccess": "Success",
+			"utilsHelpersWarning": "Warning"
+		},
+		"permissions": {
+			"warning": "Warning",
+			"noPermission": "You do not have permission to perform this action"
+		},
+		"request": {
+			"errorConnectingToServer": "Error connecting to server",
+			"loadingData": "Loading data...",
+			"loggedOutMessage": "You have been automatically logged out!",
+			"operationInProgress": "Operation is being performed...",
+			"somethingWentWrong": "Oops, something went wrong"
+		},
+		"zodResolver": {
+			"generalError": "Entered value is not valid"
+		}
+	},
+	"hooks": {
+		"useLeavePrompt": {
+			"confirmationMessage": "You have unsaved changes. Are you sure you want to leave?"
+		}
+	}
+}

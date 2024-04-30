@@ -1,0 +1,27 @@
+import { useQuery, keepPreviousData } from '@tanstack/react-query'
+
+// utils
+import { getReq } from '@/utils/request'
+import { QUERY_KEYS } from '@/utils/enums'
+
+// types
+import { Paths } from '@/types/api'
+import { z } from 'zod'
+import { {{ pascalCase name }}QuerySchema } from '@/schemas/{{ camelCase name }}Schemas'
+
+type Get{{ pascalCase name }}Payload = Paths.GetApiPathTo{{ pascalCase name }}.Responses.$200
+
+type Get{{ pascalCase name }}QueryParams = z.infer<typeof {{ pascalCase name }}QuerySchema>
+
+const useGet{{ pascalCase (singular name) }}List = (queryParams?: Get{{ pascalCase name }}QueryParams) => {
+	return useQuery({
+		queryKey: [QUERY_KEYS.API_GET_{{ upperCase (singular name) }}_LIST, queryParams],
+		queryFn: async (): Promise<Get{{ pascalCase name }}Payload> => {
+			const { data } = await getReq('/api/v1/{{ dashCase name }}/list', queryParams)
+			return data
+		},
+		placeholderData: keepPreviousData
+	})
+}
+
+export default useGet{{ pascalCase (singular name) }}List

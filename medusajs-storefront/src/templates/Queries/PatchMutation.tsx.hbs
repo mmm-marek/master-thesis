@@ -1,0 +1,23 @@
+import { useMutation } from '@tanstack/react-query'
+import { patchReq } from '@/utils/request'
+import { Paths } from '@/types/api'
+import { MSG_TYPE, NOTIFICATION_TYPE } from '@/utils/enums'
+import { useTranslations } from 'next-intl'
+import { showNotifications } from '@/utils/tsxHelpers'
+
+const usePatch{{  pascalCase (singular name) }} = ({{  camelCase (singular name) }}Id?: string) => {
+	const t = useTranslations()
+	return useMutation({
+		mutationFn: async (reqBody: Paths.PatchApiTo{{  pascalCase (singular name) }}.RequestBody) => {
+			if ({{  camelCase (singular name) }}Id) {
+				const { data } = await patchReq('/api/v1/{{ dashCase name }}/{ {{  camelCase (singular name) }}Id }', { {{  camelCase (singular name) }}Id  }, reqBody, undefined, NOTIFICATION_TYPE.NOTIFICATION)
+				return data
+			}
+			// throw error
+			showNotifications([{ type: MSG_TYPE.ERROR, message: t('hooks.error.missingId') }], NOTIFICATION_TYPE.NOTIFICATION)
+			return Promise.reject(new Error(t('hooks.error.missingId')))
+		}
+	})
+}
+
+export default usePatch{{  pascalCase (singular name) }}

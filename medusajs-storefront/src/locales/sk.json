@@ -1,0 +1,261 @@
+{
+	"atoms": {
+		"empty": {
+			"noData": "Žiadne dáta"
+		},
+		"filterSelectField": {
+			"all": "Všetky",
+			"search": "Vyhľadávanie",
+			"selectAll": "Vybrať všetko"
+		}
+	},
+	"components": {
+		"error": {
+			"somethingWentWrong": "Niečo sa pokazilo.",
+			"tryAgain": "Skúste to znova",
+			"tryLater": "Skúste neskôr, prosím."
+		},
+		"errorBoundary": {
+			"close": "Zavrieť",
+			"contactUs": "Prosím kontaktuj nás",
+			"errorDescription": "Popis chyby",
+			"name": "názov",
+			"reportSent": "Vaša správa bola odoslaná. Ďakujeme!",
+			"sendErrorReport": "Poslať hlásenie o chybe",
+			"somethingWentWrong": "Ups, niečo sa pokazilo",
+			"tryAgain": "Skúste to znova",
+			"unexpectedErrorOccured": "Nastala neočakávaná chyba."
+		},
+		"modal": {
+			"cancel": "Zrušiť",
+			"delete": "Vymazať",
+			"save": "Uložiť"
+		},
+		"table": {
+			"itemsPerPage": "Položky na stránku",
+			"resultsRange": "Výsledky { rangeFrom }-{ rangeTo } z { total }"
+		}
+	},
+	"containers": {
+		"confirmAccountInvite": {
+			"confirmAccountInviteForm": {
+				"confirmAccount": "Potvrďte účet",
+				"firstName": "Meno",
+				"lastName": "Priezvisko",
+				"password": "Heslo",
+				"phone": "Telefón",
+				"repeatPassword": "Zopakujte heslo"
+			},
+			"confirmAccountInviteFormSchema": {
+				"emailValidationRule": "Minimálne 8 znakov, 1 číslo, 1 veľké písmeno, 1 malé písmeno a 1 špeciálny znak",
+				"passwordsDoNotMatch": "Heslá sa nezhodujú"
+			}
+		},
+		"error": {
+			"backButton": "Späť domov"
+		},
+		"forgottenPassword": {
+			"forgottenPasswordForm": {
+				"backButton": "Späť na prihlásenie",
+				"email": "E-mail",
+				"enterEmail": "Zadajte svoj e-mail",
+				"forgotPassword": "Zabudnuté heslo",
+				"resetInstructions": "Žiadny strach, pošleme vám pokyny na obnovenie.",
+				"resetPassword": "Obnoviť heslo"
+			},
+			"forgottenPasswordSuccess": {
+				"backButton": "Späť na prihlásenie",
+				"checkYourEmail": "Skontrolujte svoj e-mail",
+				"clickToResend": "Kliknutím znova odošlete",
+				"didntReceiveEmail": "E-mail neprišiel",
+				"openEmailApp": "Otvorte e-mailovú aplikáciu",
+				"passwordResetLinkSent": "Odkaz na obnovenie hesla sme odoslali na adresu <styledEmail>{email}</styledEmail>"
+			}
+		},
+		"hookForm": {
+			"submit": "Odoslať",
+			"longTextLabel": "Dlhý text",
+			"longTextPlaceholder": "Dlhý text",
+			"emailLabel": "Email",
+			"emailPlaceholder": "Email"
+		},
+		"login": {
+			"loginForm": {
+				"email": "E-mail",
+				"enterEmail": "Zadajte svoj e-mail",
+				"enterPassword": "Zadajte svoje heslo",
+				"forgotPassword": "Zabudnuté heslo",
+				"logIn": "Prihlásiť sa",
+				"noAccount": "Nemáte účet?",
+				"password": "Heslo",
+				"signUp": "Prihlásiť sa",
+				"welcomeBack": "Vitajte späť",
+				"welcomeBackEnterDetails": "Vitajte späť! Zadajte svoje údaje."
+			}
+		},
+		"profile": {
+			"appearance": "Vzhľad",
+			"appearanceForm": {
+				"theme": "Téma"
+			},
+			"manageProfileSettings": "Spravujte nastavenia svojho profilu tu.",
+			"profileSettings": "Nastavenia profilu"
+		},
+		"queryParams": {
+			"error": {
+				"title": "Chýbajúci query parameter",
+				"description": "URL musí obsahovať číselnú hodnotu pre query parameter 'scrore'"
+			},
+			"title": "Input pre testovanie URL query parametrov. Predvyplnené hodnoty sú z URL",
+			"note": "POZN: Použite JSON zápis pre správne parsovanie do TS objektu (bez chýb)",
+			"buttonLabel": "Zmeniť query parametre v URL"
+		},
+		"resetPassword": {
+			"resetPasswordForm": {
+				"backButton": "Späť na prihlásenie",
+				"enterPassword": "Zadajte svoje heslo",
+				"newPassword": "Nastaviť nové heslo",
+				"password": "Heslo",
+				"repeatPassword": "Zopakujte heslo",
+				"resetPassword": "Obnoviť heslo",
+				"selectDifferentPassword": "Vaše nové heslo sa musí líšiť od predtým používaných hesiel."
+			},
+			"resetPasswordFormSchema": {
+				"emailValidationRule": "Minimálne 8 znakov, 1 číslo, 1 veľké písmeno, 1 malé písmeno a 1 špeciálny znak",
+				"passwordsDontMatch": "Heslá sa nezhodujú"
+			},
+			"resetPasswordSuccess": {
+				"backButton": "Späť na prihlásenie",
+				"continue": "Ďalej",
+				"passwordReset": "Resetovanie hesla",
+				"passwordResetSuccess": "Vaše heslo bolo úspešne obnovené. Kliknutím nižšie sa magicky prihlásite."
+			}
+		},
+		"signUp": {
+			"signUpForm": {
+				"alreadyHaveAccount": "Máte už účet",
+				"createAccount": "Vytvoriť účet",
+				"email": "Email",
+				"enterEmail": "Zadajte svoj e-mail",
+				"enterPasssword": "Zadajte svoje heslo",
+				"logIn": "Prihlásiť sa",
+				"password": "Heslo",
+				"startFreeTrial": "Začnite svoju 30-dňovú bezplatnú skúšobnú verziu."
+			}
+		},
+		"users": {
+			"action": "Akcia",
+			"delete": "Odstrániť",
+			"edit": "Upraviť",
+			"email": "Email",
+			"inviteUser": "Pozvať používateľa",
+			"manageTeamMembers": "Tu môžete spravovať členov tímu a ich povolenia účtu.",
+			"name": "Názov",
+			"role": "Rola",
+			"state": "Stav",
+			"userManagement": "Správa užívateľov",
+			"deleteUserModal": {
+				"confirmDelete": "Naozaj chcete odstrániť <styledEmail>{email}</styledEmail>?",
+				"deleteUser": "Odstrániť používateľa",
+				"deleteWarning": "Používateľ už nebude mať prístup k aplikácii."
+			},
+			"editUserForm": {
+				"editUser": "Upraviť používateľa",
+				"enterName": "Zadajte meno",
+				"enterPhoneNumber": "Zadajte telefónne číslo",
+				"enterSurname": "Zadajte priezvisko",
+				"name": "Názov",
+				"phone": "Telefón",
+				"role": "Rola",
+				"selectRole": "Vyberte rolu",
+				"surname": "Priezvisko"
+			},
+			"inviteUserForm": {
+				"email": "Email",
+				"enterEmail": "Zadajte email",
+				"info": "Po pridaní nového používateľa sa na nasledujúci e-mail odošle odkaz na pozvánku",
+				"inviteUser": "Pozvať používateľa",
+				"role": "Role",
+				"selectRole": "Vyberte rolu",
+				"sendInvite": "Odoslať pozvánku"
+			},
+			"usersFilter": {
+				"role": "Role",
+				"state": "Stav",
+				"search": "Hľadajte podľa mena a e-mailu"
+			}
+		}
+	},
+	"layouts": {
+		"mainLayout": {
+			"dashboard": "Nástenka",
+			"users": "Používatelia",
+			"navbar": {
+				"avatar": "avatar"
+			}
+		}
+	},
+	"pages": {
+		"403": {
+			"forbiddenAccess": "Zakázaný prístup",
+			"noPermission": "Nemáte povolenie pre stránku, ktorú sa pokúšate zobraziť. Ak si myslíte, že by ste mali mať prístup, kontaktujte nás."
+		},
+		"404": {
+			"notFound": "Odkaz sa nenašiel",
+			"notFoundInfo": "Stránka, na ktorú sa pokúšate dostať, neexistuje."
+		},
+		"error": {
+			"internalServerError": "Interná chyba servera",
+			"internalServerErrorInfo": "Stránka, na ktorú sa pokúšate dostať, nefunguje správne."
+		}
+	},
+	"utils": {
+		"globalZod": {
+			"emailValidationRule": "Minimálne 10 znakov, 1 číslo, 1 veľké písmeno, 1 malé písmeno a 1 špeciálny znak",
+			"invalidUrl": "Neplatná URL adresa",
+			"invalidUuidFormat": "Neplatný formát UUID",
+			"maxCharacters": "Max. počet znakov je {max}",
+			"maxItems": "Max. počet položiek je {max}",
+			"maxValue": "Max. hodnota je {max}",
+			"minValue": "Min. hodnota je {min}",
+			"requiredField": "Toto pole je povinné",
+			"wrongEmailFormat": "Nesprávny formát e-mailovej adresy",
+			"wrongInputFormat": "Nesprávny formát vstupnej hodnoty",
+			"wrongUuidFormat": "Nesprávny formát UUID"
+		},
+		"helpers": {
+			"active": "Aktívne",
+			"administrator": "Správca",
+			"darkMode": "Tmavý režim",
+			"goodrequestAdminTemplate": "GoodRequest admin šablóna",
+			"lightMode": "Svetlý režim",
+			"pendingInvitation": "Čaká na pozvánku",
+			"systemPreferences": "Systémové preferencie",
+			"systemPreferencesTheme": "Predvoľby systému ({ theme })",
+			"user": "Používateľ",
+			"utilsHelpersError": "Chyba",
+			"utilsHelpersInfo": "Info",
+			"utilsHelpersSuccess": "Úspech",
+			"utilsHelpersWarning": "Pozor"
+		},
+		"permissions": {
+			"warning": "Pozor",
+			"noPermission": "Na vykonanie tejto akcie nemáte povolenie"
+		},
+		"request": {
+			"errorConnectingToServer": "Chyba pri pripájaní k serveru",
+			"loadingData": "Načítavajú sa údaje...",
+			"loggedOutMessage": "Boli ste automaticky odhlásení!",
+			"operationInProgress": "Operácia sa vykonáva...",
+			"somethingWentWrong": "Ups, niečo sa pokazilo"
+		},
+		"zodResolver": {
+			"generalError": "Zadaná hodnota nie je platná"
+		}
+	},
+	"hooks": {
+		"useLeavePrompt": {
+			"confirmationMessage": "Máte neuložené zmeny. Naozaj chcete odísť?"
+		}
+	}
+}

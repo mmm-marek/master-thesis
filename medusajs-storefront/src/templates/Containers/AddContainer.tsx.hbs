@@ -1,0 +1,33 @@
+import { UseFormReset } from 'react-hook-form'
+
+import { Paths } from '@/types/api'
+import usePost{{ pascalCase (singular name) }} from '@/hooks/{{ camelCase name }}/usePost{{ pascalCase (singular name) }}'
+import { Add{{ pascalCase (singular name) }}FormFields } from '@/containers/{{ camelCase name }}/components/Add{{ pascalCase (singular name) }}Form/Add{{ pascalCase (singular name) }}FormTypes'
+import Add{{ pascalCase (singular name) }}Form from '@/containers/{{ camelCase name }}/components/Add{{ pascalCase (singular name) }}Form/Add{{ pascalCase (singular name) }}Form'
+
+const {{ pascalCase (singular name) }} = () => {
+	const { mutateAsync: add{{ pascalCase (singular name) }} } = usePost{{ pascalCase (singular name) }}()
+
+	const handleSubmit = async (values: Add{{ pascalCase (singular name) }}FormFields, reset: UseFormReset<Add{{ pascalCase (singular name) }}FormFields>) => {
+		try {
+			const reqBody: Paths.PostApiTo{{ pascalCase name }}.RequestBody = {
+				name: values.name
+			}
+			await add{{ pascalCase (singular name) }}(reqBody, {
+				onSuccess: () => {
+					reset()
+				}
+			})
+		} catch {
+			// empty catch
+		}
+	}
+
+	return (
+		<div>
+			<Add{{ pascalCase (singular name) }}Form onSubmit={handleSubmit} />
+		</div>
+	)
+}
+
+export default {{ pascalCase (singular name) }}
