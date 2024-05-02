@@ -18,7 +18,6 @@ import { NextIntlClientProvider } from 'next-intl'
 import { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { z } from 'zod'
 
-import AppInit from '@/components/AppInit'
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
 import { useLoader } from '@/hooks/loader/useLoader'
 import AppStateProvider from '@/providers/AppProvider'
@@ -98,9 +97,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 						<Hydrate state={pageProps.dehydratedState}>
 							<AntdProvider locale={antdLocale}>
 								<AppStateProvider>
-									<ThemeProvider>
-										<AppInit>{getLayout(<Component {...pageProps} />, pageProps)}</AppInit>
-									</ThemeProvider>
+									<ThemeProvider>{getLayout(<Component {...pageProps} />, pageProps)}</ThemeProvider>
 								</AppStateProvider>
 							</AntdProvider>
 						</Hydrate>

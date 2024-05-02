@@ -18,6 +18,7 @@ export const Header = styled(AntdHeader)`
 export const Content = styled(AntdContent)`
 	${({ theme }) => css`
 		background: ${theme.tokens['color-base-surface-primary']};
+		padding: 24px 0;
 	`};
 `
 
