@@ -1,4 +1,4 @@
-import { HydrationBoundary, QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ConfigProvider as AntdProvider } from 'antd'
 import { Locale } from 'antd/lib/locale'
@@ -11,9 +11,9 @@ import minMax from 'dayjs/plugin/minMax'
 import timezonePlugin from 'dayjs/plugin/timezone'
 import utcPlugin from 'dayjs/plugin/utc'
 import { NextPage } from 'next'
+import { NextIntlClientProvider } from 'next-intl'
 import { Open_Sans } from 'next/font/google'
 import { useRouter } from 'next/router'
-import { NextIntlClientProvider } from 'next-intl'
 import { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { z } from 'zod'
 
@@ -27,8 +27,8 @@ import { defaultErrorMap } from '@/utils/globalZod'
 
 import type { AppProps } from 'next/app'
 
-import 'dayjs/locale/sk'
 import 'dayjs/locale/en'
+import 'dayjs/locale/sk'
 
 // dayjs plugins
 dayjs.extend(isBetween)
@@ -79,7 +79,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 						refetchOnWindowFocus: false,
 						retry: false,
 						// Disable caching by default
-						gcTime: 0
+						cacheTime: 0
 					}
 				}
 			})
@@ -93,7 +93,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 		<NextIntlClientProvider messages={pageProps.locales} locale={router.locale} timeZone={timeZone}>
 			<ErrorBoundary fallbackType={ERROR_BOUNDARY_TYPE.REPORT_DIALOG}>
 				<QueryClientProvider client={queryClient}>
-					<HydrationBoundary state={pageProps.dehydratedState}>
+					<Hydrate state={pageProps.dehydratedState}>
 						<AntdProvider locale={antdLocale}>
 							<AppStateProvider>
 								<ThemeProvider>
@@ -101,7 +101,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 								</ThemeProvider>
 							</AppStateProvider>
 						</AntdProvider>
-					</HydrationBoundary>
+					</Hydrate>
 					<ReactQueryDevtools initialIsOpen={false} />
 				</QueryClientProvider>
 			</ErrorBoundary>

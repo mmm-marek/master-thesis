@@ -1,8 +1,8 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { Dropdown, MenuProps, Spin } from 'antd'
 import { ColumnsType, TableProps } from 'antd/es/table'
-import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/router'
 import { useMemo, useState } from 'react'
 import { UseFormReset } from 'react-hook-form'
 
@@ -55,9 +55,9 @@ const Users = () => {
 		isFetching: isFetchingUsers,
 		isLoading: isLoadingUsers
 	} = useGetUsers({ search, permission, state, limit, page })
-	const { mutateAsync: addUser, isPending: isSubmittingUser } = useCreateUser()
-	const { mutateAsync: updateUser, isPending: isUpdatingUser } = useUpdateUser()
-	const { mutateAsync: deleteUser, isPending: isDeletingUser } = useDeleteUser()
+	const { mutateAsync: addUser, isLoading: isSubmittingUser } = useCreateUser()
+	const { mutateAsync: updateUser, isLoading: isUpdatingUser } = useUpdateUser()
+	const { mutateAsync: deleteUser, isLoading: isDeletingUser } = useDeleteUser()
 
 	const [inviteUserModalOpen, setInviteUserModalOpen] = useState(false)
 	const [editUserModalData, setEditUserModalData] = useState<EditUserModalData | null>(null)

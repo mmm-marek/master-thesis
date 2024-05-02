@@ -32,7 +32,7 @@ const ForgottenPassword = () => {
 		<div>
 			{isRequested ? (
 				<ForgottenPasswordSuccess
-					isLoading={requestResetPassword.isPending}
+					isLoading={requestResetPassword.isLoading}
 					onSubmit={() => onSubmit({ email: requestResetPassword.variables?.email || '' })}
 					email={requestResetPassword.variables?.email}
 				/>

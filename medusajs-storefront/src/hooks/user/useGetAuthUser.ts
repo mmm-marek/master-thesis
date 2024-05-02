@@ -16,7 +16,7 @@ const useGetAuthUser = (userID?: string) => {
 			return data
 		},
 		enabled: !!userID,
-		gcTime: QUERY_CACHE.CACHE_TIME,
+		cacheTime: QUERY_CACHE.CACHE_TIME,
 		staleTime: QUERY_CACHE.STALE_TIME
 	})
 }

@@ -1,4 +1,4 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 
 import { Paths } from '@/types/api'
 import { QUERY_KEYS } from '@/utils/enums'
@@ -18,7 +18,7 @@ const useGetUsers = (queryParams: Paths.GetApiV1Users.QueryParameters) => {
 			const { data } = await getReq('/api/v1/users/', { ...queryParams })
 			return data
 		},
-		placeholderData: keepPreviousData
+		keepPreviousData: true
 	})
 }
 
