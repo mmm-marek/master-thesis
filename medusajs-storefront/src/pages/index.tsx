@@ -3,6 +3,7 @@ import { GetStaticProps } from 'next'
 import { ReactElement } from 'react'
 
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
+import MainLayout from '@/layouts/MainLayout/MainLayout'
 import { getLocales } from '@/utils/locales'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
@@ -16,8 +17,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 const DashboardPage = () => {
 	const { products } = useProducts()
 
-	console.log(products)
-
 	return (
 		<div>
 			<h1>Dashboard</h1>
@@ -28,9 +27,9 @@ const DashboardPage = () => {
 
 DashboardPage.getLayout = function getLayout(page: ReactElement, props: any) {
 	return (
-		<div {...props}>
+		<MainLayout>
 			<ErrorBoundary>{page}</ErrorBoundary>
-		</div>
+		</MainLayout>
 	)
 }
 
