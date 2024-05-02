@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { PropsWithChildren, useCallback, useEffect, useState } from 'react'
 
 import useRefreshToken from '@/hooks/auth/useRefreshToken'
+import { isLoggedIn } from '@/utils/auth'
 import { REFRESH_TOKEN_INTERVAL } from '@/utils/enums'
 import { setIntervalImmediately } from '@/utils/helpers'
 import { IntlTranslator } from '@/utils/intl'
@@ -10,22 +11,17 @@ import Loading from './Loading/Loading'
 
 type Props = PropsWithChildren
 
-/**
- * To demonstrate error on root level set to 'true'
- */
-// eslint-disable-next-line prefer-const
-let throwRootLevelError = false
-
 const AppInit = (props: Props) => {
 	const { locale } = useRouter()
 	const refreshToken = useRefreshToken()
 
 	const { children } = props
 
-	const [loadingRefreshToken, setLoadingRefreshToken] = useState(true)
+	const [loadingRefreshToken, setLoadingRefreshToken] = useState(isLoggedIn())
 	const [intlInitialized, setIntlInitialized] = useState(false)
 
 	useEffect(() => {
+		if (!isLoggedIn()) return () => {}
 		// periodically refresh tokens
 		const refreshInterval = setIntervalImmediately(async () => {
 			refreshToken.mutate(undefined, {
@@ -56,8 +52,6 @@ const AppInit = (props: Props) => {
 	switch (true) {
 		case intlInitialized === false || loadingRefreshToken:
 			return <Loading height='100vh' />
-		case throwRootLevelError:
-			throw new Error('Root level error')
 		default:
 			return children
 	}
