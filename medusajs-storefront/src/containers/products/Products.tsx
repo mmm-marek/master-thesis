@@ -1,17 +1,11 @@
-import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 
-import { QUERY_KEYS } from '@/utils/enums'
-import { medusa } from '@/utils/medusaHelpers'
+import useGetProducts from '@/hooks/products/useGetProducts'
 
 import * as SC from './ProductsStyles'
 
 const Products = () => {
-	const { data } = useQuery([QUERY_KEYS.API_GET_PRODUCTS], async () => {
-		const products = await medusa.products.list()
-
-		return products.products
-	})
+	const { data } = useGetProducts()
 
 	const products = data ?? []
 
