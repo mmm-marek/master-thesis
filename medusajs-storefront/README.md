@@ -26,7 +26,7 @@ After installation, following environment variables must be set in the ```.env``
 | Name | Description | Type | Rules |
 | ---- | ----------- | ---- | -------------------- |
 | NEXT_PUBLIC_RECAPTCHA_SITE_KEY | Variable represents the public site key for integrating the reCAPTCHA service into application. | String | `{"type":"min","value":1}` |
-| NEXT_PUBLIC_API_BASE_URL | Variable represents the base URL of the API service that application communicates with. | String | `[{"type":"min","value":1},{"type":"url"},{"type":"regex"}]` |
+| NEXT_PUBLIC_MEDUSA_BACKEND_URL | Variable represents the Medusa backend URL of the API service that application communicates with. | String | `[{"type":"min","value":1},{"type":"url"},{"type":"regex"}]` |
 | NEXT_PUBLIC_SENTRY_DSN | Unique identifier that connects app with sentry project. | String | `{"type":"min","value":1}` |
 | NEXT_PUBLIC_SENTRY_ENV | Variable specify the environment or deployment stage of app for sentry. | String | `{"type":"min","value":1}` |
 | ANALYZE | Used to control whether bundle analysis is enabled or disabled. | Optional | `[]` |

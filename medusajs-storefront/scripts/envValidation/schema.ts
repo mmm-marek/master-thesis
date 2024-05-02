@@ -15,7 +15,7 @@ export const EnvSchema = z.object({
 		.string()
 		.nonempty()
 		.describe('Variable represents the public site key for integrating the reCAPTCHA service into application.'),
-	NEXT_PUBLIC_API_BASE_URL: urlConstraint.describe('Variable represents the base URL of the API service that application communicates with.'),
+	NEXT_PUBLIC_MEDUSA_BACKEND_URL: urlConstraint.describe('Variable represents the base URL of the API service that application communicates with.'),
 	NEXT_PUBLIC_SENTRY_DSN: z.string().nonempty().describe('Unique identifier that connects app with sentry project.'),
 	NEXT_PUBLIC_SENTRY_ENV: z.string().nonempty().describe('Variable specify the environment or deployment stage of app for sentry.'),
 	ANALYZE: z.string().describe('Used to control whether bundle analysis is enabled or disabled.').nullish(),

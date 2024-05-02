@@ -10,10 +10,11 @@ import isSameOrBeforePlugin from 'dayjs/plugin/isSameOrBefore'
 import minMax from 'dayjs/plugin/minMax'
 import timezonePlugin from 'dayjs/plugin/timezone'
 import utcPlugin from 'dayjs/plugin/utc'
+import { MedusaProvider } from 'medusa-react'
 import { NextPage } from 'next'
-import { NextIntlClientProvider } from 'next-intl'
 import { Open_Sans } from 'next/font/google'
 import { useRouter } from 'next/router'
+import { NextIntlClientProvider } from 'next-intl'
 import { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { z } from 'zod'
 
@@ -90,22 +91,24 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 	const getLayout = Component.getLayout ?? ((page) => page)
 
 	return (
-		<NextIntlClientProvider messages={pageProps.locales} locale={router.locale} timeZone={timeZone}>
-			<ErrorBoundary fallbackType={ERROR_BOUNDARY_TYPE.REPORT_DIALOG}>
-				<QueryClientProvider client={queryClient}>
-					<Hydrate state={pageProps.dehydratedState}>
-						<AntdProvider locale={antdLocale}>
-							<AppStateProvider>
-								<ThemeProvider>
-									<AppInit>{getLayout(<Component {...pageProps} />, pageProps)}</AppInit>
-								</ThemeProvider>
-							</AppStateProvider>
-						</AntdProvider>
-					</Hydrate>
-					<ReactQueryDevtools initialIsOpen={false} />
-				</QueryClientProvider>
-			</ErrorBoundary>
-		</NextIntlClientProvider>
+		<MedusaProvider baseUrl={process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL!} queryClientProviderProps={{ client: queryClient }}>
+			<NextIntlClientProvider messages={pageProps.locales} locale={router.locale} timeZone={timeZone}>
+				<ErrorBoundary fallbackType={ERROR_BOUNDARY_TYPE.REPORT_DIALOG}>
+					<QueryClientProvider client={queryClient}>
+						<Hydrate state={pageProps.dehydratedState}>
+							<AntdProvider locale={antdLocale}>
+								<AppStateProvider>
+									<ThemeProvider>
+										<AppInit>{getLayout(<Component {...pageProps} />, pageProps)}</AppInit>
+									</ThemeProvider>
+								</AppStateProvider>
+							</AntdProvider>
+						</Hydrate>
+						<ReactQueryDevtools initialIsOpen={false} />
+					</QueryClientProvider>
+				</ErrorBoundary>
+			</NextIntlClientProvider>
+		</MedusaProvider>
 	)
 }
 

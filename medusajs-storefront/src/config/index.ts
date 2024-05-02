@@ -18,7 +18,7 @@ const envConfig = {
 	recaptcha: {
 		siteKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
 	},
-	apiUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
+	apiUrl: process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL,
 	sentry: {
 		dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
 		env: process.env.NEXT_PUBLIC_SENTRY_ENV
