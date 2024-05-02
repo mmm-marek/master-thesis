@@ -1,14 +1,13 @@
-import Medusa from '@medusajs/medusa-js'
 import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 
 import { QUERY_KEYS } from '@/utils/enums'
+import { medusa } from '@/utils/medusaHelpers'
 
 import * as SC from './ProductsStyles'
 
 const Products = () => {
 	const { data } = useQuery([QUERY_KEYS.API_GET_PRODUCTS], async () => {
-		const medusa = new Medusa({ baseUrl: process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL, maxRetries: 3 })
 		const products = await medusa.products.list()
 
 		return products.products

@@ -1,4 +1,3 @@
-import Medusa from '@medusajs/medusa-js'
 import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { ReactElement } from 'react'
 
@@ -7,6 +6,7 @@ import Products from '@/containers/products/Products'
 import MainLayout from '@/layouts/MainLayout/MainLayout'
 import { QUERY_KEYS } from '@/utils/enums'
 import { getLocales } from '@/utils/locales'
+import { medusa } from '@/utils/medusaHelpers'
 
 export const getStaticProps = async ({ locale }: { locale?: string }) => {
 	const queryClient = new QueryClient()
@@ -14,7 +14,6 @@ export const getStaticProps = async ({ locale }: { locale?: string }) => {
 	await queryClient.prefetchQuery({
 		queryKey: [QUERY_KEYS.API_GET_PRODUCTS],
 		queryFn: async () => {
-			const medusa = new Medusa({ baseUrl: process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL, maxRetries: 3 })
 			const products = await medusa.products.list()
 
 			return products.products
