@@ -35,9 +35,15 @@ export const ProductTextContent = styled.div`
 `
 
 export const ProductDescription = styled.p`
-	${textSmMedium};
+	${({ theme }) => css`
+		${textSmMedium};
+		color: ${theme.tokens['color-base-content-primary']};
+	`}
 `
 
 export const ProductTitle = styled.h2`
-	${textMdSemibold};
+	${({ theme }) => css`
+		${textMdSemibold};
+		color: ${theme.tokens['color-base-content-primary']};
+	`}
 `
