@@ -6,9 +6,9 @@ import { medusa } from '@/utils/medusaHelpers'
 export const productsQueryKey = [QUERY_KEYS.API_GET_PRODUCTS]
 
 export const getProducts = async () => {
-	const products = await medusa.products.list()
+	const { products } = await medusa.products.list()
 
-	return products.products
+	return products
 }
 
 export const useGetProducts = () => {
