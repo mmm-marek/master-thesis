@@ -2,7 +2,7 @@ import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { ReactElement } from 'react'
 
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
-import Products from '@/containers/products/Products'
+import Landing from '@/containers/landing/Landing'
 import { getProducts, productsQueryKey } from '@/hooks/products/useGetProducts'
 import MainLayout from '@/layouts/MainLayout/MainLayout'
 import { getLocales } from '@/utils/locales'
@@ -24,7 +24,7 @@ export const getStaticProps = async ({ locale }: { locale?: string }) => {
 }
 
 const DashboardPage = () => {
-	return <Products />
+	return <Landing />
 }
 
 DashboardPage.getLayout = function getLayout(page: ReactElement) {
