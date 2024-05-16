@@ -4,6 +4,7 @@ import { PropsWithChildren } from 'react'
 import GrLogo from '@/assets/icons/gr-logo.svg'
 
 import * as SC from './MainLayoutStyles'
+import Categories from './components/Categories/Categories'
 
 const MainLayout = ({ children }: PropsWithChildren) => {
 	return (
@@ -13,6 +14,11 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 					<GrLogo />
 				</SC.CappedContainer>
 			</SC.Header>
+			<SC.Subheader>
+				<SC.CappedContainer>
+					<Categories />
+				</SC.CappedContainer>
+			</SC.Subheader>
 			<SC.Content>
 				<SC.CappedContainer>{children}</SC.CappedContainer>
 			</SC.Content>

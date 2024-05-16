@@ -5,6 +5,7 @@ const { Header: AntdHeader, Footer: AntdFooter, Content: AntdContent } = Layout
 
 export const CappedContainer = styled.div`
 	margin: 0 auto;
+	width: 100%;
 	max-width: 1180px;
 `
 
@@ -19,6 +20,13 @@ export const Content = styled(AntdContent)`
 	${({ theme }) => css`
 		background: ${theme.tokens['color-base-surface-primary']};
 		padding: 24px 0;
+	`};
+`
+
+export const Subheader = styled.div`
+	${({ theme }) => css`
+		border-bottom: 1px solid ${theme.tokens['color-base-surface-tertiary']};
+		background: ${theme.tokens['color-base-surface-primary']};
 	`};
 `
 

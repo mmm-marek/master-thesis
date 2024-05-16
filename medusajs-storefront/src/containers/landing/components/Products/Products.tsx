@@ -13,9 +13,9 @@ const Products = () => {
 		<SC.ProductsGrid>
 			{products.map((product) => (
 				<SC.Product key={product.id}>
-					{product.images?.at(0) && (
+					{product.thumbnail && (
 						<SC.ImageWrapper>
-							<Image src={product.images.at(0)!.url} alt={product.title ?? 'Product'} width={50} height={50} unoptimized />
+							<Image src={product.thumbnail} alt={product.title ?? 'Product'} width={50} height={50} unoptimized />
 						</SC.ImageWrapper>
 					)}
 					<SC.ProductTextContent>
