@@ -2,17 +2,15 @@ import { PricedProduct } from '@medusajs/medusa/dist/types/pricing'
 import Image from 'next/image'
 
 import Button from '@/atoms/Button/Button'
+import { useStore } from '@/providers/StoreProvider'
 
 import * as SC from './ProductCardStyles'
-import { useStore } from '@/providers/StoreProvider'
-import { useCart } from 'medusa-react'
 
 type ProductCardProps = {
 	product: PricedProduct
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-	const { cart } = useCart()
 	const { addItem } = useStore()
 
 	const handleAddToCart = () => {
