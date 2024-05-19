@@ -1,11 +1,11 @@
 import { Layout } from 'antd'
+import Link from 'next/link'
 import { PropsWithChildren } from 'react'
 
 import GrLogo from '@/assets/icons/gr-logo.svg'
 
 import * as SC from './MainLayoutStyles'
 import Categories from './components/Categories/Categories'
-import Link from 'next/link'
 
 const MainLayout = ({ children }: PropsWithChildren) => {
 	return (
