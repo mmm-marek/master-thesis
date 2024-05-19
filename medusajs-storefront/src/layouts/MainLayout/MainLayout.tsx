@@ -5,13 +5,16 @@ import GrLogo from '@/assets/icons/gr-logo.svg'
 
 import * as SC from './MainLayoutStyles'
 import Categories from './components/Categories/Categories'
+import Link from 'next/link'
 
 const MainLayout = ({ children }: PropsWithChildren) => {
 	return (
 		<Layout>
 			<SC.Header>
 				<SC.CappedContainer>
-					<GrLogo />
+					<Link href='/'>
+						<GrLogo />
+					</Link>
 				</SC.CappedContainer>
 			</SC.Header>
 			<SC.Subheader>
