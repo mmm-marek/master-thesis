@@ -1,4 +1,5 @@
 import { Layout } from 'antd'
+import Link from 'next/link'
 import styled, { css } from 'styled-components'
 
 const { Header: AntdHeader, Footer: AntdFooter, Content: AntdContent } = Layout
@@ -23,16 +24,23 @@ export const Content = styled(AntdContent)`
 	`};
 `
 
-export const Subheader = styled.div`
-	${({ theme }) => css`
-		border-bottom: 1px solid ${theme.tokens['color-base-surface-tertiary']};
-		background: ${theme.tokens['color-base-surface-primary']};
-	`};
-`
-
 export const Footer = styled(AntdFooter)`
 	${({ theme }) => css`
 		border-top: 1px solid ${theme.tokens['color-base-surface-tertiary']};
 		background: ${theme.tokens['color-base-surface-primary']};
 	`};
+`
+
+export const HeaderContent = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-top: 4px;
+`
+
+export const CartLink = styled(Link)`
+	display: flex;
+	align-items: center;
+	justify-content: end;
+	width: 180px;
 `

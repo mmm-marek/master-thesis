@@ -7,10 +7,9 @@ export const Wrapper = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin: auto;
-	padding: 8px 0;
+	padding-bottom: 8px;
 	width: 100%;
-	max-width: 840px;
+	max-width: 440px;
 `
 
 export const CategoryLink = styled(Link)`

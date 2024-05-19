@@ -18,7 +18,8 @@ export enum PATHS {
 	USERS = 'users',
 	SIGN_UP = 'sign-up',
 	FORGOTTEN_PASSWORD = 'forgotten-password',
-	PROFILE = 'profile'
+	PROFILE = 'profile',
+	CART = 'cart'
 }
 
 export enum LANGUAGE {
