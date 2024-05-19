@@ -10,7 +10,7 @@ import isSameOrBeforePlugin from 'dayjs/plugin/isSameOrBefore'
 import minMax from 'dayjs/plugin/minMax'
 import timezonePlugin from 'dayjs/plugin/timezone'
 import utcPlugin from 'dayjs/plugin/utc'
-import { MedusaProvider } from 'medusa-react'
+import { CartProvider, MedusaProvider } from 'medusa-react'
 import { NextPage } from 'next'
 import { Open_Sans } from 'next/font/google'
 import { useRouter } from 'next/router'
@@ -29,6 +29,7 @@ import type { AppProps } from 'next/app'
 
 import 'dayjs/locale/en'
 import 'dayjs/locale/sk'
+import { StoreProvider } from '@/providers/StoreProvider'
 
 // dayjs plugins
 dayjs.extend(isBetween)
@@ -97,7 +98,11 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 						<Hydrate state={pageProps.dehydratedState}>
 							<AntdProvider locale={antdLocale}>
 								<AppStateProvider>
-									<ThemeProvider>{getLayout(<Component {...pageProps} />, pageProps)}</ThemeProvider>
+									<CartProvider>
+										<StoreProvider>
+											<ThemeProvider>{getLayout(<Component {...pageProps} />, pageProps)}</ThemeProvider>
+										</StoreProvider>
+									</CartProvider>
 								</AppStateProvider>
 							</AntdProvider>
 						</Hydrate>
