@@ -19,7 +19,8 @@ export enum PATHS {
 	SIGN_UP = 'sign-up',
 	FORGOTTEN_PASSWORD = 'forgotten-password',
 	PROFILE = 'profile',
-	CART = 'cart'
+	CART = 'cart',
+	PRODUCT = 'product'
 }
 
 export enum LANGUAGE {
@@ -69,7 +70,8 @@ export enum PAGE_IDS {
 	RESET_PASSWORD = 'RESET_PASSWORD',
 	DASHBOARD = 'DASHBOARD',
 	PROFILE = 'PROFILE',
-	CART = 'CART'
+	CART = 'CART',
+	PRODUCT = 'PRODUCT'
 }
 
 export enum TOKEN_AUDIENCE {
