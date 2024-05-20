@@ -9,7 +9,7 @@ const Cart = () => {
 	return (
 		<div>
 			<SC.Heading>Cart</SC.Heading>
-			<div>{cart?.items.map((item) => <CartItem key={item.id} item={item} />)}</div>
+			<div>{cart?.items.map((item) => <CartItem key={item.id} item={item} region={cart.region} />)}</div>
 		</div>
 	)
 }

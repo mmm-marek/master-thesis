@@ -1,8 +1,8 @@
 import { Badge, Layout } from 'antd'
 import { ShoppingCart } from 'lucide-react'
 import { useCart } from 'medusa-react'
-import Link from 'next/link'
 import { PropsWithChildren } from 'react'
+import { useTheme } from 'styled-components'
 
 import GrLogo from '@/assets/icons/gr-logo.svg'
 import { PATHS } from '@/utils/enums'
@@ -12,19 +12,20 @@ import Categories from './components/Categories/Categories'
 
 const MainLayout = ({ children }: PropsWithChildren) => {
 	const { cart } = useCart()
+	const theme = useTheme()
 
 	return (
 		<Layout>
 			<SC.Header>
 				<SC.CappedContainer>
 					<SC.HeaderContent>
-						<Link href='/'>
+						<SC.LogoLink href='/'>
 							<GrLogo />
-						</Link>
+						</SC.LogoLink>
 						<Categories />
 						<SC.CartLink href={`/${PATHS.CART}`}>
 							<Badge count={cart?.items.length || 0} showZero={false}>
-								<ShoppingCart color='white' />
+								<ShoppingCart color={theme.tokens['color-base-content-top']} />
 							</Badge>
 						</SC.CartLink>
 					</SC.HeaderContent>

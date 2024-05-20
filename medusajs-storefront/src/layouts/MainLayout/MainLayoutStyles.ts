@@ -44,3 +44,11 @@ export const CartLink = styled(Link)`
 	justify-content: end;
 	width: 180px;
 `
+
+export const LogoLink = styled(Link)`
+	${({ theme }) => css`
+		svg {
+			color: ${theme.tokens['color-base-content-top']};
+		}
+	`};
+`

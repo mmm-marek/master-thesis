@@ -183,7 +183,7 @@ export enum THEME_OPTION {
 
 export const THEME_SETTINGS = {
 	DEFAULT_THEME_OPTION: THEME_OPTION.SYSTEM,
-	FALLBACK_THEME: THEME.DARK,
+	FALLBACK_THEME: THEME.LIGHT,
 	LOCAL_STORAGE_KEY: 'current_theme',
 	MEDIA: '(prefers-color-scheme: dark)'
 }

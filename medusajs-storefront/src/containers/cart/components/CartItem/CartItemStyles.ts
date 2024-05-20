@@ -26,6 +26,6 @@ export const Header = styled.div`
 export const Title = styled.p`
 	${({ theme }) => css`
 		${textLgSemibold};
-		color: ${theme.tokens['color-base-content-primary']};
+		color: ${theme.tokens['color-base-text-primary']};
 	`}
 `

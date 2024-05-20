@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import { textMdSemibold } from '@/styles/helpers'
 
@@ -13,12 +13,14 @@ export const Wrapper = styled.div`
 `
 
 export const CategoryLink = styled(Link)`
-	${textMdSemibold};
-	text-transform: uppercase;
-	color: white;
+	${({ theme }) => css`
+		${textMdSemibold};
+		text-transform: uppercase;
+		color: ${theme.tokens['color-base-content-primary']};
 
-	&:hover {
-		text-decoration: underline;
-		color: white;
-	}
+		&:hover {
+			text-decoration: underline;
+			color: ${theme.tokens['color-base-content-primary']};
+		}
+	`}
 `

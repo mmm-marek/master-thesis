@@ -1,5 +1,6 @@
 import { LineItem } from '@medusajs/medusa'
 import { Trash2Icon } from 'lucide-react'
+import { RegionInfo, formatVariantPrice } from 'medusa-react'
 import Image from 'next/image'
 
 import Button from '@/atoms/Button/Button'
@@ -7,10 +8,11 @@ import Button from '@/atoms/Button/Button'
 import * as SC from './CartItemStyles'
 
 type CartItemProps = {
+	region: RegionInfo
 	item: LineItem
 }
 
-const CartItem = ({ item }: CartItemProps) => {
+const CartItem = ({ item, region }: CartItemProps) => {
 	return (
 		<SC.Wrapper>
 			{item.thumbnail && (
@@ -21,7 +23,7 @@ const CartItem = ({ item }: CartItemProps) => {
 			<div>
 				<SC.Header>
 					<SC.Title>{item.title}</SC.Title>
-					<SC.Title>{item.unit_price}</SC.Title>
+					<SC.Title>{formatVariantPrice({ variant: item.variant, region })}</SC.Title>
 				</SC.Header>
 				<div>{item.variant.title}</div>
 				<div>

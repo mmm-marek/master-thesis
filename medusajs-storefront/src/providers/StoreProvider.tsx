@@ -1,7 +1,8 @@
-import { medusa } from '@/utils/medusaHelpers'
 import { Region } from '@medusajs/medusa'
 import { useCart, useCreateLineItem, useDeleteLineItem, useUpdateLineItem } from 'medusa-react'
-import { useEffect, useState, useContext, createContext } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
+
+import { medusa } from '@/utils/medusaHelpers'
 
 type VariantInfoProps = {
 	variantId: string
@@ -13,7 +14,7 @@ type LineInfoProps = {
 	quantity: number
 }
 
-type StoreContext = {
+type StoreContextType = {
 	countryCode: string | undefined
 	setRegion: (regionId: string, countryCode: string) => void
 	addItem: (item: VariantInfoProps) => void
@@ -22,7 +23,7 @@ type StoreContext = {
 	resetCart: () => void
 }
 
-const StoreContext = createContext<StoreContext | null>(null)
+const StoreContext = createContext<StoreContextType | null>(null)
 
 export const useStore = () => {
 	const context = useContext(StoreContext)
@@ -40,16 +41,44 @@ const IS_SERVER = typeof window === 'undefined'
 const CART_KEY = 'medusa_cart_id'
 const REGION_KEY = 'medusa_region'
 
+const storeCart = (id: string) => {
+	if (!IS_SERVER) {
+		localStorage.setItem(CART_KEY, id)
+	}
+}
+
+const getCart = () => {
+	if (!IS_SERVER) {
+		return localStorage.getItem(CART_KEY)
+	}
+	return null
+}
+
+const deleteCart = () => {
+	if (!IS_SERVER) {
+		localStorage.removeItem(CART_KEY)
+	}
+}
+
+const deleteRegion = () => {
+	if (!IS_SERVER) {
+		localStorage.removeItem(REGION_KEY)
+	}
+}
+
 export const StoreProvider = ({ children }: StoreProps) => {
 	const { cart, setCart, createCart, updateCart } = useCart()
 	const [countryCode, setCountryCode] = useState<string | undefined>(undefined)
+	// eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
 	const addLineItem = useCreateLineItem(cart?.id!)
+	// eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
 	const removeLineItem = useDeleteLineItem(cart?.id!)
+	// eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
 	const adjustLineItem = useUpdateLineItem(cart?.id!)
 
-	const storeRegion = (regionId: string, countryCode: string) => {
+	const storeRegion = (regionId: string, storeCountryCode: string) => {
 		if (!IS_SERVER) {
-			localStorage.setItem(REGION_KEY, JSON.stringify({ regionId, countryCode }))
+			localStorage.setItem(REGION_KEY, JSON.stringify({ regionId, countryCode: storeCountryCode }))
 
 			setCountryCode(countryCode)
 		}
@@ -59,8 +88,8 @@ export const StoreProvider = ({ children }: StoreProps) => {
 		if (!IS_SERVER) {
 			const storedRegion = localStorage.getItem(REGION_KEY)
 			if (storedRegion) {
-				const { countryCode } = JSON.parse(storedRegion)
-				setCountryCode(countryCode)
+				const { countryCode: storeCountryCode } = JSON.parse(storedRegion)
+				setCountryCode(storeCountryCode)
 			}
 		}
 	}, [])
@@ -75,16 +104,16 @@ export const StoreProvider = ({ children }: StoreProps) => {
 		return null
 	}
 
-	const setRegion = async (regionId: string, countryCode: string) => {
+	const setRegion = async (regionId: string, storeCountryCode: string) => {
 		await updateCart.mutateAsync(
 			{
 				region_id: regionId
 			},
 			{
-				onSuccess: ({ cart }) => {
-					setCart(cart)
-					storeCart(cart.id)
-					storeRegion(regionId, countryCode)
+				onSuccess: ({ cart: newCart }) => {
+					setCart(newCart)
+					storeCart(newCart.id)
+					storeRegion(regionId, storeCountryCode)
 				},
 				onError: (error) => {
 					if (process.env.NODE_ENV === 'development') {
@@ -95,14 +124,14 @@ export const StoreProvider = ({ children }: StoreProps) => {
 		)
 	}
 
-	const ensureRegion = (region: Region, countryCode?: string | null) => {
+	const ensureRegion = (region: Region, storeCountryCode?: string | null) => {
 		if (!IS_SERVER) {
 			const { regionId, countryCode: defaultCountryCode } = getRegion() || {
 				regionId: region.id,
 				countryCode: region!.countries[0]!.iso_2
 			}
 
-			const finalCountryCode = countryCode || defaultCountryCode
+			const finalCountryCode = storeCountryCode || defaultCountryCode
 
 			if (regionId !== region.id) {
 				setRegion(region.id, finalCountryCode)
@@ -113,39 +142,14 @@ export const StoreProvider = ({ children }: StoreProps) => {
 		}
 	}
 
-	const storeCart = (id: string) => {
-		if (!IS_SERVER) {
-			localStorage.setItem(CART_KEY, id)
-		}
-	}
-
-	const getCart = () => {
-		if (!IS_SERVER) {
-			return localStorage.getItem(CART_KEY)
-		}
-		return null
-	}
-
-	const deleteCart = () => {
-		if (!IS_SERVER) {
-			localStorage.removeItem(CART_KEY)
-		}
-	}
-
-	const deleteRegion = () => {
-		if (!IS_SERVER) {
-			localStorage.removeItem(REGION_KEY)
-		}
-	}
-
 	const createNewCart = async (regionId?: string) => {
 		await createCart.mutateAsync(
 			{ region_id: regionId },
 			{
-				onSuccess: ({ cart }) => {
-					setCart(cart)
-					storeCart(cart.id)
-					ensureRegion(cart.region, cart.shipping_address?.country_code)
+				onSuccess: ({ cart: newCart }) => {
+					setCart(newCart)
+					storeCart(newCart.id)
+					ensureRegion(newCart.region, newCart.shipping_address?.country_code)
 				},
 				onError: (error) => {
 					if (process.env.NODE_ENV === 'development') {
@@ -166,10 +170,10 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				region_id: savedRegion?.regionId
 			},
 			{
-				onSuccess: ({ cart }) => {
-					setCart(cart)
-					storeCart(cart.id)
-					ensureRegion(cart.region, cart.shipping_address?.country_code)
+				onSuccess: ({ cart: newCart }) => {
+					setCart(newCart)
+					storeCart(newCart.id)
+					ensureRegion(newCart.region, newCart.shipping_address?.country_code)
 				},
 				onError: (error) => {
 					if (process.env.NODE_ENV === 'development') {
@@ -188,10 +192,10 @@ export const StoreProvider = ({ children }: StoreProps) => {
 			if (cartId) {
 				const cartRes = await medusa.carts
 					.retrieve(cartId)
-					.then(({ cart }) => {
-						return cart
+					.then(({ cart: retrievedCart }) => {
+						return retrievedCart
 					})
-					.catch(async (_) => {
+					.catch(async () => {
 						return null
 					})
 
@@ -219,12 +223,13 @@ export const StoreProvider = ({ children }: StoreProps) => {
 		addLineItem.mutate(
 			{
 				variant_id: variantId,
-				quantity: quantity
+				quantity
 			},
 			{
-				onSuccess: ({ cart }) => {
-					setCart(cart)
-					storeCart(cart.id)
+				onSuccess: ({ cart: newCart }) => {
+					console.log(newCart)
+					setCart(newCart)
+					storeCart(newCart.id)
 				},
 				onError: (error) => {
 					console.log(error)
@@ -239,9 +244,9 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				lineId
 			},
 			{
-				onSuccess: ({ cart }) => {
-					setCart(cart)
-					storeCart(cart.id)
+				onSuccess: ({ cart: newCart }) => {
+					setCart(newCart)
+					storeCart(newCart.id)
 				},
 				onError: (error) => {
 					console.log(error)
@@ -257,9 +262,9 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				quantity
 			},
 			{
-				onSuccess: ({ cart }) => {
-					setCart(cart)
-					storeCart(cart.id)
+				onSuccess: ({ cart: newCart }) => {
+					setCart(newCart)
+					storeCart(newCart.id)
 				},
 				onError: (error) => {
 					console.log(error)
@@ -270,6 +275,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 
 	return (
 		<StoreContext.Provider
+			// eslint-disable-next-line react/jsx-no-constructed-context-values
 			value={{
 				countryCode,
 				setRegion,
