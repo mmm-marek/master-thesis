@@ -1,5 +1,5 @@
 import { LineItem } from '@medusajs/medusa'
-import { Trash2Icon } from 'lucide-react'
+import { MinusIcon, PlusIcon, Trash2Icon } from 'lucide-react'
 import { RegionInfo, formatAmount } from 'medusa-react'
 import Image from 'next/image'
 import { useTheme } from 'styled-components'
@@ -23,20 +23,24 @@ const CartItem = ({ item, region }: CartItemProps) => {
 					<Image src={item.thumbnail} alt={item.title ?? 'Product'} fill unoptimized objectFit='cover' />
 				</SC.ImageWrapper>
 			)}
-			<div>
+			<SC.ContentWrapper>
 				<SC.Header>
 					<SC.Title>{item.title}</SC.Title>
 					<SC.Title>{formatAmount({ amount: item.subtotal ?? 0, region })}</SC.Title>
 				</SC.Header>
-				<div>{item.variant.title}</div>
+				<SC.Variant>{item.variant.title}</SC.Variant>
 				<div>
-					<div>
-						<div>Quantity:</div>
-						<div>{item.quantity}</div>
-					</div>
+					<SC.QuantityWrapper>
+						<SC.QuantityLabel>Quantity:</SC.QuantityLabel>
+						<SC.QuantityControls>
+							<Button icon={<MinusIcon />} noBackground size='small' />
+							<SC.Quantity>{item.quantity}</SC.Quantity>
+							<Button icon={<PlusIcon />} noBackground size='small' />
+						</SC.QuantityControls>
+					</SC.QuantityWrapper>
 					<Button icon={<Trash2Icon color={theme.tokens['color-base-content-primary']} />} noBackground />
 				</div>
-			</div>
+			</SC.ContentWrapper>
 		</SC.Wrapper>
 	)
 }
