@@ -15,8 +15,8 @@ export const CartItemsWrapper = styled.div`
 	gap: 16px;
 `
 
-export const CartWrapper = styled.div`
-	display: grid;
-	grid-template-columns: 2fr 1fr;
-	gap: 32px;
+export const Wrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
 `

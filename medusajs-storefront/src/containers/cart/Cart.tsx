@@ -1,23 +1,25 @@
 import { Spin } from 'antd'
 import { useCart } from 'medusa-react'
 
+import Loading from '@/components/Loading/Loading'
 import { useStore } from '@/providers/StoreProvider'
 
 import * as SC from './CartStyles'
-import CartItem from './components/CartItem/CartItem'
+import CartItems from './components/CartItems/CartItems'
 import Summary from './components/Summary/Summary'
 
 const Cart = () => {
 	const { cart } = useCart()
 	const { isUpdatingCart } = useStore()
 
+	if (!cart) {
+		return <Loading />
+	}
+
 	return (
 		<Spin spinning={isUpdatingCart}>
 			<SC.CartWrapper>
-				<div>
-					<SC.Heading>Cart</SC.Heading>
-					<SC.CartItemsWrapper>{cart?.items.map((item) => <CartItem key={item.id} item={item} region={cart.region} />)}</SC.CartItemsWrapper>
-				</div>
+				<CartItems items={cart?.items ?? []} region={cart?.region} />
 				<Summary />
 			</SC.CartWrapper>
 		</Spin>
