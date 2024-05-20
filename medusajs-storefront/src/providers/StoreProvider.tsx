@@ -70,12 +70,9 @@ const deleteRegion = () => {
 export const StoreProvider = ({ children }: StoreProps) => {
 	const { cart, setCart, createCart, updateCart } = useCart()
 	const [countryCode, setCountryCode] = useState<string | undefined>(undefined)
-	// eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-	const addLineItem = useCreateLineItem(cart?.id!)
-	// eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-	const removeLineItem = useDeleteLineItem(cart?.id!)
-	// eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-	const updateLineItem = useUpdateLineItem(cart?.id!)
+	const addLineItem = useCreateLineItem(cart!.id)
+	const removeLineItem = useDeleteLineItem(cart!.id)
+	const updateLineItem = useUpdateLineItem(cart!.id)
 
 	const storeRegion = (regionId: string, storeCountryCode: string) => {
 		if (!IS_SERVER) {
