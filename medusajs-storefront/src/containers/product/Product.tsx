@@ -1,6 +1,7 @@
 import { Carousel } from 'antd'
-import { useProduct } from 'medusa-react'
+import { formatVariantPrice, useCart, useProduct } from 'medusa-react'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
 import Error from '@/components/Error/Error'
 import Loading from '@/components/Loading/Loading'
@@ -12,7 +13,13 @@ type ProductProps = {
 }
 
 const Product = ({ id }: ProductProps) => {
+	const { cart } = useCart()
 	const { product, isError, isLoading } = useProduct(id)
+	const [selectedVariant, setSelectedVariant] = useState(product?.variants[0])
+
+	useEffect(() => {
+		setSelectedVariant(product?.variants[0])
+	}, [product])
 
 	if (isError) {
 		return <Error />
@@ -52,6 +59,22 @@ const Product = ({ id }: ProductProps) => {
 			</SC.CarouselWrapper>
 			<div>
 				<h1>{product?.title}</h1>
+				<p>{product?.description}</p>
+				<div>
+					{product?.variants.map((variant) => (
+						<button key={variant.id} type='button' onClick={() => setSelectedVariant(variant)}>
+							{variant.title}
+						</button>
+					))}
+				</div>
+				{selectedVariant && cart && (
+					<p>
+						{formatVariantPrice({
+							variant: selectedVariant,
+							region: cart?.region
+						})}
+					</p>
+				)}
 			</div>
 		</SC.Wrapper>
 	)
