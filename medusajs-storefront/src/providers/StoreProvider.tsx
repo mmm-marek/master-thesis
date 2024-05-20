@@ -21,6 +21,7 @@ type StoreContextType = {
 	updateItem: (item: LineInfoProps) => void
 	deleteItem: (lineId: string) => void
 	resetCart: () => void
+	isUpdatingCart: boolean
 }
 
 const StoreContext = createContext<StoreContextType | null>(null)
@@ -74,7 +75,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 	// eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
 	const removeLineItem = useDeleteLineItem(cart?.id!)
 	// eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-	const adjustLineItem = useUpdateLineItem(cart?.id!)
+	const updateLineItem = useUpdateLineItem(cart?.id!)
 
 	const storeRegion = (regionId: string, storeCountryCode: string) => {
 		if (!IS_SERVER) {
@@ -256,7 +257,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 	}
 
 	const updateItem = ({ lineId, quantity }: { lineId: string; quantity: number }) => {
-		adjustLineItem.mutate(
+		updateLineItem.mutate(
 			{
 				lineId,
 				quantity
@@ -273,6 +274,8 @@ export const StoreProvider = ({ children }: StoreProps) => {
 		)
 	}
 
+	const isUpdatingCart = addLineItem.isLoading || removeLineItem.isLoading || updateLineItem.isLoading
+
 	return (
 		<StoreContext.Provider
 			// eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -282,7 +285,8 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				addItem,
 				deleteItem,
 				updateItem,
-				resetCart
+				resetCart,
+				isUpdatingCart
 			}}
 		>
 			{children}
