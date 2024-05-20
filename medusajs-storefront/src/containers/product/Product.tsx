@@ -1,5 +1,6 @@
 import { Carousel } from 'antd'
 import { useProduct } from 'medusa-react'
+import Image from 'next/image'
 
 import Error from '@/components/Error/Error'
 import Loading from '@/components/Loading/Loading'
@@ -44,7 +45,7 @@ const Product = ({ id }: ProductProps) => {
 				<Carousel autoplay autoplaySpeed={2000}>
 					{getImages().map((image) => (
 						<SC.ImageWrapper key={image.src}>
-							<img src={image.src} alt={image.alt} />
+							<Image src={image.src} alt={image.alt} width={500} height={500} unoptimized />
 						</SC.ImageWrapper>
 					))}
 				</Carousel>
