@@ -16,10 +16,23 @@ type CartItemProps = {
 
 const CartItem = ({ item, region }: CartItemProps) => {
 	const theme = useTheme()
-	const { deleteItem } = useStore()
+	const { deleteItem, updateItem } = useStore()
 
 	const handleDelete = () => {
 		deleteItem(item.id)
+	}
+
+	const handleAddQuantity = () => {
+		updateItem({ lineId: item.id, quantity: item.quantity + 1 })
+	}
+
+	const handleRemoveQuantity = () => {
+		if (item.quantity === 1) {
+			deleteItem(item.id)
+			return
+		}
+
+		updateItem({ lineId: item.id, quantity: item.quantity - 1 })
 	}
 
 	return (
@@ -39,9 +52,9 @@ const CartItem = ({ item, region }: CartItemProps) => {
 					<SC.QuantityWrapper>
 						<SC.QuantityLabel>Quantity:</SC.QuantityLabel>
 						<SC.QuantityControls>
-							<Button icon={<MinusIcon />} noBackground size='small' />
+							<Button icon={<MinusIcon />} noBackground size='small' onClick={handleRemoveQuantity} />
 							<SC.Quantity>{item.quantity}</SC.Quantity>
-							<Button icon={<PlusIcon />} noBackground size='small' />
+							<Button icon={<PlusIcon />} noBackground size='small' onClick={handleAddQuantity} />
 						</SC.QuantityControls>
 					</SC.QuantityWrapper>
 					<Button icon={<Trash2Icon color={theme.tokens['color-base-content-primary']} />} noBackground onClick={handleDelete} />
