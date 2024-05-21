@@ -3,8 +3,10 @@ import { formatVariantPrice, useCart, useProduct } from 'medusa-react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
+import Button from '@/atoms/Button/Button'
 import Error from '@/components/Error/Error'
 import Loading from '@/components/Loading/Loading'
+import { useStore } from '@/providers/StoreProvider'
 
 import * as SC from './ProductStyles'
 
@@ -14,6 +16,7 @@ type ProductProps = {
 
 const Product = ({ id }: ProductProps) => {
 	const { cart } = useCart()
+	const { addItem, isUpdatingCart } = useStore()
 	const { product, isError, isLoading } = useProduct(id)
 	const [selectedVariant, setSelectedVariant] = useState(product?.variants[0])
 
@@ -46,6 +49,16 @@ const Product = ({ id }: ProductProps) => {
 		)
 	}
 
+	const handleAddToCart = () => {
+		if (!selectedVariant || !selectedVariant.id) {
+			return
+		}
+		addItem({
+			quantity: 1,
+			variantId: selectedVariant.id
+		})
+	}
+
 	return (
 		<SC.Wrapper>
 			<SC.CarouselWrapper>
@@ -57,9 +70,11 @@ const Product = ({ id }: ProductProps) => {
 					))}
 				</Carousel>
 			</SC.CarouselWrapper>
-			<div>
-				<h1>{product?.title}</h1>
-				<p>{product?.description}</p>
+			<SC.ContentWrapper>
+				<div>
+					<SC.Title>{product?.title}</SC.Title>
+					<SC.Description>{product?.description}</SC.Description>
+				</div>
 				<SC.VariantGrid>
 					{product?.variants.map((variant) => (
 						<SC.VariantButton
@@ -73,14 +88,19 @@ const Product = ({ id }: ProductProps) => {
 					))}
 				</SC.VariantGrid>
 				{selectedVariant && cart && (
-					<p>
-						{formatVariantPrice({
-							variant: selectedVariant,
-							region: cart?.region
-						})}
-					</p>
+					<SC.PriceWrapper>
+						<SC.Price>
+							{formatVariantPrice({
+								variant: selectedVariant,
+								region: cart?.region
+							})}
+						</SC.Price>
+						<Button size='extra-large' block type='primary' onClick={handleAddToCart} disabled={isUpdatingCart}>
+							Add to cart
+						</Button>
+					</SC.PriceWrapper>
 				)}
-			</div>
+			</SC.ContentWrapper>
 		</SC.Wrapper>
 	)
 }

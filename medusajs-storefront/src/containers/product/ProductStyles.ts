@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components'
 
-import { textSmRegular } from '@/styles/helpers'
+import { headingSmSemibold, headingXsSemibold, textSmRegular } from '@/styles/helpers'
 
 export const Wrapper = styled.div`
 	display: grid;
-	grid-template-columns: 1fr 3fr;
-	gap: 16px;
+	grid-template-columns: 1fr 2fr;
+	gap: 24px;
 `
 
 export const ImageWrapper = styled.div`
@@ -53,4 +53,37 @@ export const VariantButton = styled.button<{ $selected: boolean }>`
 			color: ${theme.tokens['color-inverse-content-primary']};
 		`}
 	`}
+`
+
+export const Price = styled.p`
+	${({ theme }) => css`
+		color: ${theme.tokens['color-base-content-primary']};
+		${headingXsSemibold};
+	`}
+`
+
+export const Description = styled.p`
+	${({ theme }) => css`
+		${textSmRegular};
+		color: ${theme.tokens['color-base-content-secondary']};
+	`}
+`
+
+export const Title = styled.h1`
+	${({ theme }) => css`
+		${headingSmSemibold};
+		color: ${theme.tokens['color-base-content-primary']};
+	`}
+`
+
+export const ContentWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+`
+
+export const PriceWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
 `
