@@ -60,13 +60,18 @@ const Product = ({ id }: ProductProps) => {
 			<div>
 				<h1>{product?.title}</h1>
 				<p>{product?.description}</p>
-				<div>
+				<SC.VariantGrid>
 					{product?.variants.map((variant) => (
-						<button key={variant.id} type='button' onClick={() => setSelectedVariant(variant)}>
+						<SC.VariantButton
+							key={variant.id}
+							type='button'
+							onClick={() => setSelectedVariant(variant)}
+							$selected={selectedVariant?.id === variant.id}
+						>
 							{variant.title}
-						</button>
+						</SC.VariantButton>
 					))}
-				</div>
+				</SC.VariantGrid>
 				{selectedVariant && cart && (
 					<p>
 						{formatVariantPrice({
