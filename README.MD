@@ -19,3 +19,16 @@ Ports (localhost)
 - Medusa Backend: 9000
 - Medusa Admin: 7001
 - Medusa Storefront: 3000
+
+Users:
+- Medusa Admin:
+email: confirmed@administrator.com
+password: Qwerty123.
+
+- Strapi superuser
+email: support@medusa-commerce.com
+password: MedusaStrapi1
+
+- Strapi medusa user
+email: admin@medusa-test.com
+password: supersecret
