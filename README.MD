@@ -1,7 +1,10 @@
 This project requires multiple steps in order to be funcional:
+
+Run `docker compose up -d` to start all containers at once.
+
 1. - Postgres database that will be used to store the products (set up required env variables accordingly)
 `docker run --name medusa-postgres -e POSTGRES_PASSWORD=postgres -d -p 5432:5432 postgres`
-2. - Postgres database that will be used to store the products (set up required env variables accordingly)
+2. - Postgres database that will be used for Strapi data (set up required env variables accordingly)
 `docker run --name strapi-postgres -e POSTGRES_PASSWORD=postgres -d -p 5433:5432 postgres`
 3. - Redis to create event bus that will sync data from Strapi to Backend
 `docker run -d --name redis-stack-events -p 6379:6379 -p 8001:8001 redis/redis-stack:latest`

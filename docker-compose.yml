@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+    medusa-postgres:
+        image: postgres
+        container_name: medusa-postgres
+        environment:
+            POSTGRES_PASSWORD: postgres
+        ports:
+            - "5432:5432"
+        volumes:
+            - medusa_postgres_data:/var/lib/postgresql/data
+
+    strapi-postgres:
+        image: postgres
+        container_name: strapi-postgres
+        environment:
+            POSTGRES_PASSWORD: postgres
+        ports:
+            - "5433:5432"
+        volumes:
+            - strapi_postgres_data:/var/lib/postgresql/data
+
+    redis-stack-events:
+        image: redis/redis-stack:latest
+        container_name: redis-stack-events
+        ports:
+            - "6379:6379"
+            - "8001:8001"
+        volumes:
+            - redis_data:/data
+
+volumes:
+    medusa_postgres_data:
+    strapi_postgres_data:
+    redis_data:
