@@ -1,6 +1,7 @@
 import { Badge, Layout } from 'antd'
-import { ShoppingCart } from 'lucide-react'
-import { useCart } from 'medusa-react'
+import { CircleUserRound, ShoppingCart } from 'lucide-react'
+import { useCart, useMeCustomer } from 'medusa-react'
+import Link from 'next/link'
 import { PropsWithChildren } from 'react'
 import { useTheme } from 'styled-components'
 
@@ -14,6 +15,8 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 	const { cart } = useCart()
 	const theme = useTheme()
 
+	const { customer } = useMeCustomer()
+
 	return (
 		<Layout>
 			<SC.Header>
@@ -23,11 +26,16 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 							<GrLogo />
 						</SC.LogoLink>
 						<Categories />
-						<SC.CartLink href={`/${PATHS.CART}`}>
-							<Badge count={cart?.items.length || 0} showZero={false}>
-								<ShoppingCart color={theme.tokens['color-base-content-top']} />
-							</Badge>
-						</SC.CartLink>
+						<SC.LinksWrapper>
+							<Link href={`/${PATHS.CART}`}>
+								<Badge count={cart?.items.length || 0} showZero={false}>
+									<ShoppingCart color={theme.tokens['color-base-content-top']} />
+								</Badge>
+							</Link>
+							<Link href={customer ? `/${PATHS.PROFILE}` : `/${PATHS.LOGIN}`}>
+								<CircleUserRound color={theme.tokens['color-base-content-top']} />
+							</Link>
+						</SC.LinksWrapper>
 					</SC.HeaderContent>
 				</SC.CappedContainer>
 			</SC.Header>

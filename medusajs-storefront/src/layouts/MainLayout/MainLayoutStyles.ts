@@ -38,8 +38,9 @@ export const HeaderContent = styled.div`
 	padding-top: 4px;
 `
 
-export const CartLink = styled(Link)`
+export const LinksWrapper = styled.div`
 	display: flex;
+	gap: 16px;
 	align-items: center;
 	justify-content: end;
 	width: 180px;
