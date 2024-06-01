@@ -1,4 +1,3 @@
-import { useCreateCustomer } from 'medusa-react'
 import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
@@ -9,6 +8,7 @@ import InputField from '@/atoms/InputField/InputField'
 import InputPasswordField from '@/atoms/InputPasswordField/InputPasswordField'
 import HookFormField from '@/components/HookFormField'
 import useCheckEmailExists from '@/hooks/auth/useCheckEmailExists'
+import useCustomerSignUp from '@/hooks/auth/useCustomerSignUp'
 import SignUpFormSchema from '@/schemas/pages/signUp'
 import { PATHS } from '@/utils/enums'
 import { zodResolver } from '@/utils/zodResolver'
@@ -21,7 +21,7 @@ const SignUpForm = () => {
 	const router = useRouter()
 	const t = useTranslations('containers.signUp.signUpForm')
 
-	const { mutate: createCustomer } = useCreateCustomer()
+	const { mutate: createCustomer } = useCustomerSignUp()
 	const { mutate: checkEmailExists } = useCheckEmailExists()
 
 	const {
