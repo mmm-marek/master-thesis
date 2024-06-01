@@ -34,7 +34,6 @@ const LoginForm = () => {
 		<SC.Form layout='vertical' onSubmitCapture={handleSubmit(onSubmit)}>
 			<SC.FieldsWrapper>
 				<SC.Header>
-					<SC.Logo width={206} height={20} />
 					<SC.Title>{t('welcomeBack')}</SC.Title>
 					<SC.InfoMd>{t('welcomeBackEnterDetails')}</SC.InfoMd>
 				</SC.Header>
@@ -64,20 +63,6 @@ const LoginForm = () => {
 			<Button type='primary' size='large' htmlType='submit' disabled={isSubmitting} loading={isSubmitting} block>
 				{t('logIn')}
 			</Button>
-			<SC.InfoLink>
-				<SC.InfoSm>{t('noAccount')}</SC.InfoSm>
-				<Button
-					type='text'
-					onClick={() => {
-						router.push(PATHS.SIGN_UP)
-					}}
-					size='small'
-					disabled={isSubmitting}
-					loading={isSubmitting}
-				>
-					<span>{t('signUp')}</span>
-				</Button>
-			</SC.InfoLink>
 			<SC.ForgotPasswordBtnWrapper>
 				<Button
 					type='text'

@@ -428,6 +428,8 @@ Button
 */
 
 export const Button = styled(AntdButton)<{ $noBackground?: boolean; $isIconOnly?: boolean }>`
+	width: fit-content;
+
 	&.ant-btn {
 		${antdButtonReset};
 		${buttonBaseStyles};
