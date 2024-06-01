@@ -1,8 +1,8 @@
-import { useMeCustomer } from 'medusa-react'
 import { useRouter } from 'next/router'
 import React, { FC, useEffect } from 'react'
 
 import Loading from '@/components/Loading/Loading'
+import useCustomerProfile from '@/hooks/auth/useCustomerProfile'
 import { PATHS } from '@/utils/enums'
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 
 const PrivateWrapper: FC<Props> = ({ children }) => {
 	const router = useRouter()
-	const { customer } = useMeCustomer()
+	const { data: customer } = useCustomerProfile()
 
 	useEffect(() => {
 		if (!customer) {

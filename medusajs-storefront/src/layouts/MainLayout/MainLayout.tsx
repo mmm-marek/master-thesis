@@ -1,25 +1,55 @@
 import { Badge, Layout } from 'antd'
 import { CircleUserRound, ShoppingCart } from 'lucide-react'
-import { useCart, useMeCustomer } from 'medusa-react'
+import { useCart } from 'medusa-react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { PropsWithChildren } from 'react'
 import { useTheme } from 'styled-components'
 
 import GrLogo from '@/assets/icons/gr-logo.svg'
+import useCustomerProfile from '@/hooks/auth/useCustomerProfile'
+import useLogoutUser from '@/hooks/auth/useLogoutUser'
 import { PATHS } from '@/utils/enums'
 
 import * as SC from './MainLayoutStyles'
 import Categories from './components/Categories/Categories'
 
 const MainLayout = ({ children }: PropsWithChildren) => {
+	const router = useRouter()
 	const { cart } = useCart()
 	const theme = useTheme()
 
-	const { customer } = useMeCustomer()
+	const { data: customer } = useCustomerProfile()
+	const { mutate: logoutUser } = useLogoutUser()
+
+	const handleLogout = () => {
+		logoutUser(undefined, {
+			onSuccess: () => {
+				router.push('/')
+			}
+		})
+	}
 
 	return (
 		<Layout>
 			<SC.Header>
+				<SC.ActionsWrapper>
+					<SC.CappedContainer>
+						<SC.Actions>
+							{customer ? (
+								<SC.ActionButton onClick={handleLogout} type='button'>
+									Logout
+								</SC.ActionButton>
+							) : (
+								<>
+									<SC.ActionLink href={`/${PATHS.SIGN_UP}`}>Join us</SC.ActionLink>
+									<SC.ActionDivider />
+									<SC.ActionLink href={`/${PATHS.LOGIN}`}>Sign in</SC.ActionLink>
+								</>
+							)}
+						</SC.Actions>
+					</SC.CappedContainer>
+				</SC.ActionsWrapper>
 				<SC.CappedContainer>
 					<SC.HeaderContent>
 						<SC.LogoLink href='/'>
@@ -32,9 +62,11 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 									<ShoppingCart color={theme.tokens['color-base-content-top']} />
 								</Badge>
 							</Link>
-							<Link href={customer ? `/${PATHS.PROFILE}` : `/${PATHS.LOGIN}`}>
-								<CircleUserRound color={theme.tokens['color-base-content-top']} />
-							</Link>
+							{customer && (
+								<Link href={`/${PATHS.PROFILE}`}>
+									<CircleUserRound color={theme.tokens['color-base-content-top']} />
+								</Link>
+							)}
 						</SC.LinksWrapper>
 					</SC.HeaderContent>
 				</SC.CappedContainer>

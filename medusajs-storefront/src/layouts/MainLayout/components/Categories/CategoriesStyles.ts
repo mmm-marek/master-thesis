@@ -9,13 +9,13 @@ export const Wrapper = styled.div`
 	justify-content: space-between;
 	padding-bottom: 8px;
 	width: 100%;
-	max-width: 440px;
+	max-width: 340px;
 `
 
 export const CategoryLink = styled(Link)`
 	${({ theme }) => css`
 		${textMdSemibold};
-		text-transform: uppercase;
+		text-transform: capitalize;
 		color: ${theme.tokens['color-base-content-primary']};
 
 		&:hover {
