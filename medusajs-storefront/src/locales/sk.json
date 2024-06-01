@@ -141,7 +141,12 @@
 				"enterPassword": "Zadajte svoje heslo",
 				"repeatPassword": "Zopakujte svoje heslo",
 				"signUp": "Zaregistrujte sa",
-				"forgotPassword": "Zabudnuté heslo?"
+				"forgotPassword": "Zabudnuté heslo?",
+				"firstName": "Meno",
+				"lastName": "Priezvisko",
+				"enterFirstName": "Zadajte svoj meno",
+				"enterLastName": "Zadajte svoj priezvisko",
+				"emailAlreadyExists": "E-mail už existuje"
 			}	
 		},
 		"users": {

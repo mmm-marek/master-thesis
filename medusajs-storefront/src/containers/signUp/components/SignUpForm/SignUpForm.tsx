@@ -1,3 +1,4 @@
+import { useCreateCustomer } from 'medusa-react'
 import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
@@ -7,6 +8,7 @@ import Button from '@/atoms/Button/Button'
 import InputField from '@/atoms/InputField/InputField'
 import InputPasswordField from '@/atoms/InputPasswordField/InputPasswordField'
 import HookFormField from '@/components/HookFormField'
+import useCheckEmailExists from '@/hooks/auth/useCheckEmailExists'
 import SignUpFormSchema from '@/schemas/pages/signUp'
 import { PATHS } from '@/utils/enums'
 import { zodResolver } from '@/utils/zodResolver'
@@ -16,19 +18,53 @@ import * as SC from './SignUpFormStyles'
 export type SignUpFormFields = z.infer<typeof SignUpFormSchema>
 
 const SignUpForm = () => {
-	const onSubmit = () => {}
-	const t = useTranslations('containers.signUp.signUpForm')
 	const router = useRouter()
+	const t = useTranslations('containers.signUp.signUpForm')
+
+	const { mutate: createCustomer } = useCreateCustomer()
+	const { mutate: checkEmailExists } = useCheckEmailExists()
 
 	const {
 		control,
 		formState: { isSubmitting },
-		handleSubmit
+		handleSubmit,
+		setError
 	} = useForm<SignUpFormFields>({
 		mode: 'onChange',
 		resolver: zodResolver(SignUpFormSchema),
 		defaultValues: { email: '', password: '', repeatPassword: '' }
 	})
+
+	const onSubmit = (data: SignUpFormFields) => {
+		checkEmailExists(data.email, {
+			onSuccess: (exists) => {
+				if (exists) {
+					setError(
+						'email',
+						{
+							type: 'email',
+							message: t('emailAlreadyExists')
+						},
+						{ shouldFocus: true }
+					)
+				} else {
+					createCustomer(
+						{
+							email: data.email,
+							first_name: data.firstName,
+							last_name: data.lastName,
+							password: data.password
+						},
+						{
+							onSuccess: () => {
+								router.push('/')
+							}
+						}
+					)
+				}
+			}
+		})
+	}
 
 	return (
 		<SC.Form layout='vertical' onSubmitCapture={handleSubmit(onSubmit)}>
@@ -45,6 +81,26 @@ const SignUpForm = () => {
 					type='email'
 					required
 					placeholder={t('enterEmail')}
+					size='large'
+				/>
+				<HookFormField
+					control={control}
+					name='firstName'
+					component={InputField}
+					label={t('firstName')}
+					type='text'
+					required
+					placeholder={t('enterFirstName')}
+					size='large'
+				/>
+				<HookFormField
+					control={control}
+					name='lastName'
+					component={InputField}
+					label={t('lastName')}
+					type='text'
+					required
+					placeholder={t('enterLastName')}
 					size='large'
 				/>
 				<HookFormField

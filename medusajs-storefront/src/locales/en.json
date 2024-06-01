@@ -141,7 +141,12 @@
 				"enterPassword": "Enter your password",
 				"repeatPassword": "Repeat the password",
 				"signUp": "Sign up",
-				"forgotPassword": "Forgot password?"
+				"forgotPassword": "Forgot password?",
+				"firstName": "First name",
+				"lastName": "Last name",
+				"enterFirstName": "Enter your first name",
+				"enterLastName": "Enter your last name",
+				"emailAlreadyExists": "Email already exists"
 			}
 		},
 		"users": {
