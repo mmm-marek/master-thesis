@@ -11,7 +11,7 @@ import SignUpFormSchema from '@/schemas/pages/signUp'
 import { PATHS } from '@/utils/enums'
 import { zodResolver } from '@/utils/zodResolver'
 
-import * as SC from './RegisterFormStyles'
+import * as SC from './SignUpFormStyles'
 
 export type SignUpFormFields = z.infer<typeof SignUpFormSchema>
 
