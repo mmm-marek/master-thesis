@@ -1,16 +1,18 @@
 import styled, { css } from 'styled-components'
 
-import { textMdSemibold, textSmMedium } from '@/styles/helpers'
+import { textMdSemibold } from '@/styles/helpers'
 
 export const Product = styled.article`
 	${({ theme }) => css`
+		position: relative;
 		border-radius: 16px;
-		background: ${theme.tokens['color-base-surface-tertiary']};
+		background: ${theme.tokens['color-base-surface-primary']};
 		overflow: hidden;
 	`}
 `
 
 export const ImageWrapper = styled.div`
+	background-color: white;
 	width: 100%;
 	height: 300px;
 
@@ -21,23 +23,18 @@ export const ImageWrapper = styled.div`
 	}
 `
 
-export const ProductTextContent = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
-	padding: 16px;
-`
-
-export const ProductDescription = styled.p`
-	${({ theme }) => css`
-		${textSmMedium};
-		color: ${theme.tokens['color-base-content-primary']};
-	`}
-`
-
 export const ProductTitle = styled.h2`
 	${({ theme }) => css`
-		${textMdSemibold};
+		position: absolute;
+		bottom: 12px;
+		left: 12px;
+		z-index: 100;
+		border: 1px solid ${theme.tokens['color-base-surface-tertiary']};
+		border-radius: 16px;
+		background: ${theme.tokens['color-base-surface-primary']};
+		padding: 4px 8px;
+		width: fit-content;
 		color: ${theme.tokens['color-base-content-primary']};
+		${textMdSemibold};
 	`}
 `
