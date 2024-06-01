@@ -71,8 +71,9 @@ export const Content = styled.main`
 
 export const Footer = styled.footer`
 	${({ theme }) => css`
+		flex: 1;
 		border-top: 1px solid ${theme.tokens['color-base-surface-tertiary']};
-		background: ${theme.tokens['color-base-surface-primary']};
+		background: ${theme.tokens['color-base-content-top']};
 	`};
 `
 
@@ -98,4 +99,10 @@ export const LogoLink = styled(Link)`
 			color: ${theme.tokens['color-base-content-top']};
 		}
 	`};
+`
+
+export const Layout = styled.div`
+	display: flex;
+	flex-direction: column;
+	min-height: 100dvh;
 `

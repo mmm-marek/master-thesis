@@ -3,10 +3,13 @@ import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
+import FacebookIcon from '@/assets/icons/social/facebook.svg'
+import GoogleIcon from '@/assets/icons/social/google.svg'
 import Button from '@/atoms/Button/Button'
 import InputField from '@/atoms/InputField/InputField'
 import InputPasswordField from '@/atoms/InputPasswordField/InputPasswordField'
 import HookFormField from '@/components/HookFormField'
+import envConfig from '@/config'
 import useLoginCustomer from '@/hooks/auth/useLoginCustomer'
 import LoginFormSchema from '@/schemas/pages/login'
 import { PATHS } from '@/utils/enums'
@@ -72,6 +75,14 @@ const LoginForm = () => {
 			<Button type='primary' size='large' htmlType='submit' disabled={isSubmitting} loading={isSubmitting} block>
 				{t('logIn')}
 			</Button>
+			<SC.SocialButtonsWrapper>
+				<Button type='default' href={`${envConfig.apiUrl}/admin/auth/google`} size='large' block htmlType='button'>
+					<GoogleIcon />
+				</Button>
+				<Button type='default' href={`${envConfig.apiUrl}/admin/auth/facebook`} size='large' block htmlType='button'>
+					<FacebookIcon />
+				</Button>
+			</SC.SocialButtonsWrapper>
 			<SC.ForgotPasswordBtnWrapper>
 				<Button
 					type='text'

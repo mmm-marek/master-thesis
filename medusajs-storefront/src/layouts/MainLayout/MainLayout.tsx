@@ -1,4 +1,4 @@
-import { Badge, Layout } from 'antd'
+import { Badge } from 'antd'
 import { CircleUserRound, ShoppingCart } from 'lucide-react'
 import { useCart } from 'medusa-react'
 import Link from 'next/link'
@@ -31,7 +31,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 	}
 
 	return (
-		<Layout>
+		<SC.Layout>
 			<SC.Header>
 				<SC.ActionsWrapper>
 					<SC.CappedContainer>
@@ -77,7 +77,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 			<SC.Footer>
 				<SC.CappedContainer>Footer</SC.CappedContainer>
 			</SC.Footer>
-		</Layout>
+		</SC.Layout>
 	)
 }
 
