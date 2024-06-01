@@ -58,3 +58,11 @@ export const InfoSm = styled.span`
 	${textSmRegular};
 	color: ${({ theme }) => theme.tokens['color-base-content-tertiary']};
 `
+
+export const SocialButtonsWrapper = styled.div`
+	display: flex;
+	gap: 16px;
+	align-items: center;
+	justify-content: center;
+	margin-top: 16px;
+`
