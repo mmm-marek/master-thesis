@@ -133,15 +133,16 @@
 		},
 		"signUp": {
 			"signUpForm": {
-				"alreadyHaveAccount": "Máte už účet",
-				"createAccount": "Vytvoriť účet",
-				"email": "Email",
+				"welcome": "Vitajte",
+				"registerInfo": "Zaregistrujte sa, aby začala vaša cesta",
+				"email": "E-mail",
 				"enterEmail": "Zadajte svoj e-mail",
-				"enterPasssword": "Zadajte svoje heslo",
-				"logIn": "Prihlásiť sa",
 				"password": "Heslo",
-				"startFreeTrial": "Začnite svoju 30-dňovú bezplatnú skúšobnú verziu."
-			}
+				"enterPassword": "Zadajte svoje heslo",
+				"repeatPassword": "Zopakujte svoje heslo",
+				"signUp": "Zaregistrujte sa",
+				"forgotPassword": "Zabudnuté heslo?"
+			}	
 		},
 		"users": {
 			"action": "Akcia",

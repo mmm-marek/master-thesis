@@ -133,14 +133,15 @@
 		},
 		"signUp": {
 			"signUpForm": {
-				"alreadyHaveAccount": "Already have an account",
-				"createAccount": "Create account",
+				"welcome": "Welcome",
+				"registerInfo": "Register to start your journey",
 				"email": "Email",
 				"enterEmail": "Enter your email",
-				"enterPasssword": "Enter your password",
-				"logIn": "Log in",
 				"password": "Password",
-				"startFreeTrial": "Start your 30-day free trial."
+				"enterPassword": "Enter your password",
+				"repeatPassword": "Repeat the password",
+				"signUp": "Sign up",
+				"forgotPassword": "Forgot password?"
 			}
 		},
 		"users": {

@@ -1,8 +1,13 @@
+import { useRouter } from 'next/router'
+
 import Button from '@/atoms/Button/Button'
+import { PATHS } from '@/utils/enums'
 
 import * as SC from './RegisterCTAStyles'
 
 const RegisterCTA = () => {
+	const router = useRouter()
+
 	return (
 		<SC.RegisterCTAWrapper>
 			<SC.HeaderWrapper>
@@ -23,7 +28,7 @@ const RegisterCTA = () => {
 					<div>Quick process of your order</div>
 				</SC.RegisterListItem>
 			</SC.RegisterList>
-			<Button type='primary' size='large'>
+			<Button type='primary' size='large' onClick={() => router.push(`/${PATHS.SIGN_UP}`)}>
 				Register
 			</Button>
 		</SC.RegisterCTAWrapper>

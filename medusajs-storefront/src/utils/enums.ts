@@ -15,7 +15,6 @@ export enum NOTIFICATION_TYPE {
 
 export enum PATHS {
 	LOGIN = 'login',
-	USERS = 'users',
 	SIGN_UP = 'sign-up',
 	FORGOTTEN_PASSWORD = 'forgotten-password',
 	PROFILE = 'profile',
