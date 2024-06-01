@@ -6,7 +6,7 @@ import { medusa } from '@/utils/medusaHelpers'
 
 type LoginUserMutationArgs = Parameters<typeof medusa.auth.authenticate>[0]
 
-const useLoginUser = () => {
+const useLoginCustomer = () => {
 	return useMutation({
 		mutationFn: ({ email, password }: LoginUserMutationArgs) => {
 			return medusa.auth.authenticate({
@@ -20,4 +20,4 @@ const useLoginUser = () => {
 	})
 }
 
-export default useLoginUser
+export default useLoginCustomer

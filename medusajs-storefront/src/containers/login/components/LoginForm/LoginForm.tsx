@@ -7,7 +7,7 @@ import Button from '@/atoms/Button/Button'
 import InputField from '@/atoms/InputField/InputField'
 import InputPasswordField from '@/atoms/InputPasswordField/InputPasswordField'
 import HookFormField from '@/components/HookFormField'
-import useLoginUser from '@/hooks/auth/useLoginUser'
+import useLoginCustomer from '@/hooks/auth/useLoginCustomer'
 import LoginFormSchema from '@/schemas/pages/login'
 import { PATHS } from '@/utils/enums'
 import { zodResolver } from '@/utils/zodResolver'
@@ -19,7 +19,7 @@ export type LoginFormFields = z.infer<typeof LoginFormSchema>
 const LoginForm = () => {
 	const router = useRouter()
 	const t = useTranslations('containers.login.loginForm')
-	const { mutate: loginUser } = useLoginUser()
+	const { mutate: loginUser } = useLoginCustomer()
 
 	const {
 		control,

@@ -8,7 +8,7 @@ import { useTheme } from 'styled-components'
 
 import GrLogo from '@/assets/icons/gr-logo.svg'
 import useCustomerProfile from '@/hooks/auth/useCustomerProfile'
-import useLogoutUser from '@/hooks/auth/useLogoutUser'
+import useLogoutCustomer from '@/hooks/auth/useLogoutCustomer'
 import { PATHS } from '@/utils/enums'
 
 import * as SC from './MainLayoutStyles'
@@ -20,7 +20,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 	const theme = useTheme()
 
 	const { data: customer } = useCustomerProfile()
-	const { mutate: logoutUser } = useLogoutUser()
+	const { mutate: logoutUser } = useLogoutCustomer()
 
 	const handleLogout = () => {
 		logoutUser(undefined, {

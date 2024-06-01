@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { QUERY_KEYS } from '@/utils/enums'
 import { medusa } from '@/utils/medusaHelpers'
 
-const useLogoutUser = () => {
+const useLogoutCustomer = () => {
 	const queryClient = useQueryClient()
 
 	return useMutation({
@@ -17,4 +17,4 @@ const useLogoutUser = () => {
 	})
 }
 
-export default useLogoutUser
+export default useLogoutCustomer
