@@ -7,6 +7,7 @@ import Button from '@/atoms/Button/Button'
 import InputField from '@/atoms/InputField/InputField'
 import InputPasswordField from '@/atoms/InputPasswordField/InputPasswordField'
 import HookFormField from '@/components/HookFormField'
+import useLoginUser from '@/hooks/auth/useLoginUser'
 import LoginFormSchema from '@/schemas/pages/login'
 import { PATHS } from '@/utils/enums'
 import { zodResolver } from '@/utils/zodResolver'
@@ -16,9 +17,9 @@ import * as SC from './LoginFormStyles'
 export type LoginFormFields = z.infer<typeof LoginFormSchema>
 
 const LoginForm = () => {
-	const onSubmit = () => {}
-	const t = useTranslations('containers.login.loginForm')
 	const router = useRouter()
+	const t = useTranslations('containers.login.loginForm')
+	const { mutate: loginUser } = useLoginUser()
 
 	const {
 		control,
@@ -29,6 +30,14 @@ const LoginForm = () => {
 		resolver: zodResolver(LoginFormSchema),
 		defaultValues: { email: '', password: '' }
 	})
+
+	const onSubmit = (data: LoginFormFields) => {
+		loginUser(data, {
+			onSuccess: () => {
+				router.push(`/${PATHS.PROFILE}`)
+			}
+		})
+	}
 
 	return (
 		<SC.Form layout='vertical' onSubmitCapture={handleSubmit(onSubmit)}>

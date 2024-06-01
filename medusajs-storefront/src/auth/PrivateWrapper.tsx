@@ -1,7 +1,7 @@
+import { useMeCustomer } from 'medusa-react'
 import { useRouter } from 'next/router'
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect } from 'react'
 
-import { isLoggedIn } from '../utils/auth'
 import Loading from '@/components/Loading/Loading'
 import { PATHS } from '@/utils/enums'
 
@@ -11,19 +11,19 @@ type Props = {
 
 const PrivateWrapper: FC<Props> = ({ children }) => {
 	const router = useRouter()
-	const [returnComponent, setReturnComponent] = useState(<div />)
-
-	const privateComponent = <div>{isLoggedIn() ? children : <Loading height='100vh' />}</div>
+	const { customer } = useMeCustomer()
 
 	useEffect(() => {
-		if (!isLoggedIn()) {
+		if (!customer) {
 			router.push(PATHS.LOGIN)
 		}
-		setReturnComponent(privateComponent)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [router])
+	}, [customer, router])
 
-	return returnComponent
+	if (!customer) {
+		return <Loading height='100vh' />
+	}
+
+	return children
 }
 
 export default PrivateWrapper
