@@ -99,7 +99,20 @@
 				"theme": "Téma"
 			},
 			"manageProfileSettings": "Spravujte nastavenia svojho profilu tu.",
-			"profileSettings": "Nastavenia profilu"
+			"profileSettings": "Nastavenia profilu",
+			"customerInformation": "Zákazník",
+			"billingAddress": "Fakturačná adresa", 
+			"shippingAddresses": "Doručovacie adresy",
+			"orders": "Objednávky",
+			"name": "Meno:",
+			"email": "E-mail:",
+			"phone": "Telefón:",
+			"company": "Firma:",
+			"postalCode": "Poštový kód:",
+			"country": "Krajina:",
+			"address1": "Adresa 1:",
+			"address2": "Adresa 2:",
+			"city": "Mesto:"
 		},
 		"queryParams": {
 			"error": {

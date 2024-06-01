@@ -99,7 +99,20 @@
 				"theme": "Theme"
 			},
 			"manageProfileSettings": "Manage your profile settings here.",
-			"profileSettings": "Profile settings"
+			"profileSettings": "Profile settings",
+			"customerInformation": "Customer information",
+			"billingAddress": "Billing address", 
+			"shippingAddresses": "Shipping addresses",
+			"orders": "Orders",
+			"name": "Name:",
+			"email": "Email:",
+			"phone": "Phone:",
+			"company": "Company:",
+			"postalCode": "Postal code:",
+			"country": "Country:",
+			"address1": "Address 1:",
+			"address2": "Address 2:",
+			"city": "City:"
 		},
 		"queryParams": {
 			"error": {

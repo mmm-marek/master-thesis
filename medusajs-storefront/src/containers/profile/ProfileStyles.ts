@@ -1,40 +1,46 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-import { breakpoints, textMdSemibold } from '@/styles/helpers'
+import { headingXsSemibold, textSmMedium, textSmRegular, textXlRegular } from '@/styles/helpers'
 
-export const MainContainer = styled.div`
-	border: ${(p) => `${p.theme.borderWidth.xs} solid ${p.theme.tokens['color-base-content-quintarny']}`};
-	border-radius: ${(p) => p.theme.borderRadius[12]};
-	background: ${(p) => p.theme.tokens['color-base-surface-primary']};
-	padding: ${(p) => p.theme.spacing[16]};
-
-	@media (min-width: ${breakpoints.md}px) {
-		padding: ${(p) => p.theme.spacing[24]};
-	}
+export const SectionHeading = styled.h2`
+	${({ theme }) => css`
+		margin-bottom: 8px;
+		color: ${theme.tokens['color-base-content-primary']};
+		${headingXsSemibold};
+	`}
 `
 
-export const TitleWrapper = styled.div`
+export const SubsectionHeading = styled.h3`
+	${({ theme }) => css`
+		color: ${theme.tokens['color-base-content-primary']};
+		${textXlRegular};
+	`}
+`
+
+export const ProfileSettingsWrapper = styled.div`
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 32px;
+`
+
+export const ProfileItem = styled.div`
 	display: flex;
-	gap: ${(p) => p.theme.spacing[16]};
+	gap: 8px;
 	align-items: center;
-	margin-bottom: ${(p) => p.theme.spacing[16]};
-	${textMdSemibold};
-	color: ${(p) => p.theme.tokens['color-base-content-primary']};
-
-	svg {
-		flex-shrink: 0;
-		width: 1.5rem;
-		height: auto;
-		color: ${(p) => p.theme.tokens['color-base-action-primary-default']};
-	}
-
-	@media (min-width: ${breakpoints.md}px) {
-		margin-bottom: ${(p) => p.theme.spacing[24]};
-	}
 `
 
-export const Title = styled.h2`
-	margin-bottom: 0;
-	${textMdSemibold};
+export const ProfileItemLabel = styled.div`
+	${textSmRegular};
+	color: ${(p) => p.theme.tokens['color-base-content-secondary']};
+`
+
+export const ProfileItemValue = styled.div`
+	${textSmMedium};
 	color: ${(p) => p.theme.tokens['color-base-content-primary']};
+`
+
+export const Content = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
 `

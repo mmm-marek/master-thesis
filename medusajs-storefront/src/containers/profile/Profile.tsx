@@ -2,50 +2,67 @@ import { useTranslations } from 'next-intl'
 
 import useCustomerProfile from '@/hooks/auth/useCustomerProfile'
 
+import * as SC from './ProfileStyles'
+
+type ProfileItemProps = {
+	label: string
+	value: string | null | undefined
+}
+
+const ProfileItem = ({ label, value }: ProfileItemProps) => {
+	if (!value) {
+		return null
+	}
+	return (
+		<SC.ProfileItem>
+			<SC.ProfileItemLabel>{label}</SC.ProfileItemLabel>
+			<SC.ProfileItemValue>{value}</SC.ProfileItemValue>
+		</SC.ProfileItem>
+	)
+}
+
 const Profile = () => {
 	const t = useTranslations('containers.profile')
 
 	const { data: user } = useCustomerProfile()
 
 	return (
-		<div>
+		<SC.Content>
 			<div>
-				<div>{t('profileSettings')}</div>
-				<div>
+				<SC.SectionHeading>{t('profileSettings')}</SC.SectionHeading>
+				<SC.ProfileSettingsWrapper>
 					<div>
-						<div>Customer information</div>
-						<div>{`${user?.first_name} ${user?.last_name}`}</div>
-						<div>{user?.email}</div>
-						<div>{user?.phone}</div>
+						<SC.SubsectionHeading>{t('customerInformation')}</SC.SubsectionHeading>
+						<ProfileItem label={t('name')} value={`${user?.first_name} ${user?.last_name}`} />
+						<ProfileItem label={t('email')} value={user?.email} />
+						<ProfileItem label={t('phone')} value={user?.phone} />
 					</div>
 					<div>
-						<div>Billing address</div>
-						<div>{user?.billing_address?.address_1}</div>
-						<div>{user?.billing_address?.address_2}</div>
-						<div>{user?.billing_address?.city}</div>
-						<div>{user?.billing_address?.country?.display_name}</div>
-						<div>{user?.billing_address?.postal_code}</div>
-						<div>{user?.billing_address?.phone}</div>
-						<div>{user?.billing_address?.company}</div>
+						<SC.SubsectionHeading>{t('billingAddress')}</SC.SubsectionHeading>
+						<ProfileItem label={t('address1')} value={user?.billing_address?.address_1} />
+						<ProfileItem label={t('address2')} value={user?.billing_address?.address_2} />
+						<ProfileItem label={t('city')} value={user?.billing_address?.city} />
+						<ProfileItem label={t('country')} value={user?.billing_address?.country?.display_name} />
+						<ProfileItem label={t('postalCode')} value={user?.billing_address?.postal_code} />
+						<ProfileItem label={t('company')} value={user?.billing_address?.company} />
 					</div>
 					<div>
-						<div>Shipping address</div>
+						<SC.SubsectionHeading>{t('shippingAddresses')}</SC.SubsectionHeading>
 						{user?.shipping_addresses.map((address) => (
 							<div key={address.id}>
-								<div>{address.address_1}</div>
-								<div>{address.address_2}</div>
-								<div>{address.city}</div>
-								<div>{address.country?.display_name}</div>
-								<div>{address.postal_code}</div>
-								<div>{address.phone}</div>
-								<div>{address.company}</div>
+								<ProfileItem label={t('address1')} value={address.address_1} />
+								<ProfileItem label={t('address2')} value={address.address_2} />
+								<ProfileItem label={t('city')} value={address.city} />
+								<ProfileItem label={t('country')} value={address.country?.display_name} />
+								<ProfileItem label={t('postalCode')} value={address.postal_code} />
+								<ProfileItem label={t('company')} value={address.company} />
 							</div>
 						))}
 					</div>
-				</div>
+				</SC.ProfileSettingsWrapper>
 			</div>
 			<div>
-				<div>Orders</div>
+				<SC.SectionHeading>{t('orders')}</SC.SectionHeading>
 				{user?.orders.map((order) => (
 					<div key={order.id}>
 						<div>{order.id}</div>
@@ -54,7 +71,7 @@ const Profile = () => {
 					</div>
 				))}
 			</div>
-		</div>
+		</SC.Content>
 	)
 }
 
