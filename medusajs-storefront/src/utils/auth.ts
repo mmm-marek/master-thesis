@@ -67,21 +67,6 @@ export function setRefreshToken(token: string) {
  *
  * check if token is exist and try to decoded
  */
-export function isLoggedIn() {
-	try {
-		const token = getAccessToken()
-		if (!token) {
-			return false
-		}
-		decode(token)
-
-		return true
-	} catch (error) {
-		// eslint-disable-next-line no-console
-		console.error(error)
-		return false
-	}
-}
 
 export const hasRefreshToken = (): boolean => {
 	try {

@@ -3,7 +3,7 @@ import { ReactElement } from 'react'
 
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
 import Login from '@/containers/login/Login'
-import LoginLayout from '@/layouts/LoginLayout/LoginLayout'
+import MainLayout from '@/layouts/MainLayout/MainLayout'
 import { PAGE_IDS } from '@/utils/enums'
 import { getLocales } from '@/utils/locales'
 
@@ -19,9 +19,9 @@ const LoginPage = (props: any) => <Login pageID={PAGE_IDS.LOGIN} {...props} />
 
 LoginPage.getLayout = function getLayout(page: ReactElement, props: any) {
 	return (
-		<LoginLayout {...props} pageID={PAGE_IDS.LOGIN}>
+		<MainLayout {...props} pageID={PAGE_IDS.LOGIN}>
 			<ErrorBoundary>{page}</ErrorBoundary>
-		</LoginLayout>
+		</MainLayout>
 	)
 }
 

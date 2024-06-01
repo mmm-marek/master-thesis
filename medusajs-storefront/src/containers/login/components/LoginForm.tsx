@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
 import Button from '@/atoms/Button/Button'
@@ -15,12 +15,8 @@ import * as SC from './LoginFormStyles'
 
 export type LoginFormFields = z.infer<typeof LoginFormSchema>
 
-type Props = {
-	onSubmit: SubmitHandler<LoginFormFields>
-}
-
-const LoginForm = (props: Props) => {
-	const { onSubmit } = props
+const LoginForm = () => {
+	const onSubmit = () => {}
 	const t = useTranslations('containers.login.loginForm')
 	const router = useRouter()
 
