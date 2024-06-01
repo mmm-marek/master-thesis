@@ -7,8 +7,8 @@ import { PropsWithChildren } from 'react'
 import { useTheme } from 'styled-components'
 
 import GrLogo from '@/assets/icons/gr-logo.svg'
-import useCustomerProfile from '@/hooks/auth/useCustomerProfile'
-import useLogoutCustomer from '@/hooks/auth/useLogoutCustomer'
+import useCustomerProfile from '@/hooks/customer/useCustomerProfile'
+import useLogoutCustomer from '@/hooks/customer/useLogoutCustomer'
 import { PATHS } from '@/utils/enums'
 
 import * as SC from './MainLayoutStyles'

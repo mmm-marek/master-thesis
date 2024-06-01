@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import React, { FC, useEffect } from 'react'
 
 import Loading from '@/components/Loading/Loading'
-import useCustomerProfile from '@/hooks/auth/useCustomerProfile'
+import useCustomerProfile from '@/hooks/customer/useCustomerProfile'
 import { PATHS } from '@/utils/enums'
 
 type Props = {

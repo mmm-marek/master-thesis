@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl'
 
-import useCustomerProfile from '@/hooks/auth/useCustomerProfile'
+import useCustomerProfile from '@/hooks/customer/useCustomerProfile'
 
 import * as SC from './ProfileStyles'
 
