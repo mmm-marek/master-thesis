@@ -6,6 +6,7 @@ export const ProductLocalizationSchema = z.object({
     description: z.string(),
     handle: z.string(),
     material: z.string(),
+    variants: z.array(z.object({ variant_id: z.string(), title: z.string() })),
 });
 
 export type ProductLocalizationSchemaType = z.infer<

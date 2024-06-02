@@ -76,6 +76,7 @@ const ProductLocalizationWidget = ({
                         </h2>
                         <RegionLocalizationForm
                             regionId={region.id}
+                            variants={product.variants}
                             onSubmit={(data) => {
                                 handleSubmit(region.id, data);
                             }}
@@ -85,6 +86,7 @@ const ProductLocalizationWidget = ({
                                 description: defaultValues.description,
                                 handle: defaultValues.handle,
                                 material: defaultValues.material,
+                                variants: defaultValues.variants,
                             }}
                         />
                     </div>
