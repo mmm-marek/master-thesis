@@ -95,9 +95,6 @@
 		},
 		"profile": {
 			"appearance": "Appearance",
-			"appearanceForm": {
-				"theme": "Theme"
-			},
 			"manageProfileSettings": "Manage your profile settings here.",
 			"profileSettings": "Profile settings",
 			"customerInformation": "Customer information",
@@ -112,7 +109,11 @@
 			"country": "Country:",
 			"address1": "Address 1:",
 			"address2": "Address 2:",
-			"city": "City:"
+			"city": "City:",
+			"firstNamePlaceholder": "Enter first name",
+			"lastNamePlaceholder": "Enter last name",
+			"emailPlaceholder": "Enter email",
+			"submitButton": "Submit"
 		},
 		"queryParams": {
 			"error": {

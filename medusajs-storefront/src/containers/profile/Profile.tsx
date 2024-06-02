@@ -1,8 +1,12 @@
+import { PencilIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { useState } from 'react'
 
+import Button from '@/atoms/Button/Button'
 import useCustomerProfile from '@/hooks/customer/useCustomerProfile'
 
 import * as SC from './ProfileStyles'
+import UpdateCustomerForm from './components/UpdateCustomerForm/UpdateCustomerForm'
 
 type ProfileItemProps = {
 	label: string
@@ -24,15 +28,20 @@ const ProfileItem = ({ label, value }: ProfileItemProps) => {
 const Profile = () => {
 	const t = useTranslations('containers.profile')
 
+	const [isUpdateCustomerModalOpen, setIsUpdateCustomerModalOpen] = useState(false)
+
 	const { data: user } = useCustomerProfile()
 
 	return (
-		<SC.Content>
-			<div>
+		<>
+			<SC.Content>
 				<SC.SectionHeading>{t('profileSettings')}</SC.SectionHeading>
 				<SC.ProfileSettingsWrapper>
 					<div>
-						<SC.SubsectionHeading>{t('customerInformation')}</SC.SubsectionHeading>
+						<SC.SubsectionHeadingWrapper>
+							<SC.SubsectionHeading>{t('customerInformation')}</SC.SubsectionHeading>
+							<Button icon={<PencilIcon />} size='middle' onClick={() => setIsUpdateCustomerModalOpen(true)} noBackground />
+						</SC.SubsectionHeadingWrapper>
 						<ProfileItem label={t('name')} value={`${user?.first_name} ${user?.last_name}`} />
 						<ProfileItem label={t('email')} value={user?.email} />
 						<ProfileItem label={t('phone')} value={user?.phone} />
@@ -48,7 +57,7 @@ const Profile = () => {
 					</div>
 					<div>
 						<SC.SubsectionHeading>{t('shippingAddresses')}</SC.SubsectionHeading>
-						{user?.shipping_addresses.map((address) => (
+						{user?.shipping_addresses?.map((address) => (
 							<div key={address.id}>
 								<ProfileItem label={t('address1')} value={address.address_1} />
 								<ProfileItem label={t('address2')} value={address.address_2} />
@@ -60,18 +69,27 @@ const Profile = () => {
 						))}
 					</div>
 				</SC.ProfileSettingsWrapper>
-			</div>
-			<div>
-				<SC.SectionHeading>{t('orders')}</SC.SectionHeading>
-				{user?.orders.map((order) => (
-					<div key={order.id}>
-						<div>{order.id}</div>
-						<div>{order.subtotal}</div>
-						<div>{order.total}</div>
-					</div>
-				))}
-			</div>
-		</SC.Content>
+				<div>
+					<SC.SectionHeading>{t('orders')}</SC.SectionHeading>
+					{user?.orders?.map((order) => (
+						<div key={order.id}>
+							<div>{order.id}</div>
+							<div>{order.subtotal}</div>
+							<div>{order.total}</div>
+						</div>
+					))}
+				</div>
+			</SC.Content>
+			<UpdateCustomerForm
+				open={isUpdateCustomerModalOpen}
+				onClose={() => setIsUpdateCustomerModalOpen(false)}
+				defaultValues={{
+					firstName: user?.first_name ?? '',
+					lastName: user?.last_name ?? '',
+					email: user?.email ?? ''
+				}}
+			/>
+		</>
 	)
 }
 

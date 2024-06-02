@@ -44,3 +44,10 @@ export const Content = styled.div`
 	flex-direction: column;
 	gap: 16px;
 `
+
+export const SubsectionHeadingWrapper = styled.div`
+	display: flex;
+	gap: 16px;
+	align-items: center;
+	width: 100%;
+`

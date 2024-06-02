@@ -13,8 +13,8 @@ const useDeleteShippingAddress = () => {
 			const { customer } = await medusa.customers.addresses.deleteAddress(data)
 			return { customer }
 		},
-		onSuccess: (customer) => {
-			queryClient.setQueryData([QUERY_KEYS.API_GET_CUSTOMER_PROFILE], () => customer)
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.API_GET_CUSTOMER_PROFILE] })
 		}
 	})
 }

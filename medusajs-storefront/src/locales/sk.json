@@ -95,9 +95,6 @@
 		},
 		"profile": {
 			"appearance": "Vzhľad",
-			"appearanceForm": {
-				"theme": "Téma"
-			},
 			"manageProfileSettings": "Spravujte nastavenia svojho profilu tu.",
 			"profileSettings": "Nastavenia profilu",
 			"customerInformation": "Zákazník",
@@ -112,7 +109,11 @@
 			"country": "Krajina:",
 			"address1": "Adresa 1:",
 			"address2": "Adresa 2:",
-			"city": "Mesto:"
+			"city": "Mesto:",
+			"firstNamePlaceholder": "Zadajte krstné meno",
+			"lastNamePlaceholder": "Zadajte priezvisko",
+			"emailPlaceholder": "Zadajte e-mail",
+			"submitButton": "Uložiť"
 		},
 		"queryParams": {
 			"error": {
