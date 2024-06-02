@@ -51,3 +51,38 @@ export const SubsectionHeadingWrapper = styled.div`
 	align-items: center;
 	width: 100%;
 `
+
+export const ShippingAddressesWrapper = styled.ul`
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	padding: 0;
+	list-style: none;
+`
+
+export const ShippingAddressWrapper = styled.li`
+	${({ theme }) => css`
+		display: flex;
+		align-items: start;
+		justify-content: space-between;
+		border: 1px solid ${theme.tokens['color-base-surface-tertiary']};
+		border-radius: 8px;
+		padding: 8px;
+	`}
+`
+
+export const ShippingAddressLabel = styled.div`
+	${textSmMedium};
+	color: ${(p) => p.theme.tokens['color-base-content-primary']};
+`
+
+export const ShippingAddressInfo = styled.div`
+	display: flex;
+	flex-direction: column;
+`
+
+export const ShippingAddressActions = styled.div`
+	display: flex;
+	gap: 8px;
+	align-items: center;
+`

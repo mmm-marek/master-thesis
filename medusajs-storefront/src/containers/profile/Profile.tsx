@@ -1,4 +1,4 @@
-import { PencilIcon, PlusCircleIcon } from 'lucide-react'
+import { PencilIcon, PlusCircleIcon, Trash2Icon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
@@ -67,16 +67,22 @@ const Profile = () => {
 							<SC.SubsectionHeading>{t('shippingAddresses')}</SC.SubsectionHeading>
 							<Button icon={<PlusCircleIcon />} size='middle' onClick={() => setIsAddShippingAddressModalOpen(true)} noBackground />
 						</SC.SubsectionHeadingWrapper>
-						{user?.shipping_addresses?.map((address) => (
-							<div key={address.id}>
-								<ProfileItem label={t('address1')} value={address.address_1} />
-								<ProfileItem label={t('address2')} value={address.address_2} />
-								<ProfileItem label={t('city')} value={address.city} />
-								<ProfileItem label={t('country')} value={address.country?.display_name} />
-								<ProfileItem label={t('postalCode')} value={address.postal_code} />
-								<ProfileItem label={t('company')} value={address.company} />
-							</div>
-						))}
+						<SC.ShippingAddressesWrapper>
+							{user?.shipping_addresses?.map((address) => (
+								<SC.ShippingAddressWrapper key={address.id}>
+									<SC.ShippingAddressInfo>
+										<SC.ShippingAddressLabel>{`${address.address_1} ${address.address_2}`}</SC.ShippingAddressLabel>
+										<SC.ShippingAddressLabel>{`${address.city}, ${address.postal_code}`}</SC.ShippingAddressLabel>
+										<SC.ShippingAddressLabel>{address.country?.display_name}</SC.ShippingAddressLabel>
+										<SC.ShippingAddressLabel>{address.company}</SC.ShippingAddressLabel>
+									</SC.ShippingAddressInfo>
+									<SC.ShippingAddressActions>
+										<Button icon={<PencilIcon />} size='middle' noBackground />
+										<Button icon={<Trash2Icon />} size='middle' noBackground />
+									</SC.ShippingAddressActions>
+								</SC.ShippingAddressWrapper>
+							))}
+						</SC.ShippingAddressesWrapper>
 					</div>
 				</SC.ProfileSettingsWrapper>
 				<div>
