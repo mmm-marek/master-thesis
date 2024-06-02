@@ -4,9 +4,11 @@ import { useState } from 'react'
 
 import Button from '@/atoms/Button/Button'
 import useCustomerProfile from '@/hooks/customer/useCustomerProfile'
+import useUpdateCustomer from '@/hooks/customer/useUpdateCustomer'
 
 import * as SC from './ProfileStyles'
 import UpdateBillingAddressForm from './components/UpdateAddressForm/UpdateAddressForm'
+import { UpdateAddressFormFields } from './components/UpdateAddressForm/UpdateAddressFormTypes'
 import UpdateCustomerForm from './components/UpdateCustomerForm/UpdateCustomerForm'
 
 type ProfileItemProps = {
@@ -33,6 +35,27 @@ const Profile = () => {
 	const [isUpdateBillingAddressModalOpen, setIsUpdateBillingAddressModalOpen] = useState(false)
 
 	const { data: user } = useCustomerProfile()
+	const { mutate: updateCustomer } = useUpdateCustomer()
+
+	const handleBillingAddressFormSubmit = (data: UpdateAddressFormFields) => {
+		updateCustomer(
+			{
+				billing_address: {
+					address_1: data.address1,
+					address_2: data.address2,
+					city: data.city,
+					country_code: data.countryCode,
+					postal_code: data.postalCode,
+					company: data.company
+				}
+			},
+			{
+				onSuccess: () => {
+					setIsUpdateBillingAddressModalOpen(false)
+				}
+			}
+		)
+	}
 
 	return (
 		<>
@@ -97,6 +120,7 @@ const Profile = () => {
 			<UpdateBillingAddressForm
 				open={isUpdateBillingAddressModalOpen}
 				onClose={() => setIsUpdateBillingAddressModalOpen(false)}
+				onSubmit={handleBillingAddressFormSubmit}
 				defaultValues={{
 					address1: user?.billing_address.address_1 ?? '',
 					address2: user?.billing_address.address_2 ?? '',
