@@ -83,7 +83,6 @@ const Profile = () => {
 										<SC.ShippingAddressLabel>{address.company}</SC.ShippingAddressLabel>
 									</SC.ShippingAddressInfo>
 									<SC.ShippingAddressActions>
-										<Button icon={<PencilIcon />} size='middle' noBackground />
 										<Button icon={<Trash2Icon />} size='middle' noBackground onClick={() => handleDeleteShippingAddress(address.id)} />
 									</SC.ShippingAddressActions>
 								</SC.ShippingAddressWrapper>
