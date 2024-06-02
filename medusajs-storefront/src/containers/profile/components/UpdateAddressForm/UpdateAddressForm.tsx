@@ -6,16 +6,16 @@ import Button from '@/atoms/Button/Button'
 import InputField from '@/atoms/InputField/InputField'
 import HookFormField from '@/components/HookFormField'
 import useUpdateCustomer from '@/hooks/customer/useUpdateCustomer'
-import { UpdateBillingAddressFormSchema } from '@/schemas/updateAddressSchemas'
+import { UpdateAddressFormSchema } from '@/schemas/updateAddressSchemas'
 import { zodResolver } from '@/utils/zodResolver'
 
 import * as SC from './UpdateAddressFormStyles'
-import { UpdateBillingAddressFormFields } from './UpdateAddressFormTypes'
+import { UpdateAddressFormFields } from './UpdateAddressFormTypes'
 
 type UpdateBillingAddressFormProps = {
 	open: boolean
 	onClose: () => void
-	defaultValues: UpdateBillingAddressFormFields
+	defaultValues: UpdateAddressFormFields
 }
 
 const UpdateBillingAddressForm = ({ defaultValues, open, onClose }: UpdateBillingAddressFormProps) => {
@@ -27,13 +27,13 @@ const UpdateBillingAddressForm = ({ defaultValues, open, onClose }: UpdateBillin
 		control,
 		formState: { isSubmitting },
 		handleSubmit
-	} = useForm<UpdateBillingAddressFormFields>({
+	} = useForm<UpdateAddressFormFields>({
 		mode: 'onChange',
-		resolver: zodResolver(UpdateBillingAddressFormSchema),
+		resolver: zodResolver(UpdateAddressFormSchema),
 		defaultValues
 	})
 
-	const handleFormSubmit = async (data: UpdateBillingAddressFormFields) => {
+	const handleFormSubmit = async (data: UpdateAddressFormFields) => {
 		updateCustomer(
 			{
 				billing_address: {

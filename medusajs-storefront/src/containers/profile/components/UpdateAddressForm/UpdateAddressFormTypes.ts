@@ -1,5 +1,5 @@
 import { z } from 'zod'
 
-import { UpdateBillingAddressFormSchema } from '@/schemas/updateAddressSchemas'
+import { UpdateAddressFormSchema } from '@/schemas/updateAddressSchemas'
 
-export type UpdateBillingAddressFormFields = z.infer<typeof UpdateBillingAddressFormSchema>
+export type UpdateAddressFormFields = z.infer<typeof UpdateAddressFormSchema>

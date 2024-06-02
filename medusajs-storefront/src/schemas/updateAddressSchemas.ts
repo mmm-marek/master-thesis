@@ -2,7 +2,7 @@ import * as z from 'zod'
 
 import { VALIDATION_MAX_LENGTH } from '@/utils/enums'
 
-export const UpdateBillingAddressFormSchema = z.object({
+export const UpdateAddressFormSchema = z.object({
 	address1: z.string().max(VALIDATION_MAX_LENGTH.LENGTH_255).optional(),
 	address2: z.string().max(VALIDATION_MAX_LENGTH.LENGTH_255).optional(),
 	city: z.string().max(VALIDATION_MAX_LENGTH.LENGTH_255).optional(),
