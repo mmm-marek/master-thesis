@@ -6,11 +6,11 @@ import Button from '@/atoms/Button/Button'
 import InputField from '@/atoms/InputField/InputField'
 import HookFormField from '@/components/HookFormField'
 import useUpdateCustomer from '@/hooks/customer/useUpdateCustomer'
-import { UpdateBillingAddressFormSchema } from '@/schemas/updateBillingAddressSchemas'
+import { UpdateBillingAddressFormSchema } from '@/schemas/updateAddressSchemas'
 import { zodResolver } from '@/utils/zodResolver'
 
-import * as SC from './UpdateBillingAddressFormStyles'
-import { UpdateBillingAddressFormFields } from './UpdateBillingAddressFormTypes'
+import * as SC from './UpdateAddressFormStyles'
+import { UpdateBillingAddressFormFields } from './UpdateAddressFormTypes'
 
 type UpdateBillingAddressFormProps = {
 	open: boolean

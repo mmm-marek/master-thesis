@@ -6,7 +6,7 @@ import Button from '@/atoms/Button/Button'
 import useCustomerProfile from '@/hooks/customer/useCustomerProfile'
 
 import * as SC from './ProfileStyles'
-import UpdateBillingAddressForm from './components/UpdateBillingAddressForm/UpdateBillingAddressForm'
+import UpdateBillingAddressForm from './components/UpdateAddressForm/UpdateAddressForm'
 import UpdateCustomerForm from './components/UpdateCustomerForm/UpdateCustomerForm'
 
 type ProfileItemProps = {
