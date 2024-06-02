@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 import Button from '@/atoms/Button/Button'
 import useCustomerProfile from '@/hooks/customer/useCustomerProfile'
+import useDeleteShippingAddress from '@/hooks/customer/useDeleteShippingAddress'
 
 import * as SC from './ProfileStyles'
 import AddShippingAddressForm from './components/AddShippingAddressForm/AddShippingAddressForm'
@@ -35,6 +36,11 @@ const Profile = () => {
 	const [isAddShippingAddressModalOpen, setIsAddShippingAddressModalOpen] = useState(false)
 
 	const { data: user } = useCustomerProfile()
+	const { mutate: deleteShippingAddress } = useDeleteShippingAddress()
+
+	const handleDeleteShippingAddress = (addressId: string) => {
+		deleteShippingAddress(addressId)
+	}
 
 	return (
 		<>
@@ -78,7 +84,7 @@ const Profile = () => {
 									</SC.ShippingAddressInfo>
 									<SC.ShippingAddressActions>
 										<Button icon={<PencilIcon />} size='middle' noBackground />
-										<Button icon={<Trash2Icon />} size='middle' noBackground />
+										<Button icon={<Trash2Icon />} size='middle' noBackground onClick={() => handleDeleteShippingAddress(address.id)} />
 									</SC.ShippingAddressActions>
 								</SC.ShippingAddressWrapper>
 							))}
