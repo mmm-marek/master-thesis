@@ -32,6 +32,7 @@
     "@medusajs/event-bus-redis": "^1.8.13",
     "@medusajs/file-local": "latest",
     "@medusajs/medusa": "^1.20.6",
+    "@medusajs/ui": "^3.0.0",
     "@tanstack/react-query": "4.22.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
@@ -44,7 +45,9 @@
     "medusa-plugin-auth": "^1.10.4",
     "medusa-plugin-strapi-ts": "^5.0.22",
     "prism-react-renderer": "^2.0.4",
-    "typeorm": "^0.3.16"
+    "react-hook-form": "^7.51.5",
+    "typeorm": "^0.3.16",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.3",
