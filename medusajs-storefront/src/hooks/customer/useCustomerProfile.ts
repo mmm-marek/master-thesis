@@ -7,7 +7,9 @@ const useCustomerProfile = () => {
 	return useQuery({
 		queryKey: [QUERY_KEYS.API_GET_CUSTOMER_PROFILE],
 		queryFn: async () => {
-			const { customer } = await medusa.auth.getSession()
+			const { customer } = await medusa.customers.retrieve({
+				expand: 'billing_address,shipping_addresses'
+			})
 			return customer
 		}
 	})

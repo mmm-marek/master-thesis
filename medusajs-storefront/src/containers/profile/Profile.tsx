@@ -6,6 +6,7 @@ import Button from '@/atoms/Button/Button'
 import useCustomerProfile from '@/hooks/customer/useCustomerProfile'
 
 import * as SC from './ProfileStyles'
+import UpdateBillingAddressForm from './components/UpdateBillingAddressForm/UpdateBillingAddressForm'
 import UpdateCustomerForm from './components/UpdateCustomerForm/UpdateCustomerForm'
 
 type ProfileItemProps = {
@@ -29,6 +30,7 @@ const Profile = () => {
 	const t = useTranslations('containers.profile')
 
 	const [isUpdateCustomerModalOpen, setIsUpdateCustomerModalOpen] = useState(false)
+	const [isUpdateBillingAddressModalOpen, setIsUpdateBillingAddressModalOpen] = useState(false)
 
 	const { data: user } = useCustomerProfile()
 
@@ -47,7 +49,10 @@ const Profile = () => {
 						<ProfileItem label={t('phone')} value={user?.phone} />
 					</div>
 					<div>
-						<SC.SubsectionHeading>{t('billingAddress')}</SC.SubsectionHeading>
+						<SC.SubsectionHeadingWrapper>
+							<SC.SubsectionHeading>{t('billingAddress')}</SC.SubsectionHeading>
+							<Button icon={<PencilIcon />} size='middle' onClick={() => setIsUpdateBillingAddressModalOpen(true)} noBackground />
+						</SC.SubsectionHeadingWrapper>
 						<ProfileItem label={t('address1')} value={user?.billing_address?.address_1} />
 						<ProfileItem label={t('address2')} value={user?.billing_address?.address_2} />
 						<ProfileItem label={t('city')} value={user?.billing_address?.city} />
@@ -87,6 +92,18 @@ const Profile = () => {
 					firstName: user?.first_name ?? '',
 					lastName: user?.last_name ?? '',
 					email: user?.email ?? ''
+				}}
+			/>
+			<UpdateBillingAddressForm
+				open={isUpdateBillingAddressModalOpen}
+				onClose={() => setIsUpdateBillingAddressModalOpen(false)}
+				defaultValues={{
+					address1: user?.billing_address.address_1 ?? '',
+					address2: user?.billing_address.address_2 ?? '',
+					city: user?.billing_address.city ?? '',
+					countryCode: user?.billing_address.country?.iso_2 ?? '',
+					postalCode: user?.billing_address.postal_code ?? '',
+					company: user?.billing_address.company ?? ''
 				}}
 			/>
 		</>

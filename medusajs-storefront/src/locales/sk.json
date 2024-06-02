@@ -113,7 +113,14 @@
 			"firstNamePlaceholder": "Zadajte krstné meno",
 			"lastNamePlaceholder": "Zadajte priezvisko",
 			"emailPlaceholder": "Zadajte e-mail",
-			"submitButton": "Uložiť"
+			"submitButton": "Uložiť",
+			"enterAddress1": "Zadajte adresu 1",
+			"enterAddress2": "Zadajte adresu 2",
+			"enterCity": "Zadajte mesto",
+			"enterCountryCode": "Zadajte krajinu",
+			"enterPostalCode": "Zadajte poštový kód",
+			"enterCompany": "Zadajte firmu",
+			"countryCode": "Krajina"
 		},
 		"queryParams": {
 			"error": {

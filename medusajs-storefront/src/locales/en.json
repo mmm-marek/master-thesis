@@ -113,7 +113,14 @@
 			"firstNamePlaceholder": "Enter first name",
 			"lastNamePlaceholder": "Enter last name",
 			"emailPlaceholder": "Enter email",
-			"submitButton": "Submit"
+			"submitButton": "Submit",
+			"enterAddress1": "Enter address 1",
+			"enterAddress2": "Enter address 2",
+			"enterCity": "Enter city",
+			"enterCountryCode": "Enter country code",
+			"enterPostalCode": "Enter postal code",
+			"enterCompany": "Enter company",
+			"countryCode": "Country code"
 		},
 		"queryParams": {
 			"error": {
