@@ -1,4 +1,4 @@
-import { PencilIcon } from 'lucide-react'
+import { PencilIcon, PlusCircleIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
@@ -6,6 +6,7 @@ import Button from '@/atoms/Button/Button'
 import useCustomerProfile from '@/hooks/customer/useCustomerProfile'
 
 import * as SC from './ProfileStyles'
+import AddShippingAddressForm from './components/AddShippingAddressForm/AddShippingAddressForm'
 import UpdateBillingAddressForm from './components/UpdateAddressForm/UpdateAddressForm'
 import UpdateCustomerForm from './components/UpdateCustomerForm/UpdateCustomerForm'
 
@@ -31,6 +32,7 @@ const Profile = () => {
 
 	const [isUpdateCustomerModalOpen, setIsUpdateCustomerModalOpen] = useState(false)
 	const [isUpdateBillingAddressModalOpen, setIsUpdateBillingAddressModalOpen] = useState(false)
+	const [isAddShippingAddressModalOpen, setIsAddShippingAddressModalOpen] = useState(false)
 
 	const { data: user } = useCustomerProfile()
 
@@ -61,7 +63,10 @@ const Profile = () => {
 						<ProfileItem label={t('company')} value={user?.billing_address?.company} />
 					</div>
 					<div>
-						<SC.SubsectionHeading>{t('shippingAddresses')}</SC.SubsectionHeading>
+						<SC.SubsectionHeadingWrapper>
+							<SC.SubsectionHeading>{t('shippingAddresses')}</SC.SubsectionHeading>
+							<Button icon={<PlusCircleIcon />} size='middle' onClick={() => setIsAddShippingAddressModalOpen(true)} noBackground />
+						</SC.SubsectionHeadingWrapper>
 						{user?.shipping_addresses?.map((address) => (
 							<div key={address.id}>
 								<ProfileItem label={t('address1')} value={address.address_1} />
@@ -106,6 +111,7 @@ const Profile = () => {
 					company: user?.billing_address.company ?? ''
 				}}
 			/>
+			<AddShippingAddressForm open={isAddShippingAddressModalOpen} onClose={() => setIsAddShippingAddressModalOpen(false)} />
 		</>
 	)
 }
