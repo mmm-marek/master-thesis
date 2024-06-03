@@ -1,23 +1,25 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
 import type { WidgetConfig, ProductDetailsWidgetProps } from "@medusajs/admin";
-import {
-    ProductLocalizationSchemaType,
-    VariantsLocalizationSchemaType,
-} from "./localization-schemas";
-
 import { ProductLocalizationForm } from "./product-localization-form";
-import { medusa } from "../../../utils/medusa-helpers";
 import VariantsLocalizationForm from "./variants-localization-form";
 import { Button, Drawer } from "@medusajs/ui";
 import useGetRegions from "../../../hooks/useGetRegions";
+import useGetProduct from "../../../hooks/useGetProduct";
+import { useQueryClient } from "@tanstack/react-query";
+import { QUERY_KEYS } from "../../../utils/queryKeys";
 
 const ProductLocalizationWidget = ({
     product,
     notify,
 }: ProductDetailsWidgetProps) => {
+    const queryClient = useQueryClient();
     const { data: regions } = useGetRegions();
 
+    const { data: pricedProduct } = useGetProduct(product.id);
+
     const handleSuccess = () => {
+        queryClient.invalidateQueries({
+            queryKey: [QUERY_KEYS.API_GET_PRODUCT],
+        });
         notify.success("success", "Product localization updated");
     };
 
@@ -44,13 +46,13 @@ const ProductLocalizationWidget = ({
                             </Drawer.Header>
                             <Drawer.Body>
                                 <ProductLocalizationForm
-                                    product={product}
+                                    product={pricedProduct}
                                     regionId={region.id}
                                     onSuccess={handleSuccess}
                                     onError={handleError}
                                 />
                                 <VariantsLocalizationForm
-                                    product={product}
+                                    product={pricedProduct}
                                     regionId={region.id}
                                     onSuccess={handleSuccess}
                                     onError={handleError}

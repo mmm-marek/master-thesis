@@ -6,9 +6,10 @@ import {
 } from "./localization-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
 
 type VariantsLocalizationFormProps = {
-    product: Product;
+    product: PricedProduct;
     regionId: string;
     onSuccess: () => void;
     onError: () => void;

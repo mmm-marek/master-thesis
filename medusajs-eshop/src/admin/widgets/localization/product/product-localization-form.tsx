@@ -8,9 +8,10 @@ import { Button, Input, Textarea } from "@medusajs/ui";
 import { Product, ProductVariant } from "@medusajs/medusa";
 import { useMutation } from "@tanstack/react-query";
 import { medusa } from "../../../utils/medusa-helpers";
+import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
 
 type RegionLocalizationFormProps = {
-    product: Product;
+    product: PricedProduct;
     regionId: string;
     onSuccess: () => void;
     onError: () => void;
