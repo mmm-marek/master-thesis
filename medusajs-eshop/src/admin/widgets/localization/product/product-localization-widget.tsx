@@ -1,9 +1,14 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import type { WidgetConfig, ProductDetailsWidgetProps } from "@medusajs/admin";
-import { ProductLocalizationSchemaType } from "./product-localization-schemas";
+import {
+    ProductLocalizationSchemaType,
+    VariantsLocalizationSchemaType,
+} from "./product-localization-schemas";
 
 import { RegionLocalizationForm } from "./region-localization-form";
 import { medusa } from "../../../utils/medusa-helpers";
+import VariantsLocalizationForm from "./variants-localization-form";
+import { Button, Drawer } from "@medusajs/ui";
 
 const ProductLocalizationWidget = ({
     product,
@@ -45,7 +50,7 @@ const ProductLocalizationWidget = ({
         },
     });
 
-    const handleSubmit = (
+    const handleProductLocalizationSubmit = (
         regionId: string,
         data: ProductLocalizationSchemaType
     ) => {
@@ -53,6 +58,13 @@ const ProductLocalizationWidget = ({
             regionId,
             ...data,
         });
+    };
+
+    const handleVariantsLocalizationSubmit = (
+        regionId: string,
+        data: VariantsLocalizationSchemaType
+    ) => {
+        console.log("Data: ", data);
     };
 
     const getDefaultValues = (regionId: string) => {
@@ -70,26 +82,55 @@ const ProductLocalizationWidget = ({
                 const defaultValues = getDefaultValues(region.id);
 
                 return (
-                    <div key={region.id} className="mb-base">
-                        <h2 className="inter-large-semibold">
-                            Region {region.name}
-                        </h2>
-                        <RegionLocalizationForm
-                            regionId={region.id}
-                            variants={product.variants}
-                            onSubmit={(data) => {
-                                handleSubmit(region.id, data);
-                            }}
-                            defaultValues={{
-                                title: defaultValues.title,
-                                subtitle: defaultValues.subtitle,
-                                description: defaultValues.description,
-                                handle: defaultValues.handle,
-                                material: defaultValues.material,
-                                variants: defaultValues.variants,
-                            }}
-                        />
-                    </div>
+                    <Drawer key={region.id}>
+                        <Drawer.Trigger asChild>
+                            <Button>
+                                <h2 className="inter-large-semibold">
+                                    Region {region.name}
+                                </h2>
+                            </Button>
+                        </Drawer.Trigger>
+                        <Drawer.Content className="w-[700px] right-0">
+                            <Drawer.Header>
+                                <Drawer.Title>Localize product</Drawer.Title>
+                            </Drawer.Header>
+                            <Drawer.Body>
+                                <RegionLocalizationForm
+                                    regionId={region.id}
+                                    variants={product.variants}
+                                    onSubmit={(data) => {
+                                        handleProductLocalizationSubmit(
+                                            region.id,
+                                            data
+                                        );
+                                    }}
+                                    defaultValues={{
+                                        title: defaultValues.title,
+                                        subtitle: defaultValues.subtitle,
+                                        description: defaultValues.description,
+                                        handle: defaultValues.handle,
+                                        material: defaultValues.material,
+                                    }}
+                                />
+                                <VariantsLocalizationForm
+                                    variants={product.variants}
+                                    productId={product.id}
+                                    regionId={region.id}
+                                    onSubmit={(data) => {
+                                        handleVariantsLocalizationSubmit(
+                                            region.id,
+                                            data
+                                        );
+                                    }}
+                                />
+                            </Drawer.Body>
+                            <Drawer.Footer>
+                                <Drawer.Close asChild>
+                                    <Button variant="secondary">Close</Button>
+                                </Drawer.Close>
+                            </Drawer.Footer>
+                        </Drawer.Content>
+                    </Drawer>
                 );
             })}
         </div>

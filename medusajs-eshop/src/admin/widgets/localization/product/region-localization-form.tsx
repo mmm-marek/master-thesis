@@ -4,7 +4,7 @@ import {
     ProductLocalizationSchemaType,
 } from "./product-localization-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Input } from "@medusajs/ui";
+import { Button, Input, Textarea } from "@medusajs/ui";
 import { ProductVariant } from "@medusajs/medusa";
 
 type RegionLocalizationFormProps = {
@@ -63,7 +63,7 @@ export const RegionLocalizationForm = ({
                     htmlFor={`${regionId}-description`}>
                     Description
                 </label>
-                <Input
+                <Textarea
                     placeholder="Description"
                     {...register("description")}
                     id={`${regionId}-description`}
@@ -93,25 +93,6 @@ export const RegionLocalizationForm = ({
                     id={`${regionId}-material`}
                 />
             </div>
-            {variants.map((variant, index) => (
-                <div key={index}>
-                    <label
-                        className="text-grey-90 inter-xsmall-semibold"
-                        htmlFor={`${regionId}-variants.${index}.title`}>
-                        Variant {variant.title}
-                    </label>
-                    <Input
-                        id={`${regionId}-variants.${index}.title`}
-                        {...register(`variants.${index}.title`)}
-                        placeholder={`Input ${index + 1}`}
-                    />
-                    <input
-                        type="hidden"
-                        {...register(`variants.${index}.variant_id`)}
-                        value={variant.id}
-                    />
-                </div>
-            ))}
             <div className="w-full flex justify-end">
                 <Button type="submit" size="large">
                     Save
