@@ -69,32 +69,37 @@ const VariantsLocalizationForm = ({
     };
 
     return (
-        <form
-            className="flex flex-col gap-4"
-            onSubmit={handleSubmit(onSubmitHandler)}>
-            {product.variants.map((variant, index) => (
-                <div key={index}>
-                    <label
-                        className="text-grey-90 inter-xsmall-semibold"
-                        htmlFor={`${regionId}-variants.${index}.title`}>
-                        Variant {variant.title}
-                    </label>
-                    <Input
-                        id={`${regionId}-variants.${index}.title`}
-                        {...register(`variants.${index}.title`)}
-                        placeholder={`Input ${index + 1}`}
-                    />
-                    <input
-                        type="hidden"
-                        {...register(`variants.${index}.variant_id`)}
-                        value={variant.id}
-                    />
+        <>
+            <h4 className="inter-large-semibold">Variants</h4>
+            <form
+                className="flex flex-col gap-4"
+                onSubmit={handleSubmit(onSubmitHandler)}>
+                {product.variants.map((variant, index) => (
+                    <div key={index}>
+                        <label
+                            className="text-grey-90 inter-xsmall-semibold"
+                            htmlFor={`${regionId}-variants.${index}.title`}>
+                            Variant {variant.title}
+                        </label>
+                        <Input
+                            id={`${regionId}-variants.${index}.title`}
+                            {...register(`variants.${index}.title`)}
+                            placeholder={"Title"}
+                        />
+                        <input
+                            type="hidden"
+                            {...register(`variants.${index}.variant_id`)}
+                            value={variant.id}
+                        />
+                    </div>
+                ))}
+                <div className="w-full flex justify-end">
+                    <Button type="submit" size="large">
+                        Save
+                    </Button>
                 </div>
-            ))}
-            <Button type="submit" size="large">
-                Save
-            </Button>
-        </form>
+            </form>
+        </>
     );
 };
 
