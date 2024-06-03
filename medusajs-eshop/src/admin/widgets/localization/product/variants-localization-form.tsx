@@ -7,6 +7,9 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
+import { useMutation } from "@tanstack/react-query";
+import { medusa } from "../../../utils/medusa-helpers";
+import { title } from "process";
 
 type VariantsLocalizationFormProps = {
     product: PricedProduct;
@@ -18,13 +21,51 @@ type VariantsLocalizationFormProps = {
 const VariantsLocalizationForm = ({
     product,
     regionId,
+    onSuccess,
+    onError,
 }: VariantsLocalizationFormProps) => {
     const { register, handleSubmit } = useForm<VariantsLocalizationSchemaType>({
         resolver: zodResolver(VariantsLocalizationSchema),
+        defaultValues: {
+            variants: product.variants.map((variant) => ({
+                variant_id: variant.id,
+                title: variant.metadata?.localization?.[regionId]?.title,
+            })),
+        },
+    });
+
+    const { mutate: updateVariants } = useMutation({
+        mutationFn: async (data: VariantsLocalizationSchemaType) => {
+            const promises = data.variants.map((variant) => {
+                const previousLocalizationData =
+                    (product.variants.find((v) => v.id === variant.variant_id)
+                        ?.metadata?.localization as {}) ?? {};
+
+                return medusa.admin.products.updateVariant(
+                    product.id,
+                    variant.variant_id,
+                    {
+                        metadata: {
+                            localization: {
+                                ...(previousLocalizationData || {}),
+                                [regionId]: {
+                                    title: variant.title,
+                                },
+                            },
+                        },
+                    }
+                );
+            });
+            const res = await Promise.all(promises);
+            return res;
+        },
     });
 
     const onSubmitHandler = (data: VariantsLocalizationSchemaType) => {
-        console.log(data);
+        updateVariants(data, {
+            onSuccess,
+            onError,
+        });
     };
 
     return (
@@ -47,11 +88,6 @@ const VariantsLocalizationForm = ({
                         type="hidden"
                         {...register(`variants.${index}.variant_id`)}
                         value={variant.id}
-                    />
-                    <input
-                        type="hidden"
-                        {...register(`variants.${index}.product_id`)}
-                        value={product.id}
                     />
                 </div>
             ))}

@@ -4,7 +4,6 @@ export const VariantsLocalizationSchema = z.object({
     variants: z.array(
         z.object({
             variant_id: z.string(),
-            product_id: z.string(),
             title: z.string(),
         })
     ),
