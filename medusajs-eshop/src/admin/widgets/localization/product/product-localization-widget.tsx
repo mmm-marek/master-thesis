@@ -3,84 +3,32 @@ import type { WidgetConfig, ProductDetailsWidgetProps } from "@medusajs/admin";
 import {
     ProductLocalizationSchemaType,
     VariantsLocalizationSchemaType,
-} from "./product-localization-schemas";
+} from "./localization-schemas";
 
-import { RegionLocalizationForm } from "./region-localization-form";
+import { ProductLocalizationForm } from "./product-localization-form";
 import { medusa } from "../../../utils/medusa-helpers";
 import VariantsLocalizationForm from "./variants-localization-form";
 import { Button, Drawer } from "@medusajs/ui";
+import useGetRegions from "../../../hooks/useGetRegions";
 
 const ProductLocalizationWidget = ({
     product,
     notify,
 }: ProductDetailsWidgetProps) => {
-    const { data: regions } = useQuery({
-        queryKey: ["regions"],
-        queryFn: async () => {
-            const { regions } = await medusa.admin.regions.list();
-            return regions;
-        },
-    });
+    const { data: regions } = useGetRegions();
 
-    const { mutate: updateProduct } = useMutation({
-        mutationFn: async (
-            data: ProductLocalizationSchemaType & { regionId: string }
-        ) => {
-            const { product: newProduct } = await medusa.admin.products.update(
-                product.id,
-                {
-                    metadata: {
-                        ...product.metadata,
-                        localization: {
-                            ...(product.metadata?.localization
-                                ? (product.metadata?.localization as {})
-                                : {}),
-                            [data.regionId]: data,
-                        },
-                    },
-                }
-            );
-            return newProduct;
-        },
-        onSuccess: () => {
-            notify.success("success", "Product localization updated");
-        },
-        onError: () => {
-            notify.error("error", "Product localization update failed");
-        },
-    });
-
-    const handleProductLocalizationSubmit = (
-        regionId: string,
-        data: ProductLocalizationSchemaType
-    ) => {
-        updateProduct({
-            regionId,
-            ...data,
-        });
+    const handleSuccess = () => {
+        notify.success("success", "Product localization updated");
     };
 
-    const handleVariantsLocalizationSubmit = (
-        regionId: string,
-        data: VariantsLocalizationSchemaType
-    ) => {
-        console.log("Data: ", data);
-    };
-
-    const getDefaultValues = (regionId: string) => {
-        const localization = product.metadata?.localization;
-        if (localization && localization[regionId]) {
-            return localization[regionId];
-        }
-        return {};
+    const handleError = () => {
+        notify.error("error", "Product localization update failed");
     };
 
     return (
         <div className="bg-white p-8 border border-gray-200 rounded-lg">
             <h1 className="text-grey-90 inter-xlarge-semibold">Localization</h1>
             {regions?.map((region) => {
-                const defaultValues = getDefaultValues(region.id);
-
                 return (
                     <Drawer key={region.id}>
                         <Drawer.Trigger asChild>
@@ -95,33 +43,17 @@ const ProductLocalizationWidget = ({
                                 <Drawer.Title>Localize product</Drawer.Title>
                             </Drawer.Header>
                             <Drawer.Body>
-                                <RegionLocalizationForm
+                                <ProductLocalizationForm
+                                    product={product}
                                     regionId={region.id}
-                                    variants={product.variants}
-                                    onSubmit={(data) => {
-                                        handleProductLocalizationSubmit(
-                                            region.id,
-                                            data
-                                        );
-                                    }}
-                                    defaultValues={{
-                                        title: defaultValues.title,
-                                        subtitle: defaultValues.subtitle,
-                                        description: defaultValues.description,
-                                        handle: defaultValues.handle,
-                                        material: defaultValues.material,
-                                    }}
+                                    onSuccess={handleSuccess}
+                                    onError={handleError}
                                 />
                                 <VariantsLocalizationForm
-                                    variants={product.variants}
-                                    productId={product.id}
+                                    product={product}
                                     regionId={region.id}
-                                    onSubmit={(data) => {
-                                        handleVariantsLocalizationSubmit(
-                                            region.id,
-                                            data
-                                        );
-                                    }}
+                                    onSuccess={handleSuccess}
+                                    onError={handleError}
                                 />
                             </Drawer.Body>
                             <Drawer.Footer>

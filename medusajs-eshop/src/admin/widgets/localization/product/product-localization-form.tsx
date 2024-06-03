@@ -2,31 +2,68 @@ import { useForm } from "react-hook-form";
 import {
     ProductLocalizationSchema,
     ProductLocalizationSchemaType,
-} from "./product-localization-schemas";
+} from "./localization-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input, Textarea } from "@medusajs/ui";
-import { ProductVariant } from "@medusajs/medusa";
+import { Product, ProductVariant } from "@medusajs/medusa";
+import { useMutation } from "@tanstack/react-query";
+import { medusa } from "../../../utils/medusa-helpers";
 
 type RegionLocalizationFormProps = {
+    product: Product;
     regionId: string;
-    variants: ProductVariant[];
-    onSubmit: (data: ProductLocalizationSchemaType) => void;
-    defaultValues: Partial<ProductLocalizationSchemaType>;
+    onSuccess: () => void;
+    onError: () => void;
 };
 
-export const RegionLocalizationForm = ({
+export const ProductLocalizationForm = ({
+    product,
     regionId,
-    variants,
-    onSubmit,
-    defaultValues,
+    onError,
+    onSuccess,
 }: RegionLocalizationFormProps) => {
+    const { mutate: updateProduct } = useMutation({
+        mutationFn: async (
+            data: ProductLocalizationSchemaType & { regionId: string }
+        ) => {
+            const { product: newProduct } = await medusa.admin.products.update(
+                product.id,
+                {
+                    metadata: {
+                        ...product.metadata,
+                        localization: {
+                            ...(product.metadata?.localization
+                                ? (product.metadata?.localization as {})
+                                : {}),
+                            [data.regionId]: data,
+                        },
+                    },
+                }
+            );
+            return newProduct;
+        },
+        onSuccess,
+        onError,
+    });
+
+    const getDefaultValues = (regionId: string) => {
+        const localization = product.metadata?.localization;
+        if (localization && localization[regionId]) {
+            return localization[regionId];
+        }
+        return {};
+    };
+
     const { register, handleSubmit } = useForm<ProductLocalizationSchemaType>({
         resolver: zodResolver(ProductLocalizationSchema),
-        defaultValues,
+        defaultValues: getDefaultValues(regionId),
     });
 
     const onSubmitHandler = (data: ProductLocalizationSchemaType) => {
-        onSubmit(data);
+        updateProduct({
+            regionId,
+            ...data,
+        });
     };
 
     return (

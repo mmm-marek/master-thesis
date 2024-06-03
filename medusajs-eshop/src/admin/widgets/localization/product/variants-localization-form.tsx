@@ -1,38 +1,36 @@
-import { ProductVariant } from "@medusajs/medusa";
+import { Product, ProductVariant } from "@medusajs/medusa";
 import { Button, Input } from "@medusajs/ui";
 import {
     VariantsLocalizationSchema,
     VariantsLocalizationSchemaType,
-} from "./product-localization-schemas";
+} from "./localization-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 type VariantsLocalizationFormProps = {
-    variants: ProductVariant[];
-    productId: string;
+    product: Product;
     regionId: string;
-    onSubmit: (data: VariantsLocalizationSchemaType) => void;
+    onSuccess: () => void;
+    onError: () => void;
 };
 
 const VariantsLocalizationForm = ({
-    variants,
-    productId,
+    product,
     regionId,
-    onSubmit,
 }: VariantsLocalizationFormProps) => {
     const { register, handleSubmit } = useForm<VariantsLocalizationSchemaType>({
         resolver: zodResolver(VariantsLocalizationSchema),
     });
 
     const onSubmitHandler = (data: VariantsLocalizationSchemaType) => {
-        onSubmit(data);
+        console.log(data);
     };
 
     return (
         <form
             className="flex flex-col gap-4"
             onSubmit={handleSubmit(onSubmitHandler)}>
-            {variants.map((variant, index) => (
+            {product.variants.map((variant, index) => (
                 <div key={index}>
                     <label
                         className="text-grey-90 inter-xsmall-semibold"
@@ -52,7 +50,7 @@ const VariantsLocalizationForm = ({
                     <input
                         type="hidden"
                         {...register(`variants.${index}.product_id`)}
-                        value={productId}
+                        value={product.id}
                     />
                 </div>
             ))}
