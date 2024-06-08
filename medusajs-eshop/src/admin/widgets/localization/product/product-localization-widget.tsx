@@ -1,6 +1,6 @@
 import type { WidgetConfig, ProductDetailsWidgetProps } from "@medusajs/admin";
-import { ProductLocalizationForm } from "./product-localization-form";
-import VariantsLocalizationForm from "./variants-localization-form";
+import { ProductLocalizationForm } from "../../../components/localization/product-localization-form";
+import { VariantsLocalizationForm } from "../../../components/localization/variants-localization-form";
 import { Button, Container, Drawer } from "@medusajs/ui";
 import useGetRegions from "../../../hooks/useGetRegions";
 import useGetProduct from "../../../hooks/useGetProduct";

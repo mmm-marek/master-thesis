@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { QUERY_KEYS } from "../utils/queryKeys";
 import { medusa } from "../utils/medusa-helpers";
-import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
 
 const useGetProduct = (productId: string) => {
     return useQuery({

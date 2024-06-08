@@ -1,15 +1,12 @@
-import { Product, ProductVariant } from "@medusajs/medusa";
 import { Button, Input } from "@medusajs/ui";
 import {
     VariantsLocalizationSchema,
     VariantsLocalizationSchemaType,
-} from "./localization-schemas";
+} from "../../schemas/localization-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
-import { useMutation } from "@tanstack/react-query";
-import { medusa } from "../../../utils/medusa-helpers";
-import { title } from "process";
+import useLocalizeVaraint from "../../hooks/useLocalizeVaraint";
 
 type VariantsLocalizationFormProps = {
     product: PricedProduct;
@@ -18,7 +15,7 @@ type VariantsLocalizationFormProps = {
     onError: () => void;
 };
 
-const VariantsLocalizationForm = ({
+export const VariantsLocalizationForm = ({
     product,
     regionId,
     onSuccess,
@@ -34,32 +31,7 @@ const VariantsLocalizationForm = ({
         },
     });
 
-    const { mutate: updateVariants } = useMutation({
-        mutationFn: async (data: VariantsLocalizationSchemaType) => {
-            const promises = data.variants.map((variant) => {
-                const previousLocalizationData =
-                    (product.variants.find((v) => v.id === variant.variant_id)
-                        ?.metadata?.localization as {}) ?? {};
-
-                return medusa.admin.products.updateVariant(
-                    product.id,
-                    variant.variant_id,
-                    {
-                        metadata: {
-                            localization: {
-                                ...(previousLocalizationData || {}),
-                                [regionId]: {
-                                    title: variant.title,
-                                },
-                            },
-                        },
-                    }
-                );
-            });
-            const res = await Promise.all(promises);
-            return res;
-        },
-    });
+    const { mutate: updateVariants } = useLocalizeVaraint(product, regionId);
 
     const onSubmitHandler = (data: VariantsLocalizationSchemaType) => {
         updateVariants(data, {
@@ -102,5 +74,3 @@ const VariantsLocalizationForm = ({
         </>
     );
 };
-
-export default VariantsLocalizationForm;

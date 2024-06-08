@@ -2,13 +2,11 @@ import { useForm } from "react-hook-form";
 import {
     ProductLocalizationSchema,
     ProductLocalizationSchemaType,
-} from "./localization-schemas";
+} from "../../schemas/localization-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input, Textarea } from "@medusajs/ui";
-import { Product, ProductVariant } from "@medusajs/medusa";
-import { useMutation } from "@tanstack/react-query";
-import { medusa } from "../../../utils/medusa-helpers";
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
+import useLocalizeProduct from "../../hooks/useLocalizeProduct";
 
 type RegionLocalizationFormProps = {
     product: PricedProduct;
@@ -23,29 +21,7 @@ export const ProductLocalizationForm = ({
     onError,
     onSuccess,
 }: RegionLocalizationFormProps) => {
-    const { mutate: updateProduct } = useMutation({
-        mutationFn: async (
-            data: ProductLocalizationSchemaType & { regionId: string }
-        ) => {
-            const { product: newProduct } = await medusa.admin.products.update(
-                product.id,
-                {
-                    metadata: {
-                        ...product.metadata,
-                        localization: {
-                            ...(product.metadata?.localization
-                                ? (product.metadata?.localization as {})
-                                : {}),
-                            [data.regionId]: data,
-                        },
-                    },
-                }
-            );
-            return newProduct;
-        },
-        onSuccess,
-        onError,
-    });
+    const { mutate: updateProduct } = useLocalizeProduct(product);
 
     const getDefaultValues = (regionId: string) => {
         const localization = product.metadata?.localization;
@@ -61,10 +37,16 @@ export const ProductLocalizationForm = ({
     });
 
     const onSubmitHandler = (data: ProductLocalizationSchemaType) => {
-        updateProduct({
-            regionId,
-            ...data,
-        });
+        updateProduct(
+            {
+                regionId,
+                ...data,
+            },
+            {
+                onSuccess,
+                onError,
+            }
+        );
     };
 
     return (
