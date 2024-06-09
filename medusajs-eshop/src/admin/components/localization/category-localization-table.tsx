@@ -30,7 +30,7 @@ const CategoryLocalizationTable = ({
     }
 
     return (
-        <>
+        <div>
             <Heading level="h2">Categories</Heading>
             <Table>
                 <Table.Header>
@@ -71,7 +71,7 @@ const CategoryLocalizationTable = ({
                     })}
                 </Table.Body>
             </Table>
-        </>
+        </div>
     );
 };
 
