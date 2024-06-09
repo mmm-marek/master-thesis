@@ -1,11 +1,10 @@
+import { Container } from "@medusajs/ui";
+import { useQueryClient } from "@tanstack/react-query";
 import type { WidgetConfig, ProductDetailsWidgetProps } from "@medusajs/admin";
-import { ProductLocalizationForm } from "../../components/localization/product-localization-form";
-import { VariantsLocalizationForm } from "../../components/localization/variants-localization-form";
-import { Button, Container, Drawer } from "@medusajs/ui";
+import { QUERY_KEYS } from "../../utils/queryKeys";
 import useGetRegions from "../../hooks/useGetRegions";
 import useGetProduct from "../../hooks/useGetProduct";
-import { useQueryClient } from "@tanstack/react-query";
-import { QUERY_KEYS } from "../../utils/queryKeys";
+import ProductLocalizationDrawer from "../../components/localization/product-localization-drawer";
 
 const ProductLocalizationWidget = ({
     product,
@@ -33,46 +32,13 @@ const ProductLocalizationWidget = ({
             <div className="flex gap-4 flex-wrap">
                 {regions?.map((region) => {
                     return (
-                        <Drawer key={region.id}>
-                            <Drawer.Trigger asChild>
-                                <Button className="inter-large-semibold">
-                                    Region {region.name}
-                                </Button>
-                            </Drawer.Trigger>
-                            <Drawer.Content className="w-[700px] right-0">
-                                <Drawer.Header>
-                                    <Drawer.Title>
-                                        <h2 className="inter-large-semibold">
-                                            Localize {product.title}
-                                        </h2>
-                                        <p className="inter-base-regular">
-                                            Region {region.name}
-                                        </p>
-                                    </Drawer.Title>
-                                </Drawer.Header>
-                                <Drawer.Body className="overflow-auto">
-                                    <ProductLocalizationForm
-                                        product={pricedProduct}
-                                        regionId={region.id}
-                                        onSuccess={handleSuccess}
-                                        onError={handleError}
-                                    />
-                                    <VariantsLocalizationForm
-                                        product={pricedProduct}
-                                        regionId={region.id}
-                                        onSuccess={handleSuccess}
-                                        onError={handleError}
-                                    />
-                                </Drawer.Body>
-                                <Drawer.Footer>
-                                    <Drawer.Close asChild>
-                                        <Button variant="secondary">
-                                            Close
-                                        </Button>
-                                    </Drawer.Close>
-                                </Drawer.Footer>
-                            </Drawer.Content>
-                        </Drawer>
+                        <ProductLocalizationDrawer
+                            key={region.id}
+                            product={pricedProduct}
+                            region={region}
+                            onSuccess={handleSuccess}
+                            onError={handleError}
+                        />
                     );
                 })}
             </div>
