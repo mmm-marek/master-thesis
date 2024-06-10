@@ -102,7 +102,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 		return null
 	}
 
-	const setRegion = async (regionId: string, storeCountryCode: string) => {
+	const setRegion = async (regionId: string, countryISO: string) => {
 		await updateCart.mutateAsync(
 			{
 				region_id: regionId
@@ -111,7 +111,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				onSuccess: ({ cart: newCart }) => {
 					setCart(newCart)
 					storeCart(newCart.id)
-					storeRegion(regionId, storeCountryCode)
+					storeRegion(regionId, countryISO)
 				},
 				onError: (error) => {
 					if (process.env.NODE_ENV === 'development') {
@@ -225,7 +225,6 @@ export const StoreProvider = ({ children }: StoreProps) => {
 			},
 			{
 				onSuccess: ({ cart: newCart }) => {
-					console.log(newCart)
 					setCart(newCart)
 					storeCart(newCart.id)
 				},
