@@ -1,22 +1,20 @@
-import { useState, useMemo } from "react";
-import { Button, Heading, Table } from "@medusajs/ui";
-import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
+import { useState } from "react";
+import { RouteProps } from "@medusajs/admin";
+import { Heading, Table } from "@medusajs/ui";
+import { useQueryClient } from "@tanstack/react-query";
 import useGetRegions from "../../hooks/useGetRegions";
 import useGetProducts, { PRODUCTS_LIMIT } from "../../hooks/useGetProducts";
 import Loading from "../shared/loading";
 import Error from "../shared/error";
 import ProductLocalizationDrawer from "./product-localization-drawer";
-import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "../../utils/queryKeys";
 
 type ProductLocalizationTableProps = {
-    onSuccess: () => void;
-    onError: () => void;
+    notify: RouteProps["notify"];
 };
 
 const ProductLocalizationTable = ({
-    onSuccess,
-    onError,
+    notify,
 }: ProductLocalizationTableProps) => {
     const queryClient = useQueryClient();
     const [page, setPage] = useState(0);
@@ -44,7 +42,11 @@ const ProductLocalizationTable = ({
         queryClient.invalidateQueries({
             queryKey: [QUERY_KEYS.API_GET_PRODUCTS, page],
         });
-        onSuccess();
+        notify.success("success", "product localization updated");
+    };
+
+    const handleError = () => {
+        notify.error("error", "product localization update failed");
     };
 
     const pageCount = Math.ceil(productsData.count / PRODUCTS_LIMIT);
@@ -82,7 +84,7 @@ const ProductLocalizationTable = ({
                                                 product={product}
                                                 region={region}
                                                 onSuccess={handleSuccess}
-                                                onError={onError}
+                                                onError={handleError}
                                             />
                                         );
                                     })}

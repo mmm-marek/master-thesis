@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { RouteProps } from "@medusajs/admin";
 import { Heading, Table } from "@medusajs/ui";
+import { useQueryClient } from "@tanstack/react-query";
 import useGetCategories, {
     CATEGORIES_LIMIT,
 } from "../../hooks/useGetCategories";
@@ -7,17 +9,14 @@ import useGetRegions from "../../hooks/useGetRegions";
 import Loading from "../shared/loading";
 import Error from "../shared/error";
 import CategoryLocalizationDrawer from "./category-localization-drawer";
-import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "../../utils/queryKeys";
 
 type CategoryLocalizationTableProps = {
-    onSuccess: () => void;
-    onError: () => void;
+    notify: RouteProps["notify"];
 };
 
 const CategoryLocalizationTable = ({
-    onSuccess,
-    onError,
+    notify,
 }: CategoryLocalizationTableProps) => {
     const queryClient = useQueryClient();
     const [page, setPage] = useState(0);
@@ -46,7 +45,11 @@ const CategoryLocalizationTable = ({
         queryClient.invalidateQueries({
             queryKey: [QUERY_KEYS.API_GET_CATEGORIES],
         });
-        onSuccess();
+        notify.success("success", "category localization updated");
+    };
+
+    const handleError = () => {
+        notify.error("error", "category localization update failed");
     };
 
     const pageCount = Math.ceil(categoriesData.count / CATEGORIES_LIMIT);
@@ -84,7 +87,7 @@ const CategoryLocalizationTable = ({
                                                 category={category}
                                                 region={region}
                                                 onSuccess={handleSuccess}
-                                                onError={onError}
+                                                onError={handleError}
                                             />
                                         );
                                     })}
