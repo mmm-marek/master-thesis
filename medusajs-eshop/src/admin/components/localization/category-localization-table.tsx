@@ -1,7 +1,10 @@
-import { Button, Heading, Table } from "@medusajs/ui";
-import useGetCategories from "../../hooks/useGetCategories";
-import useGetRegions from "../../hooks/useGetRegions";
+import { useState } from "react";
 import { ProductCategory } from "@medusajs/medusa";
+import { Button, Heading, Table } from "@medusajs/ui";
+import useGetCategories, {
+    CATEGORIES_LIMIT,
+} from "../../hooks/useGetCategories";
+import useGetRegions from "../../hooks/useGetRegions";
 import Loading from "../shared/loading";
 import Error from "../shared/error";
 
@@ -12,16 +15,19 @@ type CategoryLocalizationTableProps = {
 const CategoryLocalizationTable = ({
     onLocalizeCategory,
 }: CategoryLocalizationTableProps) => {
+    const [page, setPage] = useState(0);
+
     const {
         data: regions,
         isLoading: regionsLoading,
         isError: regionsError,
     } = useGetRegions();
+
     const {
-        data: categories,
+        data: categoriesData,
         isLoading: categoriesLoading,
         isError: categoriesError,
-    } = useGetCategories();
+    } = useGetCategories(page);
 
     if (regionsLoading || categoriesLoading) {
         return <Loading />;
@@ -30,6 +36,8 @@ const CategoryLocalizationTable = ({
     if (regionsError || categoriesError) {
         return <Error />;
     }
+
+    const pageCount = Math.ceil(categoriesData.count / CATEGORIES_LIMIT);
 
     return (
         <div>
@@ -46,7 +54,7 @@ const CategoryLocalizationTable = ({
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {categories.map((category) => {
+                    {categoriesData.product_categories.map((category) => {
                         return (
                             <Table.Row key={category.id}>
                                 <Table.Cell>{category.name}</Table.Cell>
@@ -75,6 +83,16 @@ const CategoryLocalizationTable = ({
                     })}
                 </Table.Body>
             </Table>
+            <Table.Pagination
+                count={categoriesData.count}
+                pageSize={CATEGORIES_LIMIT}
+                pageIndex={page}
+                pageCount={pageCount}
+                canPreviousPage={page > 0}
+                canNextPage={page < pageCount - 1}
+                nextPage={() => setPage((prevPage) => prevPage + 1)}
+                previousPage={() => setPage((prevPage) => prevPage - 1)}
+            />
         </div>
     );
 };

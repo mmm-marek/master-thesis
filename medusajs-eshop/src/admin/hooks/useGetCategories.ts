@@ -2,13 +2,17 @@ import { useQuery } from "@tanstack/react-query";
 import { QUERY_KEYS } from "../utils/queryKeys";
 import { medusa } from "../utils/medusa-helpers";
 
-const useGetCategories = () => {
+export const CATEGORIES_LIMIT = 20;
+
+const useGetCategories = (page: number) => {
     return useQuery({
-        queryKey: [QUERY_KEYS.API_GET_CATEGORIES],
+        queryKey: [QUERY_KEYS.API_GET_CATEGORIES, page],
         queryFn: async () => {
-            const { product_categories } =
-                await medusa.admin.productCategories.list();
-            return product_categories;
+            const res = await medusa.admin.productCategories.list({
+                limit: CATEGORIES_LIMIT,
+                offset: page * CATEGORIES_LIMIT,
+            });
+            return res;
         },
     });
 };
