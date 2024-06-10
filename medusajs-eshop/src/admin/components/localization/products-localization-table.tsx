@@ -1,7 +1,8 @@
-import { useState } from "react";
+import debounce from "lodash.debounce";
+import { Table, Input } from "@medusajs/ui";
 import { RouteProps } from "@medusajs/admin";
-import { Heading, Table } from "@medusajs/ui";
 import { useQueryClient } from "@tanstack/react-query";
+import { useState, useMemo, useCallback, ChangeEvent } from "react";
 import useGetRegions from "../../hooks/useGetRegions";
 import useGetProducts, { PRODUCTS_LIMIT } from "../../hooks/useGetProducts";
 import Loading from "../shared/loading";
@@ -20,6 +21,7 @@ const ProductLocalizationTable = ({
 }: ProductLocalizationTableProps) => {
     const queryClient = useQueryClient();
     const [page, setPage] = useState(0);
+    const [search, setSearch] = useState("");
 
     const {
         data: regions,
@@ -29,17 +31,9 @@ const ProductLocalizationTable = ({
 
     const {
         data: productsData,
-        isLoading: productsLoading,
+        isInitialLoading: productsLoading,
         isError: productsError,
-    } = useGetProducts(page);
-
-    if (regionsLoading || productsLoading) {
-        return <Loading />;
-    }
-
-    if (regionsError || productsError) {
-        return <Error />;
-    }
+    } = useGetProducts(page, search);
 
     const handleSuccess = () => {
         queryClient.invalidateQueries({
@@ -52,10 +46,37 @@ const ProductLocalizationTable = ({
         notify.error("error", "product localization update failed");
     };
 
+    const handleSearchChange = useCallback(
+        (e: ChangeEvent<HTMLInputElement>) => {
+            setPage(0);
+            setSearch(e.target.value);
+        },
+        []
+    );
+
+    const debouncedHandleSearchChange = useMemo(
+        () => debounce(handleSearchChange, 500),
+        [handleSearchChange]
+    );
+
+    if (regionsLoading || productsLoading) {
+        return <Loading />;
+    }
+
+    if (regionsError || productsError) {
+        return <Error />;
+    }
+
     const pageCount = Math.ceil(productsData.count / PRODUCTS_LIMIT);
 
     return (
-        <div>
+        <div className="relative">
+            <Input
+                placeholder="Search"
+                className="absolute right-0 top-[-42px] w-80"
+                onChange={debouncedHandleSearchChange}
+            />
+            <Table></Table>
             <Table>
                 <Table.Header>
                     <Table.Row>

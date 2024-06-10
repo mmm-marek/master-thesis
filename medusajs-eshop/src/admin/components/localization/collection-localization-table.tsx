@@ -30,7 +30,7 @@ const CollectionLocalizationTable = ({
 
     const {
         data: categoriesData,
-        isLoading: collectionsLoading,
+        isInitialLoading: collectionsLoading,
         isError: collectionsError,
     } = useGetCollections(page);
 

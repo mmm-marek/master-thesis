@@ -14,6 +14,7 @@ const useGetCategories = (page: number) => {
             });
             return res;
         },
+        keepPreviousData: true,
     });
 };
 

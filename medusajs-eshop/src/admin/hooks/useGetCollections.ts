@@ -14,6 +14,7 @@ const useGetCollections = (page: number) => {
             });
             return res;
         },
+        keepPreviousData: true,
     });
 };
 

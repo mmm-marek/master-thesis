@@ -30,7 +30,7 @@ const CategoryLocalizationTable = ({
 
     const {
         data: categoriesData,
-        isLoading: categoriesLoading,
+        isInitialLoading: categoriesLoading,
         isError: categoriesError,
     } = useGetCategories(page);
 
