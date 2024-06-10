@@ -1,5 +1,6 @@
 import { ProductCategory, Region } from "@medusajs/medusa";
 import { Button, Drawer } from "@medusajs/ui";
+import CategoryLocalizationForm from "./category-localization-form";
 
 type ProductLocalizationDrawerProps = {
     category: ProductCategory;
@@ -31,7 +32,12 @@ const CategoryLocalizationDrawer = ({
                     </Drawer.Title>
                 </Drawer.Header>
                 <Drawer.Body className="overflow-auto">
-                    <div>CATEGORY LOCALIZATION FORM</div>
+                    <CategoryLocalizationForm
+                        category={category}
+                        regionId={region.id}
+                        onSuccess={onSuccess}
+                        onError={onError}
+                    />
                 </Drawer.Body>
                 <Drawer.Footer>
                     <Drawer.Close asChild>

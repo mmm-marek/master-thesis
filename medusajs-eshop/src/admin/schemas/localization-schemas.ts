@@ -17,10 +17,20 @@ export const ProductLocalizationSchema = z.object({
     material: z.string(),
 });
 
+export const CategoryLocalizationSchema = z.object({
+    name: z.string(),
+    handle: z.string(),
+    description: z.string(),
+});
+
 export type ProductLocalizationSchemaType = z.infer<
     typeof ProductLocalizationSchema
 >;
 
 export type VariantsLocalizationSchemaType = z.infer<
     typeof VariantsLocalizationSchema
+>;
+
+export type CategoryLocalizationSchemaType = z.infer<
+    typeof CategoryLocalizationSchema
 >;
