@@ -2,7 +2,7 @@ import { ProductCategory, Region } from "@medusajs/medusa";
 import { Button, Drawer } from "@medusajs/ui";
 import CategoryLocalizationForm from "./category-localization-form";
 
-type ProductLocalizationDrawerProps = {
+type CategoryLocalizationDrawerProps = {
     category: ProductCategory;
     region: Region;
     onSuccess: () => void;
@@ -14,7 +14,7 @@ const CategoryLocalizationDrawer = ({
     category,
     onSuccess,
     onError,
-}: ProductLocalizationDrawerProps) => {
+}: CategoryLocalizationDrawerProps) => {
     return (
         <Drawer key={region.id}>
             <Drawer.Trigger asChild>
