@@ -4,7 +4,9 @@ import type { WidgetConfig, ProductDetailsWidgetProps } from "@medusajs/admin";
 import { QUERY_KEYS } from "../../utils/queryKeys";
 import useGetRegions from "../../hooks/useGetRegions";
 import useGetProduct from "../../hooks/useGetProduct";
-import ProductLocalizationDrawer from "../../components/localization/product-localization-drawer";
+import LocalizationDrawer from "../../components/localization/localization-drawer";
+import ProductLocalizationForm from "../../components/localization/product-localization-form";
+import VariantsLocalizationForm from "../../components/localization/variants-localization-form";
 import Loading from "../../components/shared/loading";
 import Error from "../../components/shared/error";
 
@@ -46,12 +48,27 @@ const ProductLocalizationWidget = ({
             <div className="flex gap-4 flex-wrap">
                 {regions?.map((region) => {
                     return (
-                        <ProductLocalizationDrawer
+                        <LocalizationDrawer
                             key={region.id}
-                            product={pricedProduct}
-                            region={region}
-                            onSuccess={handleSuccess}
-                            onError={handleError}
+                            title={`Localize ${product.title}`}
+                            subtitle={`Region ${region.name}`}
+                            triggerText={region.name}
+                            form={
+                                <>
+                                    <ProductLocalizationForm
+                                        product={pricedProduct}
+                                        regionId={region.id}
+                                        onSuccess={handleSuccess}
+                                        onError={handleError}
+                                    />
+                                    <VariantsLocalizationForm
+                                        product={pricedProduct}
+                                        regionId={region.id}
+                                        onSuccess={handleSuccess}
+                                        onError={handleError}
+                                    />
+                                </>
+                            }
                         />
                     );
                 })}

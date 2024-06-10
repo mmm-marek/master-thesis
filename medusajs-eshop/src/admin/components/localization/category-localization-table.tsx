@@ -8,8 +8,9 @@ import useGetCategories, {
 import useGetRegions from "../../hooks/useGetRegions";
 import Loading from "../shared/loading";
 import Error from "../shared/error";
-import CategoryLocalizationDrawer from "./category-localization-drawer";
 import { QUERY_KEYS } from "../../utils/queryKeys";
+import LocalizationDrawer from "./localization-drawer";
+import CategoryLocalizationForm from "./category-localization-form";
 
 type CategoryLocalizationTableProps = {
     notify: RouteProps["notify"];
@@ -82,12 +83,21 @@ const CategoryLocalizationTable = ({
                                 <Table.Cell className="flex gap-4 flex-wrap py-1">
                                     {regions.map((region) => {
                                         return (
-                                            <CategoryLocalizationDrawer
+                                            <LocalizationDrawer
                                                 key={region.id}
-                                                category={category}
-                                                region={region}
-                                                onSuccess={handleSuccess}
-                                                onError={handleError}
+                                                title={`Localize ${category.name}`}
+                                                subtitle={`Region ${region.name}`}
+                                                triggerText={region.name}
+                                                form={
+                                                    <CategoryLocalizationForm
+                                                        category={category}
+                                                        regionId={region.id}
+                                                        onSuccess={
+                                                            handleSuccess
+                                                        }
+                                                        onError={handleError}
+                                                    />
+                                                }
                                             />
                                         );
                                     })}

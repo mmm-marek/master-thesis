@@ -15,7 +15,7 @@ type RegionLocalizationFormProps = {
     onError: () => void;
 };
 
-export const ProductLocalizationForm = ({
+const ProductLocalizationForm = ({
     product,
     regionId,
     onError,
@@ -121,3 +121,5 @@ export const ProductLocalizationForm = ({
         </form>
     );
 };
+
+export default ProductLocalizationForm;

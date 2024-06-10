@@ -6,8 +6,10 @@ import useGetRegions from "../../hooks/useGetRegions";
 import useGetProducts, { PRODUCTS_LIMIT } from "../../hooks/useGetProducts";
 import Loading from "../shared/loading";
 import Error from "../shared/error";
-import ProductLocalizationDrawer from "./product-localization-drawer";
 import { QUERY_KEYS } from "../../utils/queryKeys";
+import LocalizationDrawer from "./localization-drawer";
+import ProductLocalizationForm from "./product-localization-form";
+import VariantsLocalizationForm from "./variants-localization-form";
 
 type ProductLocalizationTableProps = {
     notify: RouteProps["notify"];
@@ -24,6 +26,7 @@ const ProductLocalizationTable = ({
         isLoading: regionsLoading,
         isError: regionsError,
     } = useGetRegions();
+
     const {
         data: productsData,
         isLoading: productsLoading,
@@ -79,12 +82,35 @@ const ProductLocalizationTable = ({
                                 <Table.Cell className="flex gap-4 flex-wrap py-1">
                                     {regions.map((region) => {
                                         return (
-                                            <ProductLocalizationDrawer
+                                            <LocalizationDrawer
                                                 key={region.id}
-                                                product={product}
-                                                region={region}
-                                                onSuccess={handleSuccess}
-                                                onError={handleError}
+                                                title={`Localize ${product.title}`}
+                                                subtitle={`Region ${region.name}`}
+                                                triggerText={region.name}
+                                                form={
+                                                    <>
+                                                        <ProductLocalizationForm
+                                                            product={product}
+                                                            regionId={region.id}
+                                                            onSuccess={
+                                                                handleSuccess
+                                                            }
+                                                            onError={
+                                                                handleError
+                                                            }
+                                                        />
+                                                        <VariantsLocalizationForm
+                                                            product={product}
+                                                            regionId={region.id}
+                                                            onSuccess={
+                                                                handleSuccess
+                                                            }
+                                                            onError={
+                                                                handleError
+                                                            }
+                                                        />
+                                                    </>
+                                                }
                                             />
                                         );
                                     })}

@@ -15,7 +15,7 @@ type VariantsLocalizationFormProps = {
     onError: () => void;
 };
 
-export const VariantsLocalizationForm = ({
+const VariantsLocalizationForm = ({
     product,
     regionId,
     onSuccess,
@@ -74,3 +74,5 @@ export const VariantsLocalizationForm = ({
         </>
     );
 };
+
+export default VariantsLocalizationForm;
