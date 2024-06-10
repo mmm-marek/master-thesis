@@ -57,22 +57,24 @@ const ProductLocalizationTable = ({
             <Table>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell>Title</Table.HeaderCell>
+                        <Table.HeaderCell className="w-[350px]">
+                            Title
+                        </Table.HeaderCell>
                         <Table.HeaderCell>Handle</Table.HeaderCell>
-                        <Table.HeaderCell>Description</Table.HeaderCell>
-                        <Table.HeaderCell>Region</Table.HeaderCell>
+                        <Table.HeaderCell className="w-[200px]">
+                            Regions
+                        </Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
                     {productsData.products.map((product) => {
                         return (
                             <Table.Row key={product.id}>
-                                <Table.Cell>{product.title}</Table.Cell>
-                                <Table.Cell>{product.handle}</Table.Cell>
-                                <Table.Cell className="truncate max-w-[100px]">
-                                    {product.description}
+                                <Table.Cell className="truncate max-w-[3500px]">
+                                    {product.title}
                                 </Table.Cell>
-                                <Table.Cell className="flex gap-4 flex-wrap">
+                                <Table.Cell>{product.handle}</Table.Cell>
+                                <Table.Cell className="flex gap-4 flex-wrap py-1">
                                     {regions.map((region) => {
                                         return (
                                             <ProductLocalizationDrawer

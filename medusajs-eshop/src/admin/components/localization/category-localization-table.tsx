@@ -47,22 +47,24 @@ const CategoryLocalizationTable = ({
             <Table>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell>Name</Table.HeaderCell>
+                        <Table.HeaderCell className="w-[350px]">
+                            Name
+                        </Table.HeaderCell>
                         <Table.HeaderCell>Handle</Table.HeaderCell>
-                        <Table.HeaderCell>Description</Table.HeaderCell>
-                        <Table.HeaderCell>Regions</Table.HeaderCell>
+                        <Table.HeaderCell className="w-[200px]">
+                            Regions
+                        </Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
                     {categoriesData.product_categories.map((category) => {
                         return (
                             <Table.Row key={category.id}>
-                                <Table.Cell>{category.name}</Table.Cell>
-                                <Table.Cell>{category.handle}</Table.Cell>
-                                <Table.Cell className="truncate max-w-[100px]">
-                                    {category.description}
+                                <Table.Cell className="truncate max-w-[350px]">
+                                    {category.name}
                                 </Table.Cell>
-                                <Table.Cell className="flex gap-4 flex-wrap">
+                                <Table.Cell>{category.handle}</Table.Cell>
+                                <Table.Cell className="flex gap-4 flex-wrap py-1">
                                     {regions.map((region) => {
                                         return (
                                             <Button
