@@ -23,6 +23,11 @@ export const CategoryLocalizationSchema = z.object({
     description: z.string(),
 });
 
+export const CollectionLocalizationSchema = z.object({
+    title: z.string(),
+    handle: z.string(),
+});
+
 export type ProductLocalizationSchemaType = z.infer<
     typeof ProductLocalizationSchema
 >;
@@ -33,4 +38,8 @@ export type VariantsLocalizationSchemaType = z.infer<
 
 export type CategoryLocalizationSchemaType = z.infer<
     typeof CategoryLocalizationSchema
+>;
+
+export type CollectionLocalizationSchemaType = z.infer<
+    typeof CollectionLocalizationSchema
 >;
