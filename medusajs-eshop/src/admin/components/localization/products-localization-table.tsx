@@ -3,6 +3,8 @@ import { Button, Heading, Table } from "@medusajs/ui";
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
 import useGetRegions from "../../hooks/useGetRegions";
 import useGetProducts, { PRODUCTS_LIMIT } from "../../hooks/useGetProducts";
+import Loading from "../shared/loading";
+import Error from "../shared/error";
 
 type ProductLocalizationTableProps = {
     onLocalizeProduct: (product: PricedProduct, regionId: string) => void;
@@ -25,11 +27,11 @@ const ProductLocalizationTable = ({
     } = useGetProducts(page);
 
     if (regionsLoading || productsLoading) {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
 
     if (regionsError || productsError) {
-        return <div>Error</div>;
+        return <Error />;
     }
 
     const pageCount = Math.ceil(productsData.count / PRODUCTS_LIMIT);

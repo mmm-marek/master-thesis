@@ -2,6 +2,8 @@ import { Button, Heading, Table } from "@medusajs/ui";
 import useGetCategories from "../../hooks/useGetCategories";
 import useGetRegions from "../../hooks/useGetRegions";
 import { ProductCategory } from "@medusajs/medusa";
+import Loading from "../shared/loading";
+import Error from "../shared/error";
 
 type CategoryLocalizationTableProps = {
     onLocalizeCategory: (category: ProductCategory, regionId: string) => void;
@@ -22,11 +24,11 @@ const CategoryLocalizationTable = ({
     } = useGetCategories();
 
     if (regionsLoading || categoriesLoading) {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
 
     if (regionsError || categoriesError) {
-        return <div>Error</div>;
+        return <Error />;
     }
 
     return (

@@ -5,6 +5,8 @@ import { QUERY_KEYS } from "../../utils/queryKeys";
 import useGetRegions from "../../hooks/useGetRegions";
 import useGetProduct from "../../hooks/useGetProduct";
 import ProductLocalizationDrawer from "../../components/localization/product-localization-drawer";
+import Loading from "../../components/shared/loading";
+import Error from "../../components/shared/error";
 
 const ProductLocalizationWidget = ({
     product,
@@ -13,7 +15,11 @@ const ProductLocalizationWidget = ({
     const queryClient = useQueryClient();
     const { data: regions } = useGetRegions();
 
-    const { data: pricedProduct } = useGetProduct(product.id);
+    const {
+        data: pricedProduct,
+        isLoading,
+        isError,
+    } = useGetProduct(product.id);
 
     const handleSuccess = () => {
         queryClient.invalidateQueries({
@@ -25,6 +31,14 @@ const ProductLocalizationWidget = ({
     const handleError = () => {
         notify.error("error", "Product localization update failed");
     };
+
+    if (isLoading) {
+        return <Loading />;
+    }
+
+    if (isError) {
+        return <Error />;
+    }
 
     return (
         <Container>
