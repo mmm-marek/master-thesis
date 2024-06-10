@@ -56,9 +56,6 @@ const ProductLocalizationTable = ({
 
     return (
         <div>
-            <Heading level="h2" className="pb-4">
-                Products
-            </Heading>
             <Table>
                 <Table.Header>
                     <Table.Row>

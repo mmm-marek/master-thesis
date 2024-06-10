@@ -1,5 +1,5 @@
 import { GlobeEurope } from "@medusajs/icons";
-import { Container, Heading } from "@medusajs/ui";
+import { Container, Heading, Tabs } from "@medusajs/ui";
 import { RouteConfig, RouteProps } from "@medusajs/admin";
 import CategoryLocalizationTable from "../../components/localization/category-localization-table";
 import ProductsLocalizationTable from "../../components/localization/products-localization-table";
@@ -11,11 +11,24 @@ const LocalizationPage = ({ notify }: RouteProps) => {
             <Heading level="h1" className="pb-large">
                 Localization
             </Heading>
-            <div className="flex flex-col gap-6">
-                <CollectionLocalizationTable notify={notify} />
-                <CategoryLocalizationTable notify={notify} />
-                <ProductsLocalizationTable notify={notify} />
-            </div>
+            <Tabs defaultValue="products">
+                <Tabs.List>
+                    <Tabs.Trigger value="products">Products</Tabs.Trigger>
+                    <Tabs.Trigger value="categories">Categories</Tabs.Trigger>
+                    <Tabs.Trigger value="collections">Collections</Tabs.Trigger>
+                </Tabs.List>
+                <div className="mt-4">
+                    <Tabs.Content value="products">
+                        <ProductsLocalizationTable notify={notify} />
+                    </Tabs.Content>
+                    <Tabs.Content value="categories">
+                        <CategoryLocalizationTable notify={notify} />
+                    </Tabs.Content>
+                    <Tabs.Content value="collections">
+                        <CollectionLocalizationTable notify={notify} />
+                    </Tabs.Content>
+                </div>
+            </Tabs>
         </Container>
     );
 };

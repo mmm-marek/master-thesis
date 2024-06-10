@@ -57,9 +57,6 @@ const CollectionLocalizationTable = ({
 
     return (
         <div>
-            <Heading level="h2" className="pb-4">
-                Collections
-            </Heading>
             <Table>
                 <Table.Header>
                     <Table.Row>

@@ -57,9 +57,6 @@ const CategoryLocalizationTable = ({
 
     return (
         <div>
-            <Heading level="h2" className="pb-4">
-                Categories
-            </Heading>
             <Table>
                 <Table.Header>
                     <Table.Row>
