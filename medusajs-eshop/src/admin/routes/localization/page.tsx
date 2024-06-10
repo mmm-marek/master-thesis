@@ -3,6 +3,7 @@ import { Container, Heading } from "@medusajs/ui";
 import { RouteConfig, RouteProps } from "@medusajs/admin";
 import CategoryLocalizationTable from "../../components/localization/category-localization-table";
 import ProductsLocalizationTable from "../../components/localization/products-localization-table";
+import CollectionLocalizationTable from "../../components/localization/collection-localization-table";
 
 const LocalizationPage = ({ notify }: RouteProps) => {
     return (
@@ -11,6 +12,7 @@ const LocalizationPage = ({ notify }: RouteProps) => {
                 Localization
             </Heading>
             <div className="flex flex-col gap-6">
+                <CollectionLocalizationTable notify={notify} />
                 <CategoryLocalizationTable notify={notify} />
                 <ProductsLocalizationTable notify={notify} />
             </div>
