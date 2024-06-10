@@ -4,13 +4,15 @@ import { Container, Heading } from "@medusajs/ui";
 import CategoryLocalizationTable from "../../components/localization/category-localization-table";
 import ProductsLocalizationTable from "../../components/localization/products-localization-table";
 
+type NotificationType = "category" | "product";
+
 const LocalizationPage = ({ notify }: RouteProps) => {
-    const handleSuccess = () => {
-        notify.success("success", "Product localization updated");
+    const handleSuccess = (type: NotificationType) => {
+        notify.success("success", `${type} localization updated`);
     };
 
-    const handleError = () => {
-        notify.error("error", "Product localization update failed");
+    const handleError = (type: NotificationType) => {
+        notify.error("error", `${type} localization update failed`);
     };
 
     return (
@@ -20,11 +22,12 @@ const LocalizationPage = ({ notify }: RouteProps) => {
             </Heading>
             <div className="flex flex-col gap-6">
                 <CategoryLocalizationTable
-                    onLocalizeCategory={(category, regionId) => {}}
+                    onError={() => handleError("category")}
+                    onSuccess={() => handleSuccess("category")}
                 />
                 <ProductsLocalizationTable
-                    onSuccess={handleSuccess}
-                    onError={handleError}
+                    onSuccess={() => handleSuccess("product")}
+                    onError={() => handleError("product")}
                 />
             </div>
         </Container>

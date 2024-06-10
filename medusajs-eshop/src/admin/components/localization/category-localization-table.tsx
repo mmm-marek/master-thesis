@@ -1,20 +1,25 @@
 import { useState } from "react";
-import { ProductCategory } from "@medusajs/medusa";
-import { Button, Heading, Table } from "@medusajs/ui";
+import { Heading, Table } from "@medusajs/ui";
 import useGetCategories, {
     CATEGORIES_LIMIT,
 } from "../../hooks/useGetCategories";
 import useGetRegions from "../../hooks/useGetRegions";
 import Loading from "../shared/loading";
 import Error from "../shared/error";
+import CategoryLocalizationDrawer from "./category-localization-drawer";
+import { useQueryClient } from "@tanstack/react-query";
+import { QUERY_KEYS } from "../../utils/queryKeys";
 
 type CategoryLocalizationTableProps = {
-    onLocalizeCategory: (category: ProductCategory, regionId: string) => void;
+    onSuccess: () => void;
+    onError: () => void;
 };
 
 const CategoryLocalizationTable = ({
-    onLocalizeCategory,
+    onSuccess,
+    onError,
 }: CategoryLocalizationTableProps) => {
+    const queryClient = useQueryClient();
     const [page, setPage] = useState(0);
 
     const {
@@ -36,6 +41,13 @@ const CategoryLocalizationTable = ({
     if (regionsError || categoriesError) {
         return <Error />;
     }
+
+    const handleSuccess = () => {
+        queryClient.invalidateQueries({
+            queryKey: [QUERY_KEYS.API_GET_CATEGORIES],
+        });
+        onSuccess();
+    };
 
     const pageCount = Math.ceil(categoriesData.count / CATEGORIES_LIMIT);
 
@@ -67,16 +79,13 @@ const CategoryLocalizationTable = ({
                                 <Table.Cell className="flex gap-4 flex-wrap py-1">
                                     {regions.map((region) => {
                                         return (
-                                            <Button
+                                            <CategoryLocalizationDrawer
                                                 key={region.id}
-                                                onClick={() =>
-                                                    onLocalizeCategory(
-                                                        category,
-                                                        region.id
-                                                    )
-                                                }>
-                                                {region.name}
-                                            </Button>
+                                                category={category}
+                                                region={region}
+                                                onSuccess={handleSuccess}
+                                                onError={onError}
+                                            />
                                         );
                                     })}
                                 </Table.Cell>
