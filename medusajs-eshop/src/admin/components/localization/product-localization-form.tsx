@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Input, Textarea } from "@medusajs/ui";
+import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
 import {
     ProductLocalizationSchema,
     ProductLocalizationSchemaType,
 } from "../../schemas/localization-schemas";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Input, Textarea } from "@medusajs/ui";
-import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
 import useLocalizeProduct from "../../hooks/useLocalizeProduct";
 
 type RegionLocalizationFormProps = {

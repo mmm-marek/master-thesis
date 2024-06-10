@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { RouteProps } from "@medusajs/admin";
-import { Heading, Table } from "@medusajs/ui";
+import { Table } from "@medusajs/ui";
 import { useQueryClient } from "@tanstack/react-query";
 import useGetCollections, {
     COLLECTIONS_LIMIT,

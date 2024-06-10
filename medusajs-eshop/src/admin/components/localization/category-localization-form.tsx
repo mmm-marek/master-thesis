@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
+import { ProductCategory } from "@medusajs/medusa";
+import { Button, Input, Textarea } from "@medusajs/ui";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
     CategoryLocalizationSchema,
     CategoryLocalizationSchemaType,
 } from "../../schemas/localization-schemas";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Input, Textarea } from "@medusajs/ui";
 import useLocalizeCategory from "../../hooks/useLocalizeCategory";
-import { ProductCategory } from "@medusajs/medusa";
 
 type RegionLocalizationFormProps = {
     category: ProductCategory;
