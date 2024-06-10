@@ -13,6 +13,7 @@ import { PATHS } from '@/utils/enums'
 
 import * as SC from './MainLayoutStyles'
 import Categories from './components/Categories/Categories'
+import RegionPicker from './components/RegionPicker/RegionPicker'
 
 const MainLayout = ({ children }: PropsWithChildren) => {
 	const router = useRouter()
@@ -45,6 +46,8 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 									<SC.ActionLink href={`/${PATHS.SIGN_UP}`}>Join us</SC.ActionLink>
 									<SC.ActionDivider />
 									<SC.ActionLink href={`/${PATHS.LOGIN}`}>Sign in</SC.ActionLink>
+									<SC.ActionDivider />
+									<RegionPicker />
 								</>
 							)}
 						</SC.Actions>
