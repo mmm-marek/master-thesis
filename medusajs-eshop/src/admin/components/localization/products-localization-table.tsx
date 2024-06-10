@@ -5,14 +5,20 @@ import useGetRegions from "../../hooks/useGetRegions";
 import useGetProducts, { PRODUCTS_LIMIT } from "../../hooks/useGetProducts";
 import Loading from "../shared/loading";
 import Error from "../shared/error";
+import ProductLocalizationDrawer from "./product-localization-drawer";
+import { useQueryClient } from "@tanstack/react-query";
+import { QUERY_KEYS } from "../../utils/queryKeys";
 
 type ProductLocalizationTableProps = {
-    onLocalizeProduct: (product: PricedProduct, regionId: string) => void;
+    onSuccess: () => void;
+    onError: () => void;
 };
 
 const ProductLocalizationTable = ({
-    onLocalizeProduct,
+    onSuccess,
+    onError,
 }: ProductLocalizationTableProps) => {
+    const queryClient = useQueryClient();
     const [page, setPage] = useState(0);
 
     const {
@@ -34,11 +40,20 @@ const ProductLocalizationTable = ({
         return <Error />;
     }
 
+    const handleSuccess = () => {
+        queryClient.invalidateQueries({
+            queryKey: [QUERY_KEYS.API_GET_PRODUCTS, page],
+        });
+        onSuccess();
+    };
+
     const pageCount = Math.ceil(productsData.count / PRODUCTS_LIMIT);
 
     return (
         <div>
-            <Heading level="h2">Products</Heading>
+            <Heading level="h2" className="pb-4">
+                Products
+            </Heading>
             <Table>
                 <Table.Header>
                     <Table.Row>
@@ -60,16 +75,13 @@ const ProductLocalizationTable = ({
                                 <Table.Cell className="flex gap-4 flex-wrap">
                                     {regions.map((region) => {
                                         return (
-                                            <Button
+                                            <ProductLocalizationDrawer
                                                 key={region.id}
-                                                onClick={() =>
-                                                    onLocalizeProduct(
-                                                        product,
-                                                        region.id
-                                                    )
-                                                }>
-                                                {region.name}
-                                            </Button>
+                                                product={product}
+                                                region={region}
+                                                onSuccess={handleSuccess}
+                                                onError={onError}
+                                            />
                                         );
                                     })}
                                 </Table.Cell>

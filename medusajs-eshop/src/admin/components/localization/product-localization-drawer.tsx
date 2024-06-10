@@ -20,9 +20,7 @@ const ProductLocalizationDrawer = ({
     return (
         <Drawer key={region.id}>
             <Drawer.Trigger asChild>
-                <Button className="inter-large-semibold">
-                    Region {region.name}
-                </Button>
+                <Button className="inter-large-semibold">{region.name}</Button>
             </Drawer.Trigger>
             <Drawer.Content className="w-[700px] right-0">
                 <Drawer.Header>

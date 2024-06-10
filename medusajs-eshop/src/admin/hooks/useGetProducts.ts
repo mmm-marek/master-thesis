@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { QUERY_KEYS } from "../utils/queryKeys";
 import { medusa } from "../utils/medusa-helpers";
 
-export const PRODUCTS_LIMIT = 3;
+export const PRODUCTS_LIMIT = 20;
 
 const useGetProducts = (page: number) => {
     return useQuery({

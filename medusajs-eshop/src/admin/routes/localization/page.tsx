@@ -1,19 +1,30 @@
-import { RouteConfig } from "@medusajs/admin";
+import { RouteConfig, RouteProps } from "@medusajs/admin";
 import { GlobeEurope } from "@medusajs/icons";
 import { Container, Heading } from "@medusajs/ui";
 import CategoryLocalizationTable from "../../components/localization/category-localization-table";
 import ProductsLocalizationTable from "../../components/localization/products-localization-table";
 
-const LocalizationPage = () => {
+const LocalizationPage = ({ notify }: RouteProps) => {
+    const handleSuccess = () => {
+        notify.success("success", "Product localization updated");
+    };
+
+    const handleError = () => {
+        notify.error("error", "Product localization update failed");
+    };
+
     return (
         <Container>
-            <Heading level="h1">Localization</Heading>
-            <div className="flex flex-col gap-4">
+            <Heading level="h1" className="pb-large">
+                Localization
+            </Heading>
+            <div className="flex flex-col gap-6">
                 <CategoryLocalizationTable
                     onLocalizeCategory={(category, regionId) => {}}
                 />
                 <ProductsLocalizationTable
-                    onLocalizeProduct={(product, regionId) => {}}
+                    onSuccess={handleSuccess}
+                    onError={handleError}
                 />
             </div>
         </Container>
