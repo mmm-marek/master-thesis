@@ -77,7 +77,7 @@ const CollectionLocalizationTable = ({
                                     {collection.title}
                                 </Table.Cell>
                                 <Table.Cell>{collection.handle}</Table.Cell>
-                                <Table.Cell className="flex gap-4 flex-wrap py-1">
+                                <Table.Cell className="flex gap-1 flex-wrap py-1 h-fit">
                                     {regions.map((region) => {
                                         return (
                                             <LocalizationDrawer
