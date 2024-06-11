@@ -1,5 +1,5 @@
 import { Carousel } from 'antd'
-import { formatVariantPrice, useCart, useProduct } from 'medusa-react'
+import { formatVariantPrice, useProduct } from 'medusa-react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
@@ -15,8 +15,7 @@ type ProductProps = {
 }
 
 const Product = ({ id }: ProductProps) => {
-	const { cart } = useCart()
-	const { addItem, isUpdatingCart } = useStore()
+	const { addItem, isUpdatingCart, cart } = useStore()
 	const { product, isError, isLoading } = useProduct(id)
 	const [selectedVariant, setSelectedVariant] = useState(product?.variants[0])
 

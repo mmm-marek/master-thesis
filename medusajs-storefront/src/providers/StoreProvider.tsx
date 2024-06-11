@@ -1,5 +1,5 @@
 import { Region } from '@medusajs/medusa'
-import { useCart, useCreateLineItem, useDeleteLineItem, useUpdateLineItem } from 'medusa-react'
+import { Cart, useCart, useCreateLineItem, useDeleteLineItem, useUpdateLineItem } from 'medusa-react'
 import { createContext, useContext, useEffect, useState } from 'react'
 
 import { medusa } from '@/utils/medusaHelpers'
@@ -15,6 +15,7 @@ type LineInfoProps = {
 }
 
 type StoreContextType = {
+	cart: Omit<Cart, 'refundable_amount' | 'refunded_total'> | undefined
 	countryCode: string | undefined
 	setRegion: (regionId: string, countryCode: string) => void
 	addItem: (item: VariantInfoProps) => void
@@ -282,7 +283,8 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				deleteItem,
 				updateItem,
 				resetCart,
-				isUpdatingCart
+				isUpdatingCart,
+				cart
 			}}
 		>
 			{children}

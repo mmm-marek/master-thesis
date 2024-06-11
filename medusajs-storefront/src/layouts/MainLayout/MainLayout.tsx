@@ -1,6 +1,5 @@
 import { Badge } from 'antd'
 import { CircleUserRound, ShoppingCart } from 'lucide-react'
-import { useCart } from 'medusa-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { PropsWithChildren } from 'react'
@@ -9,6 +8,7 @@ import { useTheme } from 'styled-components'
 import GrLogo from '@/assets/icons/gr-logo.svg'
 import useCustomerProfile from '@/hooks/customer/useCustomerProfile'
 import useLogoutCustomer from '@/hooks/customer/useLogoutCustomer'
+import { useStore } from '@/providers/StoreProvider'
 import { PATHS } from '@/utils/enums'
 
 import * as SC from './MainLayoutStyles'
@@ -17,7 +17,7 @@ import RegionPicker from './components/RegionPicker/RegionPicker'
 
 const MainLayout = ({ children }: PropsWithChildren) => {
 	const router = useRouter()
-	const { cart } = useCart()
+	const { cart } = useStore()
 	const theme = useTheme()
 
 	const { data: customer } = useCustomerProfile()

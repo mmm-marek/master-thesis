@@ -1,5 +1,4 @@
 import { Spin } from 'antd'
-import { useCart } from 'medusa-react'
 
 import Loading from '@/components/Loading/Loading'
 import { useStore } from '@/providers/StoreProvider'
@@ -9,8 +8,7 @@ import CartItems from './components/CartItems/CartItems'
 import Summary from './components/Summary/Summary'
 
 const Cart = () => {
-	const { cart } = useCart()
-	const { isUpdatingCart } = useStore()
+	const { cart, isUpdatingCart } = useStore()
 
 	if (!cart) {
 		return <Loading />

@@ -1,13 +1,14 @@
-import { formatAmount, useCart } from 'medusa-react'
+import { formatAmount } from 'medusa-react'
 
 import DiscountCodeForm from '../DiscountCodeForm/DiscountCodeForm'
 import Button from '@/atoms/Button/Button'
 import Loading from '@/components/Loading/Loading'
+import { useStore } from '@/providers/StoreProvider'
 
 import * as SC from './SummaryStyles'
 
 const Summary = () => {
-	const { cart } = useCart()
+	const { cart } = useStore()
 
 	// TODO: Check why cart.region is undefined at the beginning
 	if (!cart || !cart?.region) {
