@@ -4,9 +4,8 @@ import { textXsRegular } from '@/styles/helpers'
 
 export const RegionPickerTrigger = styled.div`
 	${({ theme }) => css`
-		text-decoration: underline;
-		color: ${theme.tokens['color-inverse-content-primary']};
 		${textXsRegular};
+		color: ${theme.tokens['color-inverse-content-primary']};
 
 		&:hover {
 			color: ${theme.tokens['color-inverse-content-secondary']};

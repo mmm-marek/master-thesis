@@ -1,16 +1,18 @@
 import { Dropdown } from 'antd'
-import React from 'react'
+import { useRouter } from 'next/router'
 
 import useCountryOptions from '@/hooks/region/useCountryOptions'
 
 import * as SC from './RegionPickerStyles'
 
-const RegionPicker: React.FC = () => {
+const RegionPicker = () => {
+	const router = useRouter()
+
 	const countryOptions = useCountryOptions()
 
 	const menuItems = countryOptions.map((option) => {
 		return {
-			key: option.countryId,
+			key: option.regionName,
 			label: option.regionName
 		}
 	})
@@ -19,10 +21,22 @@ const RegionPicker: React.FC = () => {
 		<Dropdown
 			menu={{
 				items: menuItems,
-				selectable: true
+				selectable: true,
+				selectedKeys: [router.locale ?? 'en'],
+				onSelect: (info) => {
+					router.push(
+						{
+							pathname: router.pathname
+						},
+						router.asPath,
+						{
+							locale: info.key.toLocaleLowerCase()
+						}
+					)
+				}
 			}}
 		>
-			<SC.RegionPickerTrigger>Selectable</SC.RegionPickerTrigger>
+			<SC.RegionPickerTrigger>{router.locale}</SC.RegionPickerTrigger>
 		</Dropdown>
 	)
 }
