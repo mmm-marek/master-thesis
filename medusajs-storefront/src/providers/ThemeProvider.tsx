@@ -70,16 +70,17 @@ const getInitialThemeOption = (): THEME_OPTION => {
 }
 
 const getInitialTheme = (): THEME => {
-	if (isServer) {
-		return FALLBACK_THEME
-	}
-	const themeOption = getInitialThemeOption()
+	return THEME.LIGHT
+	// if (isServer) {
+	// 	return FALLBACK_THEME
+	// }
+	// const themeOption = getInitialThemeOption()
 
-	if (themeOption === THEME_OPTION.SYSTEM) {
-		return getSystemThemeName()
-	}
+	// if (themeOption === THEME_OPTION.SYSTEM) {
+	// 	return getSystemThemeName()
+	// }
 
-	return themeOption === THEME_OPTION.DARK ? THEME.DARK : THEME.LIGHT
+	// return themeOption === THEME_OPTION.DARK ? THEME.DARK : THEME.LIGHT
 }
 
 const getInitialSystemTheme = (): THEME => {
@@ -140,24 +141,20 @@ const ThemeProvider = ({ children }: PropsWithChildren) => {
 
 	// listen to System preference
 	useEffect(() => {
-		const handleMediaQuery = (e: MediaQueryListEvent | MediaQueryList) => {
-			const resolved = getSystemThemeName(e)
-			setCurrentSystemTheme(resolved)
-			if (themeOption === THEME_OPTION.SYSTEM) {
-				disableAnimation()
-
-				setThemeName(resolved)
-				localStorage.setItem(LOCAL_STORAGE_KEY, themeOption)
-			}
-		}
-
-		const media = window.matchMedia(MEDIA)
-
-		// Intentionally use deprecated listener methods to support iOS & old browsers
-		media.addListener(handleMediaQuery)
-		handleMediaQuery(media)
-
-		return () => media.removeListener(handleMediaQuery)
+		// const handleMediaQuery = (e: MediaQueryListEvent | MediaQueryList) => {
+		// 	const resolved = getSystemThemeName(e)
+		// 	setCurrentSystemTheme(resolved)
+		// 	if (themeOption === THEME_OPTION.SYSTEM) {
+		// 		disableAnimation()
+		// 		setThemeName(resolved)
+		// 		localStorage.setItem(LOCAL_STORAGE_KEY, themeOption)
+		// 	}
+		// }
+		// const media = window.matchMedia(MEDIA)
+		// // Intentionally use deprecated listener methods to support iOS & old browsers
+		// media.addListener(handleMediaQuery)
+		// handleMediaQuery(media)
+		// return () => media.removeListener(handleMediaQuery)
 	}, [themeOption])
 
 	const providerValue = useMemo(
