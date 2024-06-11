@@ -11,14 +11,26 @@ import { medusa } from '@/utils/medusaHelpers'
 export const getStaticPaths = async () => {
 	const categories = await medusa.productCategories.list()
 
-	return {
-		paths: categories.product_categories
-			?.filter((category) => category.category_children.length === 0)
-			.map((category) => ({
+	const paths = categories.product_categories
+		?.filter((category) => category.category_children.length === 0)
+		.map((category) => [
+			{
 				params: {
 					id: category.handle
-				}
-			})),
+				},
+				locale: 'en'
+			},
+			{
+				params: {
+					id: category.handle
+				},
+				locale: 'sk'
+			}
+		])
+		.flat()
+
+	return {
+		paths,
 		fallback: false
 	}
 }
