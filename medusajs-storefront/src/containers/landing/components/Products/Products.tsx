@@ -1,16 +1,21 @@
 import ProductCard from '@/components/ProductCard/ProductCard'
-import useGetProducts from '@/hooks/products/useGetProducts'
+import useGetLocalizedProducts from '@/hooks/products/useGetLocalizedProducts'
+import { useStore } from '@/providers/StoreProvider'
 
 import * as SC from './ProductsStyles'
 
 const Products = () => {
-	const { data } = useGetProducts()
+	const { cart } = useStore()
 
-	const products = data ?? []
+	const { data: localizedData } = useGetLocalizedProducts(cart?.region_id)
+
+	if (!localizedData) {
+		return null
+	}
 
 	return (
 		<SC.ProductsGrid>
-			{products.map((product) => (
+			{localizedData.map((product) => (
 				<ProductCard key={product.id} product={product} />
 			))}
 		</SC.ProductsGrid>
