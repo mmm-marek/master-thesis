@@ -44,7 +44,6 @@
     "medusa-payment-manual": "latest",
     "medusa-payment-stripe": "latest",
     "medusa-plugin-auth": "^1.10.4",
-    "medusa-plugin-strapi-ts": "^5.0.22",
     "prism-react-renderer": "^2.0.4",
     "react-hook-form": "^7.51.5",
     "typeorm": "^0.3.16",

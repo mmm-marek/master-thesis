@@ -64,29 +64,6 @@ const plugins = [
         },
     },
     {
-        resolve: "medusa-plugin-strapi-ts",
-        options: {
-            strapi_protocol: process.env.STRAPI_PROTOCOL,
-            strapi_host: process.env.STRAPI_SERVER_HOSTNAME,
-            strapi_port: process.env.STRAPI_PORT,
-            strapi_secret: process.env.STRAPI_SECRET,
-            strapi_default_user: {
-                username: process.env.STRAPI_MEDUSA_USER,
-                password: process.env.STRAPI_MEDUSA_PASSWORD,
-                email: process.env.STRAPI_MEDUSA_EMAIL,
-                confirmed: true,
-                blocked: false,
-                provider: "local",
-            },
-            strapi_admin: {
-                username: process.env.STRAPI_SUPER_USERNAME,
-                password: process.env.STRAPI_SUPER_PASSWORD,
-                email: process.env.STRAPI_SUPER_USER_EMAIL,
-            },
-            auto_start: true,
-        },
-    },
-    {
         resolve: "medusa-plugin-auth",
         /** @type {import('medusa-plugin-auth').AuthOptions} */
         options: [
@@ -169,12 +146,12 @@ const plugins = [
 ];
 
 const modules = {
-    eventBus: {
-        resolve: "@medusajs/event-bus-redis",
-        options: {
-            redisUrl: EVENTS_REDIS_URL,
-        },
-    },
+    // eventBus: {
+    //     resolve: "@medusajs/event-bus-redis",
+    //     options: {
+    //         redisUrl: EVENTS_REDIS_URL,
+    //     },
+    // },
     /*cacheService: {
     resolve: "@medusajs/cache-redis",
     options: {
