@@ -1,11 +1,12 @@
 import { Carousel } from 'antd'
-import { formatVariantPrice, useProduct } from 'medusa-react'
+import { formatVariantPrice } from 'medusa-react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
 import Button from '@/atoms/Button/Button'
 import Error from '@/components/Error/Error'
 import Loading from '@/components/Loading/Loading'
+import useGetLocalizedProduct from '@/hooks/products/useGetLocalizedProduct'
 import { useStore } from '@/providers/StoreProvider'
 
 import * as SC from './ProductStyles'
@@ -16,7 +17,7 @@ type ProductProps = {
 
 const Product = ({ id }: ProductProps) => {
 	const { addItem, isUpdatingCart, cart } = useStore()
-	const { product, isError, isLoading } = useProduct(id)
+	const { data: product, isError, isLoading } = useGetLocalizedProduct(id, cart?.region_id)
 	const [selectedVariant, setSelectedVariant] = useState(product?.variants[0])
 
 	useEffect(() => {
