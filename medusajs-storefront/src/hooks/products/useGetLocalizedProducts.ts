@@ -1,65 +1,32 @@
-import { PricedProduct } from '@medusajs/medusa/dist/types/pricing'
 import { useQuery } from '@tanstack/react-query'
-import { z } from 'zod'
 
+import { getProductLocalizationSchema } from '@/schemas/pages/products'
 import { QUERY_KEYS } from '@/utils/enums'
 import { medusa } from '@/utils/medusaHelpers'
-
-const getLocalizationSchema = (product: PricedProduct, region_id: string) => {
-	return z.object({
-		metadata: z
-			.object({
-				localization: z
-					.object({
-						[region_id]: z.object({
-							title: z
-								.string()
-								.default(product.title || '')
-								.catch(product.title ?? ''),
-							subtitle: z
-								.string()
-								.default(product.subtitle || '')
-								.catch(product.subtitle ?? ''),
-							description: z
-								.string()
-								.default(product.description || '')
-								.catch(product.description ?? ''),
-							handle: z
-								.string()
-								.default(product.handle || '')
-								.catch(product.handle ?? ''),
-							material: z
-								.string()
-								.default(product.material || '')
-								.catch(product.material ?? '')
-						})
-					})
-					.passthrough()
-			})
-			.passthrough()
-	})
-}
 
 export const getLocalizedProductsQueryKey = (regionId?: string) => [QUERY_KEYS.API_GET_LOCALIZED_PRODUCTS, regionId]
 
 export const getLocalizedProducts = async (regionId?: string) => {
-	if (!regionId) {
-		return []
-	}
-
 	const { products } = await medusa.products.list()
 
-	const localizedProducts = await Promise.all(
+	if (!regionId) {
+		return products
+	}
+
+	const localizedProducts = await Promise.allSettled(
 		products.map(async (product) => {
-			const parsedProduct = getLocalizationSchema(product, regionId).safeParse(product)
+			const parsedProduct = getProductLocalizationSchema(product, regionId).safeParse(product)
 			if (parsedProduct.success) {
+				const regionLocalization = parsedProduct.data.metadata?.localization[regionId]
+
 				return {
 					...product,
-					title: parsedProduct.data.metadata?.localization[regionId]?.title,
-					subtitle: parsedProduct.data.metadata?.localization[regionId]?.subtitle,
-					description: parsedProduct.data.metadata?.localization[regionId]?.description,
-					handle: parsedProduct.data.metadata?.localization[regionId]?.handle,
-					material: parsedProduct.data.metadata?.localization[regionId]?.material
+					// In case region is not localized, return the original product attributes
+					title: regionLocalization?.title ?? product.title,
+					subtitle: regionLocalization?.subtitle ?? product.subtitle,
+					description: regionLocalization?.description ?? product.description,
+					handle: regionLocalization?.handle ?? product.handle,
+					material: regionLocalization?.material ?? product.material
 				}
 			}
 			return product
