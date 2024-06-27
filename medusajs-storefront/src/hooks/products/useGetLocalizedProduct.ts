@@ -4,7 +4,7 @@ import { getProductLocalizationSchema } from '@/schemas/pages/products'
 import { QUERY_KEYS } from '@/utils/enums'
 import { medusa } from '@/utils/medusaHelpers'
 
-export const getLocalizedProductQueryKey = (productId: string, regionId?: string) => [QUERY_KEYS.API_GET_LOCALIZED_PRODUCTS, productId, regionId]
+export const getLocalizedProductQueryKey = (productId: string, regionId?: string) => [QUERY_KEYS.API_GET_LOCALIZED_PRODUCT, productId, regionId]
 
 export const getLocalizedProduct = async (productId: string, regionId?: string) => {
 	const { product } = await medusa.products.retrieve(productId)

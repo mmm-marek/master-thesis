@@ -3,31 +3,29 @@ import { ReactElement } from 'react'
 
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
 import Category from '@/containers/category/Category'
+import { getLocalizedCategories } from '@/hooks/categories/useGetLocalizedCategories'
 import MainLayout from '@/layouts/MainLayout/MainLayout'
 import { PAGE_IDS } from '@/utils/enums'
 import { getLocales } from '@/utils/locales'
 import { medusa } from '@/utils/medusaHelpers'
 
 export const getStaticPaths = async () => {
-	const categories = await medusa.productCategories.list()
+	const { regions } = await medusa.regions.list()
 
-	const paths = categories.product_categories
-		?.filter((category) => category.category_children.length === 0)
-		.map((category) => [
-			{
-				params: {
-					id: category.handle
-				},
-				locale: 'en'
-			},
-			{
-				params: {
-					id: category.handle
-				},
-				locale: 'sk'
-			}
-		])
-		.flat()
+	const pathsPromise = await Promise.all(
+		regions.map(async (region) => {
+			const localizedCategories = await getLocalizedCategories(region.id)
+			return localizedCategories.map((category) => [
+				{
+					params: {
+						id: category.handle
+					},
+					locale: region.name.toLowerCase()
+				}
+			])
+		})
+	)
+	const paths = pathsPromise.flat().flat()
 
 	return {
 		paths,
