@@ -37,7 +37,7 @@ const LoginForm = () => {
 	const onSubmit = (data: LoginFormFields) => {
 		loginUser(data, {
 			onSuccess: () => {
-				router.push(`/${PATHS.PROFILE}`)
+				router.push(PATHS.PROFILE)
 			}
 		})
 	}

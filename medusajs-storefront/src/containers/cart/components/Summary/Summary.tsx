@@ -1,13 +1,16 @@
 import { formatAmount } from 'medusa-react'
+import { useRouter } from 'next/router'
 
 import DiscountCodeForm from '../DiscountCodeForm/DiscountCodeForm'
 import Button from '@/atoms/Button/Button'
 import Loading from '@/components/Loading/Loading'
 import { useStore } from '@/providers/StoreProvider'
+import { PATHS } from '@/utils/enums'
 
 import * as SC from './SummaryStyles'
 
 const Summary = () => {
+	const router = useRouter()
 	const { cart } = useStore()
 
 	// TODO: Check why cart.region is undefined at the beginning
@@ -50,7 +53,7 @@ const Summary = () => {
 					})}
 				</span>
 			</SC.Total>
-			<Button block size='large' type='primary'>
+			<Button block size='large' type='primary' onClick={() => router.push(PATHS.CHECKOUT)}>
 				Checkout
 			</Button>
 		</SC.Wrapper>

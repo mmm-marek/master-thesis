@@ -43,9 +43,9 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 								</SC.ActionButton>
 							) : (
 								<>
-									<SC.ActionLink href={`/${PATHS.SIGN_UP}`}>Join us</SC.ActionLink>
+									<SC.ActionLink href={PATHS.SIGN_UP}>Join us</SC.ActionLink>
 									<SC.ActionDivider />
-									<SC.ActionLink href={`/${PATHS.LOGIN}`}>Sign in</SC.ActionLink>
+									<SC.ActionLink href={PATHS.LOGIN}>Sign in</SC.ActionLink>
 									<SC.ActionDivider />
 									<RegionPicker />
 								</>
@@ -60,13 +60,13 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 						</SC.LogoLink>
 						<Categories />
 						<SC.LinksWrapper>
-							<Link href={`/${PATHS.CART}`}>
+							<Link href={PATHS.CART}>
 								<Badge count={cart?.items.length || 0} showZero={false}>
 									<ShoppingCart color={theme.tokens['color-base-content-top']} />
 								</Badge>
 							</Link>
 							{customer && (
-								<Link href={`/${PATHS.PROFILE}`}>
+								<Link href={PATHS.PROFILE}>
 									<CircleUserRound color={theme.tokens['color-base-content-top']} />
 								</Link>
 							)}

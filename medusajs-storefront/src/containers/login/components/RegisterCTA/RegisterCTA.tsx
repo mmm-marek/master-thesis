@@ -28,7 +28,7 @@ const RegisterCTA = () => {
 					<div>Quick process of your order</div>
 				</SC.RegisterListItem>
 			</SC.RegisterList>
-			<Button type='primary' size='large' onClick={() => router.push(`/${PATHS.SIGN_UP}`)}>
+			<Button type='primary' size='large' onClick={() => router.push(PATHS.SIGN_UP)}>
 				Register
 			</Button>
 		</SC.RegisterCTAWrapper>

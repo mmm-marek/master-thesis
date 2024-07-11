@@ -14,12 +14,13 @@ export enum NOTIFICATION_TYPE {
 }
 
 export enum PATHS {
-	LOGIN = 'login',
-	SIGN_UP = 'sign-up',
-	FORGOTTEN_PASSWORD = 'forgotten-password',
-	PROFILE = 'profile',
-	CART = 'cart',
-	PRODUCT = 'product'
+	LOGIN = '/login',
+	SIGN_UP = '/sign-up',
+	FORGOTTEN_PASSWORD = '/forgotten-password',
+	PROFILE = '/profile',
+	CART = '/cart',
+	PRODUCT = '/product',
+	CHECKOUT = '/checkout'
 }
 
 export enum LANGUAGE {
@@ -70,7 +71,8 @@ export enum PAGE_IDS {
 	DASHBOARD = 'DASHBOARD',
 	PROFILE = 'PROFILE',
 	CART = 'CART',
-	PRODUCT = 'PRODUCT'
+	PRODUCT = 'PRODUCT',
+	CHECKOUT = 'CHECKOUT'
 }
 
 export enum TOKEN_AUDIENCE {
