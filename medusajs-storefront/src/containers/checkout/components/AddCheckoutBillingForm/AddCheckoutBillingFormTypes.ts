@@ -1,5 +1,5 @@
 import { z } from 'zod'
 
-import { AddCheckoutShippingFormSchema } from '@/schemas/addCheckoutBillingSchemas'
+import { AddCheckoutBillingFormSchema } from '@/schemas/addCheckoutBillingSchemas'
 
-export type AddCheckoutShippingFormFields = z.infer<typeof AddCheckoutShippingFormSchema>
+export type AddCheckoutBillingFormFields = z.infer<typeof AddCheckoutBillingFormSchema>

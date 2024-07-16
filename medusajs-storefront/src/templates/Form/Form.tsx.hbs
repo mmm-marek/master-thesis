@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl'
-import { useForm, UseFormReset } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
 import InputField from '@/atoms/InputField/InputField'
 import Button from '@/atoms/Button/Button'
@@ -13,12 +13,11 @@ type {{ pascalCase name }}Props = {
 	onSubmitted: () => void
 }
 
-const {{ pascalCase name }}Form = ({onSubmit}: {{ pascalCase name }}Props) => {
+const {{ pascalCase name }}Form = ({ onSubmitted }: {{ pascalCase name }}Props) => {
 	const t = useTranslations('components.{{ camelCase name }}Form')
 
 	const {
 		control,
-		reset,
 		formState: { isSubmitting },
 		handleSubmit
 	} = useForm<{{ pascalCase name }}FormFields>({

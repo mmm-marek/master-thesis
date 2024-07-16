@@ -9,7 +9,7 @@ import { AddCheckoutBillingFormSchema } from '@/schemas/addCheckoutBillingSchema
 import { zodResolver } from '@/utils/zodResolver'
 
 import * as SC from './AddCheckoutBillingFormStyles'
-import { AddCheckoutShippingFormFields } from './AddCheckoutBillingFormTypes'
+import { AddCheckoutBillingFormFields } from './AddCheckoutBillingFormTypes'
 
 type AddCheckoutBillingFormProps = {
 	onSubmitted: () => void
@@ -24,7 +24,7 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 		control,
 		formState: { isSubmitting },
 		handleSubmit
-	} = useForm<AddCheckoutShippingFormFields>({
+	} = useForm<AddCheckoutBillingFormFields>({
 		mode: 'onChange',
 		resolver: zodResolver(AddCheckoutBillingFormSchema),
 		defaultValues: {
@@ -36,7 +36,7 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 		}
 	})
 
-	const handleFormSubmit = async (data: AddCheckoutShippingFormFields) => {
+	const handleFormSubmit = async (data: AddCheckoutBillingFormFields) => {
 		updateShippingAddress(
 			{
 				address_1: data.address1,
