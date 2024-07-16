@@ -93,6 +93,29 @@
 				"welcomeBackEnterDetails": "Vitajte späť! Zadajte svoje údaje."
 			}
 		},
+		"checkout": {
+			"billingAddress": "Fakturačná adresa", 
+			"shippingAddresses": "Doručovacie adresy",
+			"email": "E-mail:",
+			"phone": "Telefón:",
+			"company": "Firma:",
+			"postalCode": "Poštový kód:",
+			"country": "Krajina:",
+			"address1": "Adresa 1:",
+			"address2": "Adresa 2:",
+			"city": "Mesto:",
+			"firstNamePlaceholder": "Zadajte krstné meno",
+			"lastNamePlaceholder": "Zadajte priezvisko",
+			"emailPlaceholder": "Zadajte e-mail",
+			"submitButton": "Uložiť",
+			"enterAddress1": "Zadajte adresu 1",
+			"enterAddress2": "Zadajte adresu 2",
+			"enterCity": "Zadajte mesto",
+			"enterCountryCode": "Zadajte krajinu",
+			"enterPostalCode": "Zadajte poštový kód",
+			"enterCompany": "Zadajte firmu",
+			"countryCode": "Krajina"
+		},
 		"profile": {
 			"appearance": "Vzhľad",
 			"manageProfileSettings": "Spravujte nastavenia svojho profilu tu.",

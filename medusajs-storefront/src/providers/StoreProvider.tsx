@@ -1,5 +1,6 @@
 import { Region, StorePostCartsCartReq } from '@medusajs/medusa'
-import { Cart, useCart, useCreateLineItem, useDeleteLineItem, useUpdateLineItem } from 'medusa-react'
+import { PricedShippingOption } from '@medusajs/medusa/dist/types/pricing'
+import { Cart, useCart, useCartShippingOptions, useCreateLineItem, useDeleteLineItem, useUpdateLineItem } from 'medusa-react'
 import { createContext, useContext, useEffect, useState } from 'react'
 
 import { medusa } from '@/utils/medusaHelpers'
@@ -24,6 +25,7 @@ type StoreContextType = {
 	resetCart: () => void
 	updateShippingAddress: (address: StorePostCartsCartReq['shipping_address']) => void
 	updateBillingAddress: (address: StorePostCartsCartReq['billing_address']) => void
+	shippingOptions: PricedShippingOption[]
 	isUpdatingCart: boolean
 }
 
@@ -78,10 +80,12 @@ const deleteRegion = () => {
  */
 export const StoreProvider = ({ children }: StoreProps) => {
 	const { cart, setCart, createCart, updateCart } = useCart()
-	const [countryCode, setCountryCode] = useState<string | undefined>(undefined)
+	const { shipping_options: shippingOptions } = useCartShippingOptions(cart!.id)
 	const addLineItem = useCreateLineItem(cart!.id)
 	const removeLineItem = useDeleteLineItem(cart!.id)
 	const updateLineItem = useUpdateLineItem(cart!.id)
+
+	const [countryCode, setCountryCode] = useState<string | undefined>(undefined)
 
 	const storeRegion = (regionId: string, storeCountryCode: string) => {
 		if (!IS_SERVER) {
@@ -330,6 +334,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				isUpdatingCart,
 				updateShippingAddress,
 				updateBillingAddress,
+				shippingOptions: shippingOptions || [],
 				cart
 			}}
 		>
