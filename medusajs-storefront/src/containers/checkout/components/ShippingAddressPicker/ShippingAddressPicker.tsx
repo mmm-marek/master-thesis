@@ -1,5 +1,7 @@
 import { Radio } from 'antd'
 
+import { useStore } from '@/providers/StoreProvider'
+
 import * as SC from './ShippingAddressPickerStyles'
 import { ShippingAddress } from './types'
 
@@ -9,6 +11,8 @@ type ShippingAddressPickerProps = {
 }
 
 const ShippingAddressPicker = ({ onAddressChange, shippingAddresses }: ShippingAddressPickerProps) => {
+	const { updateShippingAddress } = useStore()
+
 	return (
 		<Radio.Group
 			onChange={(e) => {
@@ -16,7 +20,20 @@ const ShippingAddressPicker = ({ onAddressChange, shippingAddresses }: ShippingA
 				if (!selectedAddress) {
 					return
 				}
-				onAddressChange(selectedAddress)
+				updateShippingAddress(
+					{
+						address_1: selectedAddress.address1,
+						address_2: selectedAddress.address2,
+						city: selectedAddress.city,
+						country_code: selectedAddress.countryCode,
+						postal_code: selectedAddress.postalCode
+					},
+					{
+						onSuccess: () => {
+							onAddressChange(selectedAddress)
+						}
+					}
+				)
 			}}
 		>
 			<SC.CardsWrapper>

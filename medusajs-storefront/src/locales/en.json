@@ -94,6 +94,8 @@
 			}
 		},
 		"checkout": {
+			"name": "Name:",
+			"surname": "Surname:",
 			"billingAddress": "Billing address", 
 			"shippingAddresses": "Shipping addresses",
 			"email": "Email:",
@@ -107,6 +109,7 @@
 			"firstNamePlaceholder": "Enter first name",
 			"lastNamePlaceholder": "Enter last name",
 			"emailPlaceholder": "Enter email",
+			"phonePlaceholder": "Enter phone",
 			"submitButton": "Submit",
 			"enterAddress1": "Enter address 1",
 			"enterAddress2": "Enter address 2",

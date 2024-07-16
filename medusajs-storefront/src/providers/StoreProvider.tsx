@@ -32,6 +32,7 @@ type StoreContextType = {
 	resetCart: (callbacks?: Partial<MutationCallbacks>) => void
 	updateShippingAddress: (address: StorePostCartsCartReq['shipping_address'], callbacks?: Partial<MutationCallbacks>) => void
 	updateBillingAddress: (address: StorePostCartsCartReq['billing_address'], callbacks?: Partial<MutationCallbacks>) => void
+	updateCheckoutEmail: (email: string, callbacks?: Partial<MutationCallbacks>) => void
 }
 
 const StoreContext = createContext<StoreContextType | null>(null)
@@ -327,6 +328,30 @@ export const StoreProvider = ({ children }: StoreProps) => {
 		)
 	}
 
+	const updateCheckoutEmail = async (email: string, callbacks?: Partial<MutationCallbacks>) => {
+		await updateCart.mutateAsync(
+			{
+				email
+			},
+			{
+				onSuccess: ({ cart: newCart }) => {
+					setCart(newCart)
+					storeCart(newCart.id)
+					if (callbacks?.onSuccess) {
+						callbacks?.onSuccess()
+					}
+				},
+				onError: (error) => {
+					// eslint-disable-next-line no-console
+					console.error(error)
+					if (callbacks?.onError) {
+						callbacks?.onError()
+					}
+				}
+			}
+		)
+	}
+
 	useEffect(() => {
 		if (!IS_SERVER) {
 			const storedRegion = localStorage.getItem(REGION_KEY)
@@ -388,6 +413,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				updateShippingAddress,
 				updateBillingAddress,
 				shippingOptions: shippingOptions || [],
+				updateCheckoutEmail,
 				cart
 			}}
 		>

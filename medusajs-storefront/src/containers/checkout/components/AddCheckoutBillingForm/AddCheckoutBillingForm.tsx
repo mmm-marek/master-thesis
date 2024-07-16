@@ -18,7 +18,7 @@ type AddCheckoutBillingFormProps = {
 const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) => {
 	const t = useTranslations('containers.checkout')
 
-	const { updateShippingAddress } = useStore()
+	const { updateBillingAddress } = useStore()
 
 	const {
 		control,
@@ -37,7 +37,7 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 	})
 
 	const handleFormSubmit = async (data: AddCheckoutBillingFormFields) => {
-		updateShippingAddress(
+		updateBillingAddress(
 			{
 				address_1: data.address1,
 				address_2: data.address2,

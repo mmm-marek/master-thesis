@@ -1,7 +1,10 @@
 import { Collapse } from 'antd'
 import { useState } from 'react'
 
+import { useStore } from '@/providers/StoreProvider'
+
 import AddCheckoutBillingForm from './components/AddCheckoutBillingForm/AddCheckoutBillingForm'
+import PersonalInformationForm from './components/PersonalInformationForm/PersonalInformationForm'
 import ShippingAddressPicker from './components/ShippingAddressPicker/ShippingAddressPicker'
 import { ShippingAddress } from './components/ShippingAddressPicker/types'
 
@@ -39,13 +42,22 @@ const shippingAddresses = [
 	}
 ]
 
-type CollapseKey = 'shipping' | 'billing' | 'payment'
+type CollapseKey = 'personalInformation' | 'shipping' | 'billing' | 'payment'
 
 const Checkout = () => {
-	const [activeKey, setActiveKey] = useState<CollapseKey>('shipping')
+	const { cart } = useStore()
+
+	console.log(cart)
+
+	const [activeKey, setActiveKey] = useState<CollapseKey>('personalInformation')
 	const [shippingAddress, setShippingAddress] = useState<ShippingAddress | null>(null)
 
 	const items: CollapseProps['items'] = [
+		{
+			key: 'personalInformation',
+			label: 'Personal information',
+			children: <PersonalInformationForm onSubmitted={() => setActiveKey('shipping')} />
+		},
 		{
 			key: 'shipping',
 			label: 'Shipping',

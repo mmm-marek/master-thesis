@@ -96,6 +96,8 @@
 		"checkout": {
 			"billingAddress": "Fakturačná adresa", 
 			"shippingAddresses": "Doručovacie adresy",
+			"name": "Meno:",
+			"surname": "Priezvisko:",
 			"email": "E-mail:",
 			"phone": "Telefón:",
 			"company": "Firma:",
@@ -107,6 +109,7 @@
 			"firstNamePlaceholder": "Zadajte krstné meno",
 			"lastNamePlaceholder": "Zadajte priezvisko",
 			"emailPlaceholder": "Zadajte e-mail",
+			"phonePlaceholder": "Zadajte telefónne číslo",
 			"submitButton": "Uložiť",
 			"enterAddress1": "Zadajte adresu 1",
 			"enterAddress2": "Zadajte adresu 2",
