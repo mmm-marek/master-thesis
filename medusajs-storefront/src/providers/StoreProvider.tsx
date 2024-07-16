@@ -1,4 +1,4 @@
-import { Region } from '@medusajs/medusa'
+import { Region, StorePostCartsCartReq } from '@medusajs/medusa'
 import { Cart, useCart, useCreateLineItem, useDeleteLineItem, useUpdateLineItem } from 'medusa-react'
 import { createContext, useContext, useEffect, useState } from 'react'
 
@@ -22,6 +22,8 @@ type StoreContextType = {
 	updateItem: (item: LineInfoProps) => void
 	deleteItem: (lineId: string) => void
 	resetCart: () => void
+	updateShippingAddress: (address: StorePostCartsCartReq['shipping_address']) => void
+	updateBillingAddress: (address: StorePostCartsCartReq['billing_address']) => void
 	isUpdatingCart: boolean
 }
 
@@ -68,6 +70,12 @@ const deleteRegion = () => {
 	}
 }
 
+/**
+ * Accessing cart directly through the useCart hook provided by medusa-react package is not recommended,
+ * because the cart might be undefined and the local cart instance needs to be updated after each cart operation.
+ * Therefore, any update to the cart should be done through the StoreProvider via useStore hook,
+ * which ensures that the cart is defined and updated after each operation.
+ */
 export const StoreProvider = ({ children }: StoreProps) => {
 	const { cart, setCart, createCart, updateCart } = useCart()
 	const [countryCode, setCountryCode] = useState<string | undefined>(undefined)
@@ -82,16 +90,6 @@ export const StoreProvider = ({ children }: StoreProps) => {
 			setCountryCode(countryCode)
 		}
 	}
-
-	useEffect(() => {
-		if (!IS_SERVER) {
-			const storedRegion = localStorage.getItem(REGION_KEY)
-			if (storedRegion) {
-				const { countryCode: storeCountryCode } = JSON.parse(storedRegion)
-				setCountryCode(storeCountryCode)
-			}
-		}
-	}, [])
 
 	const getRegion = () => {
 		if (!IS_SERVER) {
@@ -115,9 +113,8 @@ export const StoreProvider = ({ children }: StoreProps) => {
 					storeRegion(regionId, countryISO)
 				},
 				onError: (error) => {
-					if (process.env.NODE_ENV === 'development') {
-						console.error(error)
-					}
+					// eslint-disable-next-line no-console
+					console.error(error)
 				}
 			}
 		)
@@ -151,9 +148,8 @@ export const StoreProvider = ({ children }: StoreProps) => {
 					ensureRegion(newCart.region, newCart.shipping_address?.country_code)
 				},
 				onError: (error) => {
-					if (process.env.NODE_ENV === 'development') {
-						console.error(error)
-					}
+					// eslint-disable-next-line no-console
+					console.error(error)
 				}
 			}
 		)
@@ -175,13 +171,114 @@ export const StoreProvider = ({ children }: StoreProps) => {
 					ensureRegion(newCart.region, newCart.shipping_address?.country_code)
 				},
 				onError: (error) => {
-					if (process.env.NODE_ENV === 'development') {
-						console.error(error)
-					}
+					// eslint-disable-next-line no-console
+					console.error(error)
 				}
 			}
 		)
 	}
+
+	const addItem = ({ variantId, quantity }: { variantId: string; quantity: number }) => {
+		addLineItem.mutate(
+			{
+				variant_id: variantId,
+				quantity
+			},
+			{
+				onSuccess: ({ cart: newCart }) => {
+					setCart(newCart)
+					storeCart(newCart.id)
+				},
+				onError: (error) => {
+					// eslint-disable-next-line no-console
+					console.log(error)
+				}
+			}
+		)
+	}
+
+	const deleteItem = (lineId: string) => {
+		removeLineItem.mutate(
+			{
+				lineId
+			},
+			{
+				onSuccess: ({ cart: newCart }) => {
+					setCart(newCart)
+					storeCart(newCart.id)
+				},
+				onError: (error) => {
+					// eslint-disable-next-line no-console
+					console.log(error)
+				}
+			}
+		)
+	}
+
+	const updateItem = ({ lineId, quantity }: { lineId: string; quantity: number }) => {
+		updateLineItem.mutate(
+			{
+				lineId,
+				quantity
+			},
+			{
+				onSuccess: ({ cart: newCart }) => {
+					setCart(newCart)
+					storeCart(newCart.id)
+				},
+				onError: (error) => {
+					// eslint-disable-next-line no-console
+					console.log(error)
+				}
+			}
+		)
+	}
+
+	const updateShippingAddress = async (address: StorePostCartsCartReq['shipping_address']) => {
+		await updateCart.mutateAsync(
+			{
+				shipping_address: address
+			},
+			{
+				onSuccess: ({ cart: newCart }) => {
+					setCart(newCart)
+					storeCart(newCart.id)
+				},
+				onError: (error) => {
+					// eslint-disable-next-line no-console
+					console.error(error)
+				}
+			}
+		)
+	}
+
+	const updateBillingAddress = async (address: StorePostCartsCartReq['billing_address']) => {
+		await updateCart.mutateAsync(
+			{
+				billing_address: address
+			},
+			{
+				onSuccess: ({ cart: newCart }) => {
+					setCart(newCart)
+					storeCart(newCart.id)
+				},
+				onError: (error) => {
+					// eslint-disable-next-line no-console
+					console.error(error)
+				}
+			}
+		)
+	}
+
+	useEffect(() => {
+		if (!IS_SERVER) {
+			const storedRegion = localStorage.getItem(REGION_KEY)
+			if (storedRegion) {
+				const { countryCode: storeCountryCode } = JSON.parse(storedRegion)
+				setCountryCode(storeCountryCode)
+			}
+		}
+	}, [])
 
 	useEffect(() => {
 		const ensureCart = async () => {
@@ -218,59 +315,6 @@ export const StoreProvider = ({ children }: StoreProps) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	const addItem = ({ variantId, quantity }: { variantId: string; quantity: number }) => {
-		addLineItem.mutate(
-			{
-				variant_id: variantId,
-				quantity
-			},
-			{
-				onSuccess: ({ cart: newCart }) => {
-					setCart(newCart)
-					storeCart(newCart.id)
-				},
-				onError: (error) => {
-					console.log(error)
-				}
-			}
-		)
-	}
-
-	const deleteItem = (lineId: string) => {
-		removeLineItem.mutate(
-			{
-				lineId
-			},
-			{
-				onSuccess: ({ cart: newCart }) => {
-					setCart(newCart)
-					storeCart(newCart.id)
-				},
-				onError: (error) => {
-					console.log(error)
-				}
-			}
-		)
-	}
-
-	const updateItem = ({ lineId, quantity }: { lineId: string; quantity: number }) => {
-		updateLineItem.mutate(
-			{
-				lineId,
-				quantity
-			},
-			{
-				onSuccess: ({ cart: newCart }) => {
-					setCart(newCart)
-					storeCart(newCart.id)
-				},
-				onError: (error) => {
-					console.log(error)
-				}
-			}
-		)
-	}
-
 	const isUpdatingCart = addLineItem.isLoading || removeLineItem.isLoading || updateLineItem.isLoading
 
 	return (
@@ -284,6 +328,8 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				updateItem,
 				resetCart,
 				isUpdatingCart,
+				updateShippingAddress,
+				updateBillingAddress,
 				cart
 			}}
 		>
