@@ -9,12 +9,11 @@ import { {{ pascalCase name}}FormFields } from '@/components/{{ pascalCase name 
 import { {{ pascalCase name }}FormSchema } from '@/schemas/{{ camelCase name }}Schemas'
 import * as SC from './{{pascalCase name}}FormStyles'
 
-type Props = {
-	onSubmit: (data: {{ pascalCase name }}FormFields, reset: UseFormReset<{{ pascalCase name }}FormFields>) => Promise<void>
+type {{ pascalCase name }}Props = {
+	onSubmitted: () => void
 }
 
-const {{ pascalCase name }}Form = (props: Props) => {
-	const { onSubmit } = props
+const {{ pascalCase name }}Form = ({onSubmit}: {{ pascalCase name }}Props) => {
 	const t = useTranslations('components.{{ camelCase name }}Form')
 
 	const {
@@ -28,8 +27,8 @@ const {{ pascalCase name }}Form = (props: Props) => {
 		defaultValues: { name: '' }
 	})
 
-	const handleFormSubmit = async (data: {{ pascalCase name }}FormFields) => {
-		await onSubmit({ ...data }, reset)
+	const handleFormSubmit = (data: {{ pascalCase name }}FormFields) => {
+		onSubmitted()
 	}
 
 	return (

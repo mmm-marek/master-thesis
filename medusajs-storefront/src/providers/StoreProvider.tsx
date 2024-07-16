@@ -15,18 +15,23 @@ type LineInfoProps = {
 	quantity: number
 }
 
+type MutationCallbacks = {
+	onSuccess: () => void
+	onError: () => void
+}
+
 type StoreContextType = {
-	cart: Omit<Cart, 'refundable_amount' | 'refunded_total'> | undefined
-	countryCode: string | undefined
-	setRegion: (regionId: string, countryCode: string) => void
-	addItem: (item: VariantInfoProps) => void
-	updateItem: (item: LineInfoProps) => void
-	deleteItem: (lineId: string) => void
-	resetCart: () => void
-	updateShippingAddress: (address: StorePostCartsCartReq['shipping_address']) => void
-	updateBillingAddress: (address: StorePostCartsCartReq['billing_address']) => void
-	shippingOptions: PricedShippingOption[]
 	isUpdatingCart: boolean
+	countryCode: string | undefined
+	shippingOptions: PricedShippingOption[]
+	cart: Omit<Cart, 'refundable_amount' | 'refunded_total'> | undefined
+	setRegion: (regionId: string, countryCode: string, callbacks?: Partial<MutationCallbacks>) => void
+	addItem: (item: VariantInfoProps, callbacks?: Partial<MutationCallbacks>) => void
+	updateItem: (item: LineInfoProps, callbacks?: Partial<MutationCallbacks>) => void
+	deleteItem: (lineId: string, callbacks?: Partial<MutationCallbacks>) => void
+	resetCart: (callbacks?: Partial<MutationCallbacks>) => void
+	updateShippingAddress: (address: StorePostCartsCartReq['shipping_address'], callbacks?: Partial<MutationCallbacks>) => void
+	updateBillingAddress: (address: StorePostCartsCartReq['billing_address'], callbacks?: Partial<MutationCallbacks>) => void
 }
 
 const StoreContext = createContext<StoreContextType | null>(null)
@@ -105,7 +110,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 		return null
 	}
 
-	const setRegion = async (regionId: string, countryISO: string) => {
+	const setRegion = async (regionId: string, countryISO: string, callbacks?: Partial<MutationCallbacks>) => {
 		await updateCart.mutateAsync(
 			{
 				region_id: regionId
@@ -115,10 +120,16 @@ export const StoreProvider = ({ children }: StoreProps) => {
 					setCart(newCart)
 					storeCart(newCart.id)
 					storeRegion(regionId, countryISO)
+					if (callbacks?.onSuccess) {
+						callbacks?.onSuccess()
+					}
 				},
 				onError: (error) => {
 					// eslint-disable-next-line no-console
 					console.error(error)
+					if (callbacks?.onError) {
+						callbacks?.onError()
+					}
 				}
 			}
 		)
@@ -142,7 +153,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 		}
 	}
 
-	const createNewCart = async (regionId?: string) => {
+	const createNewCart = async (regionId?: string, callbacks?: Partial<MutationCallbacks>) => {
 		await createCart.mutateAsync(
 			{ region_id: regionId },
 			{
@@ -150,16 +161,22 @@ export const StoreProvider = ({ children }: StoreProps) => {
 					setCart(newCart)
 					storeCart(newCart.id)
 					ensureRegion(newCart.region, newCart.shipping_address?.country_code)
+					if (callbacks?.onSuccess) {
+						callbacks?.onSuccess()
+					}
 				},
 				onError: (error) => {
 					// eslint-disable-next-line no-console
 					console.error(error)
+					if (callbacks?.onError) {
+						callbacks?.onError()
+					}
 				}
 			}
 		)
 	}
 
-	const resetCart = () => {
+	const resetCart = (callbacks?: Partial<MutationCallbacks>) => {
 		deleteCart()
 
 		const savedRegion = getRegion()
@@ -173,16 +190,22 @@ export const StoreProvider = ({ children }: StoreProps) => {
 					setCart(newCart)
 					storeCart(newCart.id)
 					ensureRegion(newCart.region, newCart.shipping_address?.country_code)
+					if (callbacks?.onSuccess) {
+						callbacks?.onSuccess()
+					}
 				},
 				onError: (error) => {
 					// eslint-disable-next-line no-console
 					console.error(error)
+					if (callbacks?.onError) {
+						callbacks?.onError()
+					}
 				}
 			}
 		)
 	}
 
-	const addItem = ({ variantId, quantity }: { variantId: string; quantity: number }) => {
+	const addItem = ({ variantId, quantity }: { variantId: string; quantity: number }, callbacks?: Partial<MutationCallbacks>) => {
 		addLineItem.mutate(
 			{
 				variant_id: variantId,
@@ -192,16 +215,22 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				onSuccess: ({ cart: newCart }) => {
 					setCart(newCart)
 					storeCart(newCart.id)
+					if (callbacks?.onSuccess) {
+						callbacks?.onSuccess()
+					}
 				},
 				onError: (error) => {
 					// eslint-disable-next-line no-console
 					console.log(error)
+					if (callbacks?.onError) {
+						callbacks?.onError()
+					}
 				}
 			}
 		)
 	}
 
-	const deleteItem = (lineId: string) => {
+	const deleteItem = (lineId: string, callbacks?: Partial<MutationCallbacks>) => {
 		removeLineItem.mutate(
 			{
 				lineId
@@ -210,16 +239,22 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				onSuccess: ({ cart: newCart }) => {
 					setCart(newCart)
 					storeCart(newCart.id)
+					if (callbacks?.onSuccess) {
+						callbacks?.onSuccess()
+					}
 				},
 				onError: (error) => {
 					// eslint-disable-next-line no-console
 					console.log(error)
+					if (callbacks?.onError) {
+						callbacks?.onError()
+					}
 				}
 			}
 		)
 	}
 
-	const updateItem = ({ lineId, quantity }: { lineId: string; quantity: number }) => {
+	const updateItem = ({ lineId, quantity }: { lineId: string; quantity: number }, callbacks?: Partial<MutationCallbacks>) => {
 		updateLineItem.mutate(
 			{
 				lineId,
@@ -229,16 +264,22 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				onSuccess: ({ cart: newCart }) => {
 					setCart(newCart)
 					storeCart(newCart.id)
+					if (callbacks?.onSuccess) {
+						callbacks?.onSuccess()
+					}
 				},
 				onError: (error) => {
 					// eslint-disable-next-line no-console
 					console.log(error)
+					if (callbacks?.onError) {
+						callbacks?.onError()
+					}
 				}
 			}
 		)
 	}
 
-	const updateShippingAddress = async (address: StorePostCartsCartReq['shipping_address']) => {
+	const updateShippingAddress = async (address: StorePostCartsCartReq['shipping_address'], callbacks?: Partial<MutationCallbacks>) => {
 		await updateCart.mutateAsync(
 			{
 				shipping_address: address
@@ -247,16 +288,22 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				onSuccess: ({ cart: newCart }) => {
 					setCart(newCart)
 					storeCart(newCart.id)
+					if (callbacks?.onSuccess) {
+						callbacks?.onSuccess()
+					}
 				},
 				onError: (error) => {
 					// eslint-disable-next-line no-console
 					console.error(error)
+					if (callbacks?.onError) {
+						callbacks?.onError()
+					}
 				}
 			}
 		)
 	}
 
-	const updateBillingAddress = async (address: StorePostCartsCartReq['billing_address']) => {
+	const updateBillingAddress = async (address: StorePostCartsCartReq['billing_address'], callbacks?: Partial<MutationCallbacks>) => {
 		await updateCart.mutateAsync(
 			{
 				billing_address: address
@@ -265,10 +312,16 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				onSuccess: ({ cart: newCart }) => {
 					setCart(newCart)
 					storeCart(newCart.id)
+					if (callbacks?.onSuccess) {
+						callbacks?.onSuccess()
+					}
 				},
 				onError: (error) => {
 					// eslint-disable-next-line no-console
 					console.error(error)
+					if (callbacks?.onError) {
+						callbacks?.onError()
+					}
 				}
 			}
 		)

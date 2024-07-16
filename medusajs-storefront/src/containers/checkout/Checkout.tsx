@@ -1,31 +1,79 @@
 import { Collapse } from 'antd'
+import { useState } from 'react'
 
 import AddCheckoutBillingForm from './components/AddCheckoutBillingForm/AddCheckoutBillingForm'
+import ShippingAddressPicker from './components/ShippingAddressPicker/ShippingAddressPicker'
+import { ShippingAddress } from './components/ShippingAddressPicker/types'
 
 import type { CollapseProps } from 'antd'
 
+const shippingAddresses = [
+	{
+		name: 'Office BA',
+		address1: 'Bottova 7939/2A',
+		address2: 'The Spot at Sky Park Offices',
+		city: 'Bratislava',
+		countryCode: 'sk',
+		postalCode: '811 09'
+	},
+	{
+		name: 'Office ZA',
+		address1: 'Obchodná 9076/3D',
+		city: 'Žilina',
+		countryCode: 'sk',
+		postalCode: '01 008'
+	},
+	{
+		name: 'Office KE',
+		address1: 'Hviezdoslavova ul. 6',
+		city: 'Košice',
+		countryCode: 'sk',
+		postalCode: '040 01'
+	},
+	{
+		name: 'Office LM',
+		address1: 'M. Martinčeka 4701/2',
+		city: 'Liptovský Mikuláš',
+		countryCode: 'sk',
+		postalCode: '031 01'
+	}
+]
+
+type CollapseKey = 'shipping' | 'billing' | 'payment'
+
 const Checkout = () => {
+	const [activeKey, setActiveKey] = useState<CollapseKey>('shipping')
+	const [shippingAddress, setShippingAddress] = useState<ShippingAddress | null>(null)
+
 	const items: CollapseProps['items'] = [
 		{
-			key: '1',
+			key: 'shipping',
 			label: 'Shipping',
-			children: <p>Shipping</p>
+			children: (
+				<ShippingAddressPicker
+					shippingAddresses={shippingAddresses}
+					onAddressChange={(address) => {
+						setShippingAddress(address)
+						setActiveKey('billing')
+					}}
+				/>
+			)
 		},
 		{
-			key: '2',
+			key: 'billing',
 			label: 'Billing address',
-			children: <AddCheckoutBillingForm onSubmit={async (data) => console.log(data)} />,
-			collapsible: 'disabled'
+			children: <AddCheckoutBillingForm onSubmitted={() => setActiveKey('payment')} />,
+			collapsible: shippingAddress === null ? 'disabled' : undefined
 		},
 		{
-			key: '3',
+			key: 'payment',
 			label: 'Payment details',
 			children: <p>Payment details</p>,
 			collapsible: 'disabled'
 		}
 	]
 
-	return <Collapse accordion items={items} />
+	return <Collapse accordion items={items} activeKey={activeKey} onChange={(k) => setActiveKey(k as CollapseKey)} defaultActiveKey={activeKey} />
 }
 
 export default Checkout

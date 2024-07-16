@@ -1,31 +1,32 @@
 import { useTranslations } from 'next-intl'
-import { UseFormReset, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
 import Button from '@/atoms/Button/Button'
 import InputField from '@/atoms/InputField/InputField'
 import HookFormField from '@/components/HookFormField'
-import { AddCheckoutShippingFormSchema } from '@/schemas/addCheckoutBillingSchemas'
+import { useStore } from '@/providers/StoreProvider'
+import { AddCheckoutBillingFormSchema } from '@/schemas/addCheckoutBillingSchemas'
 import { zodResolver } from '@/utils/zodResolver'
 
 import * as SC from './AddCheckoutBillingFormStyles'
 import { AddCheckoutShippingFormFields } from './AddCheckoutBillingFormTypes'
 
-type Props = {
-	onSubmit: (data: AddCheckoutShippingFormFields, reset: UseFormReset<AddCheckoutShippingFormFields>) => Promise<void>
+type AddCheckoutBillingFormProps = {
+	onSubmitted: () => void
 }
 
-const AddCheckoutBillingForm = (props: Props) => {
-	const { onSubmit } = props
+const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) => {
 	const t = useTranslations('containers.checkout')
+
+	const { updateShippingAddress } = useStore()
 
 	const {
 		control,
-		reset,
 		formState: { isSubmitting },
 		handleSubmit
 	} = useForm<AddCheckoutShippingFormFields>({
 		mode: 'onChange',
-		resolver: zodResolver(AddCheckoutShippingFormSchema),
+		resolver: zodResolver(AddCheckoutBillingFormSchema),
 		defaultValues: {
 			address1: '',
 			address2: '',
@@ -36,7 +37,21 @@ const AddCheckoutBillingForm = (props: Props) => {
 	})
 
 	const handleFormSubmit = async (data: AddCheckoutShippingFormFields) => {
-		await onSubmit({ ...data }, reset)
+		updateShippingAddress(
+			{
+				address_1: data.address1,
+				address_2: data.address2,
+				city: data.city,
+				company: data.company,
+				country_code: data.countryCode,
+				postal_code: data.postalCode
+			},
+			{
+				onSuccess: () => {
+					onSubmitted()
+				}
+			}
+		)
 	}
 
 	return (

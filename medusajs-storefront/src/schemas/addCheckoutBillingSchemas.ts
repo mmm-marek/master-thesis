@@ -2,7 +2,7 @@ import * as z from 'zod'
 
 import { VALIDATION_MAX_LENGTH } from '@/utils/enums'
 
-export const AddCheckoutShippingFormSchema = z.object({
+export const AddCheckoutBillingFormSchema = z.object({
 	address1: z.string().min(1).max(VALIDATION_MAX_LENGTH.LENGTH_255),
 	address2: z.string().min(1).max(VALIDATION_MAX_LENGTH.LENGTH_255),
 	city: z.string().min(1).max(VALIDATION_MAX_LENGTH.LENGTH_255),
