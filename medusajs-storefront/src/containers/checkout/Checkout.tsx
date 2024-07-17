@@ -48,8 +48,6 @@ type CollapseKey = 'personalInformation' | 'shipping' | 'billing' | 'payment'
 const Checkout = () => {
 	const { initPayment, cart } = useStore()
 
-	console.log(cart)
-
 	const [activeKey, setActiveKey] = useState<CollapseKey>('personalInformation')
 	const [shippingAddress, setShippingAddress] = useState<ShippingAddress | null>(null)
 

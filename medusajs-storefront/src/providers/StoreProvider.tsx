@@ -34,6 +34,7 @@ type StoreContextType = {
 	updateBillingAddress: (address: StorePostCartsCartReq['billing_address'], callbacks?: Partial<MutationCallbacks>) => void
 	updateCheckoutEmail: (email: string, callbacks?: Partial<MutationCallbacks>) => void
 	initPayment: (callbacks?: Partial<MutationCallbacks>) => void
+	completePayment: (callbacks?: Partial<MutationCallbacks>) => void
 }
 
 const StoreContext = createContext<StoreContextType | null>(null)
@@ -223,7 +224,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				},
 				onError: (error) => {
 					// eslint-disable-next-line no-console
-					console.log(error)
+					console.error(error)
 					if (callbacks?.onError) {
 						callbacks?.onError()
 					}
@@ -247,7 +248,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				},
 				onError: (error) => {
 					// eslint-disable-next-line no-console
-					console.log(error)
+					console.error(error)
 					if (callbacks?.onError) {
 						callbacks?.onError()
 					}
@@ -272,7 +273,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				},
 				onError: (error) => {
 					// eslint-disable-next-line no-console
-					console.log(error)
+					console.error(error)
 					if (callbacks?.onError) {
 						callbacks?.onError()
 					}
@@ -399,6 +400,27 @@ export const StoreProvider = ({ children }: StoreProps) => {
 		)
 	}
 
+	const completePayment = (callbacks?: Partial<MutationCallbacks>) => {
+		const cartId = getCart()
+
+		if (!cartId) {
+			return
+		}
+
+		medusa.carts
+			.complete(cartId)
+			.then(() => {
+				resetCart(callbacks)
+			})
+			.catch((error) => {
+				// eslint-disable-next-line no-console
+				console.error(error)
+				if (callbacks?.onError) {
+					callbacks?.onError()
+				}
+			})
+	}
+
 	useEffect(() => {
 		if (!IS_SERVER) {
 			const storedRegion = localStorage.getItem(REGION_KEY)
@@ -462,6 +484,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				shippingOptions: shippingOptions || [],
 				updateCheckoutEmail,
 				initPayment,
+				completePayment,
 				cart
 			}}
 		>

@@ -1,13 +1,15 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
+import { useRouter } from 'next/router'
 import { MouseEventHandler } from 'react'
 
 import { useStore } from '@/providers/StoreProvider'
-import { medusa } from '@/utils/medusaHelpers'
+import { PATHS } from '@/utils/enums'
 
-const Form = () => {
-	const { cart, resetCart } = useStore()
+const StripeForm = () => {
+	const router = useRouter()
 	const stripe = useStripe()
 	const elements = useElements()
+	const { cart, completePayment } = useStore()
 
 	const handlePayment: MouseEventHandler<HTMLButtonElement> = async (e) => {
 		e.preventDefault()
@@ -39,8 +41,9 @@ const Form = () => {
 				}
 			})
 			.then(() => {
-				medusa.carts.complete(cartId).then((resp) => console.log(resp))
-				resetCart()
+				completePayment({
+					onSuccess: () => router.push(PATHS.ORDER_CONFIRMED)
+				})
 			})
 	}
 
@@ -54,4 +57,4 @@ const Form = () => {
 	)
 }
 
-export default Form
+export default StripeForm

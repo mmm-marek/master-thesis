@@ -1,4 +1,5 @@
 const dotenv = require("dotenv");
+const { resolve } = require("path");
 
 let ENV_FILE_NAME = "";
 switch (process.env.NODE_ENV) {
@@ -38,6 +39,8 @@ const BACKEND_URL = process.env.BACKEND_URL || "localhost:9000";
 const ADMIN_URL = process.env.ADMIN_URL || "localhost:7001";
 const STORE_URL = process.env.STORE_URL || "localhost:3000";
 
+const STRIPE_API_KEY = process.env.STRIPE_API_KEY || "";
+
 const GoogleClientId = process.env.GOOGLE_CLIENT_ID || "";
 const GoogleClientSecret = process.env.GOOGLE_CLIENT_SECRET || "";
 
@@ -51,6 +54,12 @@ const plugins = [
         resolve: `@medusajs/file-local`,
         options: {
             upload_dir: "uploads",
+        },
+    },
+    {
+        resolve: "medusa-payment-stripe",
+        options: {
+            api_key: STRIPE_API_KEY,
         },
     },
     {
