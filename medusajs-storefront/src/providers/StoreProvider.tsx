@@ -33,6 +33,7 @@ type StoreContextType = {
 	updateShippingAddress: (address: StorePostCartsCartReq['shipping_address'], callbacks?: Partial<MutationCallbacks>) => void
 	updateBillingAddress: (address: StorePostCartsCartReq['billing_address'], callbacks?: Partial<MutationCallbacks>) => void
 	updateCheckoutEmail: (email: string, callbacks?: Partial<MutationCallbacks>) => void
+	initPayment: (callbacks?: Partial<MutationCallbacks>) => void
 }
 
 const StoreContext = createContext<StoreContextType | null>(null)
@@ -328,6 +329,52 @@ export const StoreProvider = ({ children }: StoreProps) => {
 		)
 	}
 
+	const initPayment = (callbacks?: Partial<MutationCallbacks>) => {
+		const cartId = getCart()
+
+		if (!cartId) {
+			return
+		}
+
+		medusa.carts
+			.createPaymentSessions(cartId)
+			.then(({ cart: newCart }) => {
+				setCart(newCart)
+				storeCart(newCart.id)
+
+				const isStripeAvailable = newCart.payment_sessions?.some((session) => session.provider_id === 'stripe')
+				if (!isStripeAvailable) {
+					return
+				}
+
+				medusa.carts
+					.setPaymentSession(newCart.id, {
+						provider_id: 'stripe'
+					})
+					.then(({ cart: paymentCart }) => {
+						setCart(paymentCart)
+						storeCart(paymentCart.id)
+						if (callbacks?.onSuccess) {
+							callbacks?.onSuccess()
+						}
+					})
+					.catch((error) => {
+						// eslint-disable-next-line no-console
+						console.error(error)
+						if (callbacks?.onError) {
+							callbacks?.onError()
+						}
+					})
+			})
+			.catch((error) => {
+				// eslint-disable-next-line no-console
+				console.error(error)
+				if (callbacks?.onError) {
+					callbacks?.onError()
+				}
+			})
+	}
+
 	const updateCheckoutEmail = async (email: string, callbacks?: Partial<MutationCallbacks>) => {
 		await updateCart.mutateAsync(
 			{
@@ -414,6 +461,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				updateBillingAddress,
 				shippingOptions: shippingOptions || [],
 				updateCheckoutEmail,
+				initPayment,
 				cart
 			}}
 		>

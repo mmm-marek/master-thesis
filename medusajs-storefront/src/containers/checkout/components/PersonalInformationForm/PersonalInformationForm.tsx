@@ -31,7 +31,6 @@ const PersonalInformationForm = ({ onSubmitted }: PersonalInformationProps) => {
 	})
 
 	const handleFormSubmit = (data: PersonalInformationFormFields) => {
-		console.log('submit')
 		updateShippingAddress(
 			{
 				first_name: data.firstName,

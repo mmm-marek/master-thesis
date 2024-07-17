@@ -7,6 +7,7 @@ import AddCheckoutBillingForm from './components/AddCheckoutBillingForm/AddCheck
 import PersonalInformationForm from './components/PersonalInformationForm/PersonalInformationForm'
 import ShippingAddressPicker from './components/ShippingAddressPicker/ShippingAddressPicker'
 import { ShippingAddress } from './components/ShippingAddressPicker/types'
+import StripeContainer from './components/StripeContainer/StripeContainer'
 
 import type { CollapseProps } from 'antd'
 
@@ -45,7 +46,7 @@ const shippingAddresses = [
 type CollapseKey = 'personalInformation' | 'shipping' | 'billing' | 'payment'
 
 const Checkout = () => {
-	const { cart } = useStore()
+	const { initPayment, cart } = useStore()
 
 	console.log(cart)
 
@@ -69,19 +70,28 @@ const Checkout = () => {
 						setActiveKey('billing')
 					}}
 				/>
-			)
+			),
+			collapsible: !cart?.shipping_address?.first_name ? 'disabled' : undefined
 		},
 		{
 			key: 'billing',
 			label: 'Billing address',
-			children: <AddCheckoutBillingForm onSubmitted={() => setActiveKey('payment')} />,
+			children: (
+				<AddCheckoutBillingForm
+					onSubmitted={() => {
+						initPayment({
+							onSuccess: () => setActiveKey('payment')
+						})
+					}}
+				/>
+			),
 			collapsible: shippingAddress === null ? 'disabled' : undefined
 		},
 		{
 			key: 'payment',
 			label: 'Payment details',
-			children: <p>Payment details</p>,
-			collapsible: 'disabled'
+			children: <StripeContainer />,
+			collapsible: !cart?.billing_address?.address_1 ? 'disabled' : undefined
 		}
 	]
 
