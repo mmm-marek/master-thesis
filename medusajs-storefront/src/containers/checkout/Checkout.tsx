@@ -4,7 +4,9 @@ import { useState } from 'react'
 
 import { useStore } from '@/providers/StoreProvider'
 
+import * as SC from './CheckoutStyles'
 import AddCheckoutBillingForm from './components/AddCheckoutBillingForm/AddCheckoutBillingForm'
+import CheckoutSummary from './components/CheckoutSummary/CheckoutSummary'
 import PersonalInformationForm from './components/PersonalInformationForm/PersonalInformationForm'
 import ShippingAddressPicker from './components/ShippingAddressPicker/ShippingAddressPicker'
 import { ShippingAddress } from './components/ShippingAddressPicker/types'
@@ -95,7 +97,12 @@ const Checkout = () => {
 		}
 	]
 
-	return <Collapse accordion items={items} activeKey={activeKey} onChange={(k) => setActiveKey(k as CollapseKey)} defaultActiveKey={activeKey} />
+	return (
+		<SC.Container>
+			<Collapse accordion items={items} activeKey={activeKey} onChange={(k) => setActiveKey(k as CollapseKey)} defaultActiveKey={activeKey} ghost />
+			<CheckoutSummary />
+		</SC.Container>
+	)
 }
 
 export default Checkout
