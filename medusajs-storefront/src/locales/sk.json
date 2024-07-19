@@ -94,6 +94,9 @@
 			}
 		},
 		"checkout": {
+			"personalInformation": "Osobné údaje",
+			"shipping": "Doručenie",
+			"paymentDetails": "Platobné údaje",
 			"billingAddress": "Fakturačná adresa", 
 			"shippingAddresses": "Doručovacie adresy",
 			"name": "Meno:",

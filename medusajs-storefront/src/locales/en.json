@@ -94,6 +94,9 @@
 			}
 		},
 		"checkout": {
+			"personalInformation": "Personal information",
+			"shipping": "Shipping",
+			"paymentDetails": "Payment details",
 			"name": "Name:",
 			"surname": "Surname:",
 			"billingAddress": "Billing address", 

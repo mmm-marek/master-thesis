@@ -1,4 +1,5 @@
 import { Collapse } from 'antd'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
 import { useStore } from '@/providers/StoreProvider'
@@ -46,6 +47,7 @@ const shippingAddresses = [
 type CollapseKey = 'personalInformation' | 'shipping' | 'billing' | 'payment'
 
 const Checkout = () => {
+	const t = useTranslations('containers.checkout')
 	const { initPayment, cart } = useStore()
 
 	const [activeKey, setActiveKey] = useState<CollapseKey>('personalInformation')
@@ -54,12 +56,12 @@ const Checkout = () => {
 	const items: CollapseProps['items'] = [
 		{
 			key: 'personalInformation',
-			label: 'Personal information',
+			label: t('personalInformation'),
 			children: <PersonalInformationForm onSubmitted={() => setActiveKey('shipping')} />
 		},
 		{
 			key: 'shipping',
-			label: 'Shipping',
+			label: t('shipping'),
 			children: (
 				<ShippingAddressPicker
 					shippingAddresses={shippingAddresses}
@@ -73,7 +75,7 @@ const Checkout = () => {
 		},
 		{
 			key: 'billing',
-			label: 'Billing address',
+			label: t('billingAddress'),
 			children: (
 				<AddCheckoutBillingForm
 					onSubmitted={() => {
@@ -87,7 +89,7 @@ const Checkout = () => {
 		},
 		{
 			key: 'payment',
-			label: 'Payment details',
+			label: t('paymentDetails'),
 			children: <StripeContainer />,
 			collapsible: !cart?.billing_address?.address_1 ? 'disabled' : undefined
 		}
