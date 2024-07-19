@@ -241,11 +241,11 @@
 	},
 	"layouts": {
 		"mainLayout": {
+			"logout": "Log out",
+			"joinUs": "Join us",
+			"signIn": "Sign in",
 			"dashboard": "Dashboard",
-			"users": "Users",
-			"navbar": {
-				"avatar": "avatar"
-			}
+			"users": "Users"
 		}
 	},
 	"pages": {

@@ -50,7 +50,7 @@ const RegionPicker = () => {
 				}
 			}}
 		>
-			<SC.RegionPickerTrigger>{router.locale}</SC.RegionPickerTrigger>
+			<SC.RegionPickerTrigger>{router.locale?.toUpperCase()}</SC.RegionPickerTrigger>
 		</Dropdown>
 	)
 }

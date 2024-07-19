@@ -241,11 +241,11 @@
 	},
 	"layouts": {
 		"mainLayout": {
+			"logout": "Odhlásiť sa",
+			"joinUs": "Pridaj sa k nám",
+			"signIn": "Prihlásiť sa",
 			"dashboard": "Nástenka",
-			"users": "Používatelia",
-			"navbar": {
-				"avatar": "avatar"
-			}
+			"users": "Používatelia"
 		}
 	},
 	"pages": {

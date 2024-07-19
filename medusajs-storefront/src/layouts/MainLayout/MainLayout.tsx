@@ -2,6 +2,7 @@ import { Badge } from 'antd'
 import { CircleUserRound, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useTranslations } from 'next-intl'
 import { PropsWithChildren } from 'react'
 import { useTheme } from 'styled-components'
 
@@ -16,9 +17,10 @@ import Categories from './components/Categories/Categories'
 import RegionPicker from './components/RegionPicker/RegionPicker'
 
 const MainLayout = ({ children }: PropsWithChildren) => {
+	const theme = useTheme()
 	const router = useRouter()
 	const { cart } = useStore()
-	const theme = useTheme()
+	const t = useTranslations('layouts.mainLayout')
 
 	const { data: customer } = useCustomerProfile()
 	const { mutate: logoutUser } = useLogoutCustomer()
@@ -39,13 +41,13 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 						<SC.Actions>
 							{customer ? (
 								<SC.ActionButton onClick={handleLogout} type='button'>
-									Logout
+									{t('logout')}
 								</SC.ActionButton>
 							) : (
 								<>
-									<SC.ActionLink href={PATHS.SIGN_UP}>Join us</SC.ActionLink>
+									<SC.ActionLink href={PATHS.SIGN_UP}>{t('joinUs')}</SC.ActionLink>
 									<SC.ActionDivider />
-									<SC.ActionLink href={PATHS.LOGIN}>Sign in</SC.ActionLink>
+									<SC.ActionLink href={PATHS.LOGIN}>{t('signIn')}</SC.ActionLink>
 									<SC.ActionDivider />
 									<RegionPicker />
 								</>
