@@ -1,3 +1,4 @@
+import Categories from './components/Categories/Categories'
 import HeroBanner from './components/HeroBanner/HeroBanner'
 import Products from './components/Products/Products'
 
@@ -6,6 +7,7 @@ const Landing = () => {
 		<div>
 			<HeroBanner />
 			<Products />
+			<Categories />
 		</div>
 	)
 }

@@ -13,7 +13,6 @@ import { useStore } from '@/providers/StoreProvider'
 import { PATHS } from '@/utils/enums'
 
 import * as SC from './MainLayoutStyles'
-import Categories from './components/Categories/Categories'
 import RegionPicker from './components/RegionPicker/RegionPicker'
 
 const MainLayout = ({ children }: PropsWithChildren) => {
@@ -60,7 +59,6 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 						<SC.LogoLink href='/'>
 							<GrLogo />
 						</SC.LogoLink>
-						<Categories />
 						<SC.LinksWrapper>
 							<Link href={PATHS.CART}>
 								<Badge count={cart?.items.length || 0} showZero={false}>
