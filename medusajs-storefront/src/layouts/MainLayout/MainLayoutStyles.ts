@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import styled, { css } from 'styled-components'
 
+import Button from '@/atoms/Button/Button'
 import { textXsRegular } from '@/styles/helpers'
 
 export const ActionsWrapper = styled.div`
@@ -105,4 +106,8 @@ export const Layout = styled.div`
 	display: flex;
 	flex-direction: column;
 	min-height: 100dvh;
+`
+
+export const SignInButton = styled(Button)`
+	margin-bottom: 6px;
 `
