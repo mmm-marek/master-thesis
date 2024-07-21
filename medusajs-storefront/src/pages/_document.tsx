@@ -4,7 +4,7 @@ import { ServerStyleSheet } from 'styled-components'
 
 import envConfig from '@/config'
 
-import { openSansFont } from './_app'
+import { interFont, tiemposFineFont } from './_app'
 
 export default class MyDocument extends Document {
 	static async getInitialProps(ctx: DocumentContext) {
@@ -33,7 +33,7 @@ export default class MyDocument extends Document {
 				<Head>
 					<link rel='icon' type='image/png' href='/favicon.png' />
 				</Head>
-				<body className={`${openSansFont.variable}`}>
+				<body className={`${interFont.variable} ${tiemposFineFont.variable}`}>
 					<Main />
 					<NextScript />
 					<Script src={`https://www.google.com/recaptcha/api.js?render=${envConfig.recaptcha.siteKey}`} strategy='afterInteractive' />

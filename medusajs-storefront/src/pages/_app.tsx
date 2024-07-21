@@ -12,7 +12,8 @@ import timezonePlugin from 'dayjs/plugin/timezone'
 import utcPlugin from 'dayjs/plugin/utc'
 import { CartProvider, MedusaProvider } from 'medusa-react'
 import { NextPage } from 'next'
-import { Open_Sans } from 'next/font/google'
+import { Inter } from 'next/font/google'
+import localFont from 'next/font/local'
 import { useRouter } from 'next/router'
 import { NextIntlClientProvider } from 'next-intl'
 import { ReactElement, ReactNode, useEffect, useState } from 'react'
@@ -21,6 +22,7 @@ import { z } from 'zod'
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
 import { useLoader } from '@/hooks/loader/useLoader'
 import AppStateProvider from '@/providers/AppProvider'
+import { StoreProvider } from '@/providers/StoreProvider'
 import ThemeProvider from '@/providers/ThemeProvider'
 import { DEFAULT_LANGUAGE, ERROR_BOUNDARY_TYPE, LANGUAGE, LOCALES } from '@/utils/enums'
 import { defaultErrorMap } from '@/utils/globalZod'
@@ -29,7 +31,6 @@ import type { AppProps } from 'next/app'
 
 import 'dayjs/locale/en'
 import 'dayjs/locale/sk'
-import { StoreProvider } from '@/providers/StoreProvider'
 
 // dayjs plugins
 dayjs.extend(isBetween)
@@ -41,7 +42,83 @@ dayjs.extend(timezonePlugin)
 dayjs.extend(minMax)
 dayjs.locale(LOCALES[DEFAULT_LANGUAGE].countryCode)
 
-export const openSansFont = Open_Sans({ subsets: ['latin', 'latin-ext'], variable: '--open-sans-font', style: ['normal', 'italic'] })
+export const interFont = Inter({ subsets: ['latin', 'latin-ext'], variable: '--inter-font' })
+export const tiemposFineFont = localFont({
+	src: [
+		// Light 300
+		{
+			path: '../assets/fonts/TiemposFine/TiemposFine-Light.woff2',
+			weight: '300',
+			style: 'normal'
+		},
+		{
+			path: '../assets/fonts/TiemposFine/TiemposFine-LightItalic.woff2',
+			weight: '300',
+			style: 'italic'
+		},
+
+		// Regular 400
+		{
+			path: '../assets/fonts/TiemposFine/TiemposFine-Regular.woff2',
+			weight: '400',
+			style: 'normal'
+		},
+		{
+			path: '../assets/fonts/TiemposFine/TiemposFine-RegularItalic.woff2',
+			weight: '400',
+			style: 'italic'
+		},
+
+		// Medium 500
+		{
+			path: '../assets/fonts/TiemposFine/TiemposFine-Medium.woff2',
+			weight: '500',
+			style: 'normal'
+		},
+		{
+			path: '../assets/fonts/TiemposFine/TiemposFine-MediumItalic.woff2',
+			weight: '500',
+			style: 'italic'
+		},
+
+		// SemiBold 600
+		{
+			path: '../assets/fonts/TiemposFine/TiemposFine-SemiBold.woff2',
+			weight: '600',
+			style: 'normal'
+		},
+		{
+			path: '../assets/fonts/TiemposFine/TiemposFine-SemiBoldItalic.woff2',
+			weight: '600',
+			style: 'italic'
+		},
+
+		// Bold 700
+		{
+			path: '../assets/fonts/TiemposFine/TiemposFine-Bold.woff2',
+			weight: '700',
+			style: 'normal'
+		},
+		{
+			path: '../assets/fonts/TiemposFine/TiemposFine-BoldItalic.woff2',
+			weight: '700',
+			style: 'italic'
+		},
+
+		// Black 900
+		{
+			path: '../assets/fonts/TiemposFine/TiemposFine-Black.woff2',
+			weight: '900',
+			style: 'normal'
+		},
+		{
+			path: '../assets/fonts/TiemposFine/TiemposFine-BlackItalic.woff2',
+			weight: '900',
+			style: 'italic'
+		}
+	],
+	variable: '--tiempos-fine-font'
+})
 
 // set default errors for ZOD
 z.setErrorMap(defaultErrorMap)

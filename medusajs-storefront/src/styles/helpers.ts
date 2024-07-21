@@ -35,7 +35,8 @@ export const pulse = keyframes`
 
 /* Constants */
 
-export const OPEN_SANS_FONT_VARIABLE = 'var(--open-sans-font)'
+export const TIEMPOS_FINE_FONT_VARIABLE = 'var(--tiempos-fine-font)'
+export const INTER_FONT_VARIABLE = 'var(--inter-font)'
 
 export const WRAPPER_PADDING_DESKTOP = 32
 export const WRAPPER_PADDING_MOBILE = 16
@@ -66,9 +67,10 @@ export const breakpoints = {
 
 /* Fonts */
 /* Xs Fonts */
+
 export const textXsRegular = css`
 	line-height: 1rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${INTER_FONT_VARIABLE};
 	font-size: 0.75rem;
 	font-weight: 400;
 	font-style: normal;
@@ -76,7 +78,7 @@ export const textXsRegular = css`
 
 export const textXsMedium = css`
 	line-height: 1rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${INTER_FONT_VARIABLE};
 	font-size: 0.75rem;
 	font-weight: 500;
 	font-style: normal;
@@ -84,7 +86,7 @@ export const textXsMedium = css`
 
 export const textXsSemibold = css`
 	line-height: 1rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${INTER_FONT_VARIABLE};
 	font-size: 0.75rem;
 	font-weight: 600;
 	font-style: normal;
@@ -92,7 +94,7 @@ export const textXsSemibold = css`
 
 export const textXsBold = css`
 	line-height: 1rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${INTER_FONT_VARIABLE};
 	font-size: 0.75rem;
 	font-weight: 700;
 	font-style: normal;
@@ -101,7 +103,7 @@ export const textXsBold = css`
 /* Sm Fonts */
 export const textSmRegular = css`
 	line-height: 1.5rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${INTER_FONT_VARIABLE};
 	font-size: 0.875rem;
 	font-weight: 400;
 	font-style: normal;
@@ -109,7 +111,7 @@ export const textSmRegular = css`
 
 export const textSmMedium = css`
 	line-height: 1.25rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${INTER_FONT_VARIABLE};
 	font-size: 0.875rem;
 	font-weight: 500;
 	font-style: normal;
@@ -117,7 +119,7 @@ export const textSmMedium = css`
 
 export const textSmSemibold = css`
 	line-height: 1.25rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${INTER_FONT_VARIABLE};
 	font-size: 0.875rem;
 	font-weight: 600;
 	font-style: normal;
@@ -125,7 +127,7 @@ export const textSmSemibold = css`
 
 export const textSmBold = css`
 	line-height: 1.25rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${INTER_FONT_VARIABLE};
 	font-size: 0.875rem;
 	font-weight: 700;
 	font-style: normal;
@@ -134,7 +136,7 @@ export const textSmBold = css`
 /* Md Fonts */
 export const textMdRegular = css`
 	line-height: 1.5rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${INTER_FONT_VARIABLE};
 	font-size: 1rem;
 	font-weight: 400;
 	font-style: normal;
@@ -142,7 +144,7 @@ export const textMdRegular = css`
 
 export const textMdMedium = css`
 	line-height: 1.5rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${INTER_FONT_VARIABLE};
 	font-size: 1rem;
 	font-weight: 500;
 	font-style: normal;
@@ -150,7 +152,7 @@ export const textMdMedium = css`
 
 export const textMdSemibold = css`
 	line-height: 1.5rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${INTER_FONT_VARIABLE};
 	font-size: 1rem;
 	font-weight: 600;
 	font-style: normal;
@@ -158,7 +160,7 @@ export const textMdSemibold = css`
 
 export const textMdBold = css`
 	line-height: 1.5rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${INTER_FONT_VARIABLE};
 	font-size: 1rem;
 	font-weight: 700;
 	font-style: normal;
@@ -167,7 +169,7 @@ export const textMdBold = css`
 /* Lg Fonts */
 export const textLgRegular = css`
 	line-height: 1.5rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${INTER_FONT_VARIABLE};
 	font-size: 1.125rem;
 	font-weight: 400;
 	font-style: normal;
@@ -175,7 +177,7 @@ export const textLgRegular = css`
 
 export const textLgMedium = css`
 	line-height: 1.5rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${INTER_FONT_VARIABLE};
 	font-size: 1.125rem;
 	font-weight: 500;
 	font-style: normal;
@@ -183,7 +185,7 @@ export const textLgMedium = css`
 
 export const textLgSemibold = css`
 	line-height: 1.5rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${INTER_FONT_VARIABLE};
 	font-size: 1.125rem;
 	font-weight: 600;
 	font-style: normal;
@@ -191,7 +193,7 @@ export const textLgSemibold = css`
 
 export const textLgBold = css`
 	line-height: 1.5rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${INTER_FONT_VARIABLE};
 	font-size: 1.125rem;
 	font-weight: 700;
 	font-style: normal;
@@ -200,7 +202,7 @@ export const textLgBold = css`
 /* Xl Fonts */
 export const textXlRegular = css`
 	line-height: 2rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${INTER_FONT_VARIABLE};
 	font-size: 1.25rem;
 	font-weight: 400;
 	font-style: normal;
@@ -208,7 +210,7 @@ export const textXlRegular = css`
 
 export const textXlMedium = css`
 	line-height: 2rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${INTER_FONT_VARIABLE};
 	font-size: 1.25rem;
 	font-weight: 500;
 	font-style: normal;
@@ -216,7 +218,7 @@ export const textXlMedium = css`
 
 export const textXlSemiBold = css`
 	line-height: 2rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${INTER_FONT_VARIABLE};
 	font-size: 1.25rem;
 	font-weight: 600;
 	font-style: normal;
@@ -224,7 +226,7 @@ export const textXlSemiBold = css`
 
 export const textXlBold = css`
 	line-height: 2rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${INTER_FONT_VARIABLE};
 	font-size: 1.25rem;
 	font-weight: 700;
 	font-style: normal;
@@ -233,7 +235,7 @@ export const textXlBold = css`
 /* Heading fonts */
 export const headingXsSemibold = css`
 	line-height: 2rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${TIEMPOS_FINE_FONT_VARIABLE};
 	font-size: 1.5rem;
 	font-weight: 600;
 	font-style: normal;
@@ -242,7 +244,7 @@ export const headingXsSemibold = css`
 export const headingSmSemibold = css`
 	line-height: 2.5rem;
 	letter-spacing: -0.3px;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${TIEMPOS_FINE_FONT_VARIABLE};
 	font-size: 2rem;
 	font-weight: 600;
 	font-style: normal;
@@ -250,7 +252,7 @@ export const headingSmSemibold = css`
 
 export const textXlSemibold = css`
 	line-height: 2rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${TIEMPOS_FINE_FONT_VARIABLE};
 	font-size: 1.25rem;
 	font-weight: 600;
 	font-style: normal;
@@ -259,7 +261,7 @@ export const textXlSemibold = css`
 export const headingXxlBold = css`
 	line-height: 5.5rem;
 	letter-spacing: -0.02rem;
-	font-family: ${OPEN_SANS_FONT_VARIABLE};
+	font-family: ${TIEMPOS_FINE_FONT_VARIABLE};
 	font-size: 4.5rem;
 	font-weight: 700;
 	font-style: normal;
