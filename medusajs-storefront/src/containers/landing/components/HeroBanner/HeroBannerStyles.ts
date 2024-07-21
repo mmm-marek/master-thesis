@@ -14,7 +14,7 @@ export const Container = styled.div`
 		position: absolute;
 		top: 0;
 		left: 0;
-		opacity: 0.7;
+		opacity: 0.9;
 		z-index: 1;
 		background: linear-gradient(to right, rgb(255 255 255 / 100%), rgb(0 0 0 / 0%));
 		width: 100%;
