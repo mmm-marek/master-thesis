@@ -244,7 +244,9 @@
 		"landing": {
 			"title": "Explore",
 			"description": "Wear your pride! Discover our collection of branded apparel and accessories, perfect for showing your support and spirit.",
-			"cta": "Shop now"
+			"cta": "Shop now",
+			"productsTitle": "Featured products",
+			"productsCta": "Discover"
 		}
 	},
 	"layouts": {

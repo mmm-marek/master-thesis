@@ -18,8 +18,8 @@ export enum PATHS {
 	SIGN_UP = '/sign-up',
 	FORGOTTEN_PASSWORD = '/forgotten-password',
 	PROFILE = '/profile',
+	CATEGORY = '/category',
 	CART = '/cart',
-	PRODUCT = '/product',
 	PRODUCTS = '/products',
 	CHECKOUT = '/checkout',
 	ORDER_CONFIRMED = '/order-confirmed'

@@ -244,7 +244,9 @@
 		"landing": {
 			"title": "Objavujte",
 			"description": "Noste svoju hrdosť! Objavte našu kolekciu značkového oblečenia a doplnkov, ktoré sú ideálne na prezentovanie svojej podpory a firemného ducha.",
-			"cta": "Nakupujte teraz"
+			"cta": "Nakupujte teraz",
+			"productsTitle": "Odporúčané produkty",
+			"productsCta": "Preskúmajte"
 		}
 	},
 	"layouts": {

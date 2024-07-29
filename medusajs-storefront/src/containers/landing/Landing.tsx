@@ -1,13 +1,13 @@
 import * as SC from './LandingStyles'
 import Categories from './components/Categories/Categories'
+import FeaturedProducts from './components/FeaturedProducts/FeaturedProducts'
 import HeroBanner from './components/HeroBanner/HeroBanner'
-import Products from './components/Products/Products'
 
 const Landing = () => {
 	return (
 		<SC.Container>
 			<HeroBanner />
-			<Products />
+			<FeaturedProducts />
 			<Categories />
 		</SC.Container>
 	)
