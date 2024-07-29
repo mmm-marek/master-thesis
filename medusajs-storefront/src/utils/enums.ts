@@ -20,6 +20,7 @@ export enum PATHS {
 	PROFILE = '/profile',
 	CART = '/cart',
 	PRODUCT = '/product',
+	PRODUCTS = '/products',
 	CHECKOUT = '/checkout',
 	ORDER_CONFIRMED = '/order-confirmed'
 }
@@ -74,7 +75,8 @@ export enum PAGE_IDS {
 	CART = 'CART',
 	PRODUCT = 'PRODUCT',
 	CHECKOUT = 'CHECKOUT',
-	ORDER_CONFIRMED = 'ORDER_CONFIRMED'
+	ORDER_CONFIRMED = 'ORDER_CONFIRMED',
+	PRODUCTS = 'PRODUCTS'
 }
 
 export enum TOKEN_AUDIENCE {

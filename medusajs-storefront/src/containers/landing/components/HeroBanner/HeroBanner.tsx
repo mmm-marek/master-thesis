@@ -1,10 +1,13 @@
+import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
 
 import Button from '@/atoms/Button/Button'
+import { PATHS } from '@/utils/enums'
 
 import * as SC from './HeroBannerStyles'
 
 const HeroBanner = () => {
+	const router = useRouter()
 	const t = useTranslations('containers.landing')
 
 	return (
@@ -12,7 +15,7 @@ const HeroBanner = () => {
 			<SC.TextWrapper>
 				<SC.Title>{t('title')}</SC.Title>
 				<SC.Description>{t('description')}</SC.Description>
-				<Button size='extra-large' shape='round' type='primary'>
+				<Button size='extra-large' shape='round' type='primary' onClick={() => router.push(PATHS.PRODUCTS)}>
 					{t('cta')}
 				</Button>
 			</SC.TextWrapper>
