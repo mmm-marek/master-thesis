@@ -7,7 +7,9 @@ import * as SC from './ProductListStyles'
 const ProductList = () => {
 	const { cart } = useStore()
 
-	const { data: localizedData } = useGetLocalizedProducts(cart?.region_id)
+	const { data: localizedData } = useGetLocalizedProducts({
+		regionID: cart?.region_id
+	})
 
 	if (!localizedData) {
 		return null

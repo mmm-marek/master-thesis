@@ -17,7 +17,14 @@ type ProductProps = {
 
 const Product = ({ id }: ProductProps) => {
 	const { addItem, isUpdatingCart, cart } = useStore()
-	const { data: product, isError, isLoading } = useGetLocalizedProduct(id, cart?.region_id)
+	const {
+		data: product,
+		isError,
+		isLoading
+	} = useGetLocalizedProduct({
+		handle: id,
+		regionID: cart?.region_id
+	})
 	const [selectedVariant, setSelectedVariant] = useState(product?.variants[0])
 
 	useEffect(() => {

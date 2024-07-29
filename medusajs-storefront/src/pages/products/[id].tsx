@@ -1,4 +1,4 @@
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetStaticProps } from 'next'
 import Router from 'next/router'
 import { ReactElement } from 'react'
 
@@ -9,20 +9,20 @@ import { PAGE_IDS } from '@/utils/enums'
 import { getLocales } from '@/utils/locales'
 import { medusa } from '@/utils/medusaHelpers'
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths = async () => {
 	const { products } = await medusa.products.list()
 
 	const paths = products
 		.map((product) => [
 			{
 				params: {
-					id: product.id
+					id: product.handle
 				},
 				locale: 'en'
 			},
 			{
 				params: {
-					id: product.id
+					id: product.handle
 				},
 				locale: 'sk'
 			}
