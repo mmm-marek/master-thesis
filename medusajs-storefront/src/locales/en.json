@@ -240,6 +240,11 @@
 				"state": "State",
 				"search": "Search by name and e-mail"
 			}
+		},
+		"landing": {
+			"title": "Explore",
+			"description": "Wear your pride! Discover our collection of branded apparel and accessories, perfect for showing your support and spirit.",
+			"cta": "Shop now"
 		}
 	},
 	"layouts": {

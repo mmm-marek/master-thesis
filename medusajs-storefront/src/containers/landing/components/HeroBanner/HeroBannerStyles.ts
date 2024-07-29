@@ -27,7 +27,7 @@ export const Container = styled.div`
 			height: 400px;
 
 			&::after {
-				background: linear-gradient(to right, rgb(255 255 255 / 100%), rgb(0 0 0 / 0%));
+				background: linear-gradient(90deg, ${theme.tokens['color-base-surface-primary']} 20%, rgb(0 0 0 / 0%) 100%);
 			}
 		}
 	`}
@@ -68,8 +68,10 @@ export const TextWrapper = styled.div`
 	position: absolute;
 	flex-direction: column;
 	gap: 8px;
+	justify-content: end;
 	z-index: 200;
 	padding: 24px;
+	height: 100%;
 
 	@media (min-width: ${breakpoints.lg}px) {
 		max-width: 70%;
