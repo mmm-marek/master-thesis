@@ -4,23 +4,30 @@ import { getProductLocalizationSchema } from '@/schemas/pages/products'
 import { QUERY_KEYS } from '@/utils/enums'
 import { medusa } from '@/utils/medusaHelpers'
 
-export const getLocalizedProductsQueryKey = (regionId?: string) => [QUERY_KEYS.API_GET_LOCALIZED_PRODUCTS, regionId]
+type QueryParams = {
+	regionID?: string
+	categoryID?: string[]
+}
 
-export const getLocalizedProducts = async (regionId?: string) => {
-	const { products } = await medusa.products.list()
+export const getLocalizedProductsQueryKey = (params: QueryParams) => [QUERY_KEYS.API_GET_LOCALIZED_PRODUCTS, params]
 
-	if (!regionId) {
+export const getLocalizedProducts = async ({ regionID, categoryID }: QueryParams) => {
+	const { products } = await medusa.products.list({
+		category_id: categoryID
+	})
+
+	if (!regionID) {
 		return products
 	}
 
 	const localizedProducts = products.map((product) => {
-		const parsedProduct = getProductLocalizationSchema(product, regionId).safeParse(product)
+		const parsedProduct = getProductLocalizationSchema(product, regionID).safeParse(product)
 
 		if (!parsedProduct.success) {
 			return product
 		}
 
-		const regionLocalization = parsedProduct.data.metadata?.localization[regionId]
+		const regionLocalization = parsedProduct.data.metadata?.localization[regionID]
 		return {
 			...product,
 			// In case region is not localized, return the original product attributes
@@ -35,11 +42,11 @@ export const getLocalizedProducts = async (regionId?: string) => {
 	return localizedProducts
 }
 
-export const useGetLocalizedProducts = (regionId?: string) => {
+export const useGetLocalizedProducts = (params: QueryParams) => {
 	return useQuery({
-		queryKey: getLocalizedProductsQueryKey(regionId),
-		queryFn: async () => getLocalizedProducts(regionId),
-		enabled: !!regionId
+		queryKey: getLocalizedProductsQueryKey(params),
+		queryFn: async () => getLocalizedProducts(params),
+		enabled: !!params.regionID
 	})
 }
 

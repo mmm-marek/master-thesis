@@ -1,9 +1,11 @@
-import { useProductCategories, useProducts } from 'medusa-react'
+import { useProductCategories } from 'medusa-react'
 import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
 
 import Button from '@/atoms/Button/Button'
 import ProductCard from '@/components/ProductCard/ProductCard'
+import useGetLocalizedProducts from '@/hooks/products/useGetLocalizedProducts'
+import { useStore } from '@/providers/StoreProvider'
 import { PATHS } from '@/utils/enums'
 
 import * as SC from './FeaturedProductsStyles'
@@ -11,6 +13,7 @@ import * as SC from './FeaturedProductsStyles'
 const FEATURED_CATEGORY_HANDLE = 'clothes'
 
 const FeaturedProducts = () => {
+	const { cart } = useStore()
 	const router = useRouter()
 	const t = useTranslations('containers.landing')
 
@@ -18,8 +21,9 @@ const FeaturedProducts = () => {
 		handle: FEATURED_CATEGORY_HANDLE
 	})
 
-	const { products } = useProducts({
-		category_id: product_categories?.map((category) => category.id)
+	const { data: products } = useGetLocalizedProducts({
+		categoryID: product_categories?.map((category) => category.id),
+		regionID: cart?.region_id
 	})
 
 	return (

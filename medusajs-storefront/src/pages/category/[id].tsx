@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { ReactElement } from 'react'
 
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
@@ -9,7 +9,7 @@ import { PAGE_IDS } from '@/utils/enums'
 import { getLocales } from '@/utils/locales'
 import { medusa } from '@/utils/medusaHelpers'
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
 	const { regions } = await medusa.regions.list()
 
 	const pathsPromise = await Promise.all(
