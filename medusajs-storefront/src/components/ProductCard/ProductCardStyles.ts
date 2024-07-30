@@ -7,6 +7,7 @@ export const Product = styled.article`
 		position: relative;
 		border-radius: 16px;
 		background: ${theme.tokens['color-base-surface-primary']};
+		cursor: pointer;
 		overflow: hidden;
 	`}
 `

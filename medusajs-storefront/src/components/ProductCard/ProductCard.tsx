@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-import { LocalizedProduct } from '@/hooks/products/types'
+import { LocalizedProduct } from '@/types/interfaces'
 import { PATHS } from '@/utils/enums'
 
 import * as SC from './ProductCardStyles'
