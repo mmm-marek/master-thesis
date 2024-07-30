@@ -63,10 +63,11 @@ export const Header = styled.header`
 	`};
 `
 
-export const Content = styled.main`
-	${({ theme }) => css`
+export const Content = styled.main<{ $verticalPadding?: boolean }>`
+	${({ theme, $verticalPadding }) => css`
 		background: ${theme.tokens['color-base-surface-primary']};
-		padding: 24px 50px;
+		padding-block: ${$verticalPadding ? '24px' : '0'};
+		padding-inline: 50px;
 	`};
 `
 

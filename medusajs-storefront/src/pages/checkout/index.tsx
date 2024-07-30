@@ -19,7 +19,7 @@ const CartPage = (props: any) => <Checkout pageID={PAGE_IDS.CHECKOUT} {...props}
 
 CartPage.getLayout = function getLayout(page: ReactElement, props: any) {
 	return (
-		<MainLayout {...props} pageID={PAGE_IDS.CHECKOUT}>
+		<MainLayout {...props} pageID={PAGE_IDS.CHECKOUT} verticalPadding>
 			<ErrorBoundary>{page}</ErrorBoundary>
 		</MainLayout>
 	)

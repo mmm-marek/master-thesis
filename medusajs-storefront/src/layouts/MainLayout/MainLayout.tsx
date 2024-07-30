@@ -15,7 +15,11 @@ import { PATHS } from '@/utils/enums'
 import * as SC from './MainLayoutStyles'
 import RegionPicker from './components/RegionPicker/RegionPicker'
 
-const MainLayout = ({ children }: PropsWithChildren) => {
+type MainLayoutProps = {
+	verticalPadding?: boolean
+} & PropsWithChildren
+
+const MainLayout = ({ children, verticalPadding }: MainLayoutProps) => {
 	const theme = useTheme()
 	const router = useRouter()
 	const { cart } = useStore()
@@ -80,7 +84,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 					</SC.HeaderContent>
 				</SC.CappedContainer>
 			</SC.Header>
-			<SC.Content>
+			<SC.Content $verticalPadding={verticalPadding}>
 				<SC.CappedContainer>{children}</SC.CappedContainer>
 			</SC.Content>
 			<SC.Footer>

@@ -29,7 +29,7 @@ const DashboardPage = () => {
 
 DashboardPage.getLayout = function getLayout(page: ReactElement) {
 	return (
-		<MainLayout>
+		<MainLayout verticalPadding>
 			<ErrorBoundary>{page}</ErrorBoundary>
 		</MainLayout>
 	)

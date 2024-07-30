@@ -19,7 +19,7 @@ const ProductsPage = (props: any) => <Products pageID={PAGE_IDS.PRODUCTS} {...pr
 
 ProductsPage.getLayout = function getLayout(page: ReactElement, props: any) {
 	return (
-		<MainLayout {...props} pageID={PAGE_IDS.PRODUCTS}>
+		<MainLayout {...props} pageID={PAGE_IDS.PRODUCTS} verticalPadding>
 			<ErrorBoundary>{page}</ErrorBoundary>
 		</MainLayout>
 	)
