@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { RouteProps } from "@medusajs/admin";
-import { Heading, Table } from "@medusajs/ui";
+import { Table } from "@medusajs/ui";
 import { useQueryClient } from "@tanstack/react-query";
 import useGetCategories, {
     CATEGORIES_LIMIT,
@@ -63,7 +63,6 @@ const CategoryLocalizationTable = ({
                         <Table.HeaderCell className="w-[350px]">
                             Name
                         </Table.HeaderCell>
-                        <Table.HeaderCell>Handle</Table.HeaderCell>
                         <Table.HeaderCell className="w-[200px]">
                             Regions
                         </Table.HeaderCell>
@@ -76,7 +75,6 @@ const CategoryLocalizationTable = ({
                                 <Table.Cell className="truncate max-w-[350px]">
                                     {category.name}
                                 </Table.Cell>
-                                <Table.Cell>{category.handle}</Table.Cell>
                                 <Table.Cell className="flex gap-1 flex-wrap py-1 h-fit">
                                     {regions.map((region) => {
                                         return (

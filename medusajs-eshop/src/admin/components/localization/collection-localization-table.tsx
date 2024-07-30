@@ -63,7 +63,6 @@ const CollectionLocalizationTable = ({
                         <Table.HeaderCell className="w-[350px]">
                             Title
                         </Table.HeaderCell>
-                        <Table.HeaderCell>Handle</Table.HeaderCell>
                         <Table.HeaderCell className="w-[200px]">
                             Regions
                         </Table.HeaderCell>
@@ -76,7 +75,6 @@ const CollectionLocalizationTable = ({
                                 <Table.Cell className="truncate max-w-[350px]">
                                     {collection.title}
                                 </Table.Cell>
-                                <Table.Cell>{collection.handle}</Table.Cell>
                                 <Table.Cell className="flex gap-1 flex-wrap py-1 h-fit">
                                     {regions.map((region) => {
                                         return (

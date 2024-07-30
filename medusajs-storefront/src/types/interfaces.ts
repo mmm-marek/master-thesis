@@ -1,9 +1,23 @@
+import { ProductCategory } from '@medusajs/medusa'
+import { PricedProduct } from '@medusajs/medusa/dist/types/pricing'
 import { ReactNode } from 'react'
 
 import { TagType } from '@/atoms/Tag/types'
 import { MSG_TYPE, THEME_OPTION, USER_ROLE, USER_STATE } from '@/utils/enums'
 
 import type { ControllerFieldState, ControllerRenderProps } from 'react-hook-form'
+
+export type LocalizedProduct = PricedProduct & {
+	localizedTitle?: string
+	localizedSubtitle?: string | null
+	localizedDescription?: string | null
+	localizedMaterial?: string | null
+}
+
+export type LocalizedCategory = ProductCategory & {
+	localizedName: string
+	localizedDescription: string
+}
 
 export interface IErrorMessage {
 	type: MSG_TYPE

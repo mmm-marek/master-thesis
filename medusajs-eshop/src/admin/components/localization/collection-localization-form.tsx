@@ -45,7 +45,6 @@ export const CollectionLocalizationForm = ({
         updateCollection(
             {
                 title: data.title,
-                handle: data.handle,
             },
             {
                 onSuccess,
@@ -68,18 +67,6 @@ export const CollectionLocalizationForm = ({
                     placeholder="Title"
                     {...register("title")}
                     id={`${regionId}-title`}
-                />
-            </div>
-            <div>
-                <label
-                    className="text-grey-90 inter-xsmall-semibold"
-                    htmlFor={`${regionId}-handle`}>
-                    Handle
-                </label>
-                <Input
-                    placeholder="Handle"
-                    {...register("handle")}
-                    id={`${regionId}-handle`}
                 />
             </div>
             <div className="w-full flex justify-end">

@@ -41,7 +41,6 @@ export const CategoryLocalizationForm = ({
         updateCategory(
             {
                 name: data.name,
-                handle: data.handle,
                 description: data.description,
             },
             {
@@ -65,18 +64,6 @@ export const CategoryLocalizationForm = ({
                     placeholder="Name"
                     {...register("name")}
                     id={`${regionId}-name`}
-                />
-            </div>
-            <div>
-                <label
-                    className="text-grey-90 inter-xsmall-semibold"
-                    htmlFor={`${regionId}-handle`}>
-                    Handle
-                </label>
-                <Input
-                    placeholder="Handle"
-                    {...register("handle")}
-                    id={`${regionId}-handle`}
                 />
             </div>
             <div>

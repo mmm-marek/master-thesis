@@ -92,18 +92,6 @@ const ProductLocalizationForm = ({
             <div>
                 <label
                     className="text-grey-90 inter-xsmall-semibold"
-                    htmlFor={`${regionId}-handle`}>
-                    Handle
-                </label>
-                <Input
-                    placeholder="Handle"
-                    {...register("handle")}
-                    id={`${regionId}-handle`}
-                />
-            </div>
-            <div>
-                <label
-                    className="text-grey-90 inter-xsmall-semibold"
                     htmlFor={`${regionId}-material`}>
                     Material
                 </label>

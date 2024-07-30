@@ -13,19 +13,16 @@ export const ProductLocalizationSchema = z.object({
     title: z.string(),
     subtitle: z.string(),
     description: z.string(),
-    handle: z.string(),
     material: z.string(),
 });
 
 export const CategoryLocalizationSchema = z.object({
     name: z.string(),
-    handle: z.string(),
     description: z.string(),
 });
 
 export const CollectionLocalizationSchema = z.object({
     title: z.string(),
-    handle: z.string(),
 });
 
 export type ProductLocalizationSchemaType = z.infer<

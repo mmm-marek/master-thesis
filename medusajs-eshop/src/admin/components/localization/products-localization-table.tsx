@@ -83,7 +83,6 @@ const ProductLocalizationTable = ({
                         <Table.HeaderCell className="w-[350px]">
                             Title
                         </Table.HeaderCell>
-                        <Table.HeaderCell>Handle</Table.HeaderCell>
                         <Table.HeaderCell className="w-[200px]">
                             Regions
                         </Table.HeaderCell>
@@ -96,7 +95,6 @@ const ProductLocalizationTable = ({
                                 <Table.Cell className="truncate max-w-[3500px]">
                                     {product.title}
                                 </Table.Cell>
-                                <Table.Cell>{product.handle}</Table.Cell>
                                 <Table.Cell className="flex gap-1 flex-wrap py-1 h-fit">
                                     {regions.map((region) => {
                                         return (

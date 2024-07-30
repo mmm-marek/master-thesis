@@ -1,10 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { getProductLocalizationSchema } from '@/schemas/pages/products'
+import { LocalizedProduct } from '@/types/interfaces'
 import { QUERY_KEYS } from '@/utils/enums'
 import { medusa } from '@/utils/medusaHelpers'
-
-import { LocalizedProduct } from './types'
 
 type QueryParams = {
 	handle: string
@@ -35,7 +34,6 @@ export const getLocalizedProduct = async ({ handle, regionID }: QueryParams): Pr
 			localizedTitle: regionLocalization?.title ?? product.title,
 			localizedSubtitle: regionLocalization?.subtitle ?? product.subtitle,
 			localizedDescription: regionLocalization?.description ?? product.description,
-			localizedHandle: regionLocalization?.handle ?? product.handle,
 			localizedMaterial: regionLocalization?.material ?? product.material
 		}
 	}
@@ -44,7 +42,6 @@ export const getLocalizedProduct = async ({ handle, regionID }: QueryParams): Pr
 		localizedTitle: product.title,
 		localizedSubtitle: product.subtitle,
 		localizedDescription: product.description,
-		localizedHandle: product.handle,
 		localizedMaterial: product.material
 	}
 }
