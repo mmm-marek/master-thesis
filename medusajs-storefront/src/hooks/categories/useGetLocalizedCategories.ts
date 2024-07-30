@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { getCategoryLocalizationSchema } from '@/schemas/pages/products'
+import { getCategoryLocalizationSchema } from '@/schemas/localizationSchemas'
 import { QUERY_KEYS } from '@/utils/enums'
 import { medusa } from '@/utils/medusaHelpers'
 

@@ -1,6 +1,5 @@
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { ConfigProvider as AntdProvider } from 'antd'
 import { Locale } from 'antd/lib/locale'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
@@ -21,6 +20,7 @@ import { z } from 'zod'
 
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
 import { useLoader } from '@/hooks/loader/useLoader'
+import AntdProvider from '@/providers/AntdProvider'
 import AppStateProvider from '@/providers/AppProvider'
 import { StoreProvider } from '@/providers/StoreProvider'
 import ThemeProvider from '@/providers/ThemeProvider'
@@ -28,7 +28,6 @@ import { DEFAULT_LANGUAGE, ERROR_BOUNDARY_TYPE, LANGUAGE, LOCALES } from '@/util
 import { defaultErrorMap } from '@/utils/globalZod'
 
 import type { AppProps } from 'next/app'
-
 import 'dayjs/locale/en'
 import 'dayjs/locale/sk'
 
@@ -173,15 +172,15 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 				<ErrorBoundary fallbackType={ERROR_BOUNDARY_TYPE.REPORT_DIALOG}>
 					<QueryClientProvider client={queryClient}>
 						<Hydrate state={pageProps.dehydratedState}>
-							<AntdProvider locale={antdLocale}>
-								<AppStateProvider>
-									<CartProvider>
-										<StoreProvider>
-											<ThemeProvider>{getLayout(<Component {...pageProps} />, pageProps)}</ThemeProvider>
-										</StoreProvider>
-									</CartProvider>
-								</AppStateProvider>
-							</AntdProvider>
+							<ThemeProvider>
+								<AntdProvider locale={antdLocale}>
+									<AppStateProvider>
+										<CartProvider>
+											<StoreProvider>{getLayout(<Component {...pageProps} />, pageProps)}</StoreProvider>
+										</CartProvider>
+									</AppStateProvider>
+								</AntdProvider>
+							</ThemeProvider>
 						</Hydrate>
 						<ReactQueryDevtools initialIsOpen={false} />
 					</QueryClientProvider>

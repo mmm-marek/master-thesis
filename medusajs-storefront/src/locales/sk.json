@@ -37,6 +37,12 @@
 		}
 	},
 	"containers": {
+		"products": {
+			"productTitle": "Názov produktu",
+			"variants": "Varianty",
+			"inStock": "Skladom",
+			"addToCart": "Pridať do košíka"
+		},
 		"confirmAccountInvite": {
 			"confirmAccountInviteForm": {
 				"confirmAccount": "Potvrďte účet",

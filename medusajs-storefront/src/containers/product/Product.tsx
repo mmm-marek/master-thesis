@@ -1,6 +1,6 @@
-import { Carousel } from 'antd'
+import { RadioChangeEvent } from 'antd'
 import { formatVariantPrice } from 'medusa-react'
-import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 
 import Button from '@/atoms/Button/Button'
@@ -16,6 +16,7 @@ type ProductProps = {
 }
 
 const Product = ({ id }: ProductProps) => {
+	const t = useTranslations('containers.products')
 	const { addItem, isUpdatingCart, cart } = useStore()
 	const {
 		data: product,
@@ -25,35 +26,19 @@ const Product = ({ id }: ProductProps) => {
 		handle: id,
 		regionID: cart?.region_id
 	})
-	const [selectedVariant, setSelectedVariant] = useState(product?.variants[0])
+
+	const defaultVariant = product?.variants[0]
+	const [selectedVariant, setSelectedVariant] = useState(defaultVariant)
 
 	useEffect(() => {
 		setSelectedVariant(product?.variants[0])
 	}, [product])
 
-	if (isError) {
-		return <Error />
-	}
-
-	if (isLoading) {
-		return <Loading />
-	}
-
-	const getImages = () => {
-		const images = []
-		if (product?.thumbnail) {
-			images.push({
-				src: product.thumbnail,
-				alt: product.title ?? 'Product'
-			})
+	const handleVariantChange = ({ target: { value } }: RadioChangeEvent) => {
+		const variant = product?.variants.find((v) => v.id === value)
+		if (variant) {
+			setSelectedVariant(variant)
 		}
-
-		return images.concat(
-			product?.images?.map((image) => ({
-				src: image.url,
-				alt: product.title ?? 'Product'
-			})) || []
-		)
 	}
 
 	const handleAddToCart = () => {
@@ -66,34 +51,37 @@ const Product = ({ id }: ProductProps) => {
 		})
 	}
 
+	if (isError) {
+		return <Error />
+	}
+
+	if (isLoading) {
+		return <Loading />
+	}
+
 	return (
-		<SC.Wrapper>
-			<SC.CarouselWrapper>
-				<Carousel autoplay autoplaySpeed={2000}>
-					{getImages().map((image) => (
-						<SC.ImageWrapper key={image.src}>
-							<Image src={image.src} alt={image.alt} width={500} height={500} unoptimized />
-						</SC.ImageWrapper>
-					))}
-				</Carousel>
-			</SC.CarouselWrapper>
-			<SC.ContentWrapper>
-				<div>
-					<SC.Title>{product?.title}</SC.Title>
-					<SC.Description>{product?.description}</SC.Description>
-				</div>
-				<SC.VariantGrid>
-					{product?.variants.map((variant) => (
-						<SC.VariantButton
-							key={variant.id}
-							type='button'
-							onClick={() => setSelectedVariant(variant)}
-							$selected={selectedVariant?.id === variant.id}
-						>
-							{variant.title}
-						</SC.VariantButton>
-					))}
-				</SC.VariantGrid>
+		<SC.Container>
+			{product?.thumbnail && <SC.Thumbnail src={product.thumbnail} alt={product?.localizedTitle ?? t('productTitle')} width={500} height={500} />}
+			<SC.InfoWrapper>
+				<SC.TextWrapper>
+					<SC.ProductTitle>{product?.localizedTitle}</SC.ProductTitle>
+					<SC.Material>{product?.localizedMaterial}</SC.Material>
+				</SC.TextWrapper>
+				<SC.VariantsSection>
+					<SC.VariantsTitle>{t('variants')}</SC.VariantsTitle>
+					<SC.VariantsRadioGroup onChange={handleVariantChange} defaultValue={defaultVariant?.id}>
+						{product?.variants.map((variant) => (
+							<SC.RadioWrapper key={variant.id} $selected={selectedVariant?.id === variant.id}>
+								<SC.RadioVariant value={variant.id} disabled={variant.inventory_quantity === 0}>
+									{variant.title}
+								</SC.RadioVariant>
+							</SC.RadioWrapper>
+						))}
+					</SC.VariantsRadioGroup>
+					<SC.QuantityInfo>
+						{t('inStock')}: <SC.Strong>{selectedVariant?.inventory_quantity ?? 0}</SC.Strong>
+					</SC.QuantityInfo>
+				</SC.VariantsSection>
 				{selectedVariant && cart && (
 					<SC.PriceWrapper>
 						<SC.Price>
@@ -102,13 +90,15 @@ const Product = ({ id }: ProductProps) => {
 								region: cart?.region
 							})}
 						</SC.Price>
-						<Button size='extra-large' block type='primary' onClick={handleAddToCart} disabled={isUpdatingCart}>
-							Add to cart
+						<Button size='large' shape='round' type='primary' onClick={handleAddToCart} disabled={isUpdatingCart}>
+							{t('addToCart')}
 						</Button>
 					</SC.PriceWrapper>
 				)}
-			</SC.ContentWrapper>
-		</SC.Wrapper>
+				<SC.Divider />
+				<SC.Description>{product?.localizedDescription}</SC.Description>
+			</SC.InfoWrapper>
+		</SC.Container>
 	)
 }
 

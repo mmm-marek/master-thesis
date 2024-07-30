@@ -12,6 +12,9 @@ const nextConfig = {
 		locales: ['en', 'sk'],
 		defaultLocale: 'en'
 	},
+	images: {
+		domains: ['localhost']
+	},
 	compiler: {
 		styledComponents: true
 	},

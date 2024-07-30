@@ -37,6 +37,12 @@
 		}
 	},
 	"containers": {
+		"products": {
+			"productTitle": "Product title",
+			"variants": "Variants",
+			"inStock": "In stock",
+			"addToCart": "Add to cart"
+		},
 		"confirmAccountInvite": {
 			"confirmAccountInviteForm": {
 				"confirmAccount": "Confirm account",
