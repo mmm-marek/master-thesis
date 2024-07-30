@@ -41,7 +41,9 @@
 			"productTitle": "Názov produktu",
 			"variants": "Varianty",
 			"inStock": "Skladom",
-			"addToCart": "Pridať do košíka"
+			"addToCart": "Pridať do košíka",
+			"home": "Domov",
+			"products": "Produkty"
 		},
 		"confirmAccountInvite": {
 			"confirmAccountInviteForm": {

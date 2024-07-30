@@ -41,7 +41,9 @@
 			"productTitle": "Product title",
 			"variants": "Variants",
 			"inStock": "In stock",
-			"addToCart": "Add to cart"
+			"addToCart": "Add to cart",
+			"home": "Home",
+			"products": "Products"
 		},
 		"confirmAccountInvite": {
 			"confirmAccountInviteForm": {
