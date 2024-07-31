@@ -7,7 +7,9 @@ import { medusa } from '@/utils/medusaHelpers'
 export const getLocalizedCategoriesQueryKey = (regionId?: string) => [QUERY_KEYS.API_GET_LOCALIZED_CATEGORIES, regionId]
 
 export const getLocalizedCategories = async (regionId?: string) => {
-	const { product_categories } = await medusa.productCategories.list()
+	const { product_categories } = await medusa.productCategories.list({
+		expand: 'products'
+	})
 
 	if (!regionId) {
 		return product_categories.map((category) => ({

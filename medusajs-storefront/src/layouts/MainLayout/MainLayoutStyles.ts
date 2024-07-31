@@ -2,7 +2,7 @@ import Link from 'next/link'
 import styled, { css } from 'styled-components'
 
 import Button from '@/atoms/Button/Button'
-import { textXsRegular } from '@/styles/helpers'
+import { breakpoints, textXsRegular } from '@/styles/helpers'
 
 export const ActionsWrapper = styled.div`
 	${({ theme }) => css`
@@ -66,8 +66,13 @@ export const Header = styled.header`
 export const Content = styled.main<{ $verticalPadding?: boolean }>`
 	${({ theme, $verticalPadding }) => css`
 		background: ${theme.tokens['color-base-surface-primary']};
-		padding-block: ${$verticalPadding ? '24px' : '0'};
-		padding-inline: 50px;
+		padding-block: ${$verticalPadding ? '16px' : '0'};
+		padding-inline: 16px;
+
+		@media (min-width: ${breakpoints.lg}px) {
+			padding-block: ${$verticalPadding ? '24px' : '0'};
+			padding-inline: 48px;
+		}
 	`};
 `
 

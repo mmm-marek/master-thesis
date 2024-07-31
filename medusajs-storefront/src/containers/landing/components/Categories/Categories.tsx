@@ -20,14 +20,12 @@ const Categories = () => {
 	return (
 		<SC.Container>
 			<SC.IllustrationImage src='/images/t-shirt-illustration.png' alt='landing' width={1180} height={904} />
-			{categories
-				?.filter((category) => category.category_children.length === 0)
-				.map((category) => (
-					<SC.CategoryCard key={category.id}>
-						<SC.Name>{category.localizedName}</SC.Name>
-						<SC.Description>{category.localizedDescription}</SC.Description>
-					</SC.CategoryCard>
-				))}
+			{categories.map((category) => (
+				<SC.CategoryCard key={category.id}>
+					<SC.Name>{category.localizedName}</SC.Name>
+					<SC.Description>{category.localizedDescription}</SC.Description>
+				</SC.CategoryCard>
+			))}
 		</SC.Container>
 	)
 }
