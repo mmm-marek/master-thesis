@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import styled, { css } from 'styled-components'
 
-import { breakpoints, headingXxlBold, textMdMedium, textXlSemibold } from '@/styles/helpers'
+import { breakpoints, headingXxlBold, textMdMedium, textXxlSemibold } from '@/styles/helpers'
 
 export const Container = styled.div`
 	${({ theme }) => css`
@@ -46,7 +46,7 @@ export const ImageStyled = styled(Image)`
 
 export const Title = styled.h1`
 	${({ theme }) => css`
-		${textXlSemibold}
+		${textXxlSemibold}
 		color: ${theme.tokens['color-base-content-primary']};
 
 		@media (min-width: ${breakpoints.lg}px) {

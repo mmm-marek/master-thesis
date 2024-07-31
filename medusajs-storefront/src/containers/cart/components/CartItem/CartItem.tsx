@@ -1,7 +1,7 @@
 import { LineItem } from '@medusajs/medusa'
 import { MinusIcon, PlusIcon, Trash2Icon } from 'lucide-react'
 import { RegionInfo, formatAmount } from 'medusa-react'
-import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import { useTheme } from 'styled-components'
 
 import Button from '@/atoms/Button/Button'
@@ -15,6 +15,7 @@ type CartItemProps = {
 }
 
 const CartItem = ({ item, region }: CartItemProps) => {
+	const t = useTranslations('containers.cart')
 	const theme = useTheme()
 	const { deleteItem, updateItem } = useStore()
 
@@ -37,20 +38,16 @@ const CartItem = ({ item, region }: CartItemProps) => {
 
 	return (
 		<SC.Wrapper>
-			{item.thumbnail && (
-				<SC.ImageWrapper>
-					<Image src={item.thumbnail} alt={item.title ?? 'Product'} fill unoptimized objectFit='cover' />
-				</SC.ImageWrapper>
-			)}
+			{item.thumbnail && <SC.Thumbnail src={item.thumbnail} alt={item.title ?? 'Product'} objectFit='contain' width={164} height={164} />}
 			<SC.ContentWrapper>
 				<SC.Header>
 					<SC.Title>{item.title}</SC.Title>
-					<SC.Title>{formatAmount({ amount: item.subtotal ?? 0, region })}</SC.Title>
+					<SC.Price>{formatAmount({ amount: item.subtotal ?? 0, region })}</SC.Price>
 				</SC.Header>
 				<SC.Variant>{item.variant.title}</SC.Variant>
 				<div>
 					<SC.QuantityWrapper>
-						<SC.QuantityLabel>Quantity:</SC.QuantityLabel>
+						<SC.QuantityLabel>{t('quantity')}:</SC.QuantityLabel>
 						<SC.QuantityControls>
 							<Button icon={<MinusIcon />} noBackground size='small' onClick={handleRemoveQuantity} />
 							<SC.Quantity>{item.quantity}</SC.Quantity>

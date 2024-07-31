@@ -1,5 +1,6 @@
 import { formatAmount } from 'medusa-react'
 import { useRouter } from 'next/router'
+import { useTranslations } from 'next-intl'
 
 import DiscountCodeForm from '../DiscountCodeForm/DiscountCodeForm'
 import Button from '@/atoms/Button/Button'
@@ -10,6 +11,7 @@ import { PATHS } from '@/utils/enums'
 import * as SC from './SummaryStyles'
 
 const Summary = () => {
+	const t = useTranslations('containers.cart')
 	const router = useRouter()
 	const { cart } = useStore()
 
@@ -20,12 +22,10 @@ const Summary = () => {
 
 	return (
 		<SC.Wrapper>
-			<SC.Heading>Summary</SC.Heading>
-			<div>
-				<DiscountCodeForm />
-			</div>
+			<SC.Heading>{t('summary')}</SC.Heading>
+			<DiscountCodeForm />
 			<SC.SummaryItem>
-				<span>Subtotal</span>
+				<span>{t('subtotal')}</span>
 				<span>
 					{formatAmount({
 						amount: cart?.subtotal ?? 0,
@@ -35,7 +35,7 @@ const Summary = () => {
 			</SC.SummaryItem>
 			{!!cart.discount_total && (
 				<SC.SummaryItem>
-					<span>Discount</span>
+					<span>{t('discount')}</span>
 					<span>
 						{formatAmount({
 							amount: cart?.discount_total ?? 0,
@@ -45,7 +45,7 @@ const Summary = () => {
 				</SC.SummaryItem>
 			)}
 			<SC.Total>
-				<span>Total</span>
+				<span>{t('total')}</span>
 				<span>
 					{formatAmount({
 						amount: cart?.total ?? 0,
@@ -53,8 +53,8 @@ const Summary = () => {
 					})}
 				</span>
 			</SC.Total>
-			<Button block size='large' type='primary' onClick={() => router.push(PATHS.CHECKOUT)}>
-				Checkout
+			<Button block size='large' type='primary' onClick={() => router.push(PATHS.CHECKOUT)} shape='round'>
+				{t('checkout')}
 			</Button>
 		</SC.Wrapper>
 	)

@@ -37,6 +37,20 @@
 		}
 	},
 	"containers": {
+		"cart": {
+			"home": "Domov",
+			"cart": "Košík",
+			"emptyCart": "Váš košík je prázdny",
+			"emptyCartDescription": "Zdá sa, že ste ešte nič nepridali do košíka.",
+			"continueShopping": "Pokračovať v nákupe",
+			"total": "Celkom",
+			"subtotal": "Medzisúčet",
+			"checkout": "Zaplatiť",
+			"summary": "Zhrnutie",
+			"discount": "Zľava",
+			"apply": "Použiť",
+			"quantity": "Množstvo"
+		},
 		"products": {
 			"productTitle": "Názov produktu",
 			"variants": "Varianty",

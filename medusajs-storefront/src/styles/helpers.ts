@@ -232,6 +232,14 @@ export const textXlBold = css`
 	font-style: normal;
 `
 
+export const textXxlSemibold = css`
+	line-height: 2rem;
+	font-family: ${TIEMPOS_FINE_FONT_VARIABLE};
+	font-size: 1.25rem;
+	font-weight: 600;
+	font-style: normal;
+`
+
 /* Heading fonts */
 export const headingXsSemibold = css`
 	line-height: 2rem;
@@ -246,14 +254,6 @@ export const headingSmSemibold = css`
 	letter-spacing: -0.3px;
 	font-family: ${TIEMPOS_FINE_FONT_VARIABLE};
 	font-size: 2rem;
-	font-weight: 600;
-	font-style: normal;
-`
-
-export const textXlSemibold = css`
-	line-height: 2rem;
-	font-family: ${TIEMPOS_FINE_FONT_VARIABLE};
-	font-size: 1.25rem;
 	font-weight: 600;
 	font-style: normal;
 `

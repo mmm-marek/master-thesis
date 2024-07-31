@@ -1,11 +1,17 @@
 import styled, { css } from 'styled-components'
 
-import { headingSmSemibold, textLgSemibold, textMdMedium } from '@/styles/helpers'
+import { headingSmSemibold, textMdMedium, textXxlSemibold } from '@/styles/helpers'
 
 export const Wrapper = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
+	${({ theme }) => css`
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		border-radius: 16px;
+		background: ${theme.tokens['color-base-surface-secondary']};
+		padding: 16px;
+		height: fit-content;
+	`}
 `
 
 export const Heading = styled.h2`
@@ -32,6 +38,6 @@ export const Total = styled.div`
 		border-bottom: 1px solid ${theme.tokens['color-base-surface-tertiary']};
 		padding: 16px 0;
 		color: ${theme.tokens['color-base-content-primary']};
-		${textLgSemibold};
+		${textXxlSemibold};
 	`}
 `

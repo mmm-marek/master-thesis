@@ -1,23 +1,25 @@
+import Image from 'next/image'
 import styled, { css } from 'styled-components'
 
-import { textLgBold, textMdMedium, textMdSemibold } from '@/styles/helpers'
+import { textLgBold, textMdMedium, textMdSemibold, textXxlSemibold } from '@/styles/helpers'
 
 export const Wrapper = styled.div`
 	${({ theme }) => css`
 		display: flex;
 		gap: 16px;
 		border-bottom: 1px solid ${theme.tokens['color-base-surface-tertiary']};
+		padding-bottom: 8px;
 	`}
 `
 
-export const ImageWrapper = styled.div`
-	position: relative;
+export const Thumbnail = styled(Image)`
 	width: 164px;
-	height: 164px;
+	height: auto;
 `
 
 export const Header = styled.div`
 	display: flex;
+	gap: 8px;
 	align-items: center;
 	justify-content: space-between;
 `
@@ -25,6 +27,13 @@ export const Header = styled.div`
 export const Title = styled.p`
 	${({ theme }) => css`
 		${textLgBold};
+		color: ${theme.tokens['color-base-content-primary']};
+	`}
+`
+
+export const Price = styled.p`
+	${({ theme }) => css`
+		${textXxlSemibold};
 		color: ${theme.tokens['color-base-content-primary']};
 	`}
 `

@@ -2,7 +2,7 @@ import { Radio } from 'antd'
 import Image from 'next/image'
 import styled, { css } from 'styled-components'
 
-import { breakpoints, headingSmSemibold, textMdRegular, textSmRegular, textXlSemibold } from '@/styles/helpers'
+import { breakpoints, headingSmSemibold, textMdRegular, textSmRegular, textXxlSemibold } from '@/styles/helpers'
 
 export const Thumbnail = styled(Image)`
 	width: 100%;
@@ -37,7 +37,7 @@ export const VariantsSection = styled.div`
 
 export const VariantsTitle = styled.h2`
 	${({ theme }) => css`
-		${textXlSemibold};
+		${textXxlSemibold};
 		color: ${theme.tokens['color-base-content-primary']};
 	`}
 `

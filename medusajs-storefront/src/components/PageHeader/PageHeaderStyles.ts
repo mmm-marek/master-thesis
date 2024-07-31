@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { breakpoints, headingXsSemibold, textMdRegular, textXlSemibold } from '@/styles/helpers'
+import { breakpoints, headingXsSemibold, textMdRegular, textXxlSemibold } from '@/styles/helpers'
 
 export const Header = styled.div`
 	display: flex;
@@ -20,7 +20,7 @@ export const TitleWrapper = styled.div``
 
 export const Title = styled.h1`
 	margin: 0;
-	${textXlSemibold};
+	${textXxlSemibold};
 	color: ${({ theme }) => theme.tokens['color-base-content-primary']};
 
 	@media (min-width: ${breakpoints.md}px) {

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-import { headingSmSemibold } from '@/styles/helpers'
+import { breakpoints, headingSmSemibold } from '@/styles/helpers'
 
 export const Heading = styled.h1`
 	${({ theme }) => css`
@@ -17,6 +17,11 @@ export const CartItemsWrapper = styled.div`
 
 export const CartWrapper = styled.div`
 	display: grid;
-	grid-template-columns: 2fr 1fr;
+	grid-template-columns: 1fr;
 	gap: 32px;
+	margin-bottom: 16px;
+
+	@media (min-width: ${breakpoints.md}px) {
+		grid-template-columns: 2fr 1fr;
+	}
 `

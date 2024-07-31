@@ -1,4 +1,5 @@
 import { useUpdateCart } from 'medusa-react'
+import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 
 import Button from '@/atoms/Button/Button'
@@ -12,6 +13,7 @@ import * as SC from './DiscountCodeFormStyles'
 import { DiscountCodeFormFields } from './DiscountCodeFormTypes'
 
 const DiscountCodeForm = () => {
+	const t = useTranslations('containers.cart')
 	const { cart } = useStore()
 	const updateCart = useUpdateCart(cart!.id)
 
@@ -46,8 +48,8 @@ const DiscountCodeForm = () => {
 	return (
 		<SC.Form onSubmitCapture={handleSubmit(handleFormSubmit)}>
 			<HookFormField placeholder='SALE10' component={InputField} control={control} name='discountCode' size='large' required />
-			<Button type='primary' size='large' htmlType='submit' disabled={isSubmitting} loading={isSubmitting}>
-				Apply
+			<Button type='primary' size='large' htmlType='submit' disabled={isSubmitting} loading={isSubmitting} shape='round'>
+				{t('apply')}
 			</Button>
 		</SC.Form>
 	)

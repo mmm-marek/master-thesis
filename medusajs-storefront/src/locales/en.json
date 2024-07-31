@@ -37,6 +37,20 @@
 		}
 	},
 	"containers": {
+		"cart": {
+			"home": "Home",
+			"cart": "Cart",
+			"emptyCart": "Your cart is empty",
+			"emptyCartDescription": "Looks like you haven’t added anything to your cart yet.",
+			"continueShopping": "Continue shopping",
+			"total": "Total",
+			"subtotal": "Subtotal",
+			"checkout": "Checkout",
+			"summary": "Summary",
+			"discount": "Discount",
+			"apply": "Apply",
+			"quantity": "Quantity"
+		},
 		"products": {
 			"productTitle": "Product title",
 			"variants": "Variants",

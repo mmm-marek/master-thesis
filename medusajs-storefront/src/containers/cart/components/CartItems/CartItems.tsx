@@ -1,4 +1,5 @@
 import { LineItem, Region } from '@medusajs/medusa'
+import { useTranslations } from 'next-intl'
 
 import CartItem from '../CartItem/CartItem'
 
@@ -10,9 +11,11 @@ type CartItemsProps = {
 }
 
 const CartItems = ({ items, region }: CartItemsProps) => {
+	const t = useTranslations('containers.cart')
+
 	return (
 		<SC.Wrapper>
-			<SC.Heading>Cart</SC.Heading>
+			<SC.Heading>{t('cart')}</SC.Heading>
 			<SC.CartItemsWrapper>
 				{items.map((item) => (
 					<CartItem key={item.id} item={item} region={region} />
