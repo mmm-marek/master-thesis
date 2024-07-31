@@ -16,7 +16,7 @@ export const Actions = styled.div`
 	gap: 12px;
 	align-items: center;
 	justify-content: end;
-	padding: 8px 0;
+	padding: 8px 16px;
 `
 
 export const ActionLink = styled(Link)`
@@ -71,7 +71,6 @@ export const Content = styled.main<{ $verticalPadding?: boolean }>`
 
 		@media (min-width: ${breakpoints.lg}px) {
 			padding-block: ${$verticalPadding ? '24px' : '0'};
-			padding-inline: 48px;
 		}
 	`};
 `
@@ -88,7 +87,7 @@ export const HeaderContent = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding-top: 4px;
+	padding: 4px 16px 0;
 	height: 64px;
 `
 
