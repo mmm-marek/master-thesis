@@ -16,7 +16,7 @@ export const Actions = styled.div`
 	gap: 12px;
 	align-items: center;
 	justify-content: end;
-	padding: 8px 16px;
+	padding-block: 8px;
 `
 
 export const ActionLink = styled(Link)`
@@ -87,8 +87,12 @@ export const HeaderContent = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 4px 16px 0;
+	padding: 4px 0 0;
 	height: 64px;
+`
+
+export const Spacer = styled.div`
+	padding-inline: 16px;
 `
 
 export const LinksWrapper = styled.div`

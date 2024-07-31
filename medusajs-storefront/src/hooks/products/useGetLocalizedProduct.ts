@@ -1,8 +1,9 @@
+import { PricedProduct } from '@medusajs/medusa/dist/types/pricing'
 import { useQuery } from '@tanstack/react-query'
 
-import { getProductLocalizationSchema } from '@/schemas/localizationSchemas'
 import { LocalizedProduct } from '@/types/interfaces'
 import { QUERY_KEYS } from '@/utils/enums'
+import { localizeProduct } from '@/utils/localization'
 import { medusa } from '@/utils/medusaHelpers'
 
 type QueryParams = {
@@ -12,7 +13,7 @@ type QueryParams = {
 
 export const getLocalizedProductQueryKey = (params: QueryParams) => [QUERY_KEYS.API_GET_LOCALIZED_PRODUCT, params]
 
-export const getLocalizedProduct = async ({ handle, regionID }: QueryParams): Promise<LocalizedProduct | undefined> => {
+export const getLocalizedProduct = async ({ handle, regionID }: QueryParams): Promise<LocalizedProduct<PricedProduct> | undefined> => {
 	const { products } = await medusa.products.list({
 		handle
 	})
@@ -23,27 +24,7 @@ export const getLocalizedProduct = async ({ handle, regionID }: QueryParams): Pr
 		return undefined
 	}
 
-	const parsedProduct = getProductLocalizationSchema(product, regionID).safeParse(product)
-
-	if (parsedProduct.success) {
-		const regionLocalization = parsedProduct.data.metadata?.localization[regionID]
-
-		return {
-			...product,
-			// In case region is not localized, return the original product attributes
-			localizedTitle: regionLocalization?.title ?? product.title,
-			localizedSubtitle: regionLocalization?.subtitle ?? product.subtitle,
-			localizedDescription: regionLocalization?.description ?? product.description,
-			localizedMaterial: regionLocalization?.material ?? product.material
-		}
-	}
-	return {
-		...product,
-		localizedTitle: product.title,
-		localizedSubtitle: product.subtitle,
-		localizedDescription: product.description,
-		localizedMaterial: product.material
-	}
+	return localizeProduct({ product, regionID })
 }
 
 export const useGetLocalizedProduct = (params: QueryParams) => {

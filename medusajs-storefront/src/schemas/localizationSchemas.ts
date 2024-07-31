@@ -1,4 +1,4 @@
-import { ProductCategory } from '@medusajs/medusa'
+import { Product, ProductCategory } from '@medusajs/medusa'
 import { PricedProduct } from '@medusajs/medusa/dist/types/pricing'
 import { z } from 'zod'
 
@@ -9,7 +9,7 @@ import { z } from 'zod'
  * @param region_id ID of the region to localize the product for
  * @returns Localization schema for the product with default and catch values set to original product attributes
  */
-export const getProductLocalizationSchema = (product: PricedProduct, region_id: string) => {
+export const getProductLocalizationSchema = <T extends Product | PricedProduct>(product: T, region_id: string) => {
 	return z.object({
 		metadata: z
 			.object({

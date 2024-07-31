@@ -44,45 +44,49 @@ const MainLayout = ({ children, verticalPadding }: MainLayoutProps) => {
 		<SC.Layout>
 			<SC.Header>
 				<SC.ActionsWrapper>
-					<SC.CappedContainer>
-						<SC.Actions>
-							{customer ? (
-								<SC.ActionButton onClick={handleLogout} type='button'>
-									{t('logout')}
-								</SC.ActionButton>
-							) : (
-								<>
-									<SC.ActionLink href={PATHS.SIGN_UP}>{t('joinUs')}</SC.ActionLink>
-									<SC.ActionDivider />
-									<RegionPicker />
-								</>
-							)}
-						</SC.Actions>
-					</SC.CappedContainer>
+					<SC.Spacer>
+						<SC.CappedContainer>
+							<SC.Actions>
+								{customer ? (
+									<SC.ActionButton onClick={handleLogout} type='button'>
+										{t('logout')}
+									</SC.ActionButton>
+								) : (
+									<>
+										<SC.ActionLink href={PATHS.SIGN_UP}>{t('joinUs')}</SC.ActionLink>
+										<SC.ActionDivider />
+										<RegionPicker />
+									</>
+								)}
+							</SC.Actions>
+						</SC.CappedContainer>
+					</SC.Spacer>
 				</SC.ActionsWrapper>
-				<SC.CappedContainer>
-					<SC.HeaderContent>
-						<SC.LogoLink href='/'>
-							<GrLogo />
-						</SC.LogoLink>
-						<SC.LinksWrapper>
-							{customer ? (
-								<Link href={PATHS.PROFILE}>
-									<CircleUserRound color={theme.tokens['color-base-content-top']} />
+				<SC.Spacer>
+					<SC.CappedContainer>
+						<SC.HeaderContent>
+							<SC.LogoLink href='/'>
+								<GrLogo />
+							</SC.LogoLink>
+							<SC.LinksWrapper>
+								{customer ? (
+									<Link href={PATHS.PROFILE}>
+										<CircleUserRound color={theme.tokens['color-base-content-top']} />
+									</Link>
+								) : (
+									<SC.SignInButton type='primary' size='middle' shape='round' onClick={handleSignInClick}>
+										{t('signIn')}
+									</SC.SignInButton>
+								)}
+								<Link href={PATHS.CART}>
+									<Badge count={cart?.items.length || 0} showZero={false}>
+										<ShoppingCart color={theme.tokens['color-base-content-top']} />
+									</Badge>
 								</Link>
-							) : (
-								<SC.SignInButton type='primary' size='middle' shape='round' onClick={handleSignInClick}>
-									{t('signIn')}
-								</SC.SignInButton>
-							)}
-							<Link href={PATHS.CART}>
-								<Badge count={cart?.items.length || 0} showZero={false}>
-									<ShoppingCart color={theme.tokens['color-base-content-top']} />
-								</Badge>
-							</Link>
-						</SC.LinksWrapper>
-					</SC.HeaderContent>
-				</SC.CappedContainer>
+							</SC.LinksWrapper>
+						</SC.HeaderContent>
+					</SC.CappedContainer>
+				</SC.Spacer>
 			</SC.Header>
 			<SC.Content $verticalPadding={verticalPadding}>
 				<SC.CappedContainer>{children}</SC.CappedContainer>
