@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-import { textMdSemibold } from '@/styles/helpers'
+import { textMdMedium } from '@/styles/helpers'
 
 export const Product = styled.article`
 	${({ theme }) => css`
@@ -36,6 +36,6 @@ export const ProductTitle = styled.h2`
 		padding: 4px 8px;
 		width: fit-content;
 		color: ${theme.tokens['color-base-content-primary']};
-		${textMdSemibold};
+		${textMdMedium};
 	`}
 `

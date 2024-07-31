@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import styled, { css } from 'styled-components'
 
 import { breakpoints, textMdMedium, textSmMedium } from '@/styles/helpers'
@@ -31,12 +32,14 @@ export const IllustrationImage = styled(Image)`
 export const CategoryCard = styled.div`
 	${({ theme }) => css`
 		display: flex;
+		position: relative;
 		flex-direction: column;
 		justify-content: end;
 		border-radius: 16px;
 		background: ${theme.tokens['color-base-surface-tertiary']};
 		padding: 16px;
 		height: 188px;
+		overflow: hidden;
 	`}
 
 	@media (min-width: ${breakpoints.lg}px) {
@@ -46,17 +49,29 @@ export const CategoryCard = styled.div`
 	}
 `
 
-export const Name = styled.p`
+export const CategoryLink = styled(Link)`
 	${({ theme }) => css`
-		${textMdMedium}
+		position: relative;
+		z-index: 1;
 		text-transform: capitalize;
+		text-decoration: none;
 		color: ${theme.tokens['color-base-content-primary']};
+		${textMdMedium};
 	`}
 `
 
 export const Description = styled.p`
 	${({ theme }) => css`
-		${textSmMedium}
+		position: relative;
+		z-index: 1;
+		${textSmMedium};
 		color: ${theme.tokens['color-base-content-tertiary']};
 	`}
+`
+
+export const IconWrapper = styled.div`
+	position: absolute;
+	top: -16px;
+	right: -32px;
+	rotate: -25deg;
 `
