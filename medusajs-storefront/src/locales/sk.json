@@ -102,18 +102,24 @@
 			"emailPlaceholder": "Email"
 		},
 		"login": {
-			"loginForm": {
-				"email": "E-mail",
-				"enterEmail": "Zadajte svoj e-mail",
-				"enterPassword": "Zadajte svoje heslo",
-				"forgotPassword": "Zabudnuté heslo",
-				"logIn": "Prihlásiť sa",
-				"noAccount": "Nemáte účet?",
-				"password": "Heslo",
-				"signUp": "Prihlásiť sa",
-				"welcomeBack": "Vitajte späť",
-				"welcomeBackEnterDetails": "Vitajte späť! Zadajte svoje údaje."
-			}
+			"home": "Domov",
+			"breadcrumb": "Prihlásenie",
+			"email": "E-mail",
+			"enterEmail": "Zadajte svoj e-mail",
+			"enterPassword": "Zadajte svoje heslo",
+			"forgotPassword": "Zabudnuté heslo",
+			"logIn": "Prihlásiť sa",
+			"noAccount": "Nemáte účet?",
+			"password": "Heslo",
+			"signUp": "Prihlásiť sa",
+			"welcomeBack": "Vitajte späť",
+			"welcomeBackEnterDetails": "Vitajte späť! Zadajte svoje údaje.",
+			"registrationTitle": "Nemáte účet?",
+			"registrationDescription": "Registrácia vám umožní",
+			"accessHistory": "Prístup k histórii vašich objednávok",
+			"obtainDiscount": "Získať zľavu na ďalší nákup",
+			"quickProcess": "Rýchle spracovanie vašej objednávky",
+			"register": "Registrovať sa"
 		},
 		"checkout": {
 			"personalInformation": "Osobné údaje",

@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { useTranslations } from 'next-intl'
 
 import Button from '@/atoms/Button/Button'
 import { PATHS } from '@/utils/enums'
@@ -6,30 +7,31 @@ import { PATHS } from '@/utils/enums'
 import * as SC from './RegisterCTAStyles'
 
 const RegisterCTA = () => {
+	const t = useTranslations('containers.login')
 	const router = useRouter()
 
 	return (
 		<SC.RegisterCTAWrapper>
 			<SC.HeaderWrapper>
-				<SC.RegisterCTAHeader>Don`t have an account?</SC.RegisterCTAHeader>
-				<SC.RegisterCTAParagraph>Registration will give you access to:</SC.RegisterCTAParagraph>
+				<SC.RegisterCTAHeader>{t('registrationTitle')}</SC.RegisterCTAHeader>
+				<SC.RegisterCTAParagraph>{t('registrationDescription')}:</SC.RegisterCTAParagraph>
 			</SC.HeaderWrapper>
 			<SC.RegisterList>
 				<SC.RegisterListItem>
 					<SC.Bullet />
-					<div>Access the history of your orders</div>
+					<div>{t('accessHistory')}</div>
 				</SC.RegisterListItem>
 				<SC.RegisterListItem>
 					<SC.Bullet />
-					<div>Obtain a discount on your next purchase</div>
+					<div>{t('obtainDiscount')}</div>
 				</SC.RegisterListItem>
 				<SC.RegisterListItem>
 					<SC.Bullet />
-					<div>Quick process of your order</div>
+					<div>{t('quickProcess')}</div>
 				</SC.RegisterListItem>
 			</SC.RegisterList>
-			<Button type='primary' size='large' onClick={() => router.push(PATHS.SIGN_UP)}>
-				Register
+			<Button type='primary' size='middle' onClick={() => router.push(PATHS.SIGN_UP)} block shape='round'>
+				{t('register')}
 			</Button>
 		</SC.RegisterCTAWrapper>
 	)

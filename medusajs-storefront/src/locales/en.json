@@ -102,18 +102,24 @@
 			"emailPlaceholder": "Email"
 		},
 		"login": {
-			"loginForm": {
-				"email": "Email",
-				"enterEmail": "Enter your email",
-				"enterPassword": "Enter your password",
-				"forgotPassword": "Forgot password",
-				"logIn": "Log in",
-				"noAccount": "Don’t have an account?",
-				"password": "Password",
-				"signUp": "Sign up",
-				"welcomeBack": "Welcome back",
-				"welcomeBackEnterDetails": "Welcome back! Please enter your details."
-			}
+			"home": "Home",
+			"breadcrumb": "Sign in",
+			"email": "Email",
+			"enterEmail": "Enter your email",
+			"enterPassword": "Enter your password",
+			"forgotPassword": "Forgot password",
+			"logIn": "Log in",
+			"noAccount": "Don’t have an account?",
+			"password": "Password",
+			"signUp": "Sign up",
+			"welcomeBack": "Welcome back",
+			"welcomeBackEnterDetails": "Welcome back! Please enter your details.",
+			"registrationTitle": "Don’t have an account?",
+			"registrationDescription": "Registration will give you access to",
+			"accessHistory": "Access the history of your orders",
+			"obtainDiscount": "Obtain a discount on your next purchase",
+			"quickProcess": "Quick process of your order",
+			"register": "Register"
 		},
 		"checkout": {
 			"personalInformation": "Personal information",

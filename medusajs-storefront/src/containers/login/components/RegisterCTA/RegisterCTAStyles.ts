@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components'
 
-import { headingSmSemibold, textMdRegular, textSmMedium } from '@/styles/helpers'
+import { headingXsSemibold, textSmMedium, textSmRegular } from '@/styles/helpers'
 
 export const RegisterCTAWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: 32px;
+	gap: 16px;
 	align-items: end;
 	justify-content: start;
 `
@@ -20,13 +20,13 @@ export const HeaderWrapper = styled.div`
 export const RegisterCTAHeader = styled.h2`
 	${({ theme }) => css`
 		color: ${theme.tokens['color-base-content-primary']};
-		${headingSmSemibold};
+		${headingXsSemibold};
 	`}
 `
 
 export const RegisterCTAParagraph = styled.p`
 	${({ theme }) => css`
-		${textMdRegular};
+		${textSmRegular};
 		color: ${theme.tokens['color-base-content-tertiary']};
 	`}
 `
