@@ -19,7 +19,7 @@ const OrderConfirmedPage = (props: any) => <OrderConfirmed pageID={PAGE_IDS.ORDE
 
 OrderConfirmedPage.getLayout = function getLayout(page: ReactElement, props: any) {
 	return (
-		<MainLayout {...props} pageID={PAGE_IDS.ORDER_CONFIRMED} verticalPadding>
+		<MainLayout {...props} pageID={PAGE_IDS.ORDER_CONFIRMED}>
 			<ErrorBoundary>{page}</ErrorBoundary>
 		</MainLayout>
 	)

@@ -45,7 +45,7 @@ const CategoryPage = (props: any) => <Category pageID={PAGE_IDS.CATEGORY} {...pr
 
 CategoryPage.getLayout = function getLayout(page: ReactElement, props: any) {
 	return (
-		<MainLayout {...props} pageID={PAGE_IDS.CATEGORY} verticalPadding>
+		<MainLayout {...props} pageID={PAGE_IDS.CATEGORY}>
 			<ErrorBoundary>{page}</ErrorBoundary>
 		</MainLayout>
 	)

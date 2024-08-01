@@ -204,22 +204,22 @@
 			}
 		},
 		"signUp": {
-			"signUpForm": {
-				"welcome": "Vitajte",
-				"registerInfo": "Zaregistrujte sa, aby začala vaša cesta",
-				"email": "E-mail",
-				"enterEmail": "Zadajte svoj e-mail",
-				"password": "Heslo",
-				"enterPassword": "Zadajte svoje heslo",
-				"repeatPassword": "Zopakujte svoje heslo",
-				"signUp": "Zaregistrujte sa",
-				"forgotPassword": "Zabudnuté heslo?",
-				"firstName": "Meno",
-				"lastName": "Priezvisko",
-				"enterFirstName": "Zadajte svoj meno",
-				"enterLastName": "Zadajte svoj priezvisko",
-				"emailAlreadyExists": "E-mail už existuje"
-			}	
+			"home": "Domov",
+			"title": "Registrácia",
+			"welcome": "Vitajte",
+			"registerInfo": "Zaregistrujte sa, aby začala vaša cesta",
+			"email": "E-mail",
+			"enterEmail": "Zadajte svoj e-mail",
+			"password": "Heslo",
+			"enterPassword": "Zadajte svoje heslo",
+			"repeatPassword": "Zopakujte svoje heslo",
+			"signUp": "Zaregistrujte sa",
+			"forgotPassword": "Zabudnuté heslo?",
+			"firstName": "Meno",
+			"lastName": "Priezvisko",
+			"enterFirstName": "Zadajte svoj meno",
+			"enterLastName": "Zadajte svoj priezvisko",
+			"emailAlreadyExists": "E-mail už existuje"
 		},
 		"users": {
 			"action": "Akcia",

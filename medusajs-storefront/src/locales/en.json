@@ -204,22 +204,22 @@
 			}
 		},
 		"signUp": {
-			"signUpForm": {
-				"welcome": "Welcome",
-				"registerInfo": "Register to start your journey",
-				"email": "Email",
-				"enterEmail": "Enter your email",
-				"password": "Password",
-				"enterPassword": "Enter your password",
-				"repeatPassword": "Repeat the password",
-				"signUp": "Sign up",
-				"forgotPassword": "Forgot password?",
-				"firstName": "First name",
-				"lastName": "Last name",
-				"enterFirstName": "Enter your first name",
-				"enterLastName": "Enter your last name",
-				"emailAlreadyExists": "Email already exists"
-			}
+			"home": "Home",
+			"title": "Registration",
+			"welcome": "Welcome",
+			"registerInfo": "Register to start your journey",
+			"email": "Email",
+			"enterEmail": "Enter your email",
+			"password": "Password",
+			"enterPassword": "Enter your password",
+			"repeatPassword": "Repeat the password",
+			"signUp": "Sign up",
+			"forgotPassword": "Forgot password?",
+			"firstName": "First name",
+			"lastName": "Last name",
+			"enterFirstName": "Enter your first name",
+			"enterLastName": "Enter your last name",
+			"emailAlreadyExists": "Email already exists"
 		},
 		"users": {
 			"action": "Action",

@@ -82,7 +82,6 @@ export const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
-	margin-bottom: 16px;
 
 	@media (min-width: ${breakpoints.lg}px) {
 		display: grid;

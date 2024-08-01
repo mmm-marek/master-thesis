@@ -19,7 +19,7 @@ const LoginPage = (props: any) => <Login pageID={PAGE_IDS.LOGIN} {...props} />
 
 LoginPage.getLayout = function getLayout(page: ReactElement, props: any) {
 	return (
-		<MainLayout {...props} pageID={PAGE_IDS.LOGIN} verticalPadding>
+		<MainLayout {...props} pageID={PAGE_IDS.LOGIN}>
 			<ErrorBoundary>{page}</ErrorBoundary>
 		</MainLayout>
 	)

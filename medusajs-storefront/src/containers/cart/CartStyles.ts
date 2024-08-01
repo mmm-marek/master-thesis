@@ -19,7 +19,6 @@ export const CartWrapper = styled.div`
 	display: grid;
 	grid-template-columns: 1fr;
 	gap: 32px;
-	margin-bottom: 16px;
 
 	@media (min-width: ${breakpoints.md}px) {
 		grid-template-columns: 2fr 1fr;

@@ -23,7 +23,7 @@ const ProfilePage = (props: Props) => <Profile {...props} />
 ProfilePage.getLayout = function getLayout(page: ReactElement, props: Props) {
 	return (
 		<PrivateWrapper>
-			<MainLayout {...props} pageID={PAGE_IDS.PROFILE} verticalPadding>
+			<MainLayout {...props} pageID={PAGE_IDS.PROFILE}>
 				<ErrorBoundary>{page}</ErrorBoundary>
 			</MainLayout>
 		</PrivateWrapper>

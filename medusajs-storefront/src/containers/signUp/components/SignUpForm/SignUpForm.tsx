@@ -22,7 +22,7 @@ export type SignUpFormFields = z.infer<typeof SignUpFormSchema>
 
 const SignUpForm = () => {
 	const router = useRouter()
-	const t = useTranslations('containers.signUp.signUpForm')
+	const t = useTranslations('containers.signUp')
 
 	const { mutate: createCustomer } = useCustomerSignUp()
 	const { mutate: checkEmailExists } = useCheckEmailExists()

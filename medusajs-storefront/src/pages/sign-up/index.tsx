@@ -20,7 +20,7 @@ const SignUpPage = (props: any) => <SignUp pageID={PAGE_IDS.SIGN_UP} {...props} 
 
 SignUpPage.getLayout = function getLayout(page: ReactElement, props: any) {
 	return (
-		<MainLayout {...props} pageID={PAGE_IDS.SIGN_UP} verticalPadding>
+		<MainLayout {...props} pageID={PAGE_IDS.SIGN_UP} hasBreadcrumbs>
 			<ErrorBoundary>{page}</ErrorBoundary>
 		</MainLayout>
 	)

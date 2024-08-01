@@ -16,10 +16,10 @@ import * as SC from './MainLayoutStyles'
 import RegionPicker from './components/RegionPicker/RegionPicker'
 
 type MainLayoutProps = {
-	verticalPadding?: boolean
+	hasBreadcrumbs?: boolean
 } & PropsWithChildren
 
-const MainLayout = ({ children, verticalPadding }: MainLayoutProps) => {
+const MainLayout = ({ children, hasBreadcrumbs }: MainLayoutProps) => {
 	const theme = useTheme()
 	const router = useRouter()
 	const { cart } = useStore()
@@ -88,7 +88,7 @@ const MainLayout = ({ children, verticalPadding }: MainLayoutProps) => {
 					</SC.CappedContainer>
 				</SC.Spacer>
 			</SC.Header>
-			<SC.Content $verticalPadding={verticalPadding}>
+			<SC.Content $hasBreadcrumbs={hasBreadcrumbs}>
 				<SC.CappedContainer>{children}</SC.CappedContainer>
 			</SC.Content>
 			<SC.Footer>

@@ -63,14 +63,16 @@ export const Header = styled.header`
 	`};
 `
 
-export const Content = styled.main<{ $verticalPadding?: boolean }>`
-	${({ theme, $verticalPadding }) => css`
+export const Content = styled.main<{ $hasBreadcrumbs?: boolean }>`
+	${({ theme, $hasBreadcrumbs }) => css`
 		background: ${theme.tokens['color-base-surface-primary']};
-		padding-block: ${$verticalPadding ? '16px' : '0'};
+		padding-top: ${$hasBreadcrumbs ? '0' : '16px'};
+		padding-bottom: 16px;
 		padding-inline: 16px;
 
 		@media (min-width: ${breakpoints.lg}px) {
-			padding-block: ${$verticalPadding ? '24px' : '0'};
+			padding-top: ${$hasBreadcrumbs ? '0' : '24px'};
+			padding-bottom: 24px;
 		}
 	`};
 `
