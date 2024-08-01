@@ -127,14 +127,14 @@ const SignUpForm = () => {
 					size='large'
 				/>
 			</SC.FieldsWrapper>
-			<Button type='primary' size='large' htmlType='submit' disabled={isSubmitting} loading={isSubmitting} block>
+			<Button type='primary' size='large' htmlType='submit' disabled={isSubmitting} loading={isSubmitting} block shape='round'>
 				{t('signUp')}
 			</Button>
 			<SC.SocialButtonsWrapper>
-				<Button type='default' href={`${envConfig.apiUrl}/admin/auth/google`} size='large' block htmlType='button'>
+				<Button type='default' href={`${envConfig.apiUrl}/admin/auth/google`} size='large' block htmlType='button' shape='round'>
 					<GoogleIcon />
 				</Button>
-				<Button type='default' href={`${envConfig.apiUrl}/admin/auth/facebook`} size='large' block htmlType='button'>
+				<Button type='default' href={`${envConfig.apiUrl}/admin/auth/facebook`} size='large' block htmlType='button' shape='round'>
 					<FacebookIcon />
 				</Button>
 			</SC.SocialButtonsWrapper>

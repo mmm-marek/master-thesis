@@ -5,7 +5,9 @@ import LogoIcon from '@/assets/icons/logo.svg'
 import { headingSmSemibold, textMdRegular, textSmRegular } from '@/styles/helpers'
 
 export const Form = styled(AntdForm)`
+	margin: auto;
 	width: 100%;
+	max-width: 440px;
 `
 
 export const Header = styled.header`
