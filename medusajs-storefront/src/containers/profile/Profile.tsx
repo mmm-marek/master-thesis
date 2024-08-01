@@ -114,12 +114,12 @@ const Profile = () => {
 				open={isUpdateBillingAddressModalOpen}
 				onClose={() => setIsUpdateBillingAddressModalOpen(false)}
 				defaultValues={{
-					address1: user?.billing_address.address_1 ?? '',
-					address2: user?.billing_address.address_2 ?? '',
-					city: user?.billing_address.city ?? '',
-					countryCode: user?.billing_address.country?.iso_2 ?? '',
-					postalCode: user?.billing_address.postal_code ?? '',
-					company: user?.billing_address.company ?? ''
+					address1: user?.billing_address?.address_1 ?? '',
+					address2: user?.billing_address?.address_2 ?? '',
+					city: user?.billing_address?.city ?? '',
+					countryCode: user?.billing_address?.country?.iso_2 ?? '',
+					postalCode: user?.billing_address?.postal_code ?? '',
+					company: user?.billing_address?.company ?? ''
 				}}
 			/>
 			<AddShippingAddressForm open={isAddShippingAddressModalOpen} onClose={() => setIsAddShippingAddressModalOpen(false)} />
