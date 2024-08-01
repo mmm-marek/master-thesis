@@ -11,13 +11,13 @@ type Props = {
 
 const PrivateWrapper: FC<Props> = ({ children }) => {
 	const router = useRouter()
-	const { data: customer } = useCustomerProfile()
+	const { data: customer, isLoading, isFetching } = useCustomerProfile()
 
 	useEffect(() => {
-		if (!customer) {
+		if (!isLoading && !isFetching && !customer) {
 			router.push(PATHS.LOGIN)
 		}
-	}, [customer, router])
+	}, [customer, isFetching, isLoading, router])
 
 	if (!customer) {
 		return <Loading height='100vh' />
