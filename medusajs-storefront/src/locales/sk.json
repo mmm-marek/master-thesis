@@ -37,6 +37,9 @@
 		}
 	},
 	"containers": {
+		"category": {
+			"home":"Domov"
+		},
 		"cart": {
 			"home": "Domov",
 			"cart": "Košík",

@@ -37,6 +37,9 @@
 		}
 	},
 	"containers": {
+		"category": {
+			"home":"Home"
+		},
 		"cart": {
 			"home": "Home",
 			"cart": "Cart",
