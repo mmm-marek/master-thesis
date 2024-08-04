@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { QUERY_KEYS } from '@/utils/enums'
+import { QUERY_CACHE, QUERY_KEYS } from '@/utils/enums'
 import { medusa } from '@/utils/medusaHelpers'
 
 const useCustomerProfile = () => {
@@ -11,7 +11,9 @@ const useCustomerProfile = () => {
 				expand: 'billing_address,shipping_addresses'
 			})
 			return customer
-		}
+		},
+		cacheTime: QUERY_CACHE.CACHE_TIME,
+		staleTime: QUERY_CACHE.STALE_TIME
 	})
 }
 

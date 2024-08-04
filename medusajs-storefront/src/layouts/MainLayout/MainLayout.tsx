@@ -52,12 +52,10 @@ const MainLayout = ({ children, hasBreadcrumbs }: MainLayoutProps) => {
 										{t('logout')}
 									</SC.ActionButton>
 								) : (
-									<>
-										<SC.ActionLink href={PATHS.SIGN_UP}>{t('joinUs')}</SC.ActionLink>
-										<SC.ActionDivider />
-										<RegionPicker />
-									</>
+									<SC.ActionLink href={PATHS.SIGN_UP}>{t('joinUs')}</SC.ActionLink>
 								)}
+								<SC.ActionDivider />
+								<RegionPicker />
 							</SC.Actions>
 						</SC.CappedContainer>
 					</SC.Spacer>

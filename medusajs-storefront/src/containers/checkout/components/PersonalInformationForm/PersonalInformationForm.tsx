@@ -1,9 +1,11 @@
 import { useTranslations } from 'next-intl'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import Button from '@/atoms/Button/Button'
 import InputField from '@/atoms/InputField/InputField'
 import HookFormField from '@/components/HookFormField'
+import useCustomerProfile from '@/hooks/customer/useCustomerProfile'
 import { useStore } from '@/providers/StoreProvider'
 import { PersonalInformationFormSchema } from '@/schemas/personalInformationSchemas'
 import { zodResolver } from '@/utils/zodResolver'
@@ -17,18 +19,34 @@ type PersonalInformationProps = {
 
 const PersonalInformationForm = ({ onSubmitted }: PersonalInformationProps) => {
 	const t = useTranslations('containers.checkout')
+	const { data: customer } = useCustomerProfile()
 
 	const { updateShippingAddress, updateCheckoutEmail } = useStore()
 
 	const {
 		control,
+		reset,
 		formState: { isSubmitting },
 		handleSubmit
 	} = useForm<PersonalInformationFormFields>({
 		mode: 'onChange',
 		resolver: zodResolver(PersonalInformationFormSchema),
-		defaultValues: { firstName: '', lastName: '', email: '', phone: '' }
+		defaultValues: {
+			firstName: customer?.first_name ?? '',
+			lastName: customer?.last_name ?? '',
+			email: customer?.email ?? '',
+			phone: customer?.phone ?? ''
+		}
 	})
+
+	useEffect(() => {
+		reset({
+			firstName: customer?.first_name ?? '',
+			lastName: customer?.last_name ?? '',
+			email: customer?.email ?? '',
+			phone: customer?.phone ?? ''
+		})
+	}, [customer, reset])
 
 	const handleFormSubmit = (data: PersonalInformationFormFields) => {
 		updateShippingAddress(

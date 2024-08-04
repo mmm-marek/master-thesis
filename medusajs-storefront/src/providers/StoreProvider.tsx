@@ -3,6 +3,7 @@ import { PricedShippingOption } from '@medusajs/medusa/dist/types/pricing'
 import { Cart, useCart, useCartShippingOptions, useCreateLineItem, useDeleteLineItem, useUpdateLineItem } from 'medusa-react'
 import { createContext, useContext, useEffect, useState } from 'react'
 
+import useCustomerProfile from '@/hooks/customer/useCustomerProfile'
 import { medusa } from '@/utils/medusaHelpers'
 
 type VariantInfoProps = {
@@ -35,6 +36,7 @@ type StoreContextType = {
 	updateCheckoutEmail: (email: string, callbacks?: Partial<MutationCallbacks>) => void
 	initPayment: (callbacks?: Partial<MutationCallbacks>) => void
 	completePayment: (callbacks?: Partial<MutationCallbacks>) => void
+	associateCustomerToCart: () => void
 }
 
 const StoreContext = createContext<StoreContextType | null>(null)
@@ -92,6 +94,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 	const addLineItem = useCreateLineItem(cart!.id)
 	const removeLineItem = useDeleteLineItem(cart!.id)
 	const updateLineItem = useUpdateLineItem(cart!.id)
+	const { data: loggedInCustomer } = useCustomerProfile()
 
 	const [countryCode, setCountryCode] = useState<string | undefined>(undefined)
 
@@ -156,6 +159,23 @@ export const StoreProvider = ({ children }: StoreProps) => {
 		}
 	}
 
+	const associateCustomerToCart = () => {
+		if (!loggedInCustomer) {
+			return
+		}
+		updateCart.mutate(
+			{
+				customer_id: loggedInCustomer.id
+			},
+			{
+				onSuccess: ({ cart: newCart }) => {
+					setCart(newCart)
+					storeCart(newCart.id)
+				}
+			}
+		)
+	}
+
 	const createNewCart = async (regionId?: string, callbacks?: Partial<MutationCallbacks>) => {
 		await createCart.mutateAsync(
 			{ region_id: regionId },
@@ -164,6 +184,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 					setCart(newCart)
 					storeCart(newCart.id)
 					ensureRegion(newCart.region, newCart.shipping_address?.country_code)
+					associateCustomerToCart()
 					if (callbacks?.onSuccess) {
 						callbacks?.onSuccess()
 					}
@@ -192,6 +213,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				onSuccess: ({ cart: newCart }) => {
 					setCart(newCart)
 					storeCart(newCart.id)
+					associateCustomerToCart()
 					ensureRegion(newCart.region, newCart.shipping_address?.country_code)
 					if (callbacks?.onSuccess) {
 						callbacks?.onSuccess()
@@ -485,6 +507,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				updateCheckoutEmail,
 				initPayment,
 				completePayment,
+				associateCustomerToCart,
 				cart
 			}}
 		>

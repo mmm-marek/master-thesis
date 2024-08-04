@@ -42,7 +42,9 @@ const StripeForm = () => {
 			})
 			.then(() => {
 				completePayment({
-					onSuccess: () => router.push(PATHS.ORDER_CONFIRMED)
+					onSuccess: () => {
+						router.push(PATHS.ORDER_CONFIRMED)
+					}
 				})
 			})
 	}

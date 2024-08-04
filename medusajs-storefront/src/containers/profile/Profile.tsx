@@ -1,4 +1,5 @@
 import { PencilIcon, PlusCircleIcon, Trash2Icon } from 'lucide-react'
+import { useCustomerOrders } from 'medusa-react'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
@@ -34,6 +35,8 @@ const Profile = () => {
 	const [isUpdateCustomerModalOpen, setIsUpdateCustomerModalOpen] = useState(false)
 	const [isUpdateBillingAddressModalOpen, setIsUpdateBillingAddressModalOpen] = useState(false)
 	const [isAddShippingAddressModalOpen, setIsAddShippingAddressModalOpen] = useState(false)
+
+	const { orders } = useCustomerOrders()
 
 	const { data: user } = useCustomerProfile()
 	const { mutate: deleteShippingAddress } = useDeleteShippingAddress()
@@ -92,7 +95,7 @@ const Profile = () => {
 				</SC.ProfileSettingsWrapper>
 				<div>
 					<SC.SectionHeading>{t('orders')}</SC.SectionHeading>
-					{user?.orders?.map((order) => (
+					{orders?.map((order) => (
 						<div key={order.id}>
 							<div>{order.id}</div>
 							<div>{order.subtotal}</div>
