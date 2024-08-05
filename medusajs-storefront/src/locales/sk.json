@@ -154,6 +154,7 @@
 			"countryCode": "Krajina"
 		},
 		"profile": {
+			"order": "Objednávka",
 			"appearance": "Vzhľad",
 			"manageProfileSettings": "Spravujte nastavenia svojho profilu tu.",
 			"profileSettings": "Nastavenia profilu",

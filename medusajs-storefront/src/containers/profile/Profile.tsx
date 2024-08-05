@@ -1,5 +1,4 @@
 import { PencilIcon, PlusCircleIcon, Trash2Icon } from 'lucide-react'
-import { useCustomerOrders } from 'medusa-react'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
@@ -9,6 +8,7 @@ import useDeleteShippingAddress from '@/hooks/customer/useDeleteShippingAddress'
 
 import * as SC from './ProfileStyles'
 import AddShippingAddressForm from './components/AddShippingAddressForm/AddShippingAddressForm'
+import OrdersList from './components/OrdersList/OrdersList'
 import UpdateBillingAddressForm from './components/UpdateAddressForm/UpdateAddressForm'
 import UpdateCustomerForm from './components/UpdateCustomerForm/UpdateCustomerForm'
 
@@ -35,8 +35,6 @@ const Profile = () => {
 	const [isUpdateCustomerModalOpen, setIsUpdateCustomerModalOpen] = useState(false)
 	const [isUpdateBillingAddressModalOpen, setIsUpdateBillingAddressModalOpen] = useState(false)
 	const [isAddShippingAddressModalOpen, setIsAddShippingAddressModalOpen] = useState(false)
-
-	const { orders } = useCustomerOrders()
 
 	const { data: user } = useCustomerProfile()
 	const { mutate: deleteShippingAddress } = useDeleteShippingAddress()
@@ -93,16 +91,7 @@ const Profile = () => {
 						</SC.ShippingAddressesWrapper>
 					</div>
 				</SC.ProfileSettingsWrapper>
-				<div>
-					<SC.SectionHeading>{t('orders')}</SC.SectionHeading>
-					{orders?.map((order) => (
-						<div key={order.id}>
-							<div>{order.id}</div>
-							<div>{order.subtotal}</div>
-							<div>{order.total}</div>
-						</div>
-					))}
-				</div>
+				<OrdersList />
 			</SC.Content>
 			<UpdateCustomerForm
 				open={isUpdateCustomerModalOpen}

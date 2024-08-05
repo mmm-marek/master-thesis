@@ -154,6 +154,7 @@
 			"countryCode": "Country code"
 		},
 		"profile": {
+			"order": "Order",
 			"appearance": "Appearance",
 			"manageProfileSettings": "Manage your profile settings here.",
 			"profileSettings": "Profile settings",
