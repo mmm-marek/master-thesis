@@ -20,6 +20,11 @@ export async function POST(
     req: MedusaRequest<CreateReviewSchemaFields>,
     res: MedusaResponse
 ): Promise<void> {
+    if (!req.user?.customer_id) {
+        res.status(401).json({ message: "Unauthorized" });
+        return;
+    }
+
     const productReviewRepository: ProductReviewService = req.scope.resolve(
         "productReviewService"
     );
