@@ -1,6 +1,9 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/medusa";
+import {
+    createReviewSchema,
+    CreateReviewSchemaFields,
+} from "src/schemas/reviewSchemas";
 import ProductReviewService from "src/services/product-review";
-import { ReviewSchema, reviewSchema } from "./schemas";
 
 export async function GET(
     req: MedusaRequest,
@@ -14,14 +17,14 @@ export async function GET(
 }
 
 export async function POST(
-    req: MedusaRequest<ReviewSchema>,
+    req: MedusaRequest<CreateReviewSchemaFields>,
     res: MedusaResponse
 ): Promise<void> {
     const productReviewRepository: ProductReviewService = req.scope.resolve(
         "productReviewService"
     );
 
-    const parsedData = reviewSchema.safeParse(req.body);
+    const parsedData = createReviewSchema.safeParse(req.body);
     if (!parsedData.success) {
         res.status(400).json({ message: "Invalid request body" });
         return;

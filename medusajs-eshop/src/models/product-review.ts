@@ -1,5 +1,5 @@
-// @ts-nocheck
 import { BaseEntity, Product } from "@medusajs/medusa";
+import { generateEntityId } from "@medusajs/medusa/dist/utils";
 import { Max, Min } from "class-validator";
 import {
     BeforeInsert,
@@ -9,8 +9,6 @@ import {
     JoinColumn,
     ManyToOne,
 } from "typeorm";
-
-import { generateEntityId } from "@medusajs/medusa/dist/utils";
 
 @Entity()
 export class ProductReview extends BaseEntity {
