@@ -1,20 +1,13 @@
-import { Form, Input, Row } from 'antd'
-import { FormItemLabelProps } from 'antd/lib/form/FormItemLabel'
-import { TextAreaProps } from 'antd/lib/input'
+import { Row } from 'antd'
 import { trimStart } from 'lodash'
 import React, { useCallback, useMemo, useState } from 'react'
 
-import { WrappedFieldsProps } from '@/types/interfaces'
 import { validateStatus } from '@/utils/helpers'
 
-type Props = WrappedFieldsProps &
-	TextAreaProps &
-	FormItemLabelProps & {
-		focusRow?: number
-		showLettersCount?: boolean
-	}
+import * as SC from './TextAreaFieldStyles'
+import { TextAreaFieldProps } from './types'
 
-const TextareaField = (props: Props) => {
+const TextAreaField = (props: TextAreaFieldProps) => {
 	const {
 		input: { ref, onBlur, onChange, value, onFocus },
 		prefix,
@@ -36,6 +29,7 @@ const TextareaField = (props: Props) => {
 
 	const [autoSizeState, setSutoSizeState] = useState(undefined as { minRows?: number; maxRows?: number } | undefined)
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const parseValue = (val: any) => trimStart(val) || null
 
 	const customOnChange = useCallback(
@@ -64,22 +58,22 @@ const TextareaField = (props: Props) => {
 
 	const lettersCount = useMemo(() => {
 		return (
-			<Row className='justify-between w-full pr-2 items-end'>
+			<Row>
 				<span>{label}</span>
-				<i className='xs-regular mb-1'>{`${value?.length || 0}/${maxLength}`}</i>
+				<i>{`${value?.length || 0}/${maxLength}`}</i>
 			</Row>
 		)
 	}, [maxLength, value, label])
 
 	return (
-		<Form.Item
+		<SC.FormItem
 			label={showLettersCount ? lettersCount : label}
 			required={required}
 			style={style}
 			help={invalid && error ? error : null}
 			validateStatus={validateStatus(error, isTouched, invalid)}
 		>
-			<Input.TextArea
+			<SC.TextArea
 				onFocus={customOnFocus}
 				onChange={customOnChange}
 				value={value}
@@ -95,8 +89,8 @@ const TextareaField = (props: Props) => {
 				size={size}
 				readOnly={readOnly}
 			/>
-		</Form.Item>
+		</SC.FormItem>
 	)
 }
 
-export default TextareaField
+export default TextAreaField

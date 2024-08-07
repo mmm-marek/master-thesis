@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-import { headingXsSemibold, textMdRegular, textSmRegular } from '@/styles/helpers'
+import { breakpoints, headingXsSemibold, textMdRegular, textSmRegular } from '@/styles/helpers'
 
 export const Title = styled.h2`
 	${({ theme }) => css`
@@ -63,4 +63,15 @@ export const NoReviews = styled.p`
 		${textMdRegular};
 		color: ${theme.tokens['color-base-content-primary']};
 	`}
+`
+
+export const ReviewFormWrapper = styled.div`
+	width: 100%;
+
+	@media (min-width: ${breakpoints.md}px) {
+		display: flex;
+		justify-content: center;
+		margin: auto;
+		width: 50%;
+	}
 `
