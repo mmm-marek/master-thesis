@@ -2,8 +2,8 @@ import { MedusaRequest, MedusaResponse } from "@medusajs/medusa";
 import {
     createReviewSchema,
     CreateReviewSchemaFields,
-} from "src/schemas/reviewSchemas";
-import ProductReviewService from "src/services/product-review";
+} from "../../../../../schemas/reviewSchemas";
+import ProductReviewService from "../../../../../services/product-review";
 
 export async function GET(
     req: MedusaRequest,
