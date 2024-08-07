@@ -1,13 +1,14 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/medusa";
+import ProductReviewService from "../../../../../services/product-review";
+import { ProductReview } from "../../../../../models/product-review";
 import {
     createReviewSchema,
     CreateReviewSchemaFields,
 } from "../../../../../schemas/reviewSchemas";
-import ProductReviewService from "../../../../../services/product-review";
 
 export async function GET(
     req: MedusaRequest,
-    res: MedusaResponse
+    res: MedusaResponse<{ reviews: ProductReview[] }>
 ): Promise<void> {
     const productReviewRepository: ProductReviewService = req.scope.resolve(
         "productReviewService"

@@ -13,6 +13,7 @@ import { useStore } from '@/providers/StoreProvider'
 import { PATHS } from '@/utils/enums'
 
 import * as SC from './ProductStyles'
+import Reviews from './components/Reviews/Reviews'
 
 type ProductProps = {
 	id: string
@@ -77,45 +78,48 @@ const Product = ({ id }: ProductProps) => {
 					}
 				]}
 			/>
-			<SC.Container>
-				{product?.thumbnail && <SC.Thumbnail src={product.thumbnail} alt={product?.localizedTitle ?? t('productTitle')} width={500} height={500} />}
-				<SC.InfoWrapper>
-					<SC.TextWrapper>
-						<SC.ProductTitle>{product?.localizedTitle}</SC.ProductTitle>
-						<SC.Material>{product?.localizedMaterial}</SC.Material>
-					</SC.TextWrapper>
-					<SC.VariantsSection>
-						<SC.VariantsTitle>{t('variants')}</SC.VariantsTitle>
-						<SC.VariantsRadioGroup onChange={handleVariantChange} defaultValue={defaultVariant?.id}>
-							{product?.variants.map((variant) => (
-								<SC.RadioWrapper key={variant.id} $selected={selectedVariant?.id === variant.id}>
-									<SC.RadioVariant value={variant.id} disabled={variant.inventory_quantity === 0}>
-										{variant.title}
-									</SC.RadioVariant>
-								</SC.RadioWrapper>
-							))}
-						</SC.VariantsRadioGroup>
-						<SC.QuantityInfo>
-							{t('inStock')}: <SC.Strong>{selectedVariant?.inventory_quantity ?? 0}</SC.Strong>
-						</SC.QuantityInfo>
-					</SC.VariantsSection>
-					{selectedVariant && cart && (
-						<SC.PriceWrapper>
-							<SC.Price>
-								{formatVariantPrice({
-									variant: selectedVariant,
-									region: cart?.region
-								})}
-							</SC.Price>
-							<Button size='large' shape='round' type='primary' onClick={handleAddToCart} disabled={isUpdatingCart}>
-								{t('addToCart')}
-							</Button>
-						</SC.PriceWrapper>
-					)}
-					<SC.Divider />
-					<SC.Description>{product?.localizedDescription}</SC.Description>
-				</SC.InfoWrapper>
-			</SC.Container>
+			<SC.Wrapper>
+				<SC.ProductContainer>
+					{product?.thumbnail && <SC.Thumbnail src={product.thumbnail} alt={product?.localizedTitle ?? t('productTitle')} width={500} height={500} />}
+					<SC.InfoWrapper>
+						<SC.TextWrapper>
+							<SC.ProductTitle>{product?.localizedTitle}</SC.ProductTitle>
+							<SC.Material>{product?.localizedMaterial}</SC.Material>
+						</SC.TextWrapper>
+						<SC.VariantsSection>
+							<SC.VariantsTitle>{t('variants')}</SC.VariantsTitle>
+							<SC.VariantsRadioGroup onChange={handleVariantChange} defaultValue={defaultVariant?.id}>
+								{product?.variants.map((variant) => (
+									<SC.RadioWrapper key={variant.id} $selected={selectedVariant?.id === variant.id}>
+										<SC.RadioVariant value={variant.id} disabled={variant.inventory_quantity === 0}>
+											{variant.title}
+										</SC.RadioVariant>
+									</SC.RadioWrapper>
+								))}
+							</SC.VariantsRadioGroup>
+							<SC.QuantityInfo>
+								{t('inStock')}: <SC.Strong>{selectedVariant?.inventory_quantity ?? 0}</SC.Strong>
+							</SC.QuantityInfo>
+						</SC.VariantsSection>
+						{selectedVariant && cart && (
+							<SC.PriceWrapper>
+								<SC.Price>
+									{formatVariantPrice({
+										variant: selectedVariant,
+										region: cart?.region
+									})}
+								</SC.Price>
+								<Button size='large' shape='round' type='primary' onClick={handleAddToCart} disabled={isUpdatingCart}>
+									{t('addToCart')}
+								</Button>
+							</SC.PriceWrapper>
+						)}
+						<SC.Divider />
+						<SC.Description>{product?.localizedDescription}</SC.Description>
+					</SC.InfoWrapper>
+				</SC.ProductContainer>
+				{product?.id && <Reviews productID={product?.id} />}
+			</SC.Wrapper>
 		</>
 	)
 }

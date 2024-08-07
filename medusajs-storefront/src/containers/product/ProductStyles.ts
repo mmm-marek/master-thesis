@@ -78,7 +78,7 @@ export const InfoWrapper = styled.div`
 	gap: 16px;
 `
 
-export const Container = styled.div`
+export const ProductContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
@@ -135,4 +135,10 @@ export const Strong = styled.strong`
 		color: ${theme.tokens['color-base-content-primary']};
 		font-weight: 400;
 	`}
+`
+
+export const Wrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
 `
