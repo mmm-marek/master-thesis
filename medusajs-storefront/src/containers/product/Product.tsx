@@ -118,6 +118,7 @@ const Product = ({ id }: ProductProps) => {
 						<SC.Description>{product?.localizedDescription}</SC.Description>
 					</SC.InfoWrapper>
 				</SC.ProductContainer>
+				<SC.Divider />
 				{product?.id && <Reviews productID={product?.id} />}
 			</SC.Wrapper>
 		</>

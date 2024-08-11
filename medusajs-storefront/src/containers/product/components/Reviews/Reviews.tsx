@@ -33,7 +33,7 @@ const Reviews = ({ productID }: ReviewProps) => {
 			</SC.ReviewsWrapper>
 			{userData && userData.id && (
 				<SC.ReviewFormWrapper>
-					<AddReviewForm />
+					<AddReviewForm productID={productID} />
 				</SC.ReviewFormWrapper>
 			)}
 		</SC.Container>
