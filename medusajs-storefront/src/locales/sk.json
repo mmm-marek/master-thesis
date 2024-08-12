@@ -127,6 +127,7 @@
 			"register": "Registrovať sa"
 		},
 		"checkout": {
+			"summary": "Zhrnutie",
 			"sameAsShipping": "Fakturačná adresa je rovnaká ako doručovacia adresa",
 			"personalInformation": "Osobné údaje",
 			"shipping": "Doručenie",

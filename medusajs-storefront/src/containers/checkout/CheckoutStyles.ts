@@ -1,13 +1,20 @@
 import styled, { css } from 'styled-components'
 
-import { textXxlSemibold } from '@/styles/helpers'
+import { breakpoints, textXxlSemibold } from '@/styles/helpers'
 
 export const Container = styled.div`
 	${({ theme }) => css`
 		display: grid;
-		grid-template-columns: 3fr 1fr;
-		gap: ${theme.spacing[16]};
-		max-width: 800px;
+		margin-bottom: 64px;
+
+		& .ant-collapse-header {
+			margin-left: -16px;
+		}
+
+		@media (min-width: ${breakpoints.md}px) {
+			grid-template-columns: 1fr 1fr;
+			gap: ${theme.spacing[64]};
+		}
 	`}
 `
 

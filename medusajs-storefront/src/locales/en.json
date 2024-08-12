@@ -127,6 +127,7 @@
 			"register": "Register"
 		},
 		"checkout": {
+			"summary": "Summary",
 			"sameAsShipping": "Billing address is the same as shipping address",
 			"personalInformation": "Personal information",
 			"shipping": "Shipping",

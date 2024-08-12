@@ -51,7 +51,23 @@ const Checkout = () => {
 	const t = useTranslations('containers.checkout')
 
 	const { initPayment, cart } = useStore()
-	const [activeKey, setActiveKey] = useState<CollapseKey>('personalInformation')
+
+	const hasPersonalInfo = cart?.shipping_address?.first_name && cart?.shipping_address?.last_name && cart?.shipping_address?.phone && cart.email
+	const hasShippingAddress =
+		cart?.shipping_address?.address_1 &&
+		cart?.shipping_address?.address_2 &&
+		cart?.shipping_address?.city &&
+		cart?.shipping_address?.country_code &&
+		cart?.shipping_address?.postal_code
+	const hasBillingInfo =
+		cart?.billing_address?.address_1 &&
+		cart?.billing_address?.address_2 &&
+		cart?.billing_address?.city &&
+		cart?.billing_address?.country_code &&
+		cart?.billing_address?.postal_code
+	const hasFilledPaymentInfo = hasPersonalInfo && hasShippingAddress && hasBillingInfo
+
+	const [activeKey, setActiveKey] = useState<CollapseKey>(hasFilledPaymentInfo ? 'payment' : 'personalInformation')
 
 	const items: CollapseProps['items'] = [
 		{

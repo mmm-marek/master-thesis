@@ -37,7 +37,7 @@ export const OptionLabel = styled.label`
 		border: 1px solid ${theme.tokens['color-base-surface-quaternary']};
 		border-radius: 16px;
 		padding: 16px;
-		height: 130px;
+		min-height: 150px;
 
 		& .ant-radio {
 			align-self: start !important;
