@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-import { breakpoints, textXxlSemibold } from '@/styles/helpers'
+import { breakpoints, headingSmSemibold, textXxlSemibold } from '@/styles/helpers'
 
 export const Container = styled.div`
 	${({ theme }) => css`
@@ -23,5 +23,13 @@ export const CollapseItemLabel = styled.div<{ $disabled?: boolean }>`
 		transition: color 0.3s ease;
 		color: ${$disabled ? theme.tokens['color-base-content-quaternary'] : theme.tokens['color-base-content-primary']};
 		${textXxlSemibold};
+	`}
+`
+
+export const Heading = styled.h1`
+	${({ theme }) => css`
+		margin-bottom: 8px;
+		color: ${theme.tokens['color-base-content-primary']};
+		${headingSmSemibold};
 	`}
 `
