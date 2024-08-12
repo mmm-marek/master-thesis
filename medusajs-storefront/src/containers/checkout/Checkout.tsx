@@ -9,7 +9,6 @@ import AddCheckoutBillingForm from './components/AddCheckoutBillingForm/AddCheck
 import CheckoutSummary from './components/CheckoutSummary/CheckoutSummary'
 import PersonalInformationForm from './components/PersonalInformationForm/PersonalInformationForm'
 import ShippingAddressPicker from './components/ShippingAddressPicker/ShippingAddressPicker'
-import { ShippingAddress } from './components/ShippingAddressPicker/types'
 import StripeContainer from './components/StripeContainer/StripeContainer'
 
 import type { CollapseProps } from 'antd'
@@ -50,34 +49,25 @@ type CollapseKey = 'personalInformation' | 'shipping' | 'billing' | 'payment'
 
 const Checkout = () => {
 	const t = useTranslations('containers.checkout')
-	const { initPayment, cart } = useStore()
 
+	const { initPayment, cart } = useStore()
 	const [activeKey, setActiveKey] = useState<CollapseKey>('personalInformation')
-	const [shippingAddress, setShippingAddress] = useState<ShippingAddress | null>(null)
 
 	const items: CollapseProps['items'] = [
 		{
 			key: 'personalInformation',
-			label: t('personalInformation'),
+			label: <SC.CollapseItemLabel>{t('personalInformation')}</SC.CollapseItemLabel>,
 			children: <PersonalInformationForm onSubmitted={() => setActiveKey('shipping')} />
 		},
 		{
 			key: 'shipping',
-			label: t('shipping'),
-			children: (
-				<ShippingAddressPicker
-					shippingAddresses={shippingAddresses}
-					onAddressChange={(address) => {
-						setShippingAddress(address)
-						setActiveKey('billing')
-					}}
-				/>
-			),
+			label: <SC.CollapseItemLabel $disabled={!cart?.shipping_address?.first_name}>{t('shipping')}</SC.CollapseItemLabel>,
+			children: <ShippingAddressPicker shippingAddresses={shippingAddresses} onAddressChange={() => setActiveKey('billing')} />,
 			collapsible: !cart?.shipping_address?.first_name ? 'disabled' : undefined
 		},
 		{
 			key: 'billing',
-			label: t('billingAddress'),
+			label: <SC.CollapseItemLabel $disabled={!cart?.shipping_address?.address_1}>{t('billingAddress')}</SC.CollapseItemLabel>,
 			children: (
 				<AddCheckoutBillingForm
 					onSubmitted={() => {
@@ -87,11 +77,11 @@ const Checkout = () => {
 					}}
 				/>
 			),
-			collapsible: shippingAddress === null ? 'disabled' : undefined
+			collapsible: !cart?.shipping_address?.address_1 ? 'disabled' : undefined
 		},
 		{
 			key: 'payment',
-			label: t('paymentDetails'),
+			label: <SC.CollapseItemLabel $disabled={!cart?.billing_address?.address_1}>{t('paymentDetails')}</SC.CollapseItemLabel>,
 			children: <StripeContainer />,
 			collapsible: !cart?.billing_address?.address_1 ? 'disabled' : undefined
 		}

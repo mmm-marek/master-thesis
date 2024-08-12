@@ -13,17 +13,24 @@ import {
 
 import 'nprogress/nprogress.css'
 
+const collapseStyles = () => css`
+	.ant-collapse-header {
+		align-items: center !important;
+	}
+`
+
 const notificationsStyles = (theme: DefaultTheme) => css`
 	.ant-notification {
 		.ant-notification-notice {
-			background: ${theme.tokens['color-base-surface-primary']};
-			box-shadow: ${theme.tokens['drop-shadow-md']};
 			border: 1px solid ${theme.tokens['color-base-content-quintarny']};
+			box-shadow: ${theme.tokens['drop-shadow-md']};
+			background: ${theme.tokens['color-base-surface-primary']};
 			// fonts
 			.ant-notification-notice-message {
 				${textMdSemibold}
 				color: ${theme.tokens['color-base-content-primary']};
 			}
+
 			.ant-notification-notice-description {
 				${textSmRegular}
 				color: ${theme.tokens['color-base-content-tertiary']};
@@ -35,26 +42,33 @@ const notificationsStyles = (theme: DefaultTheme) => css`
 			width: 24px;
 			height: 24px;
 		}
+
 		.ant-notification-notice .ant-notification-notice-close {
 			color: ${theme.tokens['color-base-content-quaternary']};
+
 			svg {
 				width: 16px;
 				height: 16px;
 			}
 		}
+
 		.ant-notification-notice .ant-notification-notice-close:hover {
-			color: ${theme.tokens['color-inverse-action-secondary-hover']};
 			background: none;
+			color: ${theme.tokens['color-inverse-action-secondary-hover']};
 		}
+
 		.ant-notification-notice-error .ant-notification-notice-icon {
 			color: ${theme.tokens['color-base-state-error-fg']};
 		}
+
 		.ant-notification-notice-info .ant-notification-notice-icon {
 			color: ${theme.tokens['color-base-state-info-fg']};
 		}
+
 		.ant-notification-notice-warning .ant-notification-notice-icon {
 			color: ${theme.tokens['color-base-state-warning-fg']};
 		}
+
 		.ant-notification-notice-success .ant-notification-notice-icon {
 			color: ${theme.tokens['color-base-state-success-fg']};
 		}
@@ -64,18 +78,31 @@ const notificationsStyles = (theme: DefaultTheme) => css`
 const dropdownStyles = (theme: DefaultTheme) => css`
 	.ant-dropdown:not(.ant-select-dropdown) {
 		.ant-dropdown-menu {
-			border-radius: ${theme.borderRadius[12]};
 			border: ${theme.borderWidth.xs} solid ${theme.tokens['color-base-content-quintarny']};
+			border-radius: ${theme.borderRadius[12]};
 			background: ${theme.tokens['color-base-surface-primary']};
 			padding: ${theme.spacing[16]};
 
 			.ant-dropdown-menu-item {
+				border-radius: ${theme.borderRadius[4]};
+				padding: ${theme.spacing[8]};
+
 				&:not(:last-of-type) {
 					margin-bottom: ${theme.spacing[16]};
 				}
 
-				border-radius: ${theme.borderRadius[4]};
-				padding: ${theme.spacing[8]};
+				&:not(.ant-dropdown-menu-item-danger) {
+					color: ${theme.tokens['color-base-content-primary']};
+
+					&:not(.ant-dropdown-menu-item-disabled) {
+						&:hover,
+						&:focus-visible {
+							outline: none;
+							background-color: ${theme.tokens['color-base-action-secondary-bg10']};
+							color: ${theme.tokens['color-base-content-primary']};
+						}
+					}
+				}
 
 				svg {
 					width: 20px;
@@ -86,28 +113,15 @@ const dropdownStyles = (theme: DefaultTheme) => css`
 					${textSmMedium};
 				}
 
-				&:not(.ant-dropdown-menu-item-danger) {
-					color: ${theme.tokens['color-base-content-primary']};
-
-					&:not(.ant-dropdown-menu-item-disabled) {
-						&:hover,
-						&:focus-visible {
-							color: ${theme.tokens['color-base-content-primary']};
-							background-color: ${theme.tokens['color-base-action-secondary-bg10']};
-							outline: none;
-						}
-					}
-				}
-
 				&.ant-dropdown-menu-item-danger {
 					color: ${theme.tokens['color-base-state-error-fg']};
 
 					&:not(.ant-dropdown-menu-item-disabled) {
 						&:hover,
 						&:focus-visible {
-							color: ${theme.tokens['color-base-state-error-fg']};
-							background-color: ${theme.tokens['color-base-action-secondary-bg10']};
 							outline: none;
+							background-color: ${theme.tokens['color-base-action-secondary-bg10']};
+							color: ${theme.tokens['color-base-state-error-fg']};
 						}
 					}
 				}
@@ -119,16 +133,16 @@ const dropdownStyles = (theme: DefaultTheme) => css`
 					&:not(.ant-dropdown-menu-item-danger) {
 						&:hover,
 						&:focus-visible {
-							color: ${theme.tokens['color-base-content-primary']};
 							background-color: transparent;
+							color: ${theme.tokens['color-base-content-primary']};
 						}
 					}
 
 					&.ant-dropdown-menu-item-danger {
 						&:hover,
 						&:focus-visible {
-							color: ${theme.tokens['color-base-state-error-fg']};
 							background-color: transparent;
+							color: ${theme.tokens['color-base-state-error-fg']};
 						}
 					}
 				}
@@ -233,6 +247,7 @@ export const GlobalStyle = createGlobalStyle<{ $isDarkMode?: boolean }>`
 		height: 24px;
 	}
 	
+	${collapseStyles()}
 	${({ theme }) => notificationsStyles(theme)}
 	${({ theme }) => dropdownStyles(theme)}
 `
@@ -243,25 +258,27 @@ const DROPDOWN_OPTIONS_GAP_HALF = 8
 export const selectDropdownStyles = css`
 	${({ theme }) => css`
 		.ant-select-dropdown {
-			border-radius: ${theme.borderRadius[12]};
 			border: ${theme.borderWidth.xs} solid ${theme.tokens['color-base-content-quintarny']};
+			border-radius: ${theme.borderRadius[12]};
 			background: ${theme.tokens['color-base-surface-primary']};
-			padding: ${theme.spacing[16]} ${theme.spacing[4]};
 			cursor: auto;
+			padding: ${theme.spacing[16]} ${theme.spacing[4]};
 
 			.rc-virtual-list {
 				.rc-virtual-list-scrollbar-show {
 					display: block !important;
+
 					.rc-virtual-list-scrollbar-thumb {
 						background-color: ${theme.tokens['color-base-content-quintarny']} !important;
 					}
 				}
 
 				.rc-virtual-list-holder-inner {
-					padding: 0 ${theme.spacing[12]};
 					display: flex;
 					flex-direction: column;
+					padding: 0 ${theme.spacing[12]};
 				}
+
 				/* default option state */
 				.ant-select-item {
 					padding: 0;
@@ -274,16 +291,13 @@ export const selectDropdownStyles = css`
 					// NOTE: fake background to create effect of gap between
 					&::after {
 						position: absolute;
-						top: 0;
-						left: 0;
-						right: 0;
-						bottom: 0;
-						pointer-events: none;
-						content: '';
+						inset: 0;
 						transition: ease 0.3s;
-						background: transparent;
-						border-radius: ${theme.borderRadius[4]};
 						z-index: 1;
+						border-radius: ${theme.borderRadius[4]};
+						background: transparent;
+						content: '';
+						pointer-events: none;
 					}
 
 					.ant-select-item-option-state {
@@ -292,48 +306,48 @@ export const selectDropdownStyles = css`
 						}
 					}
 
-					&:not(:last-of-type):not(:first-of-type) {
+					&:not(:last-of-type, :first-of-type) {
+						&::after {
+							top: ${theme.spacing[DROPDOWN_OPTIONS_GAP_HALF]};
+							bottom: ${theme.spacing[DROPDOWN_OPTIONS_GAP_HALF]};
+						}
+
 						.ant-select-item-option-content,
 						.ant-select-item-option-state {
 							margin: ${theme.spacing[DROPDOWN_OPTIONS_GAP_HALF]} 0;
 						}
-
-						&::after {
-							top: ${theme.spacing[DROPDOWN_OPTIONS_GAP_HALF]};
-							bottom: ${theme.spacing[DROPDOWN_OPTIONS_GAP_HALF]};
-						}
 					}
 
 					&:last-of-type {
+						&::after {
+							top: ${theme.spacing[DROPDOWN_OPTIONS_GAP_HALF]};
+						}
+
 						.ant-select-item-option-content,
 						.ant-select-item-option-state {
 							margin-top: ${theme.spacing[DROPDOWN_OPTIONS_GAP_HALF]};
 						}
-
-						&::after {
-							top: ${theme.spacing[DROPDOWN_OPTIONS_GAP_HALF]};
-						}
 					}
 
 					&:first-of-type:not(.select-all-option) {
+						&::after {
+							bottom: ${theme.spacing[DROPDOWN_OPTIONS_GAP_HALF]};
+						}
+
 						.ant-select-item-option-content,
 						.ant-select-item-option-state {
 							margin-bottom: ${theme.spacing[DROPDOWN_OPTIONS_GAP_HALF]};
 						}
-
-						&::after {
-							bottom: ${theme.spacing[DROPDOWN_OPTIONS_GAP_HALF]};
-						}
 					}
 
 					.ant-select-item-option-content {
-						padding: ${theme.spacing[8]};
 						z-index: 2;
+						padding: ${theme.spacing[8]};
 					}
 
 					.ant-select-item-option-state {
-						padding: ${theme.spacing[8]} 0 ${theme.spacing[8]} ${theme.spacing[8]};
 						z-index: 2;
+						padding: ${theme.spacing[8]} 0 ${theme.spacing[8]} ${theme.spacing[8]};
 					}
 
 					// select all option
@@ -341,14 +355,14 @@ export const selectDropdownStyles = css`
 						position: relative;
 
 						&::before {
-							content: '';
 							display: block;
 							position: absolute;
-							width: 100%;
-							left: 0;
 							bottom: 0;
-							height: 1px;
+							left: 0;
 							background: ${theme.tokens['color-base-content-quintarny']};
+							width: 100%;
+							height: 1px;
+							content: '';
 						}
 
 						&::after {
@@ -365,38 +379,39 @@ export const selectDropdownStyles = css`
 					}
 
 					&.select-all-option + .ant-select-item {
+						&::after {
+							top: ${theme.spacing[DROPDOWN_OPTIONS_GAP]};
+						}
+
 						.ant-select-item-option-content,
 						.ant-select-item-option-state {
 							margin-top: ${theme.spacing[DROPDOWN_OPTIONS_GAP]};
-						}
-						&::after {
-							top: ${theme.spacing[DROPDOWN_OPTIONS_GAP]};
 						}
 					}
 
 					.ant-checkbox-wrapper {
 						.ant-checkbox {
-							.ant-checkbox-inner {
-								border: 1px solid;
-								border-color: ${theme.tokens['color-base-content-quaternary']};
-								background-color: ${theme.tokens['color-base-surface-primary']};
-								border-radius: ${theme.borderRadius[4]};
-								transition: 0.3s ease;
-							}
-
 							&::after {
 								border-color: transparent;
 							}
 
+							.ant-checkbox-inner {
+								transition: 0.3s ease;
+								border: 1px solid;
+								border-radius: ${theme.borderRadius[4]};
+								border-color: ${theme.tokens['color-base-content-quaternary']};
+								background-color: ${theme.tokens['color-base-surface-primary']};
+							}
+
 							&.ant-checkbox-indeterminate {
 								.ant-checkbox-inner {
-									background: ${theme.tokens['color-base-action-primary-bg']};
 									border-color: ${theme.tokens['color-base-action-primary-default']};
+									background: ${theme.tokens['color-base-action-primary-bg']};
 
 									&::after {
-										height: 1px;
-										background: ${theme.tokens['color-base-action-primary-default']};
 										transform-origin: center;
+										background: ${theme.tokens['color-base-action-primary-default']};
+										height: 1px;
 									}
 								}
 							}
@@ -411,6 +426,7 @@ export const selectDropdownStyles = css`
 						/* hover option state */
 						&:not(.ant-select-item-option-selected) {
 							background: transparent;
+
 							&:hover {
 								&::after {
 									background-color: ${theme.tokens['color-base-action-secondary-bg10']};
@@ -460,22 +476,22 @@ export const selectDropdownStyles = css`
 								background: ${(p) => p.theme.tokens['color-base-action-primary-bg10']};
 							}
 
+							&:hover {
+								&::after {
+									background: ${(p) => p.theme.tokens['color-base-action-primary-bg']};
+								}
+							}
+
 							.ant-checkbox-wrapper {
 								.ant-checkbox {
 									.ant-checkbox-inner {
-										background-color: ${theme.tokens['color-base-action-primary-bg']};
 										border-color: ${theme.tokens['color-base-action-primary-default']};
+										background-color: ${theme.tokens['color-base-action-primary-bg']};
 
 										&::after {
 											border-color: ${theme.tokens['color-base-action-primary-default']};
 										}
 									}
-								}
-							}
-
-							&:hover {
-								&::after {
-									background: ${(p) => p.theme.tokens['color-base-action-primary-bg']};
 								}
 							}
 						}
@@ -487,8 +503,8 @@ export const selectDropdownStyles = css`
 
 						.ant-checkbox-wrapper {
 							.ant-checkbox {
-								background-color: ${theme.tokens['color-base-surface-primary']};
 								border-radius: ${theme.borderRadius[4]};
+								background-color: ${theme.tokens['color-base-surface-primary']};
 
 								.ant-checkbox-inner {
 									opacity: 0.32;
@@ -521,9 +537,9 @@ export const selectDropdownStyles = css`
 /* General shared componnets */
 
 export const PageWrapper = styled.div`
-	max-width: ${WRAPPER_MAX_WIDTH}px;
 	margin: 0 auto;
 	padding: 0 ${WRAPPER_PADDING_MOBILE}px;
+	max-width: ${WRAPPER_MAX_WIDTH}px;
 
 	@media (min-width: ${breakpoints.lg}px) {
 		padding: 0 ${WRAPPER_PADDING_DESKTOP}px;

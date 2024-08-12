@@ -11,10 +11,11 @@ type ShippingAddressPickerProps = {
 }
 
 const ShippingAddressPicker = ({ onAddressChange, shippingAddresses }: ShippingAddressPickerProps) => {
-	const { updateShippingAddress } = useStore()
+	const { updateShippingAddress, cart } = useStore()
 
 	return (
 		<Radio.Group
+			defaultValue={cart?.shipping_address?.address_1}
 			onChange={(e) => {
 				const selectedAddress = shippingAddresses.find((address) => address.address1 === e.target.value)
 				if (!selectedAddress) {
@@ -38,20 +39,20 @@ const ShippingAddressPicker = ({ onAddressChange, shippingAddresses }: ShippingA
 		>
 			<SC.CardsWrapper>
 				{shippingAddresses.map((address) => (
-					<label key={address.address1} htmlFor={address.address1}>
+					<SC.OptionLabel key={address.address1} htmlFor={address.address1}>
 						<Radio value={address.address1} id={address.address1}>
 							<SC.ContentWrapper>
-								<span>{address.name}</span>
+								<SC.AddressName>{address.name}</SC.AddressName>
 								<SC.AddressWrapper>
-									<span>{address.address1}</span>
-									{address.address2 && <span>{address.address2}</span>}
-									<span>
+									<SC.Address>{address.address1}</SC.Address>
+									{address.address2 && <SC.Address>{address.address2}</SC.Address>}
+									<SC.Address>
 										{address.postalCode}, {address.city}
-									</span>
+									</SC.Address>
 								</SC.AddressWrapper>
 							</SC.ContentWrapper>
 						</Radio>
-					</label>
+					</SC.OptionLabel>
 				))}
 			</SC.CardsWrapper>
 		</Radio.Group>

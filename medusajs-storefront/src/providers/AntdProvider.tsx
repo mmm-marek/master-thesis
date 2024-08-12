@@ -17,6 +17,14 @@ const AntdProvider = ({ children, locale }: AntdProviderProps) => {
 			locale={locale}
 			theme={{
 				components: {
+					Checkbox: {
+						colorBgContainer: theme.tokens['color-base-surface-primary'],
+						colorBgContainerDisabled: theme.tokens['color-base-surface-primary'],
+						colorBorder: theme.tokens['color-base-content-quaternary'],
+						colorPrimaryHover: theme.tokens['color-base-action-primary-bg'],
+						colorPrimary: theme.tokens['color-base-action-primary-bg'],
+						colorWhite: theme.tokens['color-base-action-primary-active']
+					},
 					Radio: {
 						colorPrimary: theme.tokens['color-base-action-primary-default'],
 						colorPrimaryActive: theme.tokens['color-base-action-primary-active'],

@@ -21,7 +21,7 @@ const PersonalInformationForm = ({ onSubmitted }: PersonalInformationProps) => {
 	const t = useTranslations('containers.checkout')
 	const { data: customer } = useCustomerProfile()
 
-	const { updateShippingAddress, updateCheckoutEmail } = useStore()
+	const { updateShippingAddress, updateCheckoutEmail, cart } = useStore()
 
 	const {
 		control,
@@ -32,21 +32,21 @@ const PersonalInformationForm = ({ onSubmitted }: PersonalInformationProps) => {
 		mode: 'onChange',
 		resolver: zodResolver(PersonalInformationFormSchema),
 		defaultValues: {
-			firstName: customer?.first_name ?? '',
-			lastName: customer?.last_name ?? '',
-			email: customer?.email ?? '',
-			phone: customer?.phone ?? ''
+			firstName: cart?.shipping_address?.first_name ?? customer?.first_name ?? '',
+			lastName: cart?.shipping_address?.last_name ?? customer?.last_name ?? '',
+			email: cart?.email ?? customer?.email ?? '',
+			phone: cart?.shipping_address?.phone ?? customer?.phone ?? ''
 		}
 	})
 
 	useEffect(() => {
 		reset({
-			firstName: customer?.first_name ?? '',
-			lastName: customer?.last_name ?? '',
-			email: customer?.email ?? '',
-			phone: customer?.phone ?? ''
+			firstName: cart?.shipping_address?.first_name ?? customer?.first_name ?? '',
+			lastName: cart?.shipping_address?.last_name ?? customer?.last_name ?? '',
+			email: cart?.email ?? customer?.email ?? '',
+			phone: cart?.shipping_address?.phone ?? customer?.phone ?? ''
 		})
-	}, [customer, reset])
+	}, [cart, customer, reset])
 
 	const handleFormSubmit = (data: PersonalInformationFormFields) => {
 		updateShippingAddress(
@@ -86,7 +86,7 @@ const PersonalInformationForm = ({ onSubmitted }: PersonalInformationProps) => {
 			/>
 			<HookFormField label={t('email')} placeholder={t('emailPlaceholder')} component={InputField} control={control} name='email' size='large' required />
 			<HookFormField label={t('phone')} placeholder={t('phonePlaceholder')} component={InputField} control={control} name='phone' size='large' required />
-			<Button type='primary' size='large' htmlType='submit' block disabled={isSubmitting} loading={isSubmitting}>
+			<Button type='primary' size='large' htmlType='submit' shape='round' block disabled={isSubmitting} loading={isSubmitting}>
 				{t('submitButton')}
 			</Button>
 		</SC.Form>
