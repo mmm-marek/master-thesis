@@ -91,6 +91,7 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 				name='address1'
 				size='large'
 				required
+				disabled={sameAsShipping}
 			/>
 			<HookFormField
 				label={t('address2')}
@@ -100,8 +101,18 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 				name='address2'
 				size='large'
 				required
+				disabled={sameAsShipping}
 			/>
-			<HookFormField label={t('city')} placeholder={t('enterCity')} component={InputField} control={control} name='city' size='large' required />
+			<HookFormField
+				label={t('city')}
+				placeholder={t('enterCity')}
+				component={InputField}
+				control={control}
+				name='city'
+				size='large'
+				required
+				disabled={sameAsShipping}
+			/>
 			<HookFormField
 				label={t('countryCode')}
 				placeholder={t('enterCountryCode')}
@@ -110,6 +121,7 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 				name='countryCode'
 				size='large'
 				required
+				disabled={sameAsShipping}
 			/>
 			<HookFormField
 				label={t('postalCode')}
@@ -119,8 +131,18 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 				name='postalCode'
 				size='large'
 				required
+				disabled={sameAsShipping}
 			/>
-			<HookFormField label={t('company')} placeholder={t('enterCompany')} component={InputField} control={control} name='company' size='large' required />
+			<HookFormField
+				label={t('company')}
+				placeholder={t('enterCompany')}
+				component={InputField}
+				control={control}
+				name='company'
+				size='large'
+				required
+				disabled={sameAsShipping}
+			/>
 			<Button type='primary' size='large' htmlType='submit' shape='round' block disabled={isSubmitting} loading={isSubmitting}>
 				{t('submitButton')}
 			</Button>
