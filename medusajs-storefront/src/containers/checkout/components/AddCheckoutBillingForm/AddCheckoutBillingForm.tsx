@@ -32,11 +32,11 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 		mode: 'onChange',
 		resolver: zodResolver(AddCheckoutBillingFormSchema),
 		defaultValues: {
-			address1: '',
-			address2: '',
-			city: '',
-			countryCode: '',
-			postalCode: ''
+			address1: cart?.billing_address.address_1 ?? '',
+			address2: cart?.billing_address.address_2 ?? '',
+			city: cart?.billing_address.city ?? '',
+			countryCode: cart?.billing_address.country_code ?? '',
+			postalCode: cart?.billing_address.postal_code ?? ''
 		}
 	})
 
