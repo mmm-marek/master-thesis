@@ -2,8 +2,11 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { useRouter } from 'next/router'
 import { MouseEventHandler } from 'react'
 
+import Button from '@/atoms/Button/Button'
 import { useStore } from '@/providers/StoreProvider'
 import { PATHS } from '@/utils/enums'
+
+import * as SC from './StripeFormStyles'
 
 const StripeForm = () => {
 	const router = useRouter()
@@ -50,12 +53,20 @@ const StripeForm = () => {
 	}
 
 	return (
-		<form>
-			<CardElement />
-			<button onClick={handlePayment} type='submit'>
-				Submit
-			</button>
-		</form>
+		<SC.Form>
+			<SC.CardElementWrapper>
+				<CardElement
+					options={{
+						hidePostalCode: true
+					}}
+				/>
+			</SC.CardElementWrapper>
+			<SC.ButtonWrapper>
+				<Button type='primary' onClick={handlePayment} htmlType='submit' shape='round'>
+					Submit
+				</Button>
+			</SC.ButtonWrapper>
+		</SC.Form>
 	)
 }
 

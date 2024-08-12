@@ -17,7 +17,9 @@ const StripeContainer = () => {
 				<Elements
 					stripe={stripePromise}
 					options={{
-						clientSecret
+						clientSecret,
+						// @ts-expect-error locale is not in the types
+						locale: cart?.region.name.toLowerCase() ?? 'en'
 					}}
 				>
 					<StripeForm />
