@@ -55,6 +55,8 @@
 			"quantity": "Quantity"
 		},
 		"products": {
+			"reviews": "Reviews",
+			"noReviews": "No reviews yet.",
 			"productTitle": "Product title",
 			"variants": "Variants",
 			"inStock": "In stock",

@@ -55,6 +55,8 @@
 			"quantity": "Množstvo"
 		},
 		"products": {
+			"reviews": "Recenzie",
+			"noReviews": "Žiadne recenzie.",
 			"productTitle": "Názov produktu",
 			"variants": "Varianty",
 			"inStock": "Skladom",

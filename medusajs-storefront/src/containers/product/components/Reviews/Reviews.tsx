@@ -1,4 +1,5 @@
 import { Rate } from 'antd'
+import { useTranslations } from 'next-intl'
 
 import AddReviewForm from '../AddReviewForm/AddReviewForm'
 import useCustomerProfile from '@/hooks/customer/useCustomerProfile'
@@ -11,15 +12,17 @@ type ReviewProps = {
 }
 
 const Reviews = ({ productID }: ReviewProps) => {
+	const t = useTranslations('containers.products')
+
 	const { data: userData } = useCustomerProfile()
 	const { data: reviewsData } = useGetProductReviews(productID)
 
 	return (
 		<SC.Container>
-			<SC.Title>Reviews</SC.Title>
+			<SC.Title>{t('reviews')}</SC.Title>
 			<SC.ReviewsWrapper>
 				{reviewsData?.reviews.length === 0 ? (
-					<SC.NoReviews>No reviews yet.</SC.NoReviews>
+					<SC.NoReviews>{t('noReviews')}</SC.NoReviews>
 				) : (
 					reviewsData?.reviews.map((review) => (
 						<SC.Review key={review.id}>

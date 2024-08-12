@@ -142,3 +142,10 @@ export const Wrapper = styled.div`
 	flex-direction: column;
 	gap: 16px;
 `
+
+export const ReviewsWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	margin-top: 16px;
+`
