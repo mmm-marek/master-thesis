@@ -63,7 +63,7 @@ const AddReviewForm = ({ productID }: AddReviewFormProps) => {
 					<div>Rating</div>
 					<Rate value={rating} onChange={(value) => setRating(value)} allowClear={false} />
 				</SC.RatingWrapper>
-				<HookFormField label='Title' placeholder='Enter title' component={InputField} control={control} name='title' size='large' />
+				<HookFormField label='Title' placeholder='Enter title' component={InputField} control={control} name='title' />
 				<HookFormField
 					label='Review'
 					placeholder='Enter review'
