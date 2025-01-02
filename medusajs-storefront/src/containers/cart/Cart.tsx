@@ -1,10 +1,10 @@
 import { Spin } from 'antd'
-import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 
 import Breadcrumb from '@/atoms/Breadcrumb/Breadcrumb'
 import Loading from '@/components/Loading/Loading'
 import { useStore } from '@/providers/StoreProvider'
+import { PATHS } from '@/utils/enums'
 
 import * as SC from './CartStyles'
 import CartItems from './components/CartItems/CartItems'
@@ -23,7 +23,8 @@ const Cart = () => {
 			<Breadcrumb
 				items={[
 					{
-						title: <Link href='/'>{t('home')}</Link>
+						title: t('home'),
+						href: PATHS.HOME
 					},
 					{
 						title: t('cart')

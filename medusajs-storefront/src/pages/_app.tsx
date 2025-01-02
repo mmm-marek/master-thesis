@@ -13,9 +13,10 @@ import { CartProvider, MedusaProvider } from 'medusa-react'
 import { NextPage } from 'next'
 import { Inter } from 'next/font/google'
 import localFont from 'next/font/local'
-import { useRouter } from 'next/router'
+import { NextRouter, useRouter } from 'next/router'
 import { NextIntlClientProvider } from 'next-intl'
 import { ReactElement, ReactNode, useEffect, useState } from 'react'
+import { RouterProvider } from 'react-aria-components'
 import { z } from 'zod'
 
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
@@ -40,6 +41,12 @@ dayjs.extend(customParseFormat)
 dayjs.extend(timezonePlugin)
 dayjs.extend(minMax)
 dayjs.locale(LOCALES[DEFAULT_LANGUAGE].countryCode)
+
+declare module 'react-aria-components' {
+	interface RouterConfig {
+		routerOptions: NonNullable<Parameters<NextRouter['push']>[2]>
+	}
+}
 
 export const interFont = Inter({ subsets: ['latin', 'latin-ext'], variable: '--inter-font' })
 export const tiemposFineFont = localFont({
@@ -174,11 +181,13 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 						<Hydrate state={pageProps.dehydratedState}>
 							<ThemeProvider>
 								<AntdProvider locale={antdLocale}>
-									<AppStateProvider>
-										<CartProvider>
-											<StoreProvider>{getLayout(<Component {...pageProps} />, pageProps)}</StoreProvider>
-										</CartProvider>
-									</AppStateProvider>
+									<RouterProvider navigate={(href, opts) => router.push(href, undefined, opts)}>
+										<AppStateProvider>
+											<CartProvider>
+												<StoreProvider>{getLayout(<Component {...pageProps} />, pageProps)}</StoreProvider>
+											</CartProvider>
+										</AppStateProvider>
+									</RouterProvider>
 								</AntdProvider>
 							</ThemeProvider>
 						</Hydrate>

@@ -12,6 +12,7 @@ import envConfig from '@/config'
 import useCheckEmailExists from '@/hooks/customer/useCheckEmailExists'
 import useCustomerSignUp from '@/hooks/customer/useCustomerSignUp'
 import SignUpFormSchema from '@/schemas/pages/signUp'
+import { PATHS } from '@/utils/enums'
 import { zodResolver } from '@/utils/zodResolver'
 
 import * as SC from './SignUpFormStyles'
@@ -58,7 +59,7 @@ const SignUpForm = () => {
 						},
 						{
 							onSuccess: () => {
-								router.push('/')
+								router.push(PATHS.HOME)
 							}
 						}
 					)
@@ -74,16 +75,7 @@ const SignUpForm = () => {
 					<SC.Title>{t('welcome')}</SC.Title>
 					<SC.InfoMd>{t('registerInfo')}</SC.InfoMd>
 				</SC.Header>
-				<HookFormField
-					control={control}
-					name='email'
-					component={InputField}
-					label={t('email')}
-					type='email'
-					required
-					placeholder={t('enterEmail')}
-					size='large'
-				/>
+				<HookFormField control={control} name='email' component={InputField} label={t('email')} type='email' required placeholder={t('enterEmail')} />
 				<HookFormField
 					control={control}
 					name='firstName'
@@ -92,7 +84,6 @@ const SignUpForm = () => {
 					type='text'
 					required
 					placeholder={t('enterFirstName')}
-					size='large'
 				/>
 				<HookFormField
 					control={control}
@@ -102,7 +93,6 @@ const SignUpForm = () => {
 					type='text'
 					required
 					placeholder={t('enterLastName')}
-					size='large'
 				/>
 				<HookFormField
 					control={control}
@@ -112,7 +102,6 @@ const SignUpForm = () => {
 					type='password'
 					required
 					placeholder={t('enterPassword')}
-					size='large'
 				/>
 				<HookFormField
 					control={control}
@@ -122,7 +111,6 @@ const SignUpForm = () => {
 					type='password'
 					required
 					placeholder={t('enterPassword')}
-					size='large'
 				/>
 			</SC.FieldsWrapper>
 			<Button variant='primary' size='large' type='submit' isDisabled={isSubmitting} isPending={isSubmitting} isFullWidth>

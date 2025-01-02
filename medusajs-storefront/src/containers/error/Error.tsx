@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
 
 import Button from '@/atoms/Button/Button'
+import { PATHS } from '@/utils/enums'
 
 import * as SC from './ErrorStyles'
 
@@ -16,7 +17,7 @@ const Error = ({ statusCode, title, message }: ErrorProps) => {
 	const router = useRouter()
 
 	const handleRedirect = () => {
-		router.push('/')
+		router.push(PATHS.HOME)
 	}
 
 	return (

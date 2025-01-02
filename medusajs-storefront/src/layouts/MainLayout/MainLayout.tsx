@@ -31,7 +31,7 @@ const MainLayout = ({ children, hasBreadcrumbs }: MainLayoutProps) => {
 	const handleLogout = () => {
 		logoutUser(undefined, {
 			onSuccess: () => {
-				router.push('/')
+				router.push(PATHS.HOME)
 			}
 		})
 	}
@@ -63,7 +63,7 @@ const MainLayout = ({ children, hasBreadcrumbs }: MainLayoutProps) => {
 				<SC.Spacer>
 					<SC.CappedContainer>
 						<SC.HeaderContent>
-							<SC.LogoLink href='/'>
+							<SC.LogoLink href={PATHS.HOME}>
 								<GrLogo />
 							</SC.LogoLink>
 							<SC.LinksWrapper>

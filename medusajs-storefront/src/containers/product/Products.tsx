@@ -1,7 +1,7 @@
-import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 
 import Breadcrumb from '@/atoms/Breadcrumb/Breadcrumb'
+import { PATHS } from '@/utils/enums'
 
 import ProductList from './components/ProductList/ProductList'
 
@@ -13,7 +13,8 @@ const Products = () => {
 			<Breadcrumb
 				items={[
 					{
-						title: <Link href='/'>{t('home')}</Link>
+						title: t('home'),
+						href: PATHS.HOME
 					},
 					{
 						title: t('products')

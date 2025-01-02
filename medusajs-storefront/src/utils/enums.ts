@@ -14,6 +14,7 @@ export enum NOTIFICATION_TYPE {
 }
 
 export enum PATHS {
+	HOME = '/',
 	LOGIN = '/login',
 	SIGN_UP = '/sign-up',
 	FORGOTTEN_PASSWORD = '/forgotten-password',

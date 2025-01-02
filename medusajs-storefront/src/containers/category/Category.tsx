@@ -1,5 +1,4 @@
 import { useProductCategories } from 'medusa-react'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
 
@@ -7,6 +6,7 @@ import Breadcrumb from '@/atoms/Breadcrumb/Breadcrumb'
 import ProductCard from '@/components/ProductCard/ProductCard'
 import useGetLocalizedProducts from '@/hooks/products/useGetLocalizedProducts'
 import { useStore } from '@/providers/StoreProvider'
+import { PATHS } from '@/utils/enums'
 import { localizeCategory } from '@/utils/localization'
 
 import * as SC from './CategoryStyles'
@@ -38,12 +38,14 @@ const Category = () => {
 			<Breadcrumb
 				items={[
 					{
-						title: <Link href='/'>{t('home')}</Link>
+						title: t('home'),
+						href: PATHS.HOME
 					},
 					{
-						title: localizedCategories
-							?.map((category) => category.localizedName.charAt(0).toUpperCase() + category.localizedName.slice(1))
-							?.join(',')
+						title:
+							localizedCategories
+								?.map((category) => category.localizedName.charAt(0).toUpperCase() + category.localizedName.slice(1))
+								?.join(',') ?? ''
 					}
 				]}
 			/>

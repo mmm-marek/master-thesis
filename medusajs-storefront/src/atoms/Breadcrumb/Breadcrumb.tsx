@@ -1,12 +1,18 @@
-import { Breadcrumb as AntdBreadcrumb, BreadcrumbProps } from 'antd'
+import { ChevronRight } from 'lucide-react'
 
 import * as SC from './BreadcrumbStyles'
+import { BreadcrumbProps } from './types'
 
-const Breadcrumb = (props: BreadcrumbProps) => {
+const Breadcrumb = ({ items }: BreadcrumbProps) => {
 	return (
-		<SC.Wrapper>
-			<AntdBreadcrumb {...props} />
-		</SC.Wrapper>
+		<SC.Breadcrumbs items={items}>
+			{items.map((item, index) => (
+				<SC.Breadcrumb key={item.title}>
+					<SC.Link href={item.href}>{item.title}</SC.Link>
+					{index < items.length - 1 && <ChevronRight size={16} />}
+				</SC.Breadcrumb>
+			))}
+		</SC.Breadcrumbs>
 	)
 }
 

@@ -1,6 +1,5 @@
 import { RadioChangeEvent } from 'antd'
 import { formatVariantPrice } from 'medusa-react'
-import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 
@@ -68,13 +67,15 @@ const Product = ({ id }: ProductProps) => {
 			<Breadcrumb
 				items={[
 					{
-						title: <Link href='/'>{t('home')}</Link>
+						title: t('home'),
+						href: PATHS.HOME
 					},
 					{
-						title: <Link href={PATHS.PRODUCTS}>{t('products')}</Link>
+						title: t('products'),
+						href: PATHS.PRODUCTS
 					},
 					{
-						title: product?.localizedTitle
+						title: product?.localizedTitle ?? ''
 					}
 				]}
 			/>
