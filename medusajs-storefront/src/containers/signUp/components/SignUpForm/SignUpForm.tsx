@@ -75,44 +75,6 @@ const SignUpForm = () => {
 					<SC.Title>{t('welcome')}</SC.Title>
 					<SC.InfoMd>{t('registerInfo')}</SC.InfoMd>
 				</SC.Header>
-
-				<div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', marginBlock: '86px' }}>
-					<div style={{ display: 'flex', gap: '16px', flexDirection: 'column' }}>
-						<Button size='small' variant='primary' onPress={() => {}}>
-							{t('welcome')}
-						</Button>
-						<Button size='medium' variant='primary' onPress={() => {}}>
-							{t('welcome')}
-						</Button>
-						<Button size='large' variant='primary' onPress={() => {}}>
-							{t('welcome')}
-						</Button>
-						<Button size='large' variant='primary' onPress={() => {}} isDisabled>
-							{t('welcome')}
-						</Button>
-						<Button size='large' variant='primary' onPress={() => {}} isPending>
-							{t('welcome')}
-						</Button>
-					</div>
-					<div style={{ display: 'flex', gap: '16px', flexDirection: 'column' }}>
-						<Button size='small' variant='secondary' onPress={() => {}}>
-							{t('welcome')}
-						</Button>
-						<Button size='medium' variant='secondary' onPress={() => {}}>
-							{t('welcome')}
-						</Button>
-						<Button size='large' variant='secondary' onPress={() => {}}>
-							{t('welcome')}
-						</Button>
-						<Button size='large' variant='secondary' onPress={() => {}} isDisabled>
-							{t('welcome')}
-						</Button>
-						<Button size='large' variant='secondary' onPress={() => {}} isPending>
-							{t('welcome')}
-						</Button>
-					</div>
-				</div>
-
 				<HookFormField
 					control={control}
 					name='email'
