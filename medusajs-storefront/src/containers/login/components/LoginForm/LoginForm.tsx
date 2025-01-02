@@ -7,7 +7,6 @@ import FacebookIcon from '@/assets/icons/social/facebook.svg'
 import GoogleIcon from '@/assets/icons/social/google.svg'
 import Button from '@/atoms/Button/Button'
 import InputField from '@/atoms/InputField/InputField'
-import InputPasswordField from '@/atoms/InputPasswordField/InputPasswordField'
 import HookFormField from '@/components/HookFormField'
 import envConfig from '@/config'
 import useLoginCustomer from '@/hooks/customer/useLoginCustomer'
@@ -44,11 +43,11 @@ const LoginForm = () => {
 
 	return (
 		<SC.Form layout='vertical' onSubmitCapture={handleSubmit(onSubmit)}>
+			<SC.Header>
+				<SC.Title>{t('welcomeBack')}</SC.Title>
+				<SC.InfoMd>{t('welcomeBackEnterDetails')}</SC.InfoMd>
+			</SC.Header>
 			<SC.FieldsWrapper>
-				<SC.Header>
-					<SC.Title>{t('welcomeBack')}</SC.Title>
-					<SC.InfoMd>{t('welcomeBackEnterDetails')}</SC.InfoMd>
-				</SC.Header>
 				<HookFormField
 					control={control}
 					name='email'
@@ -57,29 +56,27 @@ const LoginForm = () => {
 					type='email'
 					required
 					placeholder={t('enterEmail')}
-					size='large'
 					autoComplete='username'
 				/>
 				<HookFormField
 					control={control}
 					name='password'
-					component={InputPasswordField}
+					component={InputField}
 					label={t('password')}
 					type='password'
 					required
 					placeholder={t('enterPassword')}
-					size='large'
 					autoComplete='current-password'
 				/>
 			</SC.FieldsWrapper>
-			<Button variant='primary' size='large' type='submit' isDisabled={isSubmitting} isPending={isSubmitting}>
+			<Button variant='primary' size='large' type='submit' isDisabled={isSubmitting} isPending={isSubmitting} isFullWidth>
 				{t('logIn')}
 			</Button>
 			<SC.SocialButtonsWrapper>
-				<Button variant='secondary' onPress={() => router.push(`${envConfig.apiUrl}/admin/auth/google`)} size='large' type='button'>
+				<Button variant='secondary' onPress={() => router.push(`${envConfig.apiUrl}/admin/auth/google`)} size='large' type='button' isFullWidth>
 					<GoogleIcon />
 				</Button>
-				<Button variant='secondary' onPress={() => router.push(`${envConfig.apiUrl}/admin/auth/facebook`)} size='large' type='button'>
+				<Button variant='secondary' onPress={() => router.push(`${envConfig.apiUrl}/admin/auth/facebook`)} size='large' type='button' isFullWidth>
 					<FacebookIcon />
 				</Button>
 			</SC.SocialButtonsWrapper>

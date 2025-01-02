@@ -159,6 +159,8 @@ export const GlobalStyle = createGlobalStyle<{ $isDarkMode?: boolean }>`
 	*::before,
 	*::after {
 		box-sizing: border-box;
+		outline-width: 1px;
+		outline-color: ${({ theme }) => theme.tokens['color-base-action-primary-default']};
 	}
 
 	/*

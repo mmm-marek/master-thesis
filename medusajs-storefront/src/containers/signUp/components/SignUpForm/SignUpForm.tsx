@@ -7,7 +7,6 @@ import FacebookIcon from '@/assets/icons/social/facebook.svg'
 import GoogleIcon from '@/assets/icons/social/google.svg'
 import Button from '@/atoms/Button/Button'
 import InputField from '@/atoms/InputField/InputField'
-import InputPasswordField from '@/atoms/InputPasswordField/InputPasswordField'
 import HookFormField from '@/components/HookFormField'
 import envConfig from '@/config'
 import useCheckEmailExists from '@/hooks/customer/useCheckEmailExists'
@@ -108,7 +107,7 @@ const SignUpForm = () => {
 				<HookFormField
 					control={control}
 					name='password'
-					component={InputPasswordField}
+					component={InputField}
 					label={t('password')}
 					type='password'
 					required
@@ -118,7 +117,7 @@ const SignUpForm = () => {
 				<HookFormField
 					control={control}
 					name='repeatPassword'
-					component={InputPasswordField}
+					component={InputField}
 					label={t('repeatPassword')}
 					type='password'
 					required

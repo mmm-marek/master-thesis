@@ -7,6 +7,10 @@
 			"all": "All",
 			"search": "Search",
 			"selectAll": "Select all"
+		},
+		"input": {
+			"showPassword": "Show password",
+			"hidePassword": "Hide password"
 		}
 	},
 	"components": {

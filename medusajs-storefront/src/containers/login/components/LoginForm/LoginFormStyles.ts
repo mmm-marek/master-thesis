@@ -20,6 +20,9 @@ export const Title = styled.div`
 `
 
 export const FieldsWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
 	margin-bottom: 8px;
 `
 
