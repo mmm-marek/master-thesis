@@ -126,15 +126,17 @@ const SignUpForm = () => {
 					size='large'
 				/>
 			</SC.FieldsWrapper>
-			<Button variant='primary' size='large' type='submit' isDisabled={isSubmitting} isPending={isSubmitting}>
+			<Button variant='primary' size='large' type='submit' isDisabled={isSubmitting} isPending={isSubmitting} isFullWidth>
 				{t('signUp')}
 			</Button>
 			<SC.SocialButtonsWrapper>
-				<Button variant='secondary' onPress={() => router.push(`${envConfig.apiUrl}/admin/auth/google`)} size='large' type='button'>
+				<Button variant='secondary' onPress={() => router.push(`${envConfig.apiUrl}/admin/auth/google`)} size='large' type='button' isFullWidth>
 					<GoogleIcon />
+					{t('googleSignup')}
 				</Button>
-				<Button variant='secondary' onPress={() => router.push(`${envConfig.apiUrl}/admin/auth/facebook`)} size='large' type='button'>
+				<Button variant='secondary' onPress={() => router.push(`${envConfig.apiUrl}/admin/auth/facebook`)} size='large' type='button' isFullWidth>
 					<FacebookIcon />
+					{t('facebookSignup')}
 				</Button>
 			</SC.SocialButtonsWrapper>
 		</SC.Form>

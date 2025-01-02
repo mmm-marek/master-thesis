@@ -14,8 +14,8 @@ const scanAnimation = keyframes`
   }
 `
 
-export const Button = styled(AriaButton)<{ $size: ButtonSize; $variant: ButtonVariant }>`
-	${({ theme, $size, $variant }) => css`
+export const Button = styled(AriaButton)<{ $size: ButtonSize; $variant: ButtonVariant; $isFullWidth?: boolean }>`
+	${({ theme, $size, $variant, $isFullWidth }) => css`
 		display: flex;
 		gap: 8px;
 		align-items: center;
@@ -24,6 +24,11 @@ export const Button = styled(AriaButton)<{ $size: ButtonSize; $variant: ButtonVa
 		border: none;
 		border-radius: ${theme.borderRadius.circle};
 		width: fit-content;
+
+		${$isFullWidth &&
+		css`
+			width: 100%;
+		`}
 
 		${$size === 'small' &&
 		css`

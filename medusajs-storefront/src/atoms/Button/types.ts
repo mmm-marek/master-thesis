@@ -8,4 +8,5 @@ export type ButtonVariant = 'primary' | 'secondary'
 export type ButtonProps = PropsWithChildren<AriaButtonProps> & {
 	size?: ButtonSize
 	variant?: ButtonVariant
+	isFullWidth?: boolean
 }

@@ -234,7 +234,10 @@
 			"lastName": "Last name",
 			"enterFirstName": "Enter your first name",
 			"enterLastName": "Enter your last name",
-			"emailAlreadyExists": "Email already exists"
+			"emailAlreadyExists": "Email already exists",
+			"facebookSignup": "Facebook",
+			"googleSignup": "Google"
+
 		},
 		"users": {
 			"action": "Action",
