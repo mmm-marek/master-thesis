@@ -48,7 +48,7 @@ const DiscountCodeForm = () => {
 	return (
 		<SC.Form onSubmitCapture={handleSubmit(handleFormSubmit)}>
 			<HookFormField placeholder='SALE10' component={InputField} control={control} name='discountCode' size='large' required />
-			<Button type='primary' size='large' htmlType='submit' disabled={isSubmitting} loading={isSubmitting} shape='round'>
+			<Button variant='primary' size='large' type='submit' isDisabled={isSubmitting} isPending={isSubmitting}>
 				{t('apply')}
 			</Button>
 		</SC.Form>

@@ -2,7 +2,7 @@ import { notification } from 'antd'
 import { forEach, isEmpty } from 'lodash'
 import { ReactNode } from 'react'
 
-import { IErrorMessage, SelectOption, SelectOptionWithTag, ThemeOption, UserData, UserPermission, UserState } from '@/types/interfaces'
+import { IErrorMessage, SelectOption, SelectOptionWithTag, ThemeOption, UserData, UserPermission, UserState } from '@/types/types'
 import { MSG_TYPE, NOTIFICATION_TYPE, THEME, THEME_OPTION, USER_ROLE, USER_STATE } from '@/utils/enums'
 import { IntlTranslator } from '@/utils/intl'
 

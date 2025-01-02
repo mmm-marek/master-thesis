@@ -51,7 +51,9 @@ const Profile = () => {
 					<div>
 						<SC.SubsectionHeadingWrapper>
 							<SC.SubsectionHeading>{t('customerInformation')}</SC.SubsectionHeading>
-							<Button icon={<PencilIcon />} size='middle' onClick={() => setIsUpdateCustomerModalOpen(true)} noBackground />
+							<Button size='medium' onPress={() => setIsUpdateCustomerModalOpen(true)}>
+								<PencilIcon />
+							</Button>
 						</SC.SubsectionHeadingWrapper>
 						<ProfileItem label={t('name')} value={`${user?.first_name} ${user?.last_name}`} />
 						<ProfileItem label={t('email')} value={user?.email} />
@@ -60,7 +62,9 @@ const Profile = () => {
 					<div>
 						<SC.SubsectionHeadingWrapper>
 							<SC.SubsectionHeading>{t('billingAddress')}</SC.SubsectionHeading>
-							<Button icon={<PencilIcon />} size='middle' onClick={() => setIsUpdateBillingAddressModalOpen(true)} noBackground />
+							<Button size='medium' onPress={() => setIsUpdateBillingAddressModalOpen(true)}>
+								<PencilIcon />
+							</Button>
 						</SC.SubsectionHeadingWrapper>
 						<ProfileItem label={t('address1')} value={user?.billing_address?.address_1} />
 						<ProfileItem label={t('address2')} value={user?.billing_address?.address_2} />
@@ -72,7 +76,9 @@ const Profile = () => {
 					<div>
 						<SC.SubsectionHeadingWrapper>
 							<SC.SubsectionHeading>{t('shippingAddresses')}</SC.SubsectionHeading>
-							<Button icon={<PlusCircleIcon />} size='middle' onClick={() => setIsAddShippingAddressModalOpen(true)} noBackground />
+							<Button size='medium' onPress={() => setIsAddShippingAddressModalOpen(true)}>
+								<PlusCircleIcon />
+							</Button>
 						</SC.SubsectionHeadingWrapper>
 						<SC.ShippingAddressesWrapper>
 							{user?.shipping_addresses?.map((address) => (
@@ -84,7 +90,9 @@ const Profile = () => {
 										<SC.ShippingAddressLabel>{address.company}</SC.ShippingAddressLabel>
 									</SC.ShippingAddressInfo>
 									<SC.ShippingAddressActions>
-										<Button icon={<Trash2Icon />} size='middle' noBackground onClick={() => handleDeleteShippingAddress(address.id)} />
+										<Button size='medium' onPress={() => handleDeleteShippingAddress(address.id)}>
+											<Trash2Icon />
+										</Button>
 									</SC.ShippingAddressActions>
 								</SC.ShippingAddressWrapper>
 							))}

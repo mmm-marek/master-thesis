@@ -24,7 +24,7 @@ const Fallback = ({ title, description }: FallbackProps) => {
 			<SC.Content role='alert'>
 				<SC.Title>{title}</SC.Title>
 				<SC.Description>{description}</SC.Description>
-				<Button onClick={resetBoundary} type='primary'>
+				<Button onPress={resetBoundary} variant='primary'>
 					{t('tryAgain')}
 				</Button>
 			</SC.Content>

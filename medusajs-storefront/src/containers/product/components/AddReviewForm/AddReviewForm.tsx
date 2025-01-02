@@ -77,17 +77,17 @@ const AddReviewForm = ({ productID }: AddReviewFormProps) => {
 					}}
 				/>
 				<SC.ButtonsWrapper>
-					<Button shape='round' htmlType='button' size='large' onClick={() => setIsFormOpen(false)}>
+					<Button type='button' size='large' onPress={() => setIsFormOpen(false)}>
 						Cancel
 					</Button>
-					<Button shape='round' type='primary' htmlType='submit' size='large'>
+					<Button variant='primary' type='submit' size='large'>
 						Submit
 					</Button>
 				</SC.ButtonsWrapper>
 			</Spin>
 		</SC.FormWrapper>
 	) : (
-		<Button shape='round' type='primary' htmlType='submit' size='large' onClick={() => setIsFormOpen(true)}>
+		<Button variant='primary' type='submit' size='large' onPress={() => setIsFormOpen(true)}>
 			Add review
 		</Button>
 	)

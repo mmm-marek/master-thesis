@@ -3,7 +3,7 @@ import { FormItemLabelProps } from 'antd/lib/form/FormItemLabel'
 import { InputNumberProps } from 'antd/lib/input-number'
 import { memo } from 'react'
 
-import { WrappedFieldsProps } from '@/types/interfaces'
+import { WrappedFieldsProps } from '@/types/types'
 import { validateStatus } from '@/utils/helpers'
 
 const { Item } = Form

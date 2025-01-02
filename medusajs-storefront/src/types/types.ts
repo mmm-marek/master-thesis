@@ -7,7 +7,7 @@ import { MSG_TYPE, THEME_OPTION, USER_ROLE, USER_STATE } from '@/utils/enums'
 
 import type { ControllerFieldState, ControllerRenderProps } from 'react-hook-form'
 
-export type LocalizedProduct<T extends Product | PricedProduct> = T & {
+export type LocalizedProduct<T extends Product | PricedProduct = Product> = T & {
 	localizedTitle?: string
 	localizedSubtitle?: string | null
 	localizedDescription?: string | null

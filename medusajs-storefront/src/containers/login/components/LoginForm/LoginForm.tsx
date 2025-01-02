@@ -72,30 +72,17 @@ const LoginForm = () => {
 					autoComplete='current-password'
 				/>
 			</SC.FieldsWrapper>
-			<Button type='primary' size='large' htmlType='submit' disabled={isSubmitting} loading={isSubmitting} block shape='round'>
+			<Button variant='primary' size='large' type='submit' isDisabled={isSubmitting} isPending={isSubmitting}>
 				{t('logIn')}
 			</Button>
 			<SC.SocialButtonsWrapper>
-				<Button type='default' href={`${envConfig.apiUrl}/admin/auth/google`} size='large' block htmlType='button' shape='round'>
+				<Button variant='secondary' onPress={() => router.push(`${envConfig.apiUrl}/admin/auth/google`)} size='large' type='button'>
 					<GoogleIcon />
 				</Button>
-				<Button type='default' href={`${envConfig.apiUrl}/admin/auth/facebook`} size='large' block htmlType='button' shape='round'>
+				<Button variant='secondary' onPress={() => router.push(`${envConfig.apiUrl}/admin/auth/facebook`)} size='large' type='button'>
 					<FacebookIcon />
 				</Button>
 			</SC.SocialButtonsWrapper>
-			<SC.ForgotPasswordBtnWrapper>
-				<Button
-					type='text'
-					onClick={() => {
-						router.push(PATHS.FORGOTTEN_PASSWORD)
-					}}
-					size='small'
-					disabled={isSubmitting}
-					loading={isSubmitting}
-				>
-					<span>{t('forgotPassword')}</span>
-				</Button>
-			</SC.ForgotPasswordBtnWrapper>
 		</SC.Form>
 	)
 }

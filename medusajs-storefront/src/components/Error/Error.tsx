@@ -28,7 +28,7 @@ const Error = ({ title, description, height = '500px', onTryAgain }: ErrorProps)
 		<SC.ErrorContainer $height={height}>
 			<SC.ErrorHeading>{title ?? t('somethingWentWrong')}</SC.ErrorHeading>
 			<SC.ErrorText>{description ?? t('tryLater')}</SC.ErrorText>
-			<Button type='primary' onClick={handleRefetchAllQueries}>
+			<Button variant='primary' onPress={handleRefetchAllQueries}>
 				{t('tryAgain')}
 			</Button>
 		</SC.ErrorContainer>

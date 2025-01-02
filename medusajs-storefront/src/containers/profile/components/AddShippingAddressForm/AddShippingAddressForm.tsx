@@ -98,7 +98,7 @@ const AddShippingAddressForm = ({ open, onClose }: AddShippingAddressFormProps) 
 					size='large'
 				/>
 				<HookFormField label={t('company')} placeholder={t('enterCompany')} component={InputField} control={control} name='company' size='large' />
-				<Button type='primary' size='large' htmlType='submit' block disabled={isSubmitting} loading={isSubmitting}>
+				<Button variant='primary' size='large' type='submit' isDisabled={isSubmitting} isPending={isSubmitting}>
 					{t('submitButton')}
 				</Button>
 			</SC.Form>

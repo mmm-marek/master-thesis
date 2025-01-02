@@ -2,7 +2,7 @@ import { Product, ProductCategory } from '@medusajs/medusa'
 import { PricedProduct } from '@medusajs/medusa/dist/types/pricing'
 
 import { getCategoryLocalizationSchema, getProductLocalizationSchema } from '@/schemas/localizationSchemas'
-import { LocalizedCategory, LocalizedProduct } from '@/types/interfaces'
+import { LocalizedCategory, LocalizedProduct } from '@/types/types'
 
 type LocalizeProductParams<T extends Product | PricedProduct> = {
 	product: T

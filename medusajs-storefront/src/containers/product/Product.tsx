@@ -109,7 +109,7 @@ const Product = ({ id }: ProductProps) => {
 										region: cart?.region
 									})}
 								</SC.Price>
-								<Button size='large' shape='round' type='primary' onClick={handleAddToCart} disabled={isUpdatingCart}>
+								<Button size='large' variant='primary' onPress={handleAddToCart} isDisabled={isUpdatingCart}>
 									{t('addToCart')}
 								</Button>
 							</SC.PriceWrapper>

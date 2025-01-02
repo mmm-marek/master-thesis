@@ -3,7 +3,7 @@ import { FormItemLabelProps } from 'antd/lib/form/FormItemLabel'
 import { RadioGroupProps } from 'antd/lib/radio/'
 import { map } from 'lodash'
 
-import { WrappedFieldsProps } from '@/types/interfaces'
+import { WrappedFieldsProps } from '@/types/types'
 import { validateStatus } from '@/utils/helpers'
 
 const { Item } = Form

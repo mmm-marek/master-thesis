@@ -1,7 +1,7 @@
 import { PricedProduct } from '@medusajs/medusa/dist/types/pricing'
 import { useQuery } from '@tanstack/react-query'
 
-import { LocalizedProduct } from '@/types/interfaces'
+import { LocalizedProduct } from '@/types/types'
 import { QUERY_KEYS } from '@/utils/enums'
 import { localizeProduct } from '@/utils/localization'
 import { medusa } from '@/utils/medusaHelpers'

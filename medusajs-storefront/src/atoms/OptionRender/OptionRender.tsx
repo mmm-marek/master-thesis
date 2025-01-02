@@ -1,5 +1,5 @@
 import Tag from '../Tag/Tag'
-import { SelectOptionWithIcon, SelectOptionWithTag } from '@/types/interfaces'
+import { SelectOptionWithIcon, SelectOptionWithTag } from '@/types/types'
 
 import * as SC from './OptionRenderStyles'
 

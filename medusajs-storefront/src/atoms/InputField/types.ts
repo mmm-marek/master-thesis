@@ -3,7 +3,7 @@ import { FormItemLabelProps } from 'antd/lib/form/FormItemLabel'
 import { InputProps as AntdInputProps } from 'antd/lib/input'
 import { PropsWithChildren } from 'react'
 
-import { WrappedFieldsProps } from '@/types/interfaces'
+import { WrappedFieldsProps } from '@/types/types'
 import { FIELD_MODE } from '@/utils/enums'
 
 export type InputSize = AntdInputSize | 'extra-large'

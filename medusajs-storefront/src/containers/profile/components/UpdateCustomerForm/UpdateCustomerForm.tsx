@@ -84,7 +84,7 @@ const UpdateCustomerForm = ({ defaultValues, open, onClose }: UpdateCustomerForm
 					size='large'
 					required
 				/>
-				<Button type='primary' size='large' htmlType='submit' block disabled={isSubmitting} loading={isSubmitting}>
+				<Button variant='primary' size='large' type='submit' isDisabled={isSubmitting} isPending={isSubmitting}>
 					{t('submitButton')}
 				</Button>
 			</SC.Form>

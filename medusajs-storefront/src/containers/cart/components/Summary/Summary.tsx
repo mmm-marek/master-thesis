@@ -53,7 +53,7 @@ const Summary = () => {
 					})}
 				</span>
 			</SC.Total>
-			<Button block size='large' type='primary' onClick={() => router.push(PATHS.CHECKOUT)} shape='round'>
+			<Button size='large' variant='primary' onPress={() => router.push(PATHS.CHECKOUT)}>
 				{t('checkout')}
 			</Button>
 		</SC.Wrapper>

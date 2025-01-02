@@ -26,7 +26,7 @@ const Error = ({ statusCode, title, message }: ErrorProps) => {
 				<SC.Title>{title}</SC.Title>
 				<SC.Message>{message}</SC.Message>
 			</SC.TextContainer>
-			<Button onClick={handleRedirect} size='large' type='primary'>
+			<Button onPress={handleRedirect} size='large' variant='primary'>
 				{t('backButton')}
 			</Button>
 		</SC.Container>

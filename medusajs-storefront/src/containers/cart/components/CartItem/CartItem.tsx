@@ -53,12 +53,18 @@ const CartItem = ({ item, region }: CartItemProps) => {
 					<SC.QuantityWrapper>
 						<SC.QuantityLabel>{t('quantity')}:</SC.QuantityLabel>
 						<SC.QuantityControls>
-							<Button icon={<MinusIcon />} noBackground size='small' onClick={handleRemoveQuantity} />
+							<Button size='small' onPress={handleRemoveQuantity}>
+								<MinusIcon />
+							</Button>
 							<SC.Quantity>{item.quantity}</SC.Quantity>
-							<Button icon={<PlusIcon />} noBackground size='small' onClick={handleAddQuantity} />
+							<Button size='small' onPress={handleAddQuantity}>
+								<PlusIcon />
+							</Button>
 						</SC.QuantityControls>
 					</SC.QuantityWrapper>
-					<Button icon={<Trash2Icon color={theme.tokens['color-base-content-primary']} />} noBackground onClick={handleDelete} />
+					<Button onPress={handleDelete}>
+						<Trash2Icon color={theme.tokens['color-base-content-primary']} />
+					</Button>
 				</div>
 			</SC.ContentWrapper>
 		</SC.Wrapper>

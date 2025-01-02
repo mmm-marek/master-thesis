@@ -2,7 +2,7 @@ import { FormItemProps, SelectProps } from 'antd'
 import { z } from 'zod'
 
 import FilterSelectSchema from '@/schemas/atoms/filterSelect'
-import { FilterSelectFieldValue, SelectOption, WrappedFieldsProps } from '@/types/interfaces'
+import { FilterSelectFieldValue, SelectOption, WrappedFieldsProps } from '@/types/types'
 
 export type FilterSelectFieldProps<
 	ValueType extends FilterSelectFieldValue = FilterSelectFieldValue,

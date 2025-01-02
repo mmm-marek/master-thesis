@@ -30,7 +30,7 @@ const FeaturedProducts = () => {
 		<SC.Container>
 			<SC.TitleWrapper>
 				<SC.Title>{t('productsTitle')}</SC.Title>
-				<Button type='primary' shape='round' onClick={() => router.push(`${PATHS.CATEGORY}/${FEATURED_CATEGORY_HANDLE}`)}>
+				<Button variant='primary' onPress={() => router.push(`${PATHS.CATEGORY}/${FEATURED_CATEGORY_HANDLE}`)}>
 					{t('productsCta')}
 				</Button>
 			</SC.TitleWrapper>

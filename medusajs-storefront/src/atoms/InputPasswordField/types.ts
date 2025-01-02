@@ -3,7 +3,7 @@ import { SizeType as AntdInputSize } from 'antd/lib/config-provider/SizeContext'
 import { PasswordProps as AntdInputPasswordProps } from 'antd/lib/input'
 import { PropsWithChildren } from 'react'
 
-import { WrappedFieldsProps } from '@/types/interfaces'
+import { WrappedFieldsProps } from '@/types/types'
 
 export type InputSize = AntdInputSize | 'extra-large'
 export type InputPasswordProps = Omit<AntdInputPasswordProps, 'size'> & {

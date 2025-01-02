@@ -86,7 +86,7 @@ const PersonalInformationForm = ({ onSubmitted }: PersonalInformationProps) => {
 			/>
 			<HookFormField label={t('email')} placeholder={t('emailPlaceholder')} component={InputField} control={control} name='email' size='large' required />
 			<HookFormField label={t('phone')} placeholder={t('phonePlaceholder')} component={InputField} control={control} name='phone' size='large' required />
-			<Button type='primary' size='large' htmlType='submit' shape='round' block disabled={isSubmitting} loading={isSubmitting}>
+			<Button variant='primary' size='large' type='submit' isDisabled={isSubmitting} isPending={isSubmitting}>
 				{t('submitButton')}
 			</Button>
 		</SC.Form>

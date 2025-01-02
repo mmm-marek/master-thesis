@@ -13,7 +13,6 @@ import envConfig from '@/config'
 import useCheckEmailExists from '@/hooks/customer/useCheckEmailExists'
 import useCustomerSignUp from '@/hooks/customer/useCustomerSignUp'
 import SignUpFormSchema from '@/schemas/pages/signUp'
-import { PATHS } from '@/utils/enums'
 import { zodResolver } from '@/utils/zodResolver'
 
 import * as SC from './SignUpFormStyles'
@@ -127,30 +126,17 @@ const SignUpForm = () => {
 					size='large'
 				/>
 			</SC.FieldsWrapper>
-			<Button type='primary' size='large' htmlType='submit' disabled={isSubmitting} loading={isSubmitting} block shape='round'>
+			<Button variant='primary' size='large' type='submit' isDisabled={isSubmitting} isPending={isSubmitting}>
 				{t('signUp')}
 			</Button>
 			<SC.SocialButtonsWrapper>
-				<Button type='default' href={`${envConfig.apiUrl}/admin/auth/google`} size='large' block htmlType='button' shape='round'>
+				<Button variant='secondary' onPress={() => router.push(`${envConfig.apiUrl}/admin/auth/google`)} size='large' type='button'>
 					<GoogleIcon />
 				</Button>
-				<Button type='default' href={`${envConfig.apiUrl}/admin/auth/facebook`} size='large' block htmlType='button' shape='round'>
+				<Button variant='secondary' onPress={() => router.push(`${envConfig.apiUrl}/admin/auth/facebook`)} size='large' type='button'>
 					<FacebookIcon />
 				</Button>
 			</SC.SocialButtonsWrapper>
-			<SC.ForgotPasswordBtnWrapper>
-				<Button
-					type='text'
-					onClick={() => {
-						router.push(PATHS.FORGOTTEN_PASSWORD)
-					}}
-					size='small'
-					disabled={isSubmitting}
-					loading={isSubmitting}
-				>
-					<span>{t('forgotPassword')}</span>
-				</Button>
-			</SC.ForgotPasswordBtnWrapper>
 		</SC.Form>
 	)
 }

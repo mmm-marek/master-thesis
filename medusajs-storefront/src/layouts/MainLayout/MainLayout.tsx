@@ -72,7 +72,7 @@ const MainLayout = ({ children, hasBreadcrumbs }: MainLayoutProps) => {
 										<CircleUserRound color={theme.tokens['color-base-content-top']} />
 									</Link>
 								) : (
-									<SC.SignInButton type='primary' size='middle' shape='round' onClick={handleSignInClick}>
+									<SC.SignInButton variant='primary' size='medium' onPress={handleSignInClick}>
 										{t('signIn')}
 									</SC.SignInButton>
 								)}

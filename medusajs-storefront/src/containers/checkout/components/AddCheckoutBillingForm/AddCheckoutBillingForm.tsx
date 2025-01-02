@@ -143,7 +143,7 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 				required
 				disabled={sameAsShipping}
 			/>
-			<Button type='primary' size='large' htmlType='submit' shape='round' block disabled={isSubmitting} loading={isSubmitting}>
+			<Button variant='primary' size='large' type='submit' isDisabled={isSubmitting} isPending={isSubmitting}>
 				{t('submitButton')}
 			</Button>
 		</SC.Form>

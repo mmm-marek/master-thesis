@@ -4,7 +4,7 @@ import { FormItemProps } from 'antd/lib/form/FormItem'
 import { TimePickerProps } from 'antd/lib/time-picker'
 import dayjs from 'dayjs'
 
-import { WrappedFieldsProps } from '@/types/interfaces'
+import { WrappedFieldsProps } from '@/types/types'
 import { DEFAULT_TIME_FORMAT, DROPDOWN_POSITION } from '@/utils/enums'
 import { validateStatus } from '@/utils/helpers'
 
