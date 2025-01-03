@@ -12,6 +12,7 @@ export const SectionHeading = styled.h2`
 
 export const SubsectionHeading = styled.h3`
 	${({ theme }) => css`
+		margin-bottom: 16px;
 		color: ${theme.tokens['color-base-content-primary']};
 		${textXlRegular};
 	`}

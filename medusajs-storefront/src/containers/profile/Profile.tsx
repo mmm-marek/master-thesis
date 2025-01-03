@@ -51,7 +51,7 @@ const Profile = () => {
 					<div>
 						<SC.SubsectionHeadingWrapper>
 							<SC.SubsectionHeading>{t('customerInformation')}</SC.SubsectionHeading>
-							<Button size='medium' onPress={() => setIsUpdateCustomerModalOpen(true)}>
+							<Button size='small' variant='secondary' onPress={() => setIsUpdateCustomerModalOpen(true)}>
 								<PencilIcon />
 							</Button>
 						</SC.SubsectionHeadingWrapper>
@@ -62,7 +62,7 @@ const Profile = () => {
 					<div>
 						<SC.SubsectionHeadingWrapper>
 							<SC.SubsectionHeading>{t('billingAddress')}</SC.SubsectionHeading>
-							<Button size='medium' onPress={() => setIsUpdateBillingAddressModalOpen(true)}>
+							<Button size='small' variant='secondary' onPress={() => setIsUpdateBillingAddressModalOpen(true)}>
 								<PencilIcon />
 							</Button>
 						</SC.SubsectionHeadingWrapper>
@@ -76,7 +76,7 @@ const Profile = () => {
 					<div>
 						<SC.SubsectionHeadingWrapper>
 							<SC.SubsectionHeading>{t('shippingAddresses')}</SC.SubsectionHeading>
-							<Button size='medium' onPress={() => setIsAddShippingAddressModalOpen(true)}>
+							<Button size='small' variant='secondary' onPress={() => setIsAddShippingAddressModalOpen(true)}>
 								<PlusCircleIcon />
 							</Button>
 						</SC.SubsectionHeadingWrapper>
@@ -90,7 +90,7 @@ const Profile = () => {
 										<SC.ShippingAddressLabel>{address.company}</SC.ShippingAddressLabel>
 									</SC.ShippingAddressInfo>
 									<SC.ShippingAddressActions>
-										<Button size='medium' onPress={() => handleDeleteShippingAddress(address.id)}>
+										<Button size='small' variant='secondary' onPress={() => handleDeleteShippingAddress(address.id)}>
 											<Trash2Icon />
 										</Button>
 									</SC.ShippingAddressActions>
