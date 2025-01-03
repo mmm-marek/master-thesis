@@ -6,7 +6,6 @@ import * as SC from './InputFieldStyles'
 import { InputFieldProps } from './types'
 
 const InputField = ({
-	size,
 	input: { ref, onChange, value, name, onBlur, onFocus },
 	label,
 	required,

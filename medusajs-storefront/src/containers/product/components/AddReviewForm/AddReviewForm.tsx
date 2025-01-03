@@ -63,19 +63,10 @@ const AddReviewForm = ({ productID }: AddReviewFormProps) => {
 					<div>Rating</div>
 					<Rate value={rating} onChange={(value) => setRating(value)} allowClear={false} />
 				</SC.RatingWrapper>
-				<HookFormField label='Title' placeholder='Enter title' component={InputField} control={control} name='title' />
-				<HookFormField
-					label='Review'
-					placeholder='Enter review'
-					component={TextAreaField}
-					control={control}
-					name='content'
-					size='large'
-					autoSize={{
-						minRows: 5,
-						maxRows: 5
-					}}
-				/>
+				<SC.FieldsWrapper>
+					<HookFormField label='Title' placeholder='Enter title' component={InputField} control={control} name='title' />
+					<HookFormField label='Review' placeholder='Enter review' component={TextAreaField} control={control} name='content' rows={5} />
+				</SC.FieldsWrapper>
 				<SC.ButtonsWrapper>
 					<Button type='button' size='large' onPress={() => setIsFormOpen(false)}>
 						Cancel

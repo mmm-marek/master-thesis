@@ -38,3 +38,10 @@ export const RatingWrapper = styled.div`
 		color: ${theme.tokens['color-base-content-primary']};
 	`}
 `
+
+export const FieldsWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	padding-bottom: 16px;
+`
