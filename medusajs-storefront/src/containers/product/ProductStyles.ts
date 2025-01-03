@@ -1,5 +1,5 @@
-import { Radio } from 'antd'
 import Image from 'next/image'
+import { Label, Radio, RadioGroup } from 'react-aria-components'
 import styled, { css } from 'styled-components'
 
 import { breakpoints, headingSmSemibold, textMdRegular, textSmRegular, textXxlSemibold } from '@/styles/helpers'
@@ -35,14 +35,14 @@ export const VariantsSection = styled.div`
 	gap: 4px;
 `
 
-export const VariantsTitle = styled.h2`
+export const VariantsTitle = styled(Label)`
 	${({ theme }) => css`
 		${textXxlSemibold};
 		color: ${theme.tokens['color-base-content-primary']};
 	`}
 `
 
-export const VariantsRadioGroup = styled(Radio.Group)`
+export const VariantsRadioGroup = styled(RadioGroup)`
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
 	gap: 8px;
