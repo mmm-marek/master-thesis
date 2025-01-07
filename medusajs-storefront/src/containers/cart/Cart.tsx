@@ -1,4 +1,3 @@
-import { Spin } from 'antd'
 import { useTranslations } from 'next-intl'
 
 import Breadcrumb from '@/atoms/Breadcrumb/Breadcrumb'
@@ -12,14 +11,14 @@ import Summary from './components/Summary/Summary'
 
 const Cart = () => {
 	const t = useTranslations('containers.cart')
-	const { cart, isUpdatingCart } = useStore()
+	const { cart } = useStore()
 
 	if (!cart) {
 		return <Loading />
 	}
 
 	return (
-		<Spin spinning={isUpdatingCart}>
+		<>
 			<Breadcrumb
 				items={[
 					{
@@ -35,7 +34,7 @@ const Cart = () => {
 				<CartItems items={cart?.items ?? []} region={cart?.region} />
 				<Summary />
 			</SC.CartWrapper>
-		</Spin>
+		</>
 	)
 }
 

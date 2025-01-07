@@ -19,7 +19,7 @@ const CartItem = ({ item, region }: CartItemProps) => {
 	const t = useTranslations('containers.cart')
 	const { cart } = useStore()
 	const theme = useTheme()
-	const { deleteItem, updateItem } = useStore()
+	const { deleteItem, updateItem, isUpdatingCart } = useStore()
 
 	const handleDelete = () => {
 		deleteItem(item.id)
@@ -53,16 +53,16 @@ const CartItem = ({ item, region }: CartItemProps) => {
 					<SC.QuantityWrapper>
 						<SC.QuantityLabel>{t('quantity')}:</SC.QuantityLabel>
 						<SC.QuantityControls>
-							<Button size='small' onPress={handleRemoveQuantity}>
+							<Button size='small' isDisabled={isUpdatingCart} onPress={handleRemoveQuantity}>
 								<MinusIcon />
 							</Button>
 							<SC.Quantity>{item.quantity}</SC.Quantity>
-							<Button size='small' onPress={handleAddQuantity}>
+							<Button size='small' isDisabled={isUpdatingCart} onPress={handleAddQuantity}>
 								<PlusIcon />
 							</Button>
 						</SC.QuantityControls>
 					</SC.QuantityWrapper>
-					<Button onPress={handleDelete}>
+					<Button onPress={handleDelete} isDisabled={isUpdatingCart}>
 						<Trash2Icon color={theme.tokens['color-base-content-primary']} />
 					</Button>
 				</div>
