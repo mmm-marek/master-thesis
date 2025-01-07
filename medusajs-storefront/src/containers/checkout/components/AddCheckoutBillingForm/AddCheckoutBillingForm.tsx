@@ -89,7 +89,6 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 				component={InputField}
 				control={control}
 				name='address1'
-				size='large'
 				required
 				disabled={sameAsShipping}
 			/>
@@ -99,7 +98,6 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 				component={InputField}
 				control={control}
 				name='address2'
-				size='large'
 				required
 				disabled={sameAsShipping}
 			/>
@@ -109,7 +107,6 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 				component={InputField}
 				control={control}
 				name='city'
-				size='large'
 				required
 				disabled={sameAsShipping}
 			/>
@@ -119,7 +116,6 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 				component={InputField}
 				control={control}
 				name='countryCode'
-				size='large'
 				required
 				disabled={sameAsShipping}
 			/>
@@ -129,7 +125,6 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 				component={InputField}
 				control={control}
 				name='postalCode'
-				size='large'
 				required
 				disabled={sameAsShipping}
 			/>
@@ -139,7 +134,6 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 				component={InputField}
 				control={control}
 				name='company'
-				size='large'
 				required
 				disabled={sameAsShipping}
 			/>
