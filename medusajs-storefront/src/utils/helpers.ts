@@ -1,25 +1,25 @@
-import { notification } from 'antd'
 import { forEach, isEmpty } from 'lodash'
 import { ReactNode } from 'react'
 
+import { toastQueue } from '@/providers/GlobalToastRegion'
 import { IErrorMessage, SelectOption, SelectOptionWithTag, ThemeOption, UserData, UserPermission, UserState } from '@/types/types'
-import { MSG_TYPE, NOTIFICATION_TYPE, THEME, THEME_OPTION, USER_ROLE, USER_STATE } from '@/utils/enums'
+import { NOTIFICATION_TYPE, THEME, THEME_OPTION, USER_ROLE, USER_STATE } from '@/utils/enums'
 import { IntlTranslator } from '@/utils/intl'
 
-const translateMessageType = (msgType: MSG_TYPE) => {
-	switch (msgType) {
-		case MSG_TYPE.ERROR:
-			return IntlTranslator.t('utils.helpers.utilsHelpersError')
-		case MSG_TYPE.WARNING:
-			return IntlTranslator.t('utils.helpers.utilsHelpersWarning')
-		case MSG_TYPE.SUCCESS:
-			return IntlTranslator.t('utils.helpers.utilsHelpersSuccess')
-		case MSG_TYPE.INFO:
-			return IntlTranslator.t('utils.helpers.utilsHelpersInfo')
-		default:
-			return ''
-	}
-}
+// const translateMessageType = (msgType: MSG_TYPE) => {
+// 	switch (msgType) {
+// 		case MSG_TYPE.ERROR:
+// 			return IntlTranslator.t('utils.helpers.utilsHelpersError')
+// 		case MSG_TYPE.WARNING:
+// 			return IntlTranslator.t('utils.helpers.utilsHelpersWarning')
+// 		case MSG_TYPE.SUCCESS:
+// 			return IntlTranslator.t('utils.helpers.utilsHelpersSuccess')
+// 		case MSG_TYPE.INFO:
+// 			return IntlTranslator.t('utils.helpers.utilsHelpersInfo')
+// 		default:
+// 			return ''
+// 	}
+// }
 
 /**
  * Displays notifications based on the provided messages and notification type.
@@ -32,26 +32,7 @@ export const showNotifications = (messages?: IErrorMessage[], typeNotification?:
 	if (!isEmpty(messages)) {
 		if (typeNotification === NOTIFICATION_TYPE.NOTIFICATION) {
 			forEach(messages, (message) => {
-				let notif
-				switch (message.type.toLowerCase()) {
-					case 'warning':
-						notif = notification.warning
-						break
-					case 'success':
-						notif = notification.success
-						break
-					case 'error':
-						notif = notification.error
-						break
-					case 'info':
-					default:
-						notif = notification.info
-						break
-				}
-				notif({
-					message: translateMessageType(message.type),
-					description: message.message
-				})
+				toastQueue.add(message.message, { timeout: 5000 })
 			})
 		} else if (typeNotification === NOTIFICATION_TYPE.MODAL) {
 			// TODO: implement modal notification

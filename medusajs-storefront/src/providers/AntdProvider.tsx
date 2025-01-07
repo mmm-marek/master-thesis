@@ -1,20 +1,16 @@
 import { ConfigProvider } from 'antd'
-import { Locale } from 'antd/lib/locale'
 import { PropsWithChildren } from 'react'
 import { useTheme } from 'styled-components'
 
 import { INTER_FONT_VARIABLE } from '@/styles/helpers'
 
-type AntdProviderProps = PropsWithChildren & {
-	locale: Locale
-}
+type AntdProviderProps = PropsWithChildren
 
-const AntdProvider = ({ children, locale }: AntdProviderProps) => {
+const AntdProvider = ({ children }: AntdProviderProps) => {
 	const theme = useTheme()
 
 	return (
 		<ConfigProvider
-			locale={locale}
 			theme={{
 				components: {
 					Checkbox: {

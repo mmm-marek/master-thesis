@@ -1,6 +1,5 @@
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { Locale } from 'antd/lib/locale'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import isBetween from 'dayjs/plugin/isBetween'
@@ -23,6 +22,7 @@ import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
 import { useLoader } from '@/hooks/loader/useLoader'
 import AntdProvider from '@/providers/AntdProvider'
 import AppStateProvider from '@/providers/AppProvider'
+import GlobalToastRegion from '@/providers/GlobalToastRegion'
 import { StoreProvider } from '@/providers/StoreProvider'
 import ThemeProvider from '@/providers/ThemeProvider'
 import { DEFAULT_LANGUAGE, ERROR_BOUNDARY_TYPE, LANGUAGE, LOCALES } from '@/utils/enums'
@@ -140,7 +140,6 @@ type AppPropsWithLayout = AppProps & {
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 	const router = useRouter()
-	const [antdLocale, setAntdLocale] = useState<Locale>(LOCALES[DEFAULT_LANGUAGE].antD)
 	const [timeZone, setTimeZone] = useState<string>(LOCALES[DEFAULT_LANGUAGE].timeZone)
 
 	// client side navigation loader initialisation
@@ -150,7 +149,6 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 	useEffect(() => {
 		const locale = LOCALES[router.locale as LANGUAGE] || LOCALES[DEFAULT_LANGUAGE]
 		dayjs.locale(locale.ISO_639)
-		setAntdLocale(locale.antD)
 		setTimeZone(locale.timeZone)
 	}, [router.locale])
 
@@ -180,11 +178,14 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 					<QueryClientProvider client={queryClient}>
 						<Hydrate state={pageProps.dehydratedState}>
 							<ThemeProvider>
-								<AntdProvider locale={antdLocale}>
+								<AntdProvider>
 									<RouterProvider navigate={(href, opts) => router.push(href, undefined, opts)}>
 										<AppStateProvider>
 											<CartProvider>
-												<StoreProvider>{getLayout(<Component {...pageProps} />, pageProps)}</StoreProvider>
+												<StoreProvider>
+													{getLayout(<Component {...pageProps} />, pageProps)}
+													<GlobalToastRegion />
+												</StoreProvider>
 											</CartProvider>
 										</AppStateProvider>
 									</RouterProvider>

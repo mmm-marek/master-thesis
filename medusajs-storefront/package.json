@@ -68,6 +68,8 @@
     "@medusajs/medusa": "1.20.5",
     "@medusajs/medusa-js": "6.1.8",
     "@next/bundle-analyzer": "14.1.4",
+    "@react-aria/toast": "3.0.0-beta.18",
+    "@react-stately/toast": "3.0.0-beta.7",
     "@sentry/integrations": "7.108.0",
     "@sentry/nextjs": "7.108.0",
     "@stripe/react-stripe-js": "2.7.3",
