@@ -1,6 +1,3 @@
-import en_EN from 'antd/lib/locale/en_US'
-import sk_SK from 'antd/locale/sk_SK'
-
 export enum MSG_TYPE {
 	INFO = 'INFO',
 	ERROR = 'ERROR',
@@ -39,13 +36,11 @@ export enum TIME_ZONES {
 export const LOCALES = {
 	[LANGUAGE.SK]: {
 		ISO_639: 'sk',
-		antD: sk_SK,
 		countryCode: 'SK',
 		timeZone: TIME_ZONES.EUROPE_BRATISLAVA
 	},
 	[LANGUAGE.EN]: {
 		ISO_639: 'en',
-		antD: en_EN,
 		countryCode: 'EN',
 		timeZone: TIME_ZONES.EUROPE_BRATISLAVA
 	}

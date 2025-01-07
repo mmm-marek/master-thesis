@@ -1,7 +1,0 @@
-import * as z from 'zod'
-import { USER_ROLE } from '@/utils/enums'
-
-export const {{ pascalCase name }}FilterFormSchema = z.object({
-	roles: z.array(z.nativeEnum(USER_ROLE)).optional(),
-	search: z.string().min(2)
-})
