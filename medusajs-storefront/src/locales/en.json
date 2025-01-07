@@ -295,6 +295,7 @@
 	},
 	"layouts": {
 		"mainLayout": {
+			"itemsInCart": "items in cart",
 			"logout": "Log out",
 			"joinUs": "Join us",
 			"signIn": "Sign in",

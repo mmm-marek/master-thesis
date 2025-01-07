@@ -1,4 +1,3 @@
-import { Badge } from 'antd'
 import { CircleUserRound, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -77,9 +76,12 @@ const MainLayout = ({ children, hasBreadcrumbs }: MainLayoutProps) => {
 									</SC.SignInButton>
 								)}
 								<Link href={PATHS.CART}>
-									<Badge count={cart?.items.length || 0} showZero={false}>
+									<SC.CartWrapper>
 										<ShoppingCart color={theme.tokens['color-base-content-top']} />
-									</Badge>
+										{cart?.items.length && (
+											<SC.CartBadge aria-label={`${cart.items.length} ${t('itemsInCart')}`}>{cart?.items.length}</SC.CartBadge>
+										)}
+									</SC.CartWrapper>
 								</Link>
 							</SC.LinksWrapper>
 						</SC.HeaderContent>

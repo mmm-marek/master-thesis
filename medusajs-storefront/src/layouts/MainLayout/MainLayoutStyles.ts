@@ -122,3 +122,23 @@ export const Layout = styled.div`
 export const SignInButton = styled(Button)`
 	margin-bottom: 6px;
 `
+
+export const CartWrapper = styled.div`
+	position: relative;
+`
+
+export const CartBadge = styled.span`
+	${({ theme }) => css`
+		display: flex;
+		position: absolute;
+		top: -8px;
+		right: -8px;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		background-color: ${theme.tokens['color-base-action-destructive-default']};
+		min-width: 16px;
+		color: white;
+		${textXsRegular};
+	`};
+`

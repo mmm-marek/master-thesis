@@ -294,6 +294,7 @@
 	},
 	"layouts": {
 		"mainLayout": {
+			"itemsInCart": "položiek v košíku",
 			"logout": "Odhlásiť sa",
 			"joinUs": "Pridaj sa k nám",
 			"signIn": "Prihlásiť sa",
