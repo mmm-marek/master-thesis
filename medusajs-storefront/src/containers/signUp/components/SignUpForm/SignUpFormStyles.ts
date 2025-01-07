@@ -1,10 +1,9 @@
-import { Form as AntdForm } from 'antd'
 import styled from 'styled-components'
 
 import LogoIcon from '@/assets/icons/logo.svg'
 import { headingSmSemibold, textMdRegular, textSmRegular } from '@/styles/helpers'
 
-export const Form = styled(AntdForm)`
+export const Form = styled.form`
 	margin: auto;
 	width: 100%;
 	max-width: 440px;

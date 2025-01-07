@@ -1,9 +1,8 @@
-import { Form as AntdForm } from 'antd'
 import styled from 'styled-components'
 
 import { headingSmSemibold, textMdRegular, textSmRegular } from '@/styles/helpers'
 
-export const Form = styled(AntdForm)`
+export const Form = styled.form`
 	width: 100%;
 `
 

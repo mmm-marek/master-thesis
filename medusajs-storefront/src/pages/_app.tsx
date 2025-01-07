@@ -145,7 +145,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 	// client side navigation loader initialisation
 	useLoader()
 
-	// dayjs and antd locale setup
+	// dayjs setup
 	useEffect(() => {
 		const locale = LOCALES[router.locale as LANGUAGE] || LOCALES[DEFAULT_LANGUAGE]
 		dayjs.locale(locale.ISO_639)
