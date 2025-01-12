@@ -18,13 +18,14 @@ type RatingStarsProps = {
 
 const RatingStars = ({ rating }: RatingStarsProps) => {
 	const theme = useTheme()
+	const t = useTranslations('containers.products')
 
 	const getColor = (index: number) => {
 		return index < rating ? theme.tokens['color-base-action-primary-default'] : theme.tokens['color-base-surface-quaternary']
 	}
 
 	return (
-		<SC.StarsWrapper>
+		<SC.StarsWrapper role='group' aria-label={t('rating', { rating })}>
 			{[...Array(5)].map((_, index) => {
 				const color = getColor(index)
 				// eslint-disable-next-line react/no-array-index-key

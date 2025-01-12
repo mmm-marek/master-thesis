@@ -59,6 +59,7 @@
 			"quantity": "Množstvo"
 		},
 		"products": {
+			"rating": "Hodnotenie: {rating} z 5 hviezdičiek",
 			"reviews": "Recenzie",
 			"noReviews": "Žiadne recenzie.",
 			"productTitle": "Názov produktu",
