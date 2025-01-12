@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query'
-import { Rate } from 'antd'
 import { useState } from 'react'
+import { SliderProps } from 'react-aria-components'
 import { useForm } from 'react-hook-form'
 
 import Button from '@/atoms/Button/Button'
@@ -17,6 +17,23 @@ import { AddReviewFormFields, addReviewFormSchema } from './addReviewFormSchema'
 
 type AddReviewFormProps = {
 	productID: string
+}
+
+type RateSliderProps = {
+	value: SliderProps['value']
+	onChange: SliderProps['onChange']
+}
+
+const RateSlider = ({ value, onChange }: RateSliderProps) => {
+	return (
+		<SC.Slider value={value} onChange={onChange} maxValue={5} step={1}>
+			<SC.Label>Rating</SC.Label>
+			<SC.SliderOutput />
+			<SC.SliderTrack>
+				<SC.SliderThumb />
+			</SC.SliderTrack>
+		</SC.Slider>
+	)
 }
 
 const AddReviewForm = ({ productID }: AddReviewFormProps) => {
@@ -58,10 +75,7 @@ const AddReviewForm = ({ productID }: AddReviewFormProps) => {
 	return isFormOpen ? (
 		<SC.FormWrapper onSubmit={handleSubmit(onSubmit)}>
 			<SC.Title>Add review</SC.Title>
-			<SC.RatingWrapper>
-				<div>Rating</div>
-				<Rate value={rating} onChange={(value) => setRating(value)} allowClear={false} />
-			</SC.RatingWrapper>
+			<RateSlider value={rating} onChange={(value) => typeof value === 'number' && setRating(value)} />
 			<SC.FieldsWrapper>
 				<HookFormField label='Title' placeholder='Enter title' component={InputField} control={control} name='title' />
 				<HookFormField label='Review' placeholder='Enter review' component={TextAreaField} control={control} name='content' rows={5} />
