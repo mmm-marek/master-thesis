@@ -1,9 +1,9 @@
-import { Modal } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 
 import Button from '@/atoms/Button/Button'
 import InputField from '@/atoms/InputField/InputField'
+import Modal from '@/atoms/Modal/Modal'
 import HookFormField from '@/components/HookFormField'
 import useUpdateCustomer from '@/hooks/customer/useUpdateCustomer'
 import { UpdateAddressFormSchema } from '@/schemas/updateAddressSchemas'
@@ -54,28 +54,14 @@ const UpdateBillingAddressForm = ({ defaultValues, open, onClose }: UpdateBillin
 	}
 
 	return (
-		<Modal open={open} onCancel={onClose} footer={null}>
+		<Modal isOpen={open} onOpenChange={onClose} isDismissable>
 			<SC.Form onSubmitCapture={handleSubmit(handleBillingAddressFormSubmit)}>
-				<HookFormField label={t('address1')} placeholder={t('enterAddress1')} component={InputField} control={control} name='address1' size='large' />
-				<HookFormField label={t('address2')} placeholder={t('enterAddress2')} component={InputField} control={control} name='address2' size='large' />
-				<HookFormField label={t('city')} placeholder={t('enterCity')} component={InputField} control={control} name='city' size='large' />
-				<HookFormField
-					label={t('countryCode')}
-					placeholder={t('enterCountryCode')}
-					component={InputField}
-					control={control}
-					name='countryCode'
-					size='large'
-				/>
-				<HookFormField
-					label={t('postalCode')}
-					placeholder={t('enterPostalCode')}
-					component={InputField}
-					control={control}
-					name='postalCode'
-					size='large'
-				/>
-				<HookFormField label={t('company')} placeholder={t('enterCompany')} component={InputField} control={control} name='company' size='large' />
+				<HookFormField label={t('address1')} placeholder={t('enterAddress1')} component={InputField} control={control} name='address1' />
+				<HookFormField label={t('address2')} placeholder={t('enterAddress2')} component={InputField} control={control} name='address2' />
+				<HookFormField label={t('city')} placeholder={t('enterCity')} component={InputField} control={control} name='city' />
+				<HookFormField label={t('countryCode')} placeholder={t('enterCountryCode')} component={InputField} control={control} name='countryCode' />
+				<HookFormField label={t('postalCode')} placeholder={t('enterPostalCode')} component={InputField} control={control} name='postalCode' />
+				<HookFormField label={t('company')} placeholder={t('enterCompany')} component={InputField} control={control} name='company' />
 				<Button variant='primary' size='large' type='submit' isDisabled={isSubmitting} isPending={isSubmitting}>
 					{t('submitButton')}
 				</Button>

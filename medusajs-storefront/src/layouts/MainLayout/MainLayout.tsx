@@ -78,9 +78,9 @@ const MainLayout = ({ children, hasBreadcrumbs }: MainLayoutProps) => {
 								<Link href={PATHS.CART}>
 									<SC.CartWrapper>
 										<ShoppingCart color={theme.tokens['color-base-content-top']} />
-										{cart?.items.length && (
+										{cart?.items.length ? (
 											<SC.CartBadge aria-label={`${cart.items.length} ${t('itemsInCart')}`}>{cart?.items.length}</SC.CartBadge>
-										)}
+										) : null}
 									</SC.CartWrapper>
 								</Link>
 							</SC.LinksWrapper>

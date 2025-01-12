@@ -1,9 +1,9 @@
-import { Modal } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 
 import Button from '@/atoms/Button/Button'
 import InputField from '@/atoms/InputField/InputField'
+import Modal from '@/atoms/Modal/Modal'
 import HookFormField from '@/components/HookFormField'
 import useUpdateCustomer from '@/hooks/customer/useUpdateCustomer'
 import { UpdateCustomerFormSchema } from '@/schemas/updateCustomerSchemas'
@@ -55,35 +55,11 @@ const UpdateCustomerForm = ({ defaultValues, open, onClose }: UpdateCustomerForm
 	}
 
 	return (
-		<Modal open={open} onCancel={handleClose} footer={null}>
+		<Modal isOpen={open} onOpenChange={handleClose} isDismissable>
 			<SC.Form onSubmitCapture={handleSubmit(handleFormSubmit)}>
-				<HookFormField
-					label={t('name')}
-					placeholder={t('firstNamePlaceholder')}
-					component={InputField}
-					control={control}
-					name='firstName'
-					size='large'
-					required
-				/>
-				<HookFormField
-					label={t('name')}
-					placeholder={t('lastNamePlaceholder')}
-					component={InputField}
-					control={control}
-					name='lastName'
-					size='large'
-					required
-				/>
-				<HookFormField
-					label={t('email')}
-					placeholder={t('emailPlaceholder')}
-					component={InputField}
-					control={control}
-					name='email'
-					size='large'
-					required
-				/>
+				<HookFormField label={t('name')} placeholder={t('firstNamePlaceholder')} component={InputField} control={control} name='firstName' required />
+				<HookFormField label={t('name')} placeholder={t('lastNamePlaceholder')} component={InputField} control={control} name='lastName' required />
+				<HookFormField label={t('email')} placeholder={t('emailPlaceholder')} component={InputField} control={control} name='email' required />
 				<Button variant='primary' size='large' type='submit' isDisabled={isSubmitting} isPending={isSubmitting}>
 					{t('submitButton')}
 				</Button>
