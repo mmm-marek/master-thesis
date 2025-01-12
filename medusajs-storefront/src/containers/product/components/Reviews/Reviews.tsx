@@ -1,5 +1,6 @@
-import { Rate } from 'antd'
+import { Star } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { useTheme } from 'styled-components'
 
 import AddReviewForm from '../AddReviewForm/AddReviewForm'
 import useCustomerProfile from '@/hooks/customer/useCustomerProfile'
@@ -9,6 +10,28 @@ import * as SC from './ReviewsStyles'
 
 type ReviewProps = {
 	productID: string
+}
+
+type RatingStarsProps = {
+	rating: number
+}
+
+const RatingStars = ({ rating }: RatingStarsProps) => {
+	const theme = useTheme()
+
+	const getColor = (index: number) => {
+		return index < rating ? theme.tokens['color-base-action-primary-default'] : theme.tokens['color-base-surface-quaternary']
+	}
+
+	return (
+		<SC.StarsWrapper>
+			{[...Array(5)].map((_, index) => {
+				const color = getColor(index)
+				// eslint-disable-next-line react/no-array-index-key
+				return <Star key={index} size={20} color={color} fill={color} />
+			})}
+		</SC.StarsWrapper>
+	)
 }
 
 const Reviews = ({ productID }: ReviewProps) => {
@@ -27,7 +50,7 @@ const Reviews = ({ productID }: ReviewProps) => {
 					reviewsData?.reviews.map((review) => (
 						<SC.Review key={review.id}>
 							<SC.ReviewTitle>{review.title}</SC.ReviewTitle>
-							<Rate value={review.rating} disabled />
+							<RatingStars rating={review.rating} />
 							<SC.Content>{review.content}</SC.Content>
 							<SC.Reviewer>- {review.user_name}</SC.Reviewer>
 						</SC.Review>
