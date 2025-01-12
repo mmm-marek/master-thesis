@@ -1,9 +1,9 @@
-import { Checkbox } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import Button from '@/atoms/Button/Button'
+import Checkbox from '@/atoms/Checkbox/Checkbox'
 import InputField from '@/atoms/InputField/InputField'
 import HookFormField from '@/components/HookFormField'
 import { useStore } from '@/providers/StoreProvider'
@@ -72,16 +72,15 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 		<SC.Form onSubmitCapture={handleSubmit(handleFormSubmit)}>
 			<SC.CheckboxWrapper>
 				<Checkbox
-					onChange={(e) => {
-						setSameAsShipping(e.target.checked)
-						if (e.target.checked) {
+					onChange={(selected) => {
+						setSameAsShipping(selected)
+						if (selected) {
 							handleSameAsShipping()
 						}
 					}}
-					value={sameAsShipping}
-				>
-					<SC.ShippingText>{t('sameAsShipping')}</SC.ShippingText>
-				</Checkbox>
+					isSelected={sameAsShipping}
+					label={t('sameAsShipping')}
+				/>
 			</SC.CheckboxWrapper>
 			<HookFormField
 				label={t('address1')}
