@@ -70,18 +70,16 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 
 	return (
 		<SC.Form onSubmitCapture={handleSubmit(handleFormSubmit)}>
-			<SC.CheckboxWrapper>
-				<Checkbox
-					onChange={(selected) => {
-						setSameAsShipping(selected)
-						if (selected) {
-							handleSameAsShipping()
-						}
-					}}
-					isSelected={sameAsShipping}
-					label={t('sameAsShipping')}
-				/>
-			</SC.CheckboxWrapper>
+			<Checkbox
+				onChange={(selected) => {
+					setSameAsShipping(selected)
+					if (selected) {
+						handleSameAsShipping()
+					}
+				}}
+				isSelected={sameAsShipping}
+				label={t('sameAsShipping')}
+			/>
 			<HookFormField
 				label={t('address1')}
 				placeholder={t('enterAddress1')}

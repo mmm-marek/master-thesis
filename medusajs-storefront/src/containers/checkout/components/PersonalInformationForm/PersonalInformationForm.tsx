@@ -66,26 +66,10 @@ const PersonalInformationForm = ({ onSubmitted }: PersonalInformationProps) => {
 
 	return (
 		<SC.Form onSubmitCapture={handleSubmit(handleFormSubmit)}>
-			<HookFormField
-				label={t('name')}
-				placeholder={t('firstNamePlaceholder')}
-				component={InputField}
-				control={control}
-				name='firstName'
-				size='large'
-				required
-			/>
-			<HookFormField
-				label={t('surname')}
-				placeholder={t('lastNamePlaceholder')}
-				component={InputField}
-				control={control}
-				name='lastName'
-				size='large'
-				required
-			/>
-			<HookFormField label={t('email')} placeholder={t('emailPlaceholder')} component={InputField} control={control} name='email' size='large' required />
-			<HookFormField label={t('phone')} placeholder={t('phonePlaceholder')} component={InputField} control={control} name='phone' size='large' required />
+			<HookFormField label={t('name')} placeholder={t('firstNamePlaceholder')} component={InputField} control={control} name='firstName' required />
+			<HookFormField label={t('surname')} placeholder={t('lastNamePlaceholder')} component={InputField} control={control} name='lastName' required />
+			<HookFormField label={t('email')} placeholder={t('emailPlaceholder')} component={InputField} control={control} name='email' required />
+			<HookFormField label={t('phone')} placeholder={t('phonePlaceholder')} component={InputField} control={control} name='phone' required />
 			<Button variant='primary' size='large' type='submit' isDisabled={isSubmitting} isPending={isSubmitting}>
 				{t('submitButton')}
 			</Button>

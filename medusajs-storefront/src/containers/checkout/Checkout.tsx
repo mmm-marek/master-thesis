@@ -1,6 +1,6 @@
-import { Collapse } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
+import { TabPanel, Tabs } from 'react-aria-components'
 
 import { useStore } from '@/providers/StoreProvider'
 
@@ -10,8 +10,6 @@ import CheckoutSummary from './components/CheckoutSummary/CheckoutSummary'
 import PersonalInformationForm from './components/PersonalInformationForm/PersonalInformationForm'
 import ShippingAddressPicker from './components/ShippingAddressPicker/ShippingAddressPicker'
 import StripeContainer from './components/StripeContainer/StripeContainer'
-
-import type { CollapseProps } from 'antd'
 
 const shippingAddresses = [
 	{
@@ -54,21 +52,23 @@ const Checkout = () => {
 
 	const [activeKey, setActiveKey] = useState<CollapseKey>('personalInformation')
 
-	const items: CollapseProps['items'] = [
+	const items = [
 		{
 			key: 'personalInformation',
-			label: <SC.CollapseItemLabel>{t('personalInformation')}</SC.CollapseItemLabel>,
+			isDisabled: false,
+			label: t('personalInformation'),
 			children: <PersonalInformationForm onSubmitted={() => setActiveKey('shipping')} />
 		},
 		{
 			key: 'shipping',
-			label: <SC.CollapseItemLabel $disabled={!cart?.shipping_address?.first_name}>{t('shipping')}</SC.CollapseItemLabel>,
-			children: <ShippingAddressPicker shippingAddresses={shippingAddresses} onAddressChange={() => setActiveKey('billing')} />,
-			collapsible: !cart?.shipping_address?.first_name ? 'disabled' : undefined
+			isDisabled: !cart?.shipping_address?.first_name,
+			label: t('shipping'),
+			children: <ShippingAddressPicker shippingAddresses={shippingAddresses} onAddressChange={() => setActiveKey('billing')} />
 		},
 		{
 			key: 'billing',
-			label: <SC.CollapseItemLabel $disabled={!cart?.shipping_address?.address_1}>{t('billingAddress')}</SC.CollapseItemLabel>,
+			isDisabled: !cart?.shipping_address?.address_1,
+			label: t('billingAddress'),
 			children: (
 				<AddCheckoutBillingForm
 					onSubmitted={() => {
@@ -77,14 +77,13 @@ const Checkout = () => {
 						})
 					}}
 				/>
-			),
-			collapsible: !cart?.shipping_address?.address_1 ? 'disabled' : undefined
+			)
 		},
 		{
 			key: 'payment',
-			label: <SC.CollapseItemLabel $disabled={!cart?.billing_address?.address_1}>{t('paymentDetails')}</SC.CollapseItemLabel>,
-			children: <StripeContainer />,
-			collapsible: !cart?.billing_address?.address_1 ? 'disabled' : undefined
+			isDisabled: !cart?.billing_address?.address_1,
+			label: t('paymentDetails'),
+			children: <StripeContainer />
 		}
 	]
 
@@ -92,7 +91,20 @@ const Checkout = () => {
 		<>
 			<SC.Heading>{t('checkout')}</SC.Heading>
 			<SC.Container>
-				<Collapse accordion items={items} activeKey={activeKey} onChange={(k) => setActiveKey(k as CollapseKey)} defaultActiveKey={activeKey} ghost />
+				<Tabs selectedKey={activeKey} onSelectionChange={(k) => setActiveKey(k as CollapseKey)}>
+					<SC.StyledTabsList>
+						{items.map((item, index) => (
+							<SC.StyledTab key={item.key} id={item.key} isDisabled={item.isDisabled}>
+								{index + 1}. {item.label}
+							</SC.StyledTab>
+						))}
+					</SC.StyledTabsList>
+					{items.map((item) => (
+						<TabPanel key={item.key} id={item.key}>
+							{item.children}
+						</TabPanel>
+					))}
+				</Tabs>
 				<CheckoutSummary />
 			</SC.Container>
 		</>
