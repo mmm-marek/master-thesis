@@ -1,12 +1,15 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
+import { useTranslations } from 'next-intl'
 import * as z from 'zod'
 
-// utils
 import { VALIDATION_MAX_LENGTH } from '@/utils/enums'
 
-const LoginFormSchema = z.object({
-	email: z.string().nonempty().email().max(VALIDATION_MAX_LENGTH.LENGTH_255),
-	password: z.string().nonempty().max(VALIDATION_MAX_LENGTH.LENGTH_255)
-})
+export const useLoginFormSchema = () => {
+	const t = useTranslations('containers.login')
 
-export default LoginFormSchema
+	return z.object({
+		email: z.string().min(0).email(t('wrongEmail')).max(VALIDATION_MAX_LENGTH.LENGTH_255, t('wrongEmail')),
+		password: z.string().min(0).max(VALIDATION_MAX_LENGTH.LENGTH_255)
+	})
+}
+
+export type LoginFormFields = z.infer<ReturnType<typeof useLoginFormSchema>>

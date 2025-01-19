@@ -1,3 +1,4 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 
@@ -8,7 +9,6 @@ import HookFormField from '@/components/HookFormField'
 import useAddShippingAddress from '@/hooks/customer/useAddShippingAddress'
 import useCustomerProfile from '@/hooks/customer/useCustomerProfile'
 import { AddShippingAddressFormSchema } from '@/schemas/addShippingAddressSchemas'
-import { zodResolver } from '@/utils/zodResolver'
 
 import * as SC from './AddShippingAddressFormStyles'
 import { AddShippingAddressFormFields } from './AddShippingAddressFormTypes'

@@ -1,3 +1,4 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { SliderProps } from 'react-aria-components'
@@ -10,7 +11,6 @@ import HookFormField from '@/components/HookFormField'
 import useCustomerProfile from '@/hooks/customer/useCustomerProfile'
 import usePostProductReview from '@/hooks/products/usePostProductReview'
 import { QUERY_KEYS } from '@/utils/enums'
-import { zodResolver } from '@/utils/zodResolver'
 
 import * as SC from './AddReviewFormStyles'
 import { AddReviewFormFields, addReviewFormSchema } from './addReviewFormSchema'

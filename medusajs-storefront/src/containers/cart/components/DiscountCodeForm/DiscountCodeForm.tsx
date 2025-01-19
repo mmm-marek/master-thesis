@@ -1,3 +1,4 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useUpdateCart } from 'medusa-react'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
@@ -7,7 +8,6 @@ import InputField from '@/atoms/InputField/InputField'
 import HookFormField from '@/components/HookFormField'
 import { useStore } from '@/providers/StoreProvider'
 import { DiscountCodeFormSchema } from '@/schemas/discountCodeSchemas'
-import { zodResolver } from '@/utils/zodResolver'
 
 import * as SC from './DiscountCodeFormStyles'
 import { DiscountCodeFormFields } from './DiscountCodeFormTypes'
@@ -47,7 +47,7 @@ const DiscountCodeForm = () => {
 
 	return (
 		<SC.Form onSubmitCapture={handleSubmit(handleFormSubmit)}>
-			<HookFormField placeholder='SALE10' component={InputField} control={control} name='discountCode' size='large' required />
+			<HookFormField placeholder='SALE10' component={InputField} control={control} name='discountCode' label='SALE' required />
 			<Button variant='primary' size='large' type='submit' isDisabled={isSubmitting} isPending={isSubmitting}>
 				{t('apply')}
 			</Button>

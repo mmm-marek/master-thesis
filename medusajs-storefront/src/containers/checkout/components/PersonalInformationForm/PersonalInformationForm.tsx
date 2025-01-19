@@ -1,3 +1,4 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
@@ -8,7 +9,6 @@ import HookFormField from '@/components/HookFormField'
 import useCustomerProfile from '@/hooks/customer/useCustomerProfile'
 import { useStore } from '@/providers/StoreProvider'
 import { PersonalInformationFormSchema } from '@/schemas/personalInformationSchemas'
-import { zodResolver } from '@/utils/zodResolver'
 
 import * as SC from './PersonalInformationFormStyles'
 import { PersonalInformationFormFields } from './PersonalInformationFormTypes'

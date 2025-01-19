@@ -1,3 +1,4 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 
@@ -7,7 +8,6 @@ import Modal from '@/atoms/Modal/Modal'
 import HookFormField from '@/components/HookFormField'
 import useUpdateCustomer from '@/hooks/customer/useUpdateCustomer'
 import { UpdateCustomerFormSchema } from '@/schemas/updateCustomerSchemas'
-import { zodResolver } from '@/utils/zodResolver'
 
 import * as SC from './UpdateCustomerFormStyles'
 import { UpdateCustomerFormFields } from './UpdateCustomerFormTypes'

@@ -129,7 +129,8 @@
 			"accessHistory": "Access the history of your orders",
 			"obtainDiscount": "Obtain a discount on your next purchase",
 			"quickProcess": "Quick process of your order",
-			"register": "Register"
+			"register": "Register",
+			"wrongEmail": "Wrong email format"
 		},
 		"checkout": {
 			"checkout": "Checkout",

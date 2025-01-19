@@ -129,7 +129,8 @@
 			"accessHistory": "Prístup k histórii vašich objednávok",
 			"obtainDiscount": "Získať zľavu na ďalší nákup",
 			"quickProcess": "Rýchle spracovanie vašej objednávky",
-			"register": "Registrovať sa"
+			"register": "Registrovať sa",
+			"wrongEmail": "Nesprávny formát e-mailovej adresy"
 		},
 		"checkout": {
 			"checkout": "Pokladňa",

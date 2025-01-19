@@ -10,7 +10,8 @@ import { getLocales } from '@/utils/locales'
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
 	return {
 		props: {
-			locales: await getLocales(locale)
+			locales: await getLocales(locale),
+			messages: (await import(`../../locales/${locale}.json`)).default
 		}
 	}
 }

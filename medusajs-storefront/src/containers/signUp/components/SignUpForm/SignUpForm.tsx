@@ -1,3 +1,4 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
@@ -13,7 +14,6 @@ import useCheckEmailExists from '@/hooks/customer/useCheckEmailExists'
 import useCustomerSignUp from '@/hooks/customer/useCustomerSignUp'
 import SignUpFormSchema from '@/schemas/pages/signUp'
 import { PATHS } from '@/utils/enums'
-import { zodResolver } from '@/utils/zodResolver'
 
 import * as SC from './SignUpFormStyles'
 
@@ -69,7 +69,7 @@ const SignUpForm = () => {
 	}
 
 	return (
-		<SC.Form layout='vertical' onSubmitCapture={handleSubmit(onSubmit)}>
+		<SC.Form onSubmitCapture={handleSubmit(onSubmit)}>
 			<SC.FieldsWrapper>
 				<SC.Header>
 					<SC.Title>{t('welcome')}</SC.Title>

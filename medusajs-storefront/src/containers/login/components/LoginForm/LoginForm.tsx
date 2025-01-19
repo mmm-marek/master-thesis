@@ -1,7 +1,7 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
-import * as z from 'zod'
 
 import FacebookIcon from '@/assets/icons/social/facebook.svg'
 import GoogleIcon from '@/assets/icons/social/google.svg'
@@ -10,17 +10,15 @@ import InputField from '@/atoms/InputField/InputField'
 import HookFormField from '@/components/HookFormField'
 import envConfig from '@/config'
 import useLoginCustomer from '@/hooks/customer/useLoginCustomer'
-import LoginFormSchema from '@/schemas/pages/login'
+import { LoginFormFields, useLoginFormSchema } from '@/schemas/pages/login'
 import { PATHS } from '@/utils/enums'
-import { zodResolver } from '@/utils/zodResolver'
 
 import * as SC from './LoginFormStyles'
-
-export type LoginFormFields = z.infer<typeof LoginFormSchema>
 
 const LoginForm = () => {
 	const router = useRouter()
 	const t = useTranslations('containers.login')
+	const loginFormSchema = useLoginFormSchema()
 	const { mutate: loginUser } = useLoginCustomer()
 
 	const {
@@ -29,7 +27,7 @@ const LoginForm = () => {
 		handleSubmit
 	} = useForm<LoginFormFields>({
 		mode: 'onChange',
-		resolver: zodResolver(LoginFormSchema),
+		resolver: zodResolver(loginFormSchema),
 		defaultValues: { email: '', password: '' }
 	})
 
@@ -42,7 +40,7 @@ const LoginForm = () => {
 	}
 
 	return (
-		<SC.Form layout='vertical' onSubmitCapture={handleSubmit(onSubmit)}>
+		<SC.Form onSubmitCapture={handleSubmit(onSubmit)}>
 			<SC.Header>
 				<SC.Title>{t('welcomeBack')}</SC.Title>
 				<SC.InfoMd>{t('welcomeBackEnterDetails')}</SC.InfoMd>

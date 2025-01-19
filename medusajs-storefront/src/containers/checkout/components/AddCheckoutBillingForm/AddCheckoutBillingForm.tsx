@@ -1,3 +1,4 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -8,7 +9,6 @@ import InputField from '@/atoms/InputField/InputField'
 import HookFormField from '@/components/HookFormField'
 import { useStore } from '@/providers/StoreProvider'
 import { AddCheckoutBillingFormSchema } from '@/schemas/addCheckoutBillingSchemas'
-import { zodResolver } from '@/utils/zodResolver'
 
 import * as SC from './AddCheckoutBillingFormStyles'
 import { AddCheckoutBillingFormFields } from './AddCheckoutBillingFormTypes'
