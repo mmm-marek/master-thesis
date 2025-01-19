@@ -20,7 +20,6 @@ import { z } from 'zod'
 
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
 import { useLoader } from '@/hooks/loader/useLoader'
-import AntdProvider from '@/providers/AntdProvider'
 import AppStateProvider from '@/providers/AppProvider'
 import GlobalToastRegion from '@/providers/GlobalToastRegion'
 import { StoreProvider } from '@/providers/StoreProvider'
@@ -178,18 +177,16 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 					<QueryClientProvider client={queryClient}>
 						<Hydrate state={pageProps.dehydratedState}>
 							<ThemeProvider>
-								<AntdProvider>
-									<RouterProvider navigate={(href, opts) => router.push(href, undefined, opts)}>
-										<AppStateProvider>
-											<CartProvider>
-												<StoreProvider>
-													{getLayout(<Component {...pageProps} />, pageProps)}
-													<GlobalToastRegion />
-												</StoreProvider>
-											</CartProvider>
-										</AppStateProvider>
-									</RouterProvider>
-								</AntdProvider>
+								<RouterProvider navigate={(href, opts) => router.push(href, undefined, opts)}>
+									<AppStateProvider>
+										<CartProvider>
+											<StoreProvider>
+												{getLayout(<Component {...pageProps} />, pageProps)}
+												<GlobalToastRegion />
+											</StoreProvider>
+										</CartProvider>
+									</AppStateProvider>
+								</RouterProvider>
 							</ThemeProvider>
 						</Hydrate>
 						<ReactQueryDevtools initialIsOpen={false} />

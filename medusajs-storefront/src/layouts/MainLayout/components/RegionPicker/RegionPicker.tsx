@@ -1,5 +1,5 @@
-import { Dropdown } from 'antd'
 import { useRouter } from 'next/router'
+import { Popover, Select } from 'react-aria-components'
 
 import useCountryOptions from '@/hooks/region/useCountryOptions'
 import { useStore } from '@/providers/StoreProvider'
@@ -27,31 +27,37 @@ const RegionPicker = () => {
 	})
 
 	return (
-		<Dropdown
-			menu={{
-				items: menuItems,
-				selectable: true,
-				selectedKeys: [router.locale ?? 'en'],
-				onSelect: (info) => {
-					router.push(
-						{
-							pathname: router.pathname
-						},
-						router.asPath,
-						{
-							locale: info.key.toLocaleLowerCase()
-						}
-					)
-					const newRegion = countryOptions.find((option) => option.regionName === info.key)
-					if (!newRegion) {
-						return
+		<Select
+			aria-label='Region picker'
+			selectedKey={router.locale ?? 'en'}
+			onSelectionChange={(key) => {
+				router.push(
+					{
+						pathname: router.pathname
+					},
+					router.asPath,
+					{
+						locale: (key as string).toLowerCase()
 					}
-					setRegion(newRegion.regionId, newRegion.countryIso)
+				)
+				const newRegion = countryOptions.find((option) => option.regionName === key)
+				if (!newRegion) {
+					return
 				}
+				setRegion(newRegion.regionId, newRegion.countryIso)
 			}}
 		>
-			<SC.RegionPickerTrigger>{router.locale?.toUpperCase()}</SC.RegionPickerTrigger>
-		</Dropdown>
+			<SC.Button>{router.locale?.toUpperCase()}</SC.Button>
+			<Popover>
+				<SC.ListBox>
+					{menuItems.map((item) => (
+						<SC.ListBoxItem key={item.key} id={item.key}>
+							{item.label}
+						</SC.ListBoxItem>
+					))}
+				</SC.ListBox>
+			</Popover>
+		</Select>
 	)
 }
 

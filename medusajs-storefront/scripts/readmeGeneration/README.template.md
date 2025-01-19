@@ -57,7 +57,6 @@ default port is 8000
 * Next
 * React
 * TypeScript
-* Antd design (for UI)
 * reCaptcha
 * TanStack Query
 * React hook form
