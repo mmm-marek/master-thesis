@@ -3,7 +3,7 @@ import { Button, Input } from "@medusajs/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
 import {
-    VariantsLocalizationSchema,
+    variantsLocalizationSchema,
     VariantsLocalizationSchemaType,
 } from "../../schemas/localization-schemas";
 import useLocalizeVaraint from "../../hooks/useLocalizeVaraint";
@@ -22,7 +22,7 @@ const VariantsLocalizationForm = ({
     onError,
 }: VariantsLocalizationFormProps) => {
     const { register, handleSubmit } = useForm<VariantsLocalizationSchemaType>({
-        resolver: zodResolver(VariantsLocalizationSchema),
+        resolver: zodResolver(variantsLocalizationSchema),
         defaultValues: {
             variants: product.variants.map((variant) => ({
                 variant_id: variant.id,

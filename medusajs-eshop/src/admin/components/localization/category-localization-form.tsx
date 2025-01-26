@@ -3,7 +3,7 @@ import { ProductCategory } from "@medusajs/medusa";
 import { Button, Input, Textarea } from "@medusajs/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-    CategoryLocalizationSchema,
+    categoryLocalizationSchema,
     CategoryLocalizationSchemaType,
 } from "../../schemas/localization-schemas";
 import useLocalizeCategory from "../../hooks/useLocalizeCategory";
@@ -33,7 +33,7 @@ export const CategoryLocalizationForm = ({
 
     const { register, handleSubmit } = useForm<CategoryLocalizationSchemaType>({
         mode: "onChange",
-        resolver: zodResolver(CategoryLocalizationSchema),
+        resolver: zodResolver(categoryLocalizationSchema),
         defaultValues: getDefaultValues(regionId),
     });
 

@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input, Textarea } from "@medusajs/ui";
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
 import {
-    ProductLocalizationSchema,
+    productLocalizationSchema,
     ProductLocalizationSchemaType,
 } from "../../schemas/localization-schemas";
 import useLocalizeProduct from "../../hooks/useLocalizeProduct";
@@ -32,7 +32,7 @@ const ProductLocalizationForm = ({
     };
 
     const { register, handleSubmit } = useForm<ProductLocalizationSchemaType>({
-        resolver: zodResolver(ProductLocalizationSchema),
+        resolver: zodResolver(productLocalizationSchema),
         defaultValues: getDefaultValues(regionId),
     });
 

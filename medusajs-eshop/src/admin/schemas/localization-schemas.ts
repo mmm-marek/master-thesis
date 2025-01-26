@@ -1,6 +1,6 @@
 import z from "zod";
 
-export const VariantsLocalizationSchema = z.object({
+export const variantsLocalizationSchema = z.object({
     variants: z.array(
         z.object({
             variant_id: z.string(),
@@ -9,34 +9,34 @@ export const VariantsLocalizationSchema = z.object({
     ),
 });
 
-export const ProductLocalizationSchema = z.object({
+export const productLocalizationSchema = z.object({
     title: z.string(),
     subtitle: z.string(),
     description: z.string(),
     material: z.string(),
 });
 
-export const CategoryLocalizationSchema = z.object({
+export const categoryLocalizationSchema = z.object({
     name: z.string(),
     description: z.string(),
 });
 
-export const CollectionLocalizationSchema = z.object({
+export const collectionLocalizationSchema = z.object({
     title: z.string(),
 });
 
 export type ProductLocalizationSchemaType = z.infer<
-    typeof ProductLocalizationSchema
+    typeof productLocalizationSchema
 >;
 
 export type VariantsLocalizationSchemaType = z.infer<
-    typeof VariantsLocalizationSchema
+    typeof variantsLocalizationSchema
 >;
 
 export type CategoryLocalizationSchemaType = z.infer<
-    typeof CategoryLocalizationSchema
+    typeof categoryLocalizationSchema
 >;
 
 export type CollectionLocalizationSchemaType = z.infer<
-    typeof CollectionLocalizationSchema
+    typeof collectionLocalizationSchema
 >;
