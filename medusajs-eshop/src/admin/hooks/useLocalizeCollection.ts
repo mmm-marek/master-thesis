@@ -3,7 +3,7 @@ import { ProductCollection } from "@medusajs/medusa";
 import { CollectionLocalizationSchemaType } from "../schemas/localization-schemas";
 import { medusa } from "../utils/medusa-helpers";
 
-const useLocalizeCategory = (
+const useLocalizeCollection = (
     productCollection: ProductCollection,
     regionId: string
 ) => {
@@ -29,4 +29,4 @@ const useLocalizeCategory = (
     });
 };
 
-export default useLocalizeCategory;
+export default useLocalizeCollection;
