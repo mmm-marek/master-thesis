@@ -13,8 +13,8 @@ import * as SC from './FeaturedProductsStyles'
 const FEATURED_CATEGORY_HANDLE = 'clothes'
 
 const FeaturedProducts = () => {
-	const { cart } = useStore()
 	const router = useRouter()
+	const { cart } = useStore()
 	const t = useTranslations('containers.landing')
 
 	const { product_categories } = useProductCategories({

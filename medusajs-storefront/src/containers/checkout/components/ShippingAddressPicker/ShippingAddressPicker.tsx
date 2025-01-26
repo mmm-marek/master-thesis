@@ -46,20 +46,6 @@ const ShippingAddressPicker = ({ onAddressChange, shippingAddresses }: ShippingA
 						</SC.AddressDescription>
 					</SC.AddressWrapper>
 				</SC.Radio>
-				// <SC.OptionLabel key={address.address1} htmlFor={address.address1}>
-				// 	<Radio value={address.address1} id={address.address1}>
-				// 		<SC.ContentWrapper>
-				// 			<SC.AddressName>{address.name}</SC.AddressName>
-				// 			<SC.AddressWrapper>
-				// 				<SC.Address>{address.address1}</SC.Address>
-				// 				{address.address2 && <SC.Address>{address.address2}</SC.Address>}
-				// 				<SC.Address>
-				// 					{address.postalCode}, {address.city}
-				// 				</SC.Address>
-				// 			</SC.AddressWrapper>
-				// 		</SC.ContentWrapper>
-				// 	</Radio>
-				// </SC.OptionLabel>
 			))}
 		</SC.RadioGroup>
 	)

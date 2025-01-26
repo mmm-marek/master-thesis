@@ -1,5 +1,6 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { useRouter } from 'next/router'
+import { useTranslations } from 'next-intl'
 
 import Button from '@/atoms/Button/Button'
 import { useStore } from '@/providers/StoreProvider'
@@ -12,6 +13,7 @@ const StripeForm = () => {
 	const stripe = useStripe()
 	const elements = useElements()
 	const { cart, completePayment } = useStore()
+	const t = useTranslations('containers.checkout')
 
 	const handlePayment = async () => {
 		const cartId = cart?.id
@@ -60,7 +62,7 @@ const StripeForm = () => {
 			</SC.CardElementWrapper>
 			<SC.ButtonWrapper>
 				<Button variant='primary' onPress={handlePayment} type='submit'>
-					Submit
+					{t('submit')}
 				</Button>
 			</SC.ButtonWrapper>
 		</SC.Form>

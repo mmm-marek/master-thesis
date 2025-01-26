@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useQueryClient } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { SliderProps } from 'react-aria-components'
 import { useForm } from 'react-hook-form'
@@ -25,9 +26,11 @@ type RateSliderProps = {
 }
 
 const RateSlider = ({ value, onChange }: RateSliderProps) => {
+	const t = useTranslations('containers.products')
+
 	return (
 		<SC.Slider value={value} onChange={onChange} maxValue={5} step={1}>
-			<SC.Label>Rating</SC.Label>
+			<SC.Label>{t('ratingLabel')}</SC.Label>
 			<SC.SliderOutput />
 			<SC.SliderTrack>
 				<SC.SliderThumb />
@@ -37,8 +40,9 @@ const RateSlider = ({ value, onChange }: RateSliderProps) => {
 }
 
 const AddReviewForm = ({ productID }: AddReviewFormProps) => {
-	const schema = useAddReviewFormSchema()
 	const queryClient = useQueryClient()
+	const schema = useAddReviewFormSchema()
+	const t = useTranslations('containers.products')
 
 	const [rating, setRating] = useState(5)
 	const [isFormOpen, setIsFormOpen] = useState(false)
@@ -75,24 +79,24 @@ const AddReviewForm = ({ productID }: AddReviewFormProps) => {
 
 	return isFormOpen ? (
 		<SC.FormWrapper onSubmit={handleSubmit(onSubmit)}>
-			<SC.Title>Add review</SC.Title>
+			<SC.Title>{t('addReview')}</SC.Title>
 			<RateSlider value={rating} onChange={(value) => typeof value === 'number' && setRating(value)} />
 			<SC.FieldsWrapper>
-				<HookFormField label='Title' placeholder='Enter title' component={InputField} control={control} name='title' />
-				<HookFormField label='Review' placeholder='Enter review' component={TextAreaField} control={control} name='content' rows={5} />
+				<HookFormField label={t('title')} placeholder={t('enterTitle')} component={InputField} control={control} name='title' />
+				<HookFormField label={t('review')} placeholder={t('enterReview')} component={TextAreaField} control={control} name='content' rows={5} />
 			</SC.FieldsWrapper>
 			<SC.ButtonsWrapper>
 				<Button type='button' isDisabled={isLoadingPostProductReview} size='large' onPress={() => setIsFormOpen(false)}>
-					Cancel
+					{t('cancel')}
 				</Button>
 				<Button variant='primary' isDisabled={isLoadingPostProductReview} type='submit' size='large'>
-					Submit
+					{t('submit')}
 				</Button>
 			</SC.ButtonsWrapper>
 		</SC.FormWrapper>
 	) : (
 		<Button variant='primary' type='submit' size='large' onPress={() => setIsFormOpen(true)}>
-			Add review
+			{t('addReview')}
 		</Button>
 	)
 }

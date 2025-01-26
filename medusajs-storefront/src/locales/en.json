@@ -35,9 +35,8 @@
 			"delete": "Delete",
 			"save": "Save"
 		},
-		"table": {
-			"itemsPerPage": "Items per page",
-			"resultsRange": "Results { rangeFrom }-{ rangeTo } of { total }"
+		"productCard": {
+			"title": "Product"
 		}
 	},
 	"containers": {
@@ -56,7 +55,9 @@
 			"summary": "Summary",
 			"discount": "Discount",
 			"apply": "Apply",
-			"quantity": "Quantity"
+			"quantity": "Quantity",
+			"product": "Product",
+			"discountPlaceholder": "SALE10"
 		},
 		"products": {
 			"rating": "Rating: {rating} out of 5 stars",
@@ -67,7 +68,15 @@
 			"inStock": "In stock",
 			"addToCart": "Add to cart",
 			"home": "Home",
-			"products": "Products"
+			"products": "Products",
+			"ratingLabel": "Rating",
+			"addReview": "Add review",
+			"title": "Title",
+			"review": "Review",
+			"enterTitle": "Enter title",
+			"enterReview": "Enter review",
+			"cancel": "Cancel",
+			"submit": "Submit"
 		},
 		"confirmAccountInvite": {
 			"confirmAccountInviteForm": {
@@ -162,7 +171,10 @@
 			"enterCountryCode": "Enter country code",
 			"enterPostalCode": "Enter postal code",
 			"enterCompany": "Enter company",
-			"countryCode": "Country code"
+			"countryCode": "Country code",
+			"orderConfirmedTitle": "Order Confirmed",
+			"orderConfirmedDescription": "Your order has been confirmed and will be shipped soon.",
+			"submit": "Submit"
 		},
 		"profile": {
 			"order": "Order",
@@ -292,7 +304,9 @@
 			"description": "Wear your pride! Discover our collection of branded apparel and accessories, perfect for showing your support and spirit.",
 			"cta": "Shop now",
 			"productsTitle": "Featured products",
-			"productsCta": "Discover"
+			"productsCta": "Discover",
+			"grTshirt": "GoodRequest T-shirt",
+			"grBottle": "GoodRequest bottle"
 		}
 	},
 	"layouts": {

@@ -19,7 +19,7 @@ const HeroBanner = () => {
 					{t('cta')}
 				</Button>
 			</SC.TextWrapper>
-			<SC.ImageStyled src='/images/landing-illustration.png' alt='landing' width={1180} height={904} />
+			<SC.ImageStyled src='/images/landing-illustration.png' alt={t('grBottle')} width={1180} height={904} />
 		</SC.Container>
 	)
 }

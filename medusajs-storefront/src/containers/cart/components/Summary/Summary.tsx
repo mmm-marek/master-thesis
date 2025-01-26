@@ -11,11 +11,10 @@ import { PATHS } from '@/utils/enums'
 import * as SC from './SummaryStyles'
 
 const Summary = () => {
-	const t = useTranslations('containers.cart')
 	const router = useRouter()
 	const { cart } = useStore()
+	const t = useTranslations('containers.cart')
 
-	// TODO: Check why cart.region is undefined at the beginning
 	if (!cart || !cart?.region) {
 		return <Loading />
 	}

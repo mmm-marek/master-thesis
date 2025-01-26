@@ -16,6 +16,7 @@ type FallbackProps = {
 
 const Fallback = ({ title, description }: FallbackProps) => {
 	const t = useTranslations('components.errorBoundary')
+
 	// Find the closest ErrorBoundary
 	const { resetBoundary } = useErrorBoundary()
 

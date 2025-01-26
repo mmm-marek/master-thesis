@@ -16,9 +16,9 @@ type CartItemProps = {
 }
 
 const CartItem = ({ item, region }: CartItemProps) => {
-	const t = useTranslations('containers.cart')
-	const { cart } = useStore()
 	const theme = useTheme()
+	const { cart } = useStore()
+	const t = useTranslations('containers.cart')
 	const { deleteItem, updateItem, isUpdatingCart } = useStore()
 
 	const handleDelete = () => {
@@ -42,7 +42,7 @@ const CartItem = ({ item, region }: CartItemProps) => {
 
 	return (
 		<SC.Wrapper>
-			{item.thumbnail && <SC.Thumbnail src={item.thumbnail} alt={item.title ?? 'Product'} objectFit='contain' width={164} height={164} />}
+			{item.thumbnail && <SC.Thumbnail src={item.thumbnail} alt={item.title ?? t('product')} objectFit='contain' width={164} height={164} />}
 			<SC.ContentWrapper>
 				<SC.Header>
 					<SC.Title>{localizedProduct.localizedTitle}</SC.Title>

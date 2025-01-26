@@ -6,7 +6,7 @@ import { PATHS } from '@/utils/enums'
 
 import * as SC from './ErrorStyles'
 
-interface ErrorProps {
+type ErrorProps = {
 	statusCode: number
 	title: string
 	message: string

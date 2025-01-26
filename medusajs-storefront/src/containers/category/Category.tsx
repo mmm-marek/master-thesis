@@ -12,9 +12,9 @@ import { localizeCategory } from '@/utils/localization'
 import * as SC from './CategoryStyles'
 
 const Category = () => {
-	const t = useTranslations('containers.category')
-	const { cart } = useStore()
 	const router = useRouter()
+	const { cart } = useStore()
+	const t = useTranslations('containers.category')
 	const handle = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id
 
 	const { product_categories } = useProductCategories({
