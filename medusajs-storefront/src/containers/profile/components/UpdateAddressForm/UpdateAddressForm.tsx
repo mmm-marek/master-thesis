@@ -7,10 +7,9 @@ import InputField from '@/atoms/InputField/InputField'
 import Modal from '@/atoms/Modal/Modal'
 import HookFormField from '@/components/HookFormField'
 import useUpdateCustomer from '@/hooks/customer/useUpdateCustomer'
-import { UpdateAddressFormSchema } from '@/schemas/updateAddressSchemas'
+import { UpdateAddressFormFields, useUpdateAddressFormSchema } from '@/schemas/updateAddressSchemas'
 
 import * as SC from './UpdateAddressFormStyles'
-import { UpdateAddressFormFields } from './UpdateAddressFormTypes'
 
 type UpdateBillingAddressFormProps = {
 	open: boolean
@@ -19,6 +18,7 @@ type UpdateBillingAddressFormProps = {
 }
 
 const UpdateBillingAddressForm = ({ defaultValues, open, onClose }: UpdateBillingAddressFormProps) => {
+	const schema = useUpdateAddressFormSchema()
 	const t = useTranslations('containers.profile')
 
 	const { mutate: updateCustomer } = useUpdateCustomer()
@@ -29,7 +29,7 @@ const UpdateBillingAddressForm = ({ defaultValues, open, onClose }: UpdateBillin
 		handleSubmit
 	} = useForm<UpdateAddressFormFields>({
 		mode: 'onChange',
-		resolver: zodResolver(UpdateAddressFormSchema),
+		resolver: zodResolver(schema),
 		defaultValues
 	})
 

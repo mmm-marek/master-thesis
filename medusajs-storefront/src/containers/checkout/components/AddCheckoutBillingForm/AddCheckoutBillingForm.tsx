@@ -8,16 +8,16 @@ import Checkbox from '@/atoms/Checkbox/Checkbox'
 import InputField from '@/atoms/InputField/InputField'
 import HookFormField from '@/components/HookFormField'
 import { useStore } from '@/providers/StoreProvider'
-import { AddCheckoutBillingFormSchema } from '@/schemas/addCheckoutBillingSchemas'
+import { AddCheckoutBillingFormFields, useAddCheckoutBillingFormSchema } from '@/schemas/addCheckoutBillingSchemas'
 
 import * as SC from './AddCheckoutBillingFormStyles'
-import { AddCheckoutBillingFormFields } from './AddCheckoutBillingFormTypes'
 
 type AddCheckoutBillingFormProps = {
 	onSubmitted: () => void
 }
 
 const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) => {
+	const schema = useAddCheckoutBillingFormSchema()
 	const t = useTranslations('containers.checkout')
 
 	const { updateBillingAddress, cart } = useStore()
@@ -30,7 +30,7 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 		handleSubmit
 	} = useForm<AddCheckoutBillingFormFields>({
 		mode: 'onChange',
-		resolver: zodResolver(AddCheckoutBillingFormSchema),
+		resolver: zodResolver(schema),
 		defaultValues: {
 			address1: cart?.billing_address?.address_1 ?? '',
 			address2: cart?.billing_address?.address_2 ?? '',

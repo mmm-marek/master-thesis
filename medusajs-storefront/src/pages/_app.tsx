@@ -16,7 +16,7 @@ import { NextRouter, useRouter } from 'next/router'
 import { NextIntlClientProvider } from 'next-intl'
 import { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { RouterProvider } from 'react-aria-components'
-import { z } from 'zod'
+import z from 'zod'
 
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
 import { useLoader } from '@/hooks/loader/useLoader'

@@ -2,8 +2,8 @@ import { forEach, isEmpty } from 'lodash'
 import { ReactNode } from 'react'
 
 import { toastQueue } from '@/providers/GlobalToastRegion'
-import { IErrorMessage, SelectOption, SelectOptionWithTag, ThemeOption, UserData, UserPermission, UserState } from '@/types/types'
-import { NOTIFICATION_TYPE, THEME, THEME_OPTION, USER_ROLE, USER_STATE } from '@/utils/enums'
+import { IErrorMessage, SelectOption, ThemeOption, UserData, UserPermission } from '@/types/types'
+import { NOTIFICATION_TYPE, THEME, THEME_OPTION, USER_ROLE } from '@/utils/enums'
 import { IntlTranslator } from '@/utils/intl'
 
 // const translateMessageType = (msgType: MSG_TYPE) => {
@@ -74,20 +74,6 @@ export const validateStatus = (error?: ReactNode, isTouched?: boolean, invalid?:
 	return ''
 }
 
-/**
-
-Remove accent and transform to lower case
-Usefull for searching on FE
-@link https://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript
-*/
-export const transformToLowerCaseWithoutAccent = (source?: string): string =>
-	source
-		? source
-				.toLowerCase()
-				.normalize('NFD')
-				.replace(/\p{Diacritic}/gu, '')
-		: ''
-
 export const getLinkWithEncodedBackUrl = (link: string) => {
 	if (typeof window === 'undefined') {
 		return link
@@ -107,20 +93,6 @@ export const USER_PERMISSIONS = (): UserPermission => ({
 })
 
 export const USER_PERMISSIONS_OPTIONS = (): SelectOption[] => Object.entries(USER_PERMISSIONS()).map(([value, label]) => ({ key: value, value, label }))
-
-export const USER_STATES = (): UserState => ({
-	[USER_STATE.ACTIVE]: {
-		translation: IntlTranslator.t('utils.helpers.active'),
-		tagType: 'success'
-	},
-	[USER_STATE.PENDING_INVITATION]: {
-		translation: IntlTranslator.t('utils.helpers.pendingInvitation'),
-		tagType: 'secondary'
-	}
-})
-
-export const USER_STATES_OPTIONS = (): SelectOptionWithTag[] =>
-	Object.entries(USER_STATES()).map(([value, data]) => ({ key: value, value, label: data.translation, extra: { tagType: data.tagType } }))
 
 export const THEME_OPTIONS = (currentSystemTheme?: THEME): ThemeOption => ({
 	[THEME_OPTION.DARK]: IntlTranslator.t('utils.helpers.darkMode'),

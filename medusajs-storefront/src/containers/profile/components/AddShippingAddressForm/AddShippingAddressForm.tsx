@@ -8,10 +8,9 @@ import Modal from '@/atoms/Modal/Modal'
 import HookFormField from '@/components/HookFormField'
 import useAddShippingAddress from '@/hooks/customer/useAddShippingAddress'
 import useCustomerProfile from '@/hooks/customer/useCustomerProfile'
-import { AddShippingAddressFormSchema } from '@/schemas/addShippingAddressSchemas'
+import { AddShippingAddressFormFields, useAddShippingAddressFormSchema } from '@/schemas/addShippingAddressSchemas'
 
 import * as SC from './AddShippingAddressFormStyles'
-import { AddShippingAddressFormFields } from './AddShippingAddressFormTypes'
 
 type AddShippingAddressFormProps = {
 	open: boolean
@@ -20,6 +19,7 @@ type AddShippingAddressFormProps = {
 
 const AddShippingAddressForm = ({ open, onClose }: AddShippingAddressFormProps) => {
 	const t = useTranslations('containers.profile')
+	const schema = useAddShippingAddressFormSchema()
 
 	const { mutate: addShippingAddress } = useAddShippingAddress()
 	const { data: customer } = useCustomerProfile()
@@ -31,7 +31,7 @@ const AddShippingAddressForm = ({ open, onClose }: AddShippingAddressFormProps) 
 		handleSubmit
 	} = useForm<AddShippingAddressFormFields>({
 		mode: 'onChange',
-		resolver: zodResolver(AddShippingAddressFormSchema),
+		resolver: zodResolver(schema),
 		defaultValues: {
 			address1: '',
 			address2: '',

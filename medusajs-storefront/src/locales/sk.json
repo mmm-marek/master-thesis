@@ -330,7 +330,15 @@
 			"requiredField": "Toto pole je povinné",
 			"wrongEmailFormat": "Nesprávny formát e-mailovej adresy",
 			"wrongInputFormat": "Nesprávny formát vstupnej hodnoty",
-			"wrongUuidFormat": "Nesprávny formát UUID"
+			"wrongUuidFormat": "Nesprávny formát UUID",
+			"emailRequired": "Email je povinný",
+			"firstNameRequired": "Meno je povinné",
+			"lastNameRequired": "Priezvisko je povinné",
+			"passwordRequired": "Heslo je povinné", 
+			"repeatPasswordRequired": "Prosím zopakujte heslo",
+			"passwordsDontMatch": "Heslá sa nezhodujú",
+			"titleRequired": "Názov je povinný",
+			"contentRequired": "Obsah je povinný"
 		},
 		"helpers": {
 			"active": "Aktívne",

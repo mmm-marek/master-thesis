@@ -331,7 +331,15 @@
 			"requiredField": "This field is required",
 			"wrongEmailFormat": "Wrong e-mail address format",
 			"wrongInputFormat": "Wrong input value format",
-			"wrongUuidFormat": "Wrong UUID format"
+			"wrongUuidFormat": "Wrong UUID format",
+			"emailRequired": "Email is required",
+			"firstNameRequired": "First name is required",
+			"lastNameRequired": "Last name is required",
+			"passwordRequired": "Password is required",
+			"repeatPasswordRequired": "Please repeat your password",
+			"passwordsDontMatch": "Passwords don't match",
+			"titleRequired": "Title is required",
+			"contentRequired": "Content is required"
 		},
 		"helpers": {
 			"active": "Active",

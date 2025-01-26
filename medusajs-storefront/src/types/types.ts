@@ -2,8 +2,7 @@ import { Product, ProductCategory } from '@medusajs/medusa'
 import { PricedProduct } from '@medusajs/medusa/dist/types/pricing'
 import { ReactNode } from 'react'
 
-import { TagType } from '@/atoms/Tag/types'
-import { MSG_TYPE, THEME_OPTION, USER_ROLE, USER_STATE } from '@/utils/enums'
+import { MSG_TYPE, THEME_OPTION, USER_ROLE } from '@/utils/enums'
 
 import type { ControllerFieldState, ControllerRenderProps } from 'react-hook-form'
 
@@ -44,14 +43,6 @@ export interface IUserPermission {
 	[key: string]: string
 }
 
-export type UserState = Record<
-	USER_STATE,
-	{
-		translation: string
-		tagType: TagType
-	}
->
-
 export type ThemeOption = Record<THEME_OPTION, string>
 
 export interface WrappedFieldsProps<ValueType = any> {
@@ -76,8 +67,6 @@ export type SelectOption<ExtraType extends {} = {}> = {
 }
 
 export type SelectOptionWithIcon = SelectOption<{ icon: React.ReactNode }>
-
-export type SelectOptionWithTag = SelectOption<{ tagType: TagType }>
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export type FilterSelectFieldValue<ExtraType extends {} = {}> = string | SelectOption<ExtraType> | (string | SelectOption<ExtraType>)[] | null | undefined

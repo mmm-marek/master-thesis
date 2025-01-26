@@ -8,18 +8,18 @@ import InputField from '@/atoms/InputField/InputField'
 import HookFormField from '@/components/HookFormField'
 import useCustomerProfile from '@/hooks/customer/useCustomerProfile'
 import { useStore } from '@/providers/StoreProvider'
-import { PersonalInformationFormSchema } from '@/schemas/personalInformationSchemas'
+import { PersonalInformationFormFields, usePersonalInformationFormSchema } from '@/schemas/personalInformationSchemas'
 
 import * as SC from './PersonalInformationFormStyles'
-import { PersonalInformationFormFields } from './PersonalInformationFormTypes'
 
 type PersonalInformationProps = {
 	onSubmitted: () => void
 }
 
 const PersonalInformationForm = ({ onSubmitted }: PersonalInformationProps) => {
-	const t = useTranslations('containers.checkout')
 	const { data: customer } = useCustomerProfile()
+	const t = useTranslations('containers.checkout')
+	const schema = usePersonalInformationFormSchema()
 
 	const { updateShippingAddress, updateCheckoutEmail, cart } = useStore()
 
@@ -30,7 +30,7 @@ const PersonalInformationForm = ({ onSubmitted }: PersonalInformationProps) => {
 		handleSubmit
 	} = useForm<PersonalInformationFormFields>({
 		mode: 'onChange',
-		resolver: zodResolver(PersonalInformationFormSchema),
+		resolver: zodResolver(schema),
 		defaultValues: {
 			firstName: cart?.shipping_address?.first_name ?? customer?.first_name ?? '',
 			lastName: cart?.shipping_address?.last_name ?? customer?.last_name ?? '',

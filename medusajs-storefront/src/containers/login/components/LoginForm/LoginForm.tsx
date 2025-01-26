@@ -10,7 +10,7 @@ import InputField from '@/atoms/InputField/InputField'
 import HookFormField from '@/components/HookFormField'
 import envConfig from '@/config'
 import useLoginCustomer from '@/hooks/customer/useLoginCustomer'
-import { LoginFormFields, useLoginFormSchema } from '@/schemas/pages/login'
+import { LoginFormFields, useLoginFormSchema } from '@/schemas/loginSchemas'
 import { PATHS } from '@/utils/enums'
 
 import * as SC from './LoginFormStyles'

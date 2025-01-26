@@ -1,6 +1,6 @@
 import { Product, ProductCategory } from '@medusajs/medusa'
 import { PricedProduct } from '@medusajs/medusa/dist/types/pricing'
-import { z } from 'zod'
+import z from 'zod'
 
 /**
  * Get the localization schema for a product in a specific region.

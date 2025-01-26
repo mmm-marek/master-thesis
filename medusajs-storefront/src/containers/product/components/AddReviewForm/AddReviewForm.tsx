@@ -10,10 +10,10 @@ import TextAreaField from '@/atoms/TextAreaField/TextAreaField'
 import HookFormField from '@/components/HookFormField'
 import useCustomerProfile from '@/hooks/customer/useCustomerProfile'
 import usePostProductReview from '@/hooks/products/usePostProductReview'
+import { AddReviewFormFields, useAddReviewFormSchema } from '@/schemas/addReviewFormSchema'
 import { QUERY_KEYS } from '@/utils/enums'
 
 import * as SC from './AddReviewFormStyles'
-import { AddReviewFormFields, addReviewFormSchema } from './addReviewFormSchema'
 
 type AddReviewFormProps = {
 	productID: string
@@ -37,6 +37,7 @@ const RateSlider = ({ value, onChange }: RateSliderProps) => {
 }
 
 const AddReviewForm = ({ productID }: AddReviewFormProps) => {
+	const schema = useAddReviewFormSchema()
 	const queryClient = useQueryClient()
 
 	const [rating, setRating] = useState(5)
@@ -47,7 +48,7 @@ const AddReviewForm = ({ productID }: AddReviewFormProps) => {
 
 	const { control, handleSubmit, reset } = useForm<AddReviewFormFields>({
 		mode: 'onChange',
-		resolver: zodResolver(addReviewFormSchema),
+		resolver: zodResolver(schema),
 		defaultValues: {
 			title: '',
 			content: ''

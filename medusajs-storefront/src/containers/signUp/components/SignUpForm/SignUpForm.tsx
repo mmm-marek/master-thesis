@@ -2,7 +2,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
-import * as z from 'zod'
 
 import FacebookIcon from '@/assets/icons/social/facebook.svg'
 import GoogleIcon from '@/assets/icons/social/google.svg'
@@ -12,15 +11,14 @@ import HookFormField from '@/components/HookFormField'
 import envConfig from '@/config'
 import useCheckEmailExists from '@/hooks/customer/useCheckEmailExists'
 import useCustomerSignUp from '@/hooks/customer/useCustomerSignUp'
-import SignUpFormSchema from '@/schemas/pages/signUp'
+import { SignUpFormFields, useSignUpFormSchema } from '@/schemas/signUpSchemas'
 import { PATHS } from '@/utils/enums'
 
 import * as SC from './SignUpFormStyles'
 
-export type SignUpFormFields = z.infer<typeof SignUpFormSchema>
-
 const SignUpForm = () => {
 	const router = useRouter()
+	const schema = useSignUpFormSchema()
 	const t = useTranslations('containers.signUp')
 
 	const { mutate: createCustomer } = useCustomerSignUp()
@@ -33,7 +31,7 @@ const SignUpForm = () => {
 		setError
 	} = useForm<SignUpFormFields>({
 		mode: 'onChange',
-		resolver: zodResolver(SignUpFormSchema),
+		resolver: zodResolver(schema),
 		defaultValues: { email: '', password: '', repeatPassword: '' }
 	})
 

@@ -7,10 +7,9 @@ import InputField from '@/atoms/InputField/InputField'
 import Modal from '@/atoms/Modal/Modal'
 import HookFormField from '@/components/HookFormField'
 import useUpdateCustomer from '@/hooks/customer/useUpdateCustomer'
-import { UpdateCustomerFormSchema } from '@/schemas/updateCustomerSchemas'
+import { UpdateCustomerFormFields, useUpdateCustomerFormSchema } from '@/schemas/updateCustomerSchemas'
 
 import * as SC from './UpdateCustomerFormStyles'
-import { UpdateCustomerFormFields } from './UpdateCustomerFormTypes'
 
 type UpdateCustomerFormProps = {
 	open: boolean
@@ -19,6 +18,7 @@ type UpdateCustomerFormProps = {
 }
 
 const UpdateCustomerForm = ({ defaultValues, open, onClose }: UpdateCustomerFormProps) => {
+	const schema = useUpdateCustomerFormSchema()
 	const t = useTranslations('containers.profile')
 
 	const { mutate: updateCustomer } = useUpdateCustomer()
@@ -30,7 +30,7 @@ const UpdateCustomerForm = ({ defaultValues, open, onClose }: UpdateCustomerForm
 		handleSubmit
 	} = useForm<UpdateCustomerFormFields>({
 		mode: 'onChange',
-		resolver: zodResolver(UpdateCustomerFormSchema),
+		resolver: zodResolver(schema),
 		defaultValues
 	})
 

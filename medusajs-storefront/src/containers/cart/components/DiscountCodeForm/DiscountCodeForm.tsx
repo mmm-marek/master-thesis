@@ -7,15 +7,15 @@ import Button from '@/atoms/Button/Button'
 import InputField from '@/atoms/InputField/InputField'
 import HookFormField from '@/components/HookFormField'
 import { useStore } from '@/providers/StoreProvider'
-import { DiscountCodeFormSchema } from '@/schemas/discountCodeSchemas'
+import { DiscountCodeFormFields, useDiscountCodeFormSchema } from '@/schemas/discountCodeSchemas'
 
 import * as SC from './DiscountCodeFormStyles'
-import { DiscountCodeFormFields } from './DiscountCodeFormTypes'
 
 const DiscountCodeForm = () => {
-	const t = useTranslations('containers.cart')
 	const { cart } = useStore()
+	const schema = useDiscountCodeFormSchema()
 	const updateCart = useUpdateCart(cart!.id)
+	const t = useTranslations('containers.cart')
 
 	const {
 		control,
@@ -24,7 +24,7 @@ const DiscountCodeForm = () => {
 		handleSubmit
 	} = useForm<DiscountCodeFormFields>({
 		mode: 'onChange',
-		resolver: zodResolver(DiscountCodeFormSchema),
+		resolver: zodResolver(schema),
 		defaultValues: { discountCode: '' }
 	})
 
