@@ -11,11 +11,10 @@ import { PATHS } from '@/utils/enums'
 import * as SC from './SummaryStyles'
 
 const Summary = () => {
-	const t = useTranslations('containers.cart')
 	const router = useRouter()
 	const { cart } = useStore()
+	const t = useTranslations('containers.cart')
 
-	// TODO: Check why cart.region is undefined at the beginning
 	if (!cart || !cart?.region) {
 		return <Loading />
 	}
@@ -53,7 +52,7 @@ const Summary = () => {
 					})}
 				</span>
 			</SC.Total>
-			<Button block size='large' type='primary' onClick={() => router.push(PATHS.CHECKOUT)} shape='round'>
+			<Button size='large' variant='primary' onPress={() => router.push(PATHS.CHECKOUT)}>
 				{t('checkout')}
 			</Button>
 		</SC.Wrapper>

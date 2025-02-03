@@ -1,5 +1,3 @@
-import { Radio } from 'antd'
-
 import { useStore } from '@/providers/StoreProvider'
 
 import * as SC from './ShippingAddressPickerStyles'
@@ -14,10 +12,10 @@ const ShippingAddressPicker = ({ onAddressChange, shippingAddresses }: ShippingA
 	const { updateShippingAddress, cart } = useStore()
 
 	return (
-		<Radio.Group
+		<SC.RadioGroup
 			defaultValue={cart?.shipping_address?.address_1}
-			onChange={(e) => {
-				const selectedAddress = shippingAddresses.find((address) => address.address1 === e.target.value)
+			onChange={(value) => {
+				const selectedAddress = shippingAddresses.find((address) => address.address1 === value)
 				if (!selectedAddress) {
 					return
 				}
@@ -37,25 +35,19 @@ const ShippingAddressPicker = ({ onAddressChange, shippingAddresses }: ShippingA
 				)
 			}}
 		>
-			<SC.CardsWrapper>
-				{shippingAddresses.map((address) => (
-					<SC.OptionLabel key={address.address1} htmlFor={address.address1}>
-						<Radio value={address.address1} id={address.address1}>
-							<SC.ContentWrapper>
-								<SC.AddressName>{address.name}</SC.AddressName>
-								<SC.AddressWrapper>
-									<SC.Address>{address.address1}</SC.Address>
-									{address.address2 && <SC.Address>{address.address2}</SC.Address>}
-									<SC.Address>
-										{address.postalCode}, {address.city}
-									</SC.Address>
-								</SC.AddressWrapper>
-							</SC.ContentWrapper>
-						</Radio>
-					</SC.OptionLabel>
-				))}
-			</SC.CardsWrapper>
-		</Radio.Group>
+			{shippingAddresses.map((address) => (
+				<SC.Radio value={address.address1} key={address.address1}>
+					<SC.AddressWrapper>
+						<SC.AddressName>{address.name}</SC.AddressName>
+						<SC.AddressDescription>{address.address1}</SC.AddressDescription>
+						<SC.AddressDescription>{address.address2}</SC.AddressDescription>
+						<SC.AddressDescription>
+							{address.postalCode}, {address.city}
+						</SC.AddressDescription>
+					</SC.AddressWrapper>
+				</SC.Radio>
+			))}
+		</SC.RadioGroup>
 	)
 }
 

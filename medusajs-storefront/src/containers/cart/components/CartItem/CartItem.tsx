@@ -16,10 +16,10 @@ type CartItemProps = {
 }
 
 const CartItem = ({ item, region }: CartItemProps) => {
-	const t = useTranslations('containers.cart')
-	const { cart } = useStore()
 	const theme = useTheme()
-	const { deleteItem, updateItem } = useStore()
+	const { cart } = useStore()
+	const t = useTranslations('containers.cart')
+	const { deleteItem, updateItem, isUpdatingCart } = useStore()
 
 	const handleDelete = () => {
 		deleteItem(item.id)
@@ -42,7 +42,7 @@ const CartItem = ({ item, region }: CartItemProps) => {
 
 	return (
 		<SC.Wrapper>
-			{item.thumbnail && <SC.Thumbnail src={item.thumbnail} alt={item.title ?? 'Product'} objectFit='contain' width={164} height={164} />}
+			{item.thumbnail && <SC.Thumbnail src={item.thumbnail} alt={item.title ?? t('product')} objectFit='contain' width={164} height={164} />}
 			<SC.ContentWrapper>
 				<SC.Header>
 					<SC.Title>{localizedProduct.localizedTitle}</SC.Title>
@@ -53,12 +53,18 @@ const CartItem = ({ item, region }: CartItemProps) => {
 					<SC.QuantityWrapper>
 						<SC.QuantityLabel>{t('quantity')}:</SC.QuantityLabel>
 						<SC.QuantityControls>
-							<Button icon={<MinusIcon />} noBackground size='small' onClick={handleRemoveQuantity} />
+							<Button size='small' isDisabled={isUpdatingCart} onPress={handleRemoveQuantity}>
+								<MinusIcon />
+							</Button>
 							<SC.Quantity>{item.quantity}</SC.Quantity>
-							<Button icon={<PlusIcon />} noBackground size='small' onClick={handleAddQuantity} />
+							<Button size='small' isDisabled={isUpdatingCart} onPress={handleAddQuantity}>
+								<PlusIcon />
+							</Button>
 						</SC.QuantityControls>
 					</SC.QuantityWrapper>
-					<Button icon={<Trash2Icon color={theme.tokens['color-base-content-primary']} />} noBackground onClick={handleDelete} />
+					<Button onPress={handleDelete} isDisabled={isUpdatingCart}>
+						<Trash2Icon color={theme.tokens['color-base-content-primary']} />
+					</Button>
 				</div>
 			</SC.ContentWrapper>
 		</SC.Wrapper>

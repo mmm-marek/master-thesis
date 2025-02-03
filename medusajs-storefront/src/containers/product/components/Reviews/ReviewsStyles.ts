@@ -75,3 +75,8 @@ export const ReviewFormWrapper = styled.div`
 		width: 50%;
 	}
 `
+
+export const StarsWrapper = styled.div`
+	display: flex;
+	gap: 4px;
+`

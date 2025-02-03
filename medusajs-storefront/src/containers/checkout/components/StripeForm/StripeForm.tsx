@@ -1,6 +1,6 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { useRouter } from 'next/router'
-import { MouseEventHandler } from 'react'
+import { useTranslations } from 'next-intl'
 
 import Button from '@/atoms/Button/Button'
 import { useStore } from '@/providers/StoreProvider'
@@ -13,10 +13,9 @@ const StripeForm = () => {
 	const stripe = useStripe()
 	const elements = useElements()
 	const { cart, completePayment } = useStore()
+	const t = useTranslations('containers.checkout')
 
-	const handlePayment: MouseEventHandler<HTMLButtonElement> = async (e) => {
-		e.preventDefault()
-
+	const handlePayment = async () => {
 		const cartId = cart?.id
 		const clientSecret: string = cart?.payment_session?.data.client_secret as string
 
@@ -62,8 +61,8 @@ const StripeForm = () => {
 				/>
 			</SC.CardElementWrapper>
 			<SC.ButtonWrapper>
-				<Button type='primary' onClick={handlePayment} htmlType='submit' shape='round'>
-					Submit
+				<Button variant='primary' onPress={handlePayment} type='submit'>
+					{t('submit')}
 				</Button>
 			</SC.ButtonWrapper>
 		</SC.Form>

@@ -1,16 +1,15 @@
-import { Modal } from 'antd'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 
 import Button from '@/atoms/Button/Button'
 import InputField from '@/atoms/InputField/InputField'
+import Modal from '@/atoms/Modal/Modal'
 import HookFormField from '@/components/HookFormField'
 import useUpdateCustomer from '@/hooks/customer/useUpdateCustomer'
-import { UpdateCustomerFormSchema } from '@/schemas/updateCustomerSchemas'
-import { zodResolver } from '@/utils/zodResolver'
+import { UpdateCustomerFormFields, useUpdateCustomerFormSchema } from '@/schemas/updateCustomerSchemas'
 
 import * as SC from './UpdateCustomerFormStyles'
-import { UpdateCustomerFormFields } from './UpdateCustomerFormTypes'
 
 type UpdateCustomerFormProps = {
 	open: boolean
@@ -19,6 +18,7 @@ type UpdateCustomerFormProps = {
 }
 
 const UpdateCustomerForm = ({ defaultValues, open, onClose }: UpdateCustomerFormProps) => {
+	const schema = useUpdateCustomerFormSchema()
 	const t = useTranslations('containers.profile')
 
 	const { mutate: updateCustomer } = useUpdateCustomer()
@@ -30,7 +30,7 @@ const UpdateCustomerForm = ({ defaultValues, open, onClose }: UpdateCustomerForm
 		handleSubmit
 	} = useForm<UpdateCustomerFormFields>({
 		mode: 'onChange',
-		resolver: zodResolver(UpdateCustomerFormSchema),
+		resolver: zodResolver(schema),
 		defaultValues
 	})
 
@@ -55,36 +55,12 @@ const UpdateCustomerForm = ({ defaultValues, open, onClose }: UpdateCustomerForm
 	}
 
 	return (
-		<Modal open={open} onCancel={handleClose} footer={null}>
+		<Modal isOpen={open} onOpenChange={handleClose} isDismissable>
 			<SC.Form onSubmitCapture={handleSubmit(handleFormSubmit)}>
-				<HookFormField
-					label={t('name')}
-					placeholder={t('firstNamePlaceholder')}
-					component={InputField}
-					control={control}
-					name='firstName'
-					size='large'
-					required
-				/>
-				<HookFormField
-					label={t('name')}
-					placeholder={t('lastNamePlaceholder')}
-					component={InputField}
-					control={control}
-					name='lastName'
-					size='large'
-					required
-				/>
-				<HookFormField
-					label={t('email')}
-					placeholder={t('emailPlaceholder')}
-					component={InputField}
-					control={control}
-					name='email'
-					size='large'
-					required
-				/>
-				<Button type='primary' size='large' htmlType='submit' block disabled={isSubmitting} loading={isSubmitting}>
+				<HookFormField label={t('name')} placeholder={t('firstNamePlaceholder')} component={InputField} control={control} name='firstName' required />
+				<HookFormField label={t('name')} placeholder={t('lastNamePlaceholder')} component={InputField} control={control} name='lastName' required />
+				<HookFormField label={t('email')} placeholder={t('emailPlaceholder')} component={InputField} control={control} name='email' required />
+				<Button variant='primary' size='large' type='submit' isDisabled={isSubmitting} isPending={isSubmitting}>
 					{t('submitButton')}
 				</Button>
 			</SC.Form>

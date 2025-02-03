@@ -1,19 +1,6 @@
-import { SizeType as AntdInputSize } from 'antd/lib/config-provider/SizeContext'
-import { FormItemLabelProps } from 'antd/lib/form/FormItemLabel'
-import { InputProps as AntdInputProps } from 'antd/lib/input'
 import { PropsWithChildren } from 'react'
+import { InputProps } from 'react-aria-components'
 
-import { WrappedFieldsProps } from '@/types/interfaces'
-import { FIELD_MODE } from '@/utils/enums'
+import { WrappedFieldsProps } from '@/types/types'
 
-export type InputSize = AntdInputSize | 'extra-large'
-export type InputProps = Omit<AntdInputProps, 'size'> & {
-	size?: InputSize
-}
-export type InputFieldProps = InputProps &
-	PropsWithChildren &
-	WrappedFieldsProps &
-	FormItemLabelProps & {
-		hideHelp?: boolean
-		fieldMode?: FIELD_MODE
-	}
+export type InputFieldProps = PropsWithChildren<InputProps & WrappedFieldsProps & { label: string }>

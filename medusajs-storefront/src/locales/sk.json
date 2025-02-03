@@ -7,6 +7,10 @@
 			"all": "Všetky",
 			"search": "Vyhľadávanie",
 			"selectAll": "Vybrať všetko"
+		},
+		"input": {
+			"showPassword": "Zobraziť heslo",
+			"hidePassword": "Skryť heslo"
 		}
 	},
 	"components": {
@@ -31,9 +35,8 @@
 			"delete": "Vymazať",
 			"save": "Uložiť"
 		},
-		"table": {
-			"itemsPerPage": "Položky na stránku",
-			"resultsRange": "Výsledky { rangeFrom }-{ rangeTo } z { total }"
+		"productCard": {
+			"title": "Produkt"
 		}
 	},
 	"containers": {
@@ -52,9 +55,12 @@
 			"summary": "Zhrnutie",
 			"discount": "Zľava",
 			"apply": "Použiť",
-			"quantity": "Množstvo"
+			"quantity": "Množstvo",
+			"product": "Produkt",
+			"discountPlaceholder": "SALE10"
 		},
 		"products": {
+			"rating": "Hodnotenie: {rating} z 5 hviezdičiek",
 			"reviews": "Recenzie",
 			"noReviews": "Žiadne recenzie.",
 			"productTitle": "Názov produktu",
@@ -62,7 +68,15 @@
 			"inStock": "Skladom",
 			"addToCart": "Pridať do košíka",
 			"home": "Domov",
-			"products": "Produkty"
+			"products": "Produkty",
+			"ratingLabel": "Hodnotenie",
+			"addReview": "Pridať recenziu",
+			"title": "Názov",
+			"review": "Recenzia",
+			"enterTitle": "Zadajte názov",
+			"enterReview": "Zadajte recenziu",
+			"cancel": "Zrušiť",
+			"submit": "Odoslať"
 		},
 		"confirmAccountInvite": {
 			"confirmAccountInviteForm": {
@@ -124,7 +138,8 @@
 			"accessHistory": "Prístup k histórii vašich objednávok",
 			"obtainDiscount": "Získať zľavu na ďalší nákup",
 			"quickProcess": "Rýchle spracovanie vašej objednávky",
-			"register": "Registrovať sa"
+			"register": "Registrovať sa",
+			"wrongEmail": "Nesprávny formát e-mailovej adresy"
 		},
 		"checkout": {
 			"checkout": "Pokladňa",
@@ -156,7 +171,10 @@
 			"enterCountryCode": "Zadajte krajinu",
 			"enterPostalCode": "Zadajte poštový kód",
 			"enterCompany": "Zadajte firmu",
-			"countryCode": "Krajina"
+			"countryCode": "Krajina",
+			"orderConfirmedTitle": "Objednávka potvrdená",
+			"orderConfirmedDescription": "Vaša objednávka bola potvrdená a čoskoro bude odoslaná.",
+			"submit": "Odoslať objednávku"
 		},
 		"profile": {
 			"order": "Objednávka",
@@ -234,7 +252,9 @@
 			"lastName": "Priezvisko",
 			"enterFirstName": "Zadajte svoj meno",
 			"enterLastName": "Zadajte svoj priezvisko",
-			"emailAlreadyExists": "E-mail už existuje"
+			"emailAlreadyExists": "E-mail už existuje",
+			"facebookSignup": "Prihlásiť sa cez Facebook",
+			"googleSignup": "Prihlásiť sa cez Google"
 		},
 		"users": {
 			"action": "Akcia",
@@ -283,11 +303,14 @@
 			"description": "Noste svoju hrdosť! Objavte našu kolekciu značkového oblečenia a doplnkov, ktoré sú ideálne na prezentovanie svojej podpory a firemného ducha.",
 			"cta": "Nakupujte teraz",
 			"productsTitle": "Odporúčané produkty",
-			"productsCta": "Preskúmajte"
+			"productsCta": "Preskúmajte",
+			"grTshirt": "GoodRequest tričko",
+			"grBottle": "GoodRequest fľaša"
 		}
 	},
 	"layouts": {
 		"mainLayout": {
+			"itemsInCart": "položiek v košíku",
 			"logout": "Odhlásiť sa",
 			"joinUs": "Pridaj sa k nám",
 			"signIn": "Prihlásiť sa",
@@ -321,7 +344,15 @@
 			"requiredField": "Toto pole je povinné",
 			"wrongEmailFormat": "Nesprávny formát e-mailovej adresy",
 			"wrongInputFormat": "Nesprávny formát vstupnej hodnoty",
-			"wrongUuidFormat": "Nesprávny formát UUID"
+			"wrongUuidFormat": "Nesprávny formát UUID",
+			"emailRequired": "Email je povinný",
+			"firstNameRequired": "Meno je povinné",
+			"lastNameRequired": "Priezvisko je povinné",
+			"passwordRequired": "Heslo je povinné", 
+			"repeatPasswordRequired": "Prosím zopakujte heslo",
+			"passwordsDontMatch": "Heslá sa nezhodujú",
+			"titleRequired": "Názov je povinný",
+			"contentRequired": "Obsah je povinný"
 		},
 		"helpers": {
 			"active": "Aktívne",

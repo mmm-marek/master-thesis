@@ -1,4 +1,5 @@
 import { ChefHatIcon, MilkIcon, ShirtIcon } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useTheme } from 'styled-components'
 
 import Error from '@/components/Error/Error'
@@ -12,6 +13,7 @@ import * as SC from './CategoriesStyles'
 const Categories = () => {
 	const theme = useTheme()
 	const { cart } = useStore()
+	const t = useTranslations('containers.landing')
 	const { data: categories, isError, isLoading } = useGetLocalizedCategories(cart?.region_id)
 
 	if (isLoading) {
@@ -37,7 +39,7 @@ const Categories = () => {
 
 	return (
 		<SC.Container>
-			<SC.IllustrationImage src='/images/t-shirt-illustration.png' alt='landing' width={1180} height={904} />
+			<SC.IllustrationImage src='/images/t-shirt-illustration.png' alt={t('grTshirt')} width={1180} height={904} />
 			{categories.map((category, index) => (
 				<SC.CategoryCard key={category.id}>
 					<SC.CategoryLink href={`${PATHS.CATEGORY}/${category.handle}`}>{category.localizedName}</SC.CategoryLink>

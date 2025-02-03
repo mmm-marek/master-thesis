@@ -1,11 +1,12 @@
-import { ButtonProps as AntdButtonProps } from 'antd/lib/button'
-import { SizeType as AntdButtonSize } from 'antd/lib/config-provider/SizeContext'
 import { PropsWithChildren } from 'react'
+import { ButtonProps as AriaButtonProps } from 'react-aria-components'
 
-export type ButtonSize = AntdButtonSize | 'extra-large'
-type InternalButtonProps = Omit<AntdButtonProps, 'size'> & {
+export type ButtonSize = 'small' | 'medium' | 'large'
+
+export type ButtonVariant = 'primary' | 'secondary'
+
+export type ButtonProps = PropsWithChildren<AriaButtonProps> & {
 	size?: ButtonSize
-	endIcon?: React.ReactNode
-	noBackground?: boolean
+	variant?: ButtonVariant
+	isFullWidth?: boolean
 }
-export type ButtonProps = InternalButtonProps & PropsWithChildren

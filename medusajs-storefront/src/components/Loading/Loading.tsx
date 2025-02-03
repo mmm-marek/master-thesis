@@ -1,4 +1,4 @@
-import { Spin } from 'antd'
+import Spinner from '@/atoms/Spinner/Spinner'
 
 import * as SC from './LoadingStyles'
 
@@ -9,7 +9,7 @@ type LoadingProps = {
 const Loading = ({ height = '500px' }: LoadingProps) => {
 	return (
 		<SC.LoadingContainer $height={height}>
-			<Spin spinning size='large' />
+			<Spinner />
 		</SC.LoadingContainer>
 	)
 }

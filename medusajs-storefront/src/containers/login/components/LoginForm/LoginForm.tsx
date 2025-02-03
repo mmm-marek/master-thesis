@@ -1,27 +1,24 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
-import * as z from 'zod'
 
 import FacebookIcon from '@/assets/icons/social/facebook.svg'
 import GoogleIcon from '@/assets/icons/social/google.svg'
 import Button from '@/atoms/Button/Button'
 import InputField from '@/atoms/InputField/InputField'
-import InputPasswordField from '@/atoms/InputPasswordField/InputPasswordField'
 import HookFormField from '@/components/HookFormField'
 import envConfig from '@/config'
 import useLoginCustomer from '@/hooks/customer/useLoginCustomer'
-import LoginFormSchema from '@/schemas/pages/login'
+import { LoginFormFields, useLoginFormSchema } from '@/schemas/loginSchemas'
 import { PATHS } from '@/utils/enums'
-import { zodResolver } from '@/utils/zodResolver'
 
 import * as SC from './LoginFormStyles'
-
-export type LoginFormFields = z.infer<typeof LoginFormSchema>
 
 const LoginForm = () => {
 	const router = useRouter()
 	const t = useTranslations('containers.login')
+	const loginFormSchema = useLoginFormSchema()
 	const { mutate: loginUser } = useLoginCustomer()
 
 	const {
@@ -30,7 +27,7 @@ const LoginForm = () => {
 		handleSubmit
 	} = useForm<LoginFormFields>({
 		mode: 'onChange',
-		resolver: zodResolver(LoginFormSchema),
+		resolver: zodResolver(loginFormSchema),
 		defaultValues: { email: '', password: '' }
 	})
 
@@ -43,12 +40,12 @@ const LoginForm = () => {
 	}
 
 	return (
-		<SC.Form layout='vertical' onSubmitCapture={handleSubmit(onSubmit)}>
+		<SC.Form onSubmitCapture={handleSubmit(onSubmit)}>
+			<SC.Header>
+				<SC.Title>{t('welcomeBack')}</SC.Title>
+				<SC.InfoMd>{t('welcomeBackEnterDetails')}</SC.InfoMd>
+			</SC.Header>
 			<SC.FieldsWrapper>
-				<SC.Header>
-					<SC.Title>{t('welcomeBack')}</SC.Title>
-					<SC.InfoMd>{t('welcomeBackEnterDetails')}</SC.InfoMd>
-				</SC.Header>
 				<HookFormField
 					control={control}
 					name='email'
@@ -57,45 +54,30 @@ const LoginForm = () => {
 					type='email'
 					required
 					placeholder={t('enterEmail')}
-					size='large'
 					autoComplete='username'
 				/>
 				<HookFormField
 					control={control}
 					name='password'
-					component={InputPasswordField}
+					component={InputField}
 					label={t('password')}
 					type='password'
 					required
 					placeholder={t('enterPassword')}
-					size='large'
 					autoComplete='current-password'
 				/>
 			</SC.FieldsWrapper>
-			<Button type='primary' size='large' htmlType='submit' disabled={isSubmitting} loading={isSubmitting} block shape='round'>
+			<Button variant='primary' size='large' type='submit' isDisabled={isSubmitting} isPending={isSubmitting} isFullWidth>
 				{t('logIn')}
 			</Button>
 			<SC.SocialButtonsWrapper>
-				<Button type='default' href={`${envConfig.apiUrl}/admin/auth/google`} size='large' block htmlType='button' shape='round'>
+				<Button variant='secondary' onPress={() => router.push(`${envConfig.apiUrl}/admin/auth/google`)} size='large' type='button' isFullWidth>
 					<GoogleIcon />
 				</Button>
-				<Button type='default' href={`${envConfig.apiUrl}/admin/auth/facebook`} size='large' block htmlType='button' shape='round'>
+				<Button variant='secondary' onPress={() => router.push(`${envConfig.apiUrl}/admin/auth/facebook`)} size='large' type='button' isFullWidth>
 					<FacebookIcon />
 				</Button>
 			</SC.SocialButtonsWrapper>
-			<SC.ForgotPasswordBtnWrapper>
-				<Button
-					type='text'
-					onClick={() => {
-						router.push(PATHS.FORGOTTEN_PASSWORD)
-					}}
-					size='small'
-					disabled={isSubmitting}
-					loading={isSubmitting}
-				>
-					<span>{t('forgotPassword')}</span>
-				</Button>
-			</SC.ForgotPasswordBtnWrapper>
 		</SC.Form>
 	)
 }

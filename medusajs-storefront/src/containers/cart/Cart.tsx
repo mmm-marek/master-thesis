@@ -1,10 +1,9 @@
-import { Spin } from 'antd'
-import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 
 import Breadcrumb from '@/atoms/Breadcrumb/Breadcrumb'
 import Loading from '@/components/Loading/Loading'
 import { useStore } from '@/providers/StoreProvider'
+import { PATHS } from '@/utils/enums'
 
 import * as SC from './CartStyles'
 import CartItems from './components/CartItems/CartItems'
@@ -12,18 +11,19 @@ import Summary from './components/Summary/Summary'
 
 const Cart = () => {
 	const t = useTranslations('containers.cart')
-	const { cart, isUpdatingCart } = useStore()
+	const { cart } = useStore()
 
 	if (!cart) {
 		return <Loading />
 	}
 
 	return (
-		<Spin spinning={isUpdatingCart}>
+		<>
 			<Breadcrumb
 				items={[
 					{
-						title: <Link href='/'>{t('home')}</Link>
+						title: t('home'),
+						href: PATHS.HOME
 					},
 					{
 						title: t('cart')
@@ -34,7 +34,7 @@ const Cart = () => {
 				<CartItems items={cart?.items ?? []} region={cart?.region} />
 				<Summary />
 			</SC.CartWrapper>
-		</Spin>
+		</>
 	)
 }
 

@@ -13,8 +13,8 @@ import * as SC from './FeaturedProductsStyles'
 const FEATURED_CATEGORY_HANDLE = 'clothes'
 
 const FeaturedProducts = () => {
-	const { cart } = useStore()
 	const router = useRouter()
+	const { cart } = useStore()
 	const t = useTranslations('containers.landing')
 
 	const { product_categories } = useProductCategories({
@@ -30,7 +30,7 @@ const FeaturedProducts = () => {
 		<SC.Container>
 			<SC.TitleWrapper>
 				<SC.Title>{t('productsTitle')}</SC.Title>
-				<Button type='primary' shape='round' onClick={() => router.push(`${PATHS.CATEGORY}/${FEATURED_CATEGORY_HANDLE}`)}>
+				<Button variant='primary' onPress={() => router.push(`${PATHS.CATEGORY}/${FEATURED_CATEGORY_HANDLE}`)}>
 					{t('productsCta')}
 				</Button>
 			</SC.TitleWrapper>

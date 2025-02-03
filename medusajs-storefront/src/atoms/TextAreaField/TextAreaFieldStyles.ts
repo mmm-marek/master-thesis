@@ -1,95 +1,67 @@
-import { Form, Input } from 'antd'
+import { FieldError as AriaFieldError, Label as AriaLabel, TextArea as AriaTextArea, TextField as AriaTextField } from 'react-aria-components'
 import styled, { css } from 'styled-components'
 
-import { textMdRegular, textSmMedium, textSmRegular } from '@/styles/helpers'
+import { textSmRegular, textXsRegular } from '@/styles/helpers'
 
-export const FormItem = styled(Form.Item)<{ $hideHelp?: boolean }>`
-	margin-bottom: 0;
-	width: 100%;
-
-	${(p) =>
-		!p.$hideHelp &&
-		css`
-			padding-bottom: ${p.theme.spacing[16]};
-		`}
-
-	.ant-form-item-control {
-		flex: auto;
-	}
-
-	.ant-form-item-row {
-		flex-direction: column;
-
-		.ant-form-item-label {
-			margin-bottom: ${(p) => p.theme.spacing[4]};
-			padding: 0;
-			text-align: left;
-
-			label {
-				display: inline-flex;
-				flex-direction: row-reverse;
-				height: 20px;
-				color: ${(p) => p.theme.tokens['color-base-content-primary']};
-				${textSmMedium};
-
-				&::after {
-					display: none;
-				}
-
-				&.ant-form-item-required {
-					&::before {
-						color: ${(p) => p.theme.tokens['color-base-state-error-fg']};
-					}
-				}
-
-				svg {
-					display: inline-block;
-					order: -1;
-					margin-inline-start: 0;
-					width: 15px;
-					height: 15px;
-					color: ${({ theme }) => theme.tokens['color-base-action-primary-default']};
-				}
-			}
-		}
-
-		.ant-form-item-control-input {
-			min-height: auto;
-		}
-
-		.ant-form-item-explain {
-			.ant-form-item-explain-error {
-				text-align: left;
-				color: ${(p) => p.theme.tokens['color-base-state-error-fg']};
-				${textSmRegular};
-			}
-		}
-	}
-
-	/* error state */
-	&.ant-form-item-has-error {
-		.ant-form-item-row {
-			.ant-form-item-label {
-				label {
-					color: ${(p) => p.theme.tokens['color-base-state-error-fg']};
-
-					&.ant-form-item-required {
-						&::before {
-							color: ${(p) => p.theme.tokens['color-base-state-error-fg']} !important;
-						}
-					}
-				}
-			}
-
-			.ant-form-item-control-input {
-				margin-bottom: ${(p) => p.theme.spacing[4]};
-			}
-		}
-	}
+export const TextField = styled(AriaTextField)`
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
 `
 
-export const TextArea = styled(Input.TextArea)`
-	&.ant-input {
-		${textMdRegular};
-	}
+export const Label = styled(AriaLabel)`
+	${({ theme }) => css`
+		position: relative;
+		width: fit-content;
+		color: ${theme.tokens['color-base-content-primary']};
+		${textSmRegular};
+	`}
+`
+
+export const TextArea = styled(AriaTextArea)`
+	${({ theme }) => css`
+		transition: background 300ms ease;
+		border: none;
+		border-radius: 24px;
+		background: ${theme.tokens['color-base-action-secondary-default']};
+		padding: 0.75rem 1.25rem;
+		width: 100%;
+		${textSmRegular};
+
+		&[data-hovered] {
+			background: ${theme.tokens['color-base-action-secondary-hover']};
+		}
+
+		&[data-focused] {
+			background: ${theme.tokens['color-base-action-secondary-default']};
+		}
+
+		&[data-focus-visible] {
+			background: ${theme.tokens['color-base-action-secondary-default']};
+		}
+
+		&[data-disabled] {
+			opacity: 0.75;
+			pointer-events: none;
+		}
+
+		&[data-invalid] {
+			outline: 1px solid ${theme.tokens['color-base-action-destructive-active']};
+		}
+	`}
+`
+
+export const FieldError = styled(AriaFieldError)`
+	${({ theme }) => css`
+		color: ${theme.tokens['color-base-action-destructive-active']};
+		${textXsRegular};
+	`}
+`
+
+export const Asterisk = styled.span`
+	position: absolute;
+	top: 2px;
+	right: -8px;
+	color: ${({ theme }) => theme.tokens['color-base-action-destructive-active']};
+	${textXsRegular};
 `

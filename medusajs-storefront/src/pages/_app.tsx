@@ -1,6 +1,5 @@
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { Locale } from 'antd/lib/locale'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import isBetween from 'dayjs/plugin/isBetween'
@@ -13,15 +12,16 @@ import { CartProvider, MedusaProvider } from 'medusa-react'
 import { NextPage } from 'next'
 import { Inter } from 'next/font/google'
 import localFont from 'next/font/local'
-import { useRouter } from 'next/router'
+import { NextRouter, useRouter } from 'next/router'
 import { NextIntlClientProvider } from 'next-intl'
 import { ReactElement, ReactNode, useEffect, useState } from 'react'
-import { z } from 'zod'
+import { RouterProvider } from 'react-aria-components'
+import z from 'zod'
 
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
 import { useLoader } from '@/hooks/loader/useLoader'
-import AntdProvider from '@/providers/AntdProvider'
 import AppStateProvider from '@/providers/AppProvider'
+import GlobalToastRegion from '@/providers/GlobalToastRegion'
 import { StoreProvider } from '@/providers/StoreProvider'
 import ThemeProvider from '@/providers/ThemeProvider'
 import { DEFAULT_LANGUAGE, ERROR_BOUNDARY_TYPE, LANGUAGE, LOCALES } from '@/utils/enums'
@@ -40,6 +40,12 @@ dayjs.extend(customParseFormat)
 dayjs.extend(timezonePlugin)
 dayjs.extend(minMax)
 dayjs.locale(LOCALES[DEFAULT_LANGUAGE].countryCode)
+
+declare module 'react-aria-components' {
+	interface RouterConfig {
+		routerOptions: NonNullable<Parameters<NextRouter['push']>[2]>
+	}
+}
 
 export const interFont = Inter({ subsets: ['latin', 'latin-ext'], variable: '--inter-font' })
 export const tiemposFineFont = localFont({
@@ -133,17 +139,15 @@ type AppPropsWithLayout = AppProps & {
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 	const router = useRouter()
-	const [antdLocale, setAntdLocale] = useState<Locale>(LOCALES[DEFAULT_LANGUAGE].antD)
 	const [timeZone, setTimeZone] = useState<string>(LOCALES[DEFAULT_LANGUAGE].timeZone)
 
 	// client side navigation loader initialisation
 	useLoader()
 
-	// dayjs and antd locale setup
+	// dayjs setup
 	useEffect(() => {
 		const locale = LOCALES[router.locale as LANGUAGE] || LOCALES[DEFAULT_LANGUAGE]
 		dayjs.locale(locale.ISO_639)
-		setAntdLocale(locale.antD)
 		setTimeZone(locale.timeZone)
 	}, [router.locale])
 
@@ -173,13 +177,16 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 					<QueryClientProvider client={queryClient}>
 						<Hydrate state={pageProps.dehydratedState}>
 							<ThemeProvider>
-								<AntdProvider locale={antdLocale}>
+								<RouterProvider navigate={(href, opts) => router.push(href, undefined, opts)}>
 									<AppStateProvider>
 										<CartProvider>
-											<StoreProvider>{getLayout(<Component {...pageProps} />, pageProps)}</StoreProvider>
+											<StoreProvider>
+												{getLayout(<Component {...pageProps} />, pageProps)}
+												<GlobalToastRegion />
+											</StoreProvider>
 										</CartProvider>
 									</AppStateProvider>
-								</AntdProvider>
+								</RouterProvider>
 							</ThemeProvider>
 						</Hydrate>
 						<ReactQueryDevtools initialIsOpen={false} />

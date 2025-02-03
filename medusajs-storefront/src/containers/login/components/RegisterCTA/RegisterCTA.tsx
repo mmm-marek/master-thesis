@@ -30,7 +30,7 @@ const RegisterCTA = () => {
 					<div>{t('quickProcess')}</div>
 				</SC.RegisterListItem>
 			</SC.RegisterList>
-			<Button type='primary' size='middle' onClick={() => router.push(PATHS.SIGN_UP)} block shape='round'>
+			<Button variant='primary' size='medium' onPress={() => router.push(PATHS.SIGN_UP)}>
 				{t('register')}
 			</Button>
 		</SC.RegisterCTAWrapper>

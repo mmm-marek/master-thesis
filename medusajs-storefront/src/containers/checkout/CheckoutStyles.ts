@@ -1,3 +1,4 @@
+import { Tab, TabList } from 'react-aria-components'
 import styled, { css } from 'styled-components'
 
 import { breakpoints, headingSmSemibold, textXxlSemibold } from '@/styles/helpers'
@@ -18,11 +19,23 @@ export const Container = styled.div`
 	`}
 `
 
-export const CollapseItemLabel = styled.div<{ $disabled?: boolean }>`
-	${({ theme, $disabled }) => css`
+export const StyledTab = styled(Tab)`
+	${({ theme }) => css`
 		transition: color 0.3s ease;
-		color: ${$disabled ? theme.tokens['color-base-content-quaternary'] : theme.tokens['color-base-content-primary']};
+		border: 1px solid transparent;
+		cursor: pointer;
+		color: ${theme.tokens['color-base-content-primary']};
 		${textXxlSemibold};
+
+		&[data-disabled] {
+			color: ${theme.tokens['color-base-content-quaternary']};
+		}
+
+		&[data-focused],
+		&[data-focus-visible],
+		&[data-selected] {
+			border-bottom: 1px solid ${theme.tokens['color-base-action-primary-active']};
+		}
 	`}
 `
 
@@ -32,4 +45,11 @@ export const Heading = styled.h1`
 		color: ${theme.tokens['color-base-content-primary']};
 		${headingSmSemibold};
 	`}
+`
+
+export const StyledTabsList = styled(TabList)`
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	margin-bottom: 0.5rem;
 `

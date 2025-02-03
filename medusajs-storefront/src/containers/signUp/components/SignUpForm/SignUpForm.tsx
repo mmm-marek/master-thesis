@@ -1,27 +1,24 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
-import * as z from 'zod'
 
 import FacebookIcon from '@/assets/icons/social/facebook.svg'
 import GoogleIcon from '@/assets/icons/social/google.svg'
 import Button from '@/atoms/Button/Button'
 import InputField from '@/atoms/InputField/InputField'
-import InputPasswordField from '@/atoms/InputPasswordField/InputPasswordField'
 import HookFormField from '@/components/HookFormField'
 import envConfig from '@/config'
 import useCheckEmailExists from '@/hooks/customer/useCheckEmailExists'
 import useCustomerSignUp from '@/hooks/customer/useCustomerSignUp'
-import SignUpFormSchema from '@/schemas/pages/signUp'
+import { SignUpFormFields, useSignUpFormSchema } from '@/schemas/signUpSchemas'
 import { PATHS } from '@/utils/enums'
-import { zodResolver } from '@/utils/zodResolver'
 
 import * as SC from './SignUpFormStyles'
 
-export type SignUpFormFields = z.infer<typeof SignUpFormSchema>
-
 const SignUpForm = () => {
 	const router = useRouter()
+	const schema = useSignUpFormSchema()
 	const t = useTranslations('containers.signUp')
 
 	const { mutate: createCustomer } = useCustomerSignUp()
@@ -34,7 +31,7 @@ const SignUpForm = () => {
 		setError
 	} = useForm<SignUpFormFields>({
 		mode: 'onChange',
-		resolver: zodResolver(SignUpFormSchema),
+		resolver: zodResolver(schema),
 		defaultValues: { email: '', password: '', repeatPassword: '' }
 	})
 
@@ -60,7 +57,7 @@ const SignUpForm = () => {
 						},
 						{
 							onSuccess: () => {
-								router.push('/')
+								router.push(PATHS.HOME)
 							}
 						}
 					)
@@ -70,22 +67,13 @@ const SignUpForm = () => {
 	}
 
 	return (
-		<SC.Form layout='vertical' onSubmitCapture={handleSubmit(onSubmit)}>
+		<SC.Form onSubmitCapture={handleSubmit(onSubmit)}>
 			<SC.FieldsWrapper>
 				<SC.Header>
 					<SC.Title>{t('welcome')}</SC.Title>
 					<SC.InfoMd>{t('registerInfo')}</SC.InfoMd>
 				</SC.Header>
-				<HookFormField
-					control={control}
-					name='email'
-					component={InputField}
-					label={t('email')}
-					type='email'
-					required
-					placeholder={t('enterEmail')}
-					size='large'
-				/>
+				<HookFormField control={control} name='email' component={InputField} label={t('email')} type='email' required placeholder={t('enterEmail')} />
 				<HookFormField
 					control={control}
 					name='firstName'
@@ -94,7 +82,6 @@ const SignUpForm = () => {
 					type='text'
 					required
 					placeholder={t('enterFirstName')}
-					size='large'
 				/>
 				<HookFormField
 					control={control}
@@ -104,53 +91,39 @@ const SignUpForm = () => {
 					type='text'
 					required
 					placeholder={t('enterLastName')}
-					size='large'
 				/>
 				<HookFormField
 					control={control}
 					name='password'
-					component={InputPasswordField}
+					component={InputField}
 					label={t('password')}
 					type='password'
 					required
 					placeholder={t('enterPassword')}
-					size='large'
 				/>
 				<HookFormField
 					control={control}
 					name='repeatPassword'
-					component={InputPasswordField}
+					component={InputField}
 					label={t('repeatPassword')}
 					type='password'
 					required
 					placeholder={t('enterPassword')}
-					size='large'
 				/>
 			</SC.FieldsWrapper>
-			<Button type='primary' size='large' htmlType='submit' disabled={isSubmitting} loading={isSubmitting} block shape='round'>
+			<Button variant='primary' size='large' type='submit' isDisabled={isSubmitting} isPending={isSubmitting} isFullWidth>
 				{t('signUp')}
 			</Button>
 			<SC.SocialButtonsWrapper>
-				<Button type='default' href={`${envConfig.apiUrl}/admin/auth/google`} size='large' block htmlType='button' shape='round'>
+				<Button variant='secondary' onPress={() => router.push(`${envConfig.apiUrl}/admin/auth/google`)} size='large' type='button' isFullWidth>
 					<GoogleIcon />
+					{t('googleSignup')}
 				</Button>
-				<Button type='default' href={`${envConfig.apiUrl}/admin/auth/facebook`} size='large' block htmlType='button' shape='round'>
+				<Button variant='secondary' onPress={() => router.push(`${envConfig.apiUrl}/admin/auth/facebook`)} size='large' type='button' isFullWidth>
 					<FacebookIcon />
+					{t('facebookSignup')}
 				</Button>
 			</SC.SocialButtonsWrapper>
-			<SC.ForgotPasswordBtnWrapper>
-				<Button
-					type='text'
-					onClick={() => {
-						router.push(PATHS.FORGOTTEN_PASSWORD)
-					}}
-					size='small'
-					disabled={isSubmitting}
-					loading={isSubmitting}
-				>
-					<span>{t('forgotPassword')}</span>
-				</Button>
-			</SC.ForgotPasswordBtnWrapper>
 		</SC.Form>
 	)
 }

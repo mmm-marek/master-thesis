@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { z } from 'zod'
+import z from 'zod'
 
 // eslint-disable-next-line import/no-named-as-default
 import { EnvSchema } from '../../scripts/envValidation/schema'

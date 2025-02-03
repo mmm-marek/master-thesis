@@ -3,7 +3,7 @@ import { Button, Input } from "@medusajs/ui";
 import { ProductCollection } from "@medusajs/medusa";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-    CollectionLocalizationSchema,
+    collectionLocalizationSchema,
     CollectionLocalizationSchemaType,
 } from "../../schemas/localization-schemas";
 import useLocalizeCollection from "../../hooks/useLocalizeCollection";
@@ -37,7 +37,7 @@ export const CollectionLocalizationForm = ({
     const { register, handleSubmit } =
         useForm<CollectionLocalizationSchemaType>({
             mode: "onChange",
-            resolver: zodResolver(CollectionLocalizationSchema),
+            resolver: zodResolver(collectionLocalizationSchema),
             defaultValues: getDefaultValues(regionId),
         });
 

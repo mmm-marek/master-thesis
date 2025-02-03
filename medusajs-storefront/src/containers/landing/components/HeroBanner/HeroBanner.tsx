@@ -15,11 +15,11 @@ const HeroBanner = () => {
 			<SC.TextWrapper>
 				<SC.Title>{t('title')}</SC.Title>
 				<SC.Description>{t('description')}</SC.Description>
-				<Button size='extra-large' shape='round' type='primary' onClick={() => router.push(PATHS.PRODUCTS)}>
+				<Button size='large' variant='primary' onPress={() => router.push(PATHS.PRODUCTS)}>
 					{t('cta')}
 				</Button>
 			</SC.TextWrapper>
-			<SC.ImageStyled src='/images/landing-illustration.png' alt='landing' width={1180} height={904} />
+			<SC.ImageStyled src='/images/landing-illustration.png' alt={t('grBottle')} width={1180} height={904} />
 		</SC.Container>
 	)
 }

@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { z } from 'zod'
+import z from 'zod'
 
 /**
  * Use URL constraint to validate url. Prevent URLs ending with '/'

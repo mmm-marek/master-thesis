@@ -1,23 +1,23 @@
-import { Checkbox } from 'antd'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import Button from '@/atoms/Button/Button'
+import Checkbox from '@/atoms/Checkbox/Checkbox'
 import InputField from '@/atoms/InputField/InputField'
 import HookFormField from '@/components/HookFormField'
 import { useStore } from '@/providers/StoreProvider'
-import { AddCheckoutBillingFormSchema } from '@/schemas/addCheckoutBillingSchemas'
-import { zodResolver } from '@/utils/zodResolver'
+import { AddCheckoutBillingFormFields, useAddCheckoutBillingFormSchema } from '@/schemas/addCheckoutBillingSchemas'
 
 import * as SC from './AddCheckoutBillingFormStyles'
-import { AddCheckoutBillingFormFields } from './AddCheckoutBillingFormTypes'
 
 type AddCheckoutBillingFormProps = {
 	onSubmitted: () => void
 }
 
 const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) => {
+	const schema = useAddCheckoutBillingFormSchema()
 	const t = useTranslations('containers.checkout')
 
 	const { updateBillingAddress, cart } = useStore()
@@ -30,7 +30,7 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 		handleSubmit
 	} = useForm<AddCheckoutBillingFormFields>({
 		mode: 'onChange',
-		resolver: zodResolver(AddCheckoutBillingFormSchema),
+		resolver: zodResolver(schema),
 		defaultValues: {
 			address1: cart?.billing_address?.address_1 ?? '',
 			address2: cart?.billing_address?.address_2 ?? '',
@@ -70,26 +70,22 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 
 	return (
 		<SC.Form onSubmitCapture={handleSubmit(handleFormSubmit)}>
-			<SC.CheckboxWrapper>
-				<Checkbox
-					onChange={(e) => {
-						setSameAsShipping(e.target.checked)
-						if (e.target.checked) {
-							handleSameAsShipping()
-						}
-					}}
-					value={sameAsShipping}
-				>
-					<SC.ShippingText>{t('sameAsShipping')}</SC.ShippingText>
-				</Checkbox>
-			</SC.CheckboxWrapper>
+			<Checkbox
+				onChange={(selected) => {
+					setSameAsShipping(selected)
+					if (selected) {
+						handleSameAsShipping()
+					}
+				}}
+				isSelected={sameAsShipping}
+				label={t('sameAsShipping')}
+			/>
 			<HookFormField
 				label={t('address1')}
 				placeholder={t('enterAddress1')}
 				component={InputField}
 				control={control}
 				name='address1'
-				size='large'
 				required
 				disabled={sameAsShipping}
 			/>
@@ -99,7 +95,6 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 				component={InputField}
 				control={control}
 				name='address2'
-				size='large'
 				required
 				disabled={sameAsShipping}
 			/>
@@ -109,7 +104,6 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 				component={InputField}
 				control={control}
 				name='city'
-				size='large'
 				required
 				disabled={sameAsShipping}
 			/>
@@ -119,7 +113,6 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 				component={InputField}
 				control={control}
 				name='countryCode'
-				size='large'
 				required
 				disabled={sameAsShipping}
 			/>
@@ -129,7 +122,6 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 				component={InputField}
 				control={control}
 				name='postalCode'
-				size='large'
 				required
 				disabled={sameAsShipping}
 			/>
@@ -139,11 +131,10 @@ const AddCheckoutBillingForm = ({ onSubmitted }: AddCheckoutBillingFormProps) =>
 				component={InputField}
 				control={control}
 				name='company'
-				size='large'
 				required
 				disabled={sameAsShipping}
 			/>
-			<Button type='primary' size='large' htmlType='submit' shape='round' block disabled={isSubmitting} loading={isSubmitting}>
+			<Button variant='primary' size='large' type='submit' isDisabled={isSubmitting} isPending={isSubmitting}>
 				{t('submitButton')}
 			</Button>
 		</SC.Form>

@@ -1,4 +1,7 @@
 import styled from 'styled-components'
-import { Form as AntdForm } from 'antd'
 
-export const Form = styled(AntdForm)``
+export const Form = styled.form`
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+`

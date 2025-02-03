@@ -1,47 +1,71 @@
+import { Radio as AriaRadio, RadioGroup as AriaRadioGroup } from 'react-aria-components'
 import styled, { css } from 'styled-components'
 
-import { textMdRegular, textSmRegular } from '@/styles/helpers'
+import { textMdSemibold, textSmRegular } from '@/styles/helpers'
 
-export const ContentWrapper = styled.span`
+export const RadioGroup = styled(AriaRadioGroup)`
 	display: flex;
 	flex-direction: column;
+	gap: 12px;
 `
 
-export const CardsWrapper = styled.div`
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 16px;
-`
-
-export const AddressWrapper = styled.span`
-	display: flex;
-	flex-direction: column;
-`
-
-export const AddressName = styled.span`
+export const Radio = styled(AriaRadio)`
 	${({ theme }) => css`
-		${textMdRegular};
-		color: ${theme.tokens['color-base-content-primary']};
-	`}
-`
+		display: flex;
+		gap: 8px;
+		align-items: start;
+		border-bottom: 1px solid ${theme.tokens['color-base-action-secondary-default']};
+		padding-bottom: 8px;
 
-export const Address = styled.span`
-	${({ theme }) => css`
-		${textSmRegular};
-		color: ${theme.tokens['color-base-content-secondary']};
-	`}
-`
-
-export const OptionLabel = styled.label`
-	${({ theme }) => css`
-		border: 1px solid ${theme.tokens['color-base-surface-quaternary']};
-		border-radius: 16px;
-		padding: 16px;
-		min-height: 150px;
-
-		& .ant-radio {
-			align-self: start !important;
-			margin-top: 4px;
+		&::before {
+			display: block;
+			transition: all 200ms;
+			margin-top: 2px;
+			border: 2px solid ${theme.tokens['color-base-surface-secondary']};
+			border-radius: 20px;
+			background: ${theme.tokens['color-base-surface-quaternary']};
+			width: 20px;
+			height: 20px;
+			content: '';
 		}
+
+		&[data-pressed]::before {
+			border-color: ${theme.tokens['color-base-action-primary-active']};
+		}
+
+		&[data-selected] {
+			&::before {
+				border-width: 6px;
+				border-color: ${theme.tokens['color-base-action-primary-default']};
+			}
+
+			&[data-pressed]::before {
+				border-color: ${theme.tokens['color-base-action-primary-active']};
+			}
+		}
+
+		&[data-focus-visible]::before {
+			outline: 2px solid ${theme.tokens['color-base-action-primary-hover']};
+			outline-offset: 2px;
+		}
+	`}
+`
+
+export const AddressWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+`
+
+export const AddressName = styled.div`
+	${({ theme }) => css`
+		color: ${theme.tokens['color-base-content-primary']};
+		${textMdSemibold};
+	`}
+`
+
+export const AddressDescription = styled.div`
+	${({ theme }) => css`
+		color: ${theme.tokens['color-base-content-secondary']};
+		${textSmRegular};
 	`}
 `
