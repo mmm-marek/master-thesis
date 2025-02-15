@@ -5,7 +5,7 @@ import {
     putCollectionLocalizationSchema,
     deleteCollectionLocalizationSchema,
     PutCollectionLocalizationSchemaFields,
-} from "../../../schemas/localization/collection-localization-schemas";
+} from "../../../schemas/localization/collection";
 import { CollectionLocalization } from "../../../models/collection-localization";
 import { ApiError } from "../../../utils/types";
 
@@ -28,8 +28,8 @@ export async function GET(
     }
 
     const collectionLocalization = await collectionLocalizationService.getOne(
-        req.query.collection_id as string,
-        req.query.language_code as string
+        parsed.data.collection_id,
+        parsed.data.language_code
     );
 
     res.status(200).json({ collectionLocalization });

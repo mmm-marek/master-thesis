@@ -1,40 +1,44 @@
 import { useForm } from "react-hook-form";
 import { ProductCategory } from "@medusajs/medusa";
 import { Button, Input, Textarea } from "@medusajs/ui";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { CategoryLocalizationSchemaType } from "../../schemas/localization-schemas";
 import {
-    categoryLocalizationSchema,
-    CategoryLocalizationSchemaType,
-} from "../../schemas/localization-schemas";
-import useLocalizeCategory from "../../hooks/useLocalizeCategory";
+    useGetLocalizedCategory,
+    useLocalizeCategory,
+} from "../../hooks/localization/category";
+import { useQueryClient } from "@tanstack/react-query";
+import { QUERY_KEYS } from "../../utils/query-keys";
 
-type RegionLocalizationFormProps = {
+type CategoryLocalizationFormProps = {
     category: ProductCategory;
-    regionId: string;
+    languageCode: string;
     onSuccess: () => void;
     onError: () => void;
 };
 
 export const CategoryLocalizationForm = ({
     category,
-    regionId,
+    languageCode,
     onSuccess,
     onError,
-}: RegionLocalizationFormProps) => {
-    const getDefaultValues = (regionId: string) => {
-        const localization = category.metadata?.localization;
-        if (localization && localization[regionId]) {
-            return localization[regionId];
-        }
-        return {};
-    };
+}: CategoryLocalizationFormProps) => {
+    const queryClient = useQueryClient();
 
-    const { mutate: updateCategory } = useLocalizeCategory(category, regionId);
+    const localizedCategory = useGetLocalizedCategory({
+        categoryId: category.id,
+        languageCode: languageCode,
+    });
+
+    const { mutate: updateCategory } = useLocalizeCategory({
+        categoryId: category.id,
+        languageCode: languageCode,
+    });
 
     const { register, handleSubmit } = useForm<CategoryLocalizationSchemaType>({
-        mode: "onChange",
-        resolver: zodResolver(categoryLocalizationSchema),
-        defaultValues: getDefaultValues(regionId),
+        values: {
+            name: localizedCategory.data?.name ?? "",
+            description: localizedCategory.data?.description ?? "",
+        },
     });
 
     const handleFormSubmit = (data: CategoryLocalizationSchemaType) => {
@@ -44,7 +48,16 @@ export const CategoryLocalizationForm = ({
                 description: data.description,
             },
             {
-                onSuccess,
+                onSuccess: () => {
+                    queryClient.invalidateQueries({
+                        queryKey: [
+                            QUERY_KEYS.API_GET_LOCALIZED_CATEGORY,
+                            category.id,
+                            languageCode,
+                        ],
+                    });
+                    onSuccess();
+                },
                 onError,
             }
         );
@@ -57,25 +70,25 @@ export const CategoryLocalizationForm = ({
             <div>
                 <label
                     className="text-grey-90 inter-xsmall-semibold"
-                    htmlFor={`${regionId}-name`}>
+                    htmlFor={`${languageCode}-name`}>
                     Name
                 </label>
                 <Input
                     placeholder="Name"
                     {...register("name")}
-                    id={`${regionId}-name`}
+                    id={`${languageCode}-name`}
                 />
             </div>
             <div>
                 <label
                     className="text-grey-90 inter-xsmall-semibold"
-                    htmlFor={`${regionId}-description`}>
+                    htmlFor={`${languageCode}-description`}>
                     Description
                 </label>
                 <Textarea
                     placeholder="Description"
                     {...register("description")}
-                    id={`${regionId}-description`}
+                    id={`${languageCode}-description`}
                 />
             </div>
             <div className="w-full flex justify-end">

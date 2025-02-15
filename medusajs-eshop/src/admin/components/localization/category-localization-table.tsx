@@ -87,7 +87,7 @@ const CategoryLocalizationTable = ({
                                             form={
                                                 <CategoryLocalizationForm
                                                     category={category}
-                                                    regionId={region.id}
+                                                    languageCode={region.name}
                                                     onSuccess={handleSuccess}
                                                     onError={handleError}
                                                 />
