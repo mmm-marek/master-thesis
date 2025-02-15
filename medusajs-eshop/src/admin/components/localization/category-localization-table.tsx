@@ -8,7 +8,7 @@ import useGetCategories, {
 import useGetRegions from "../../hooks/useGetRegions";
 import Loading from "../shared/loading";
 import Error from "../shared/error";
-import { QUERY_KEYS } from "../../utils/queryKeys";
+import { QUERY_KEYS } from "../../utils/query-keys";
 import LocalizationDrawer from "./localization-drawer";
 import CategoryLocalizationForm from "./category-localization-form";
 
@@ -53,7 +53,9 @@ const CategoryLocalizationTable = ({
         notify.error("error", "category localization update failed");
     };
 
-    const pageCount = Math.ceil(categoriesData.count / CATEGORIES_LIMIT);
+    const pageCount = Math.ceil(
+        (categoriesData?.count ?? 1) / CATEGORIES_LIMIT
+    );
 
     return (
         <div>
@@ -69,41 +71,37 @@ const CategoryLocalizationTable = ({
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {categoriesData.product_categories.map((category) => {
-                        return (
-                            <Table.Row key={category.id}>
-                                <Table.Cell className="truncate max-w-[350px]">
-                                    {category.name}
-                                </Table.Cell>
-                                <Table.Cell className="flex gap-1 flex-wrap py-1 h-fit">
-                                    {regions.map((region) => {
-                                        return (
-                                            <LocalizationDrawer
-                                                key={region.id}
-                                                title={`Localize ${category.name}`}
-                                                subtitle={`Region ${region.name}`}
-                                                triggerText={region.name}
-                                                form={
-                                                    <CategoryLocalizationForm
-                                                        category={category}
-                                                        regionId={region.id}
-                                                        onSuccess={
-                                                            handleSuccess
-                                                        }
-                                                        onError={handleError}
-                                                    />
-                                                }
-                                            />
-                                        );
-                                    })}
-                                </Table.Cell>
-                            </Table.Row>
-                        );
-                    })}
+                    {categoriesData?.product_categories.map((category) => (
+                        <Table.Row key={category.id}>
+                            <Table.Cell className="truncate max-w-[350px]">
+                                {category.name}
+                            </Table.Cell>
+                            <Table.Cell className="flex gap-1 flex-wrap py-1 h-fit">
+                                {regions.map((region) => {
+                                    return (
+                                        <LocalizationDrawer
+                                            key={region.id}
+                                            title={`Localize ${category.name}`}
+                                            subtitle={`Region ${region.name}`}
+                                            triggerText={region.name}
+                                            form={
+                                                <CategoryLocalizationForm
+                                                    category={category}
+                                                    regionId={region.id}
+                                                    onSuccess={handleSuccess}
+                                                    onError={handleError}
+                                                />
+                                            }
+                                        />
+                                    );
+                                })}
+                            </Table.Cell>
+                        </Table.Row>
+                    ))}
                 </Table.Body>
             </Table>
             <Table.Pagination
-                count={categoriesData.count}
+                count={categoriesData?.count ?? 0}
                 pageSize={CATEGORIES_LIMIT}
                 pageIndex={page}
                 pageCount={pageCount}
