@@ -1,37 +1,32 @@
-import { PricedProduct } from '@medusajs/medusa/dist/types/pricing'
+import { Product } from '@medusajs/medusa'
 import { useQuery } from '@tanstack/react-query'
 
-import { LocalizedProduct } from '@/types/types'
+import { useStore } from '@/providers/StoreProvider'
 import { QUERY_KEYS } from '@/utils/enums'
-import { localizeProduct } from '@/utils/localization'
 import { medusa } from '@/utils/medusaHelpers'
 
 type QueryParams = {
-	handle: string
-	regionID?: string
+	languageCode?: string
+	productId: string
 }
 
-export const getLocalizedProductQueryKey = (params: QueryParams) => [QUERY_KEYS.API_GET_LOCALIZED_PRODUCT, params]
+export const getLocalizedProductQueryKey = (params: QueryParams) => [QUERY_KEYS.API_GET_LOCALIZED_PRODUCTS, params]
 
-export const getLocalizedProduct = async ({ handle, regionID }: QueryParams): Promise<LocalizedProduct<PricedProduct> | undefined> => {
-	const { products } = await medusa.products.list({
-		handle
+export const getLocalizedProduct = async ({ languageCode, productId }: QueryParams) => {
+	const { localizedProduct } = await medusa.client.request('GET', `/store/localized-product/${productId}`, undefined, undefined, {
+		'accept-language': languageCode
 	})
 
-	const product = products[0]
-
-	if (!regionID || !product) {
-		return undefined
-	}
-
-	return localizeProduct({ product, regionID })
+	return localizedProduct as Product
 }
 
-export const useGetLocalizedProduct = (params: QueryParams) => {
+export const useGetLocalizedProduct = (productId: string) => {
+	const { getRegion } = useStore()
+	const languageCode = getRegion()?.countryCode
+
 	return useQuery({
-		queryKey: getLocalizedProductQueryKey(params),
-		queryFn: async () => getLocalizedProduct(params),
-		enabled: !!params.regionID
+		queryKey: getLocalizedProductQueryKey({ languageCode, productId }),
+		queryFn: async () => getLocalizedProduct({ languageCode, productId })
 	})
 }
 

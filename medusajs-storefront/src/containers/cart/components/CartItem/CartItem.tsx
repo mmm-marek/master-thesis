@@ -6,7 +6,6 @@ import { useTheme } from 'styled-components'
 
 import Button from '@/atoms/Button/Button'
 import { useStore } from '@/providers/StoreProvider'
-import { localizeProduct } from '@/utils/localization'
 
 import * as SC from './CartItemStyles'
 
@@ -17,7 +16,6 @@ type CartItemProps = {
 
 const CartItem = ({ item, region }: CartItemProps) => {
 	const theme = useTheme()
-	const { cart } = useStore()
 	const t = useTranslations('containers.cart')
 	const { deleteItem, updateItem, isUpdatingCart } = useStore()
 
@@ -38,14 +36,12 @@ const CartItem = ({ item, region }: CartItemProps) => {
 		updateItem({ lineId: item.id, quantity: item.quantity - 1 })
 	}
 
-	const localizedProduct = localizeProduct({ product: item.variant.product, regionID: cart?.region_id })
-
 	return (
 		<SC.Wrapper>
 			{item.thumbnail && <SC.Thumbnail src={item.thumbnail} alt={item.title ?? t('product')} objectFit='contain' width={164} height={164} />}
 			<SC.ContentWrapper>
 				<SC.Header>
-					<SC.Title>{localizedProduct.localizedTitle}</SC.Title>
+					<SC.Title>{item.title}</SC.Title>
 					<SC.Price>{formatAmount({ amount: item.subtotal ?? 0, region })}</SC.Price>
 				</SC.Header>
 				<SC.Variant>{item.variant.title}</SC.Variant>

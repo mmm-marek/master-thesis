@@ -5,11 +5,11 @@ import { useStore } from '@/providers/StoreProvider'
 import { QUERY_KEYS } from '@/utils/enums'
 import { medusa } from '@/utils/medusaHelpers'
 
-export const getLocalizedCategoriesQueryKey = (regionId?: string) => [QUERY_KEYS.API_GET_LOCALIZED_CATEGORIES, regionId]
+export const getLocalizedCategoriesQueryKey = (languageCode?: string) => [QUERY_KEYS.API_GET_LOCALIZED_CATEGORIES, languageCode]
 
-export const getLocalizedCategories = async (regionId?: string) => {
+export const getLocalizedCategories = async (languageCode?: string) => {
 	const { localizedCategories } = await medusa.client.request('GET', `/store/localized-category`, undefined, undefined, {
-		'accept-language': regionId
+		'accept-language': languageCode
 	})
 
 	return localizedCategories as ProductCategory[]

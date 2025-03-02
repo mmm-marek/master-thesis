@@ -1,17 +1,8 @@
-import { Product } from '@medusajs/medusa'
-import { PricedProduct } from '@medusajs/medusa/dist/types/pricing'
 import { ReactNode } from 'react'
 
 import { MSG_TYPE, THEME_OPTION, USER_ROLE } from '@/utils/enums'
 
 import type { ControllerFieldState, ControllerRenderProps } from 'react-hook-form'
-
-export type LocalizedProduct<T extends Product | PricedProduct = Product> = T & {
-	localizedTitle?: string
-	localizedSubtitle?: string | null
-	localizedDescription?: string | null
-	localizedMaterial?: string | null
-}
 
 export interface IErrorMessage {
 	type: MSG_TYPE
