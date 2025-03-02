@@ -50,11 +50,11 @@ export async function POST(
         "variantLocalizationService"
     );
 
-    const localization = await service.upsert({
-        ...parsedData.data,
-    });
+    const { variants, language_code } = parsedData.data;
 
-    res.status(200).json({ localization });
+    const localizations = await service.bulkUpsert(variants, language_code);
+
+    res.status(200).json({ localizations });
 }
 
 export async function DELETE(

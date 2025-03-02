@@ -20,7 +20,6 @@ export const useLocalizeVariant = ({
                 `/admin/variant-localization`,
                 {
                     ...data,
-                    product_id: productId,
                     language_code: languageCode,
                 }
             );

@@ -1,6 +1,7 @@
 import { TransactionBaseService } from "@medusajs/medusa";
 import { VariantLocalization } from "../models/variant-localization";
 import { VariantLocalizationRepository } from "../repositories/variant-localization";
+import { EntityManager } from "typeorm";
 
 class VariantLocalizationService extends TransactionBaseService {
     protected repository_: typeof VariantLocalizationRepository;
@@ -14,9 +15,11 @@ class VariantLocalizationService extends TransactionBaseService {
         data: Pick<
             VariantLocalization,
             "variant_id" | "language_code" | "title"
-        >
+        >,
+        transactionManager?: EntityManager
     ) {
-        const repo = this.activeManager_.withRepository(this.repository_);
+        const manager = transactionManager || this.activeManager_;
+        const repo = manager.withRepository(this.repository_);
 
         const existing = await repo.findOne({
             where: {
@@ -32,6 +35,31 @@ class VariantLocalizationService extends TransactionBaseService {
 
         const created = repo.create(data);
         return await repo.save(created);
+    }
+
+    async bulkUpsert(
+        variantData: Array<{
+            variant_id: string;
+            title: string;
+        }>,
+        language_code: string
+    ): Promise<VariantLocalization[]> {
+        return await this.atomicPhase_(async (transactionManager) => {
+            const results = await Promise.all(
+                variantData.map((variant) =>
+                    this.upsert(
+                        {
+                            variant_id: variant.variant_id,
+                            title: variant.title,
+                            language_code,
+                        },
+                        transactionManager
+                    )
+                )
+            );
+
+            return results;
+        });
     }
 
     async delete(variant_id: string, language_code: string) {
