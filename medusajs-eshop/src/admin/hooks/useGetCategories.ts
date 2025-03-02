@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { QUERY_KEYS } from "../utils/queryKeys";
+import { QUERY_KEYS } from "../utils/query-keys";
 import { medusa } from "../utils/medusa-helpers";
 
 export const CATEGORIES_LIMIT = 20;

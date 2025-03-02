@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { medusa } from "../utils/medusa-helpers";
-import { QUERY_KEYS } from "../utils/queryKeys";
+import { QUERY_KEYS } from "../utils/query-keys";
 
 const useGetRegions = () => {
     return useQuery({
