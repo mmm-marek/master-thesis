@@ -116,7 +116,7 @@ class LocalizedProductService extends TransactionBaseService {
         });
     }
 
-    async getOne(language_code: string, product_id: string) {
+    async getOne(language_code: string, product_handle: string) {
         const productRepository = this.activeManager_.withRepository(
             this.productRepository
         );
@@ -134,7 +134,13 @@ class LocalizedProductService extends TransactionBaseService {
             );
 
         const product = await productRepository.findOne({
-            where: { id: product_id },
+            relations: {
+                variants: {
+                    prices: true,
+                },
+                categories: true,
+            },
+            where: { handle: product_handle },
         });
 
         if (!product) {
@@ -142,7 +148,7 @@ class LocalizedProductService extends TransactionBaseService {
         }
 
         const localizedProduct = await productLocalizationRepository.findOne({
-            where: { language_code, product_id },
+            where: { language_code, product_id: product.id },
         });
         const localizedCategories = await categoryLocalizationRepository.find({
             where: {

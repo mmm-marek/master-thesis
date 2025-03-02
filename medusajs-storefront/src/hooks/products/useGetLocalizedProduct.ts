@@ -7,26 +7,26 @@ import { medusa } from '@/utils/medusaHelpers'
 
 type QueryParams = {
 	languageCode?: string
-	productId: string
+	productHandle: string
 }
 
 export const getLocalizedProductQueryKey = (params: QueryParams) => [QUERY_KEYS.API_GET_LOCALIZED_PRODUCTS, params]
 
-export const getLocalizedProduct = async ({ languageCode, productId }: QueryParams) => {
-	const { localizedProduct } = await medusa.client.request('GET', `/store/localized-product/${productId}`, undefined, undefined, {
+export const getLocalizedProduct = async ({ languageCode, productHandle }: QueryParams) => {
+	const { localizedProduct } = await medusa.client.request('GET', `/store/localized-product/${productHandle}`, undefined, undefined, {
 		'accept-language': languageCode
 	})
 
 	return localizedProduct as Product
 }
 
-export const useGetLocalizedProduct = (productId: string) => {
+export const useGetLocalizedProduct = (productHandle: string) => {
 	const { getRegion } = useStore()
 	const languageCode = getRegion()?.countryCode
 
 	return useQuery({
-		queryKey: getLocalizedProductQueryKey({ languageCode, productId }),
-		queryFn: async () => getLocalizedProduct({ languageCode, productId })
+		queryKey: getLocalizedProductQueryKey({ languageCode, productHandle }),
+		queryFn: async () => getLocalizedProduct({ languageCode, productHandle })
 	})
 }
 

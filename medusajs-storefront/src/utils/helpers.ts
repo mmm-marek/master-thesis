@@ -34,8 +34,6 @@ export const showNotifications = (messages?: IErrorMessage[], typeNotification?:
 			forEach(messages, (message) => {
 				toastQueue.add(message.message, { timeout: 5000 })
 			})
-		} else if (typeNotification === NOTIFICATION_TYPE.MODAL) {
-			// TODO: implement modal notification
 		}
 	}
 }

@@ -6,7 +6,6 @@ export enum MSG_TYPE {
 }
 
 export enum NOTIFICATION_TYPE {
-	MODAL = 'MODAL',
 	NOTIFICATION = 'NOTIFICATION'
 }
 

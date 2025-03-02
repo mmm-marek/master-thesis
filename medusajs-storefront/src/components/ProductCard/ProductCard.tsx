@@ -7,7 +7,7 @@ import { PATHS } from '@/utils/enums'
 import * as SC from './ProductCardStyles'
 
 type ProductCardProps = {
-	product: any // TODO: Fix
+	product: any // TODO: Fix - should be Product type from @medusa
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
