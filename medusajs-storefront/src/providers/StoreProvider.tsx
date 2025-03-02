@@ -34,6 +34,7 @@ type StoreContextType = {
 	resetCart: (callbacks?: Partial<MutationCallbacks>) => void
 	updateShippingAddress: (address: StorePostCartsCartReq['shipping_address'], callbacks?: Partial<MutationCallbacks>) => void
 	updateBillingAddress: (address: StorePostCartsCartReq['billing_address'], callbacks?: Partial<MutationCallbacks>) => void
+	updateShippingMethod: (shippingMethodId: string, callbacks?: Partial<MutationCallbacks>) => void
 	updateCheckoutEmail: (email: string, callbacks?: Partial<MutationCallbacks>) => void
 	initPayment: (callbacks?: Partial<MutationCallbacks>) => void
 	completePayment: (callbacks?: Partial<MutationCallbacks>) => void
@@ -90,7 +91,7 @@ const deleteRegion = () => {
  * which ensures that the cart is defined and updated after each operation.
  */
 export const StoreProvider = ({ children }: StoreProps) => {
-	const { cart, setCart, createCart, updateCart } = useCart()
+	const { cart, setCart, createCart, updateCart, addShippingMethod } = useCart()
 	const { shipping_options: shippingOptions } = useCartShippingOptions(cart!.id)
 	const addLineItem = useCreateLineItem(cart!.id)
 	const removeLineItem = useDeleteLineItem(cart!.id)
@@ -353,6 +354,28 @@ export const StoreProvider = ({ children }: StoreProps) => {
 		)
 	}
 
+	const updateShippingMethod = async (shippingMethodId: string, callbacks?: Partial<MutationCallbacks>) => {
+		await addShippingMethod.mutateAsync(
+			{ option_id: shippingMethodId },
+			{
+				onSuccess: ({ cart: newCart }) => {
+					setCart(newCart)
+					storeCart(newCart.id)
+					if (callbacks?.onSuccess) {
+						callbacks?.onSuccess()
+					}
+				},
+				onError: (error) => {
+					// eslint-disable-next-line no-console
+					console.error(error)
+					if (callbacks?.onError) {
+						callbacks?.onError()
+					}
+				}
+			}
+		)
+	}
+
 	const initPayment = (callbacks?: Partial<MutationCallbacks>) => {
 		const cartId = getCart()
 
@@ -505,6 +528,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				isUpdatingCart,
 				updateShippingAddress,
 				updateBillingAddress,
+				updateShippingMethod,
 				shippingOptions: shippingOptions || [],
 				updateCheckoutEmail,
 				initPayment,

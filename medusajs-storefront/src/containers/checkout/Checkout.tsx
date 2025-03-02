@@ -9,6 +9,7 @@ import AddCheckoutBillingForm from './components/AddCheckoutBillingForm/AddCheck
 import CheckoutSummary from './components/CheckoutSummary/CheckoutSummary'
 import PersonalInformationForm from './components/PersonalInformationForm/PersonalInformationForm'
 import ShippingAddressPicker from './components/ShippingAddressPicker/ShippingAddressPicker'
+import ShippingMethodForm from './components/ShippingMethodForm/ShippingMethodForm'
 import StripeContainer from './components/StripeContainer/StripeContainer'
 
 const shippingAddressesRegionSk = [
@@ -78,12 +79,12 @@ const shippingAddressesRegionUs = [
 	}
 ]
 
-type CollapseKey = 'personalInformation' | 'shipping' | 'billing' | 'payment'
+type CollapseKey = 'personalInformation' | 'shipping' | 'billing' | 'shippingMethod' | 'payment'
 
 const Checkout = () => {
 	const t = useTranslations('containers.checkout')
 
-	const { initPayment, cart, getRegion } = useStore()
+	const { initPayment, cart, getRegion, updateShippingMethod } = useStore()
 
 	const [activeKey, setActiveKey] = useState<CollapseKey>('personalInformation')
 
@@ -115,6 +116,20 @@ const Checkout = () => {
 				<AddCheckoutBillingForm
 					onSubmitted={() => {
 						initPayment({
+							onSuccess: () => setActiveKey('shippingMethod')
+						})
+					}}
+				/>
+			)
+		},
+		{
+			key: 'shippingMethod',
+			isDisabled: cart?.shipping_methods?.length === 0 && activeKey !== 'shippingMethod',
+			label: t('shippingMethod'),
+			children: (
+				<ShippingMethodForm
+					onShippingMethodChange={(id) => {
+						updateShippingMethod(id, {
 							onSuccess: () => setActiveKey('payment')
 						})
 					}}
