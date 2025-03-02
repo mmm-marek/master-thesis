@@ -2,11 +2,12 @@ import { LineItem } from '@medusajs/medusa'
 import { MinusIcon, PlusIcon, Trash2Icon } from 'lucide-react'
 import { RegionInfo, formatAmount } from 'medusa-react'
 import { useTranslations } from 'next-intl'
-import { useTheme } from 'styled-components'
 
 import Button from '@/atoms/Button/Button'
+import useGetLocalizedProduct from '@/hooks/products/useGetLocalizedProduct'
 import { useStore } from '@/providers/StoreProvider'
 
+import CartItemSkeleton from './CartItemSkeleton'
 import * as SC from './CartItemStyles'
 
 type CartItemProps = {
@@ -15,9 +16,10 @@ type CartItemProps = {
 }
 
 const CartItem = ({ item, region }: CartItemProps) => {
-	const theme = useTheme()
 	const t = useTranslations('containers.cart')
 	const { deleteItem, updateItem, isUpdatingCart } = useStore()
+
+	const { data: localizedProduct, isLoading: isLoadingLocalizedProduct } = useGetLocalizedProduct(item.variant.product.handle!)
 
 	const handleDelete = () => {
 		deleteItem(item.id)
@@ -36,15 +38,22 @@ const CartItem = ({ item, region }: CartItemProps) => {
 		updateItem({ lineId: item.id, quantity: item.quantity - 1 })
 	}
 
+	if (isLoadingLocalizedProduct) {
+		return <CartItemSkeleton />
+	}
+
+	const productInfo = localizedProduct ?? item
+	const variantInfo = localizedProduct?.variants?.find((v) => v.id === item.variant.id)
+
 	return (
 		<SC.Wrapper>
-			{item.thumbnail && <SC.Thumbnail src={item.thumbnail} alt={item.title ?? t('product')} objectFit='contain' width={164} height={164} />}
+			{item.thumbnail && <SC.Thumbnail src={item.thumbnail} alt={productInfo?.title ?? t('product')} objectFit='contain' width={164} height={164} />}
 			<SC.ContentWrapper>
 				<SC.Header>
-					<SC.Title>{item.title}</SC.Title>
+					<SC.Title>{productInfo.title}</SC.Title>
 					<SC.Price>{formatAmount({ amount: item.subtotal ?? 0, region })}</SC.Price>
 				</SC.Header>
-				<SC.Variant>{item.variant.title}</SC.Variant>
+				<SC.Variant>{variantInfo?.title}</SC.Variant>
 				<div>
 					<SC.QuantityWrapper>
 						<SC.QuantityLabel>{t('quantity')}:</SC.QuantityLabel>
@@ -58,8 +67,8 @@ const CartItem = ({ item, region }: CartItemProps) => {
 							</Button>
 						</SC.QuantityControls>
 					</SC.QuantityWrapper>
-					<Button onPress={handleDelete} isDisabled={isUpdatingCart}>
-						<Trash2Icon color={theme.tokens['color-base-content-primary']} />
+					<Button onPress={handleDelete} isDisabled={isUpdatingCart} size='small' variant='secondary'>
+						<Trash2Icon />
 					</Button>
 				</div>
 			</SC.ContentWrapper>
