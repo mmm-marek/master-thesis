@@ -11,7 +11,7 @@ import PersonalInformationForm from './components/PersonalInformationForm/Person
 import ShippingAddressPicker from './components/ShippingAddressPicker/ShippingAddressPicker'
 import StripeContainer from './components/StripeContainer/StripeContainer'
 
-const shippingAddresses = [
+const shippingAddressesRegionSk = [
 	{
 		name: 'Office BA',
 		address1: 'Bottova 7939/2A',
@@ -43,14 +43,51 @@ const shippingAddresses = [
 	}
 ]
 
+const shippingAddressesRegionUs = [
+	{
+		name: 'Office NY',
+		address1: '123 Madison Ave',
+		address2: 'Suite 500',
+		city: 'New York',
+		countryCode: 'us',
+		postalCode: '10016'
+	},
+	{
+		name: 'Office SF',
+		address1: '456 Market St',
+		address2: 'Floor 10',
+		city: 'San Francisco',
+		countryCode: 'us',
+		postalCode: '94105'
+	},
+	{
+		name: 'Office CHI',
+		address1: '789 Wacker Dr',
+		address2: 'Suite 200',
+		city: 'Chicago',
+		countryCode: 'us',
+		postalCode: '60606'
+	},
+	{
+		name: 'Office LA',
+		address1: '101 Sunset Blvd',
+		address2: 'Building A',
+		city: 'Los Angeles',
+		countryCode: 'us',
+		postalCode: '90028'
+	}
+]
+
 type CollapseKey = 'personalInformation' | 'shipping' | 'billing' | 'payment'
 
 const Checkout = () => {
 	const t = useTranslations('containers.checkout')
 
-	const { initPayment, cart } = useStore()
+	const { initPayment, cart, getRegion } = useStore()
 
 	const [activeKey, setActiveKey] = useState<CollapseKey>('personalInformation')
+
+	const selectedCountryCode = getRegion()?.countryCode
 
 	const items = [
 		{
@@ -63,7 +100,12 @@ const Checkout = () => {
 			key: 'shipping',
 			isDisabled: !cart?.shipping_address?.first_name,
 			label: t('shipping'),
-			children: <ShippingAddressPicker shippingAddresses={shippingAddresses} onAddressChange={() => setActiveKey('billing')} />
+			children: (
+				<ShippingAddressPicker
+					shippingAddresses={selectedCountryCode === 'SK' ? shippingAddressesRegionSk : shippingAddressesRegionUs}
+					onAddressChange={() => setActiveKey('billing')}
+				/>
+			)
 		},
 		{
 			key: 'billing',

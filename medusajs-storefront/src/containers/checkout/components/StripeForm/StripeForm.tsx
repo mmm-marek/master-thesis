@@ -61,7 +61,7 @@ const StripeForm = () => {
 				/>
 			</SC.CardElementWrapper>
 			<SC.ButtonWrapper>
-				<Button variant='primary' onPress={handlePayment} type='submit'>
+				<Button variant='primary' onPress={handlePayment} type='button'>
 					{t('submit')}
 				</Button>
 			</SC.ButtonWrapper>
