@@ -26,7 +26,8 @@ type StoreContextType = {
 	countryCode: string | undefined
 	shippingOptions: PricedShippingOption[]
 	cart: Omit<Cart, 'refundable_amount' | 'refunded_total'> | undefined
-	setRegion: (regionId: string, countryCode: string, callbacks?: Partial<MutationCallbacks>) => void
+	setRegion: (regionId: string, regionName: string, callbacks?: Partial<MutationCallbacks>) => void
+	getRegion: () => { regionId: string; countryCode: string } | null
 	addItem: (item: VariantInfoProps, callbacks?: Partial<MutationCallbacks>) => void
 	updateItem: (item: LineInfoProps, callbacks?: Partial<MutationCallbacks>) => void
 	deleteItem: (lineId: string, callbacks?: Partial<MutationCallbacks>) => void
@@ -98,9 +99,9 @@ export const StoreProvider = ({ children }: StoreProps) => {
 
 	const [countryCode, setCountryCode] = useState<string | undefined>(undefined)
 
-	const storeRegion = (regionId: string, storeCountryCode: string) => {
+	const storeRegion = (regionId: string, regionName: string) => {
 		if (!IS_SERVER) {
-			localStorage.setItem(REGION_KEY, JSON.stringify({ regionId, countryCode: storeCountryCode }))
+			localStorage.setItem(REGION_KEY, JSON.stringify({ regionId, countryCode: regionName }))
 
 			setCountryCode(countryCode)
 		}
@@ -116,7 +117,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 		return null
 	}
 
-	const setRegion = async (regionId: string, countryISO: string, callbacks?: Partial<MutationCallbacks>) => {
+	const setRegion = async (regionId: string, regionName: string, callbacks?: Partial<MutationCallbacks>) => {
 		await updateCart.mutateAsync(
 			{
 				region_id: regionId
@@ -125,7 +126,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				onSuccess: ({ cart: newCart }) => {
 					setCart(newCart)
 					storeCart(newCart.id)
-					storeRegion(regionId, countryISO)
+					storeRegion(regionId, regionName)
 					if (callbacks?.onSuccess) {
 						callbacks?.onSuccess()
 					}
@@ -496,6 +497,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 			value={{
 				countryCode,
 				setRegion,
+				getRegion,
 				addItem,
 				deleteItem,
 				updateItem,

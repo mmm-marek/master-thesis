@@ -7,7 +7,6 @@ import ProductCard from '@/components/ProductCard/ProductCard'
 import useGetLocalizedProducts from '@/hooks/products/useGetLocalizedProducts'
 import { useStore } from '@/providers/StoreProvider'
 import { PATHS } from '@/utils/enums'
-import { localizeCategory } from '@/utils/localization'
 
 import * as SC from './CategoryStyles'
 
@@ -26,13 +25,6 @@ const Category = () => {
 		categoryID: product_categories?.map((category) => category.id)
 	})
 
-	const localizedCategories = product_categories?.map((category) =>
-		localizeCategory({
-			category,
-			regionID: cart?.region_id
-		})
-	)
-
 	return (
 		<>
 			<Breadcrumb
@@ -42,10 +34,7 @@ const Category = () => {
 						href: PATHS.HOME
 					},
 					{
-						title:
-							localizedCategories
-								?.map((category) => category.localizedName.charAt(0).toUpperCase() + category.localizedName.slice(1))
-								?.join(',') ?? ''
+						title: product_categories?.map((category) => category.name.charAt(0).toUpperCase() + category.name.slice(1))?.join(',') ?? ''
 					}
 				]}
 			/>

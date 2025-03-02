@@ -5,16 +5,14 @@ import { useTheme } from 'styled-components'
 import Error from '@/components/Error/Error'
 import Loading from '@/components/Loading/Loading'
 import useGetLocalizedCategories from '@/hooks/categories/useGetLocalizedCategories'
-import { useStore } from '@/providers/StoreProvider'
 import { PATHS } from '@/utils/enums'
 
 import * as SC from './CategoriesStyles'
 
 const Categories = () => {
 	const theme = useTheme()
-	const { cart } = useStore()
 	const t = useTranslations('containers.landing')
-	const { data: categories, isError, isLoading } = useGetLocalizedCategories(cart?.region_id)
+	const { data: categories, isError, isLoading } = useGetLocalizedCategories()
 
 	if (isLoading) {
 		return <Loading />
@@ -42,8 +40,8 @@ const Categories = () => {
 			<SC.IllustrationImage src='/images/t-shirt-illustration.png' alt={t('grTshirt')} width={1180} height={904} />
 			{categories.map((category, index) => (
 				<SC.CategoryCard key={category.id}>
-					<SC.CategoryLink href={`${PATHS.CATEGORY}/${category.handle}`}>{category.localizedName}</SC.CategoryLink>
-					<SC.Description>{category.localizedDescription}</SC.Description>
+					<SC.CategoryLink href={`${PATHS.CATEGORY}/${category.handle}`}>{category.name}</SC.CategoryLink>
+					<SC.Description>{category.description}</SC.Description>
 					<SC.IconWrapper>{getIconByCategoryIndex(index)}</SC.IconWrapper>
 				</SC.CategoryCard>
 			))}

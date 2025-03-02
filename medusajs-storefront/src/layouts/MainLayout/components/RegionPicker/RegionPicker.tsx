@@ -44,7 +44,7 @@ const RegionPicker = () => {
 				if (!newRegion) {
 					return
 				}
-				setRegion(newRegion.regionId, newRegion.countryIso)
+				setRegion(newRegion.regionId, newRegion.regionName)
 			}}
 		>
 			<SC.Button>{router.locale?.toUpperCase()}</SC.Button>

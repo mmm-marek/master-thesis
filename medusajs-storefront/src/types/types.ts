@@ -1,4 +1,4 @@
-import { Product, ProductCategory } from '@medusajs/medusa'
+import { Product } from '@medusajs/medusa'
 import { PricedProduct } from '@medusajs/medusa/dist/types/pricing'
 import { ReactNode } from 'react'
 
@@ -11,11 +11,6 @@ export type LocalizedProduct<T extends Product | PricedProduct = Product> = T & 
 	localizedSubtitle?: string | null
 	localizedDescription?: string | null
 	localizedMaterial?: string | null
-}
-
-export type LocalizedCategory = ProductCategory & {
-	localizedName: string
-	localizedDescription: string
 }
 
 export interface IErrorMessage {
