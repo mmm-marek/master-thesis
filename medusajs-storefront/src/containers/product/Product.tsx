@@ -1,6 +1,7 @@
 import { formatVariantPrice } from 'medusa-react'
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
+import { RadioGroup } from 'react-aria-components'
 
 import Breadcrumb from '@/atoms/Breadcrumb/Breadcrumb'
 import Button from '@/atoms/Button/Button'
@@ -81,16 +82,18 @@ const Product = ({ id }: ProductProps) => {
 							<SC.Material>{product?.material}</SC.Material>
 						</SC.TextWrapper>
 						<SC.VariantsSection>
-							<SC.VariantsRadioGroup onChange={handleVariantChange} defaultValue={defaultVariant?.id}>
+							<RadioGroup onChange={handleVariantChange} defaultValue={defaultVariant?.id}>
 								<SC.VariantsTitle>{t('variants')}</SC.VariantsTitle>
-								{product?.variants.map((variant) => (
-									<SC.RadioWrapper key={variant.id} $selected={selectedVariant?.id === variant.id}>
-										<SC.RadioVariant value={variant.id ?? ''} isDisabled={variant.inventory_quantity === 0}>
-											{variant.title}
-										</SC.RadioVariant>
-									</SC.RadioWrapper>
-								))}
-							</SC.VariantsRadioGroup>
+								<SC.VariantsWrapper>
+									{product?.variants.map((variant) => (
+										<SC.RadioWrapper key={variant.id} $selected={selectedVariant?.id === variant.id}>
+											<SC.RadioVariant value={variant.id ?? ''} isDisabled={variant.inventory_quantity === 0}>
+												{variant.title}
+											</SC.RadioVariant>
+										</SC.RadioWrapper>
+									))}
+								</SC.VariantsWrapper>
+							</RadioGroup>
 							<SC.QuantityInfo>
 								{t('inStock')}: <SC.Strong>{selectedVariant?.inventory_quantity ?? 0}</SC.Strong>
 							</SC.QuantityInfo>
