@@ -26,13 +26,15 @@ type StoreContextType = {
 	countryCode: string | undefined
 	shippingOptions: PricedShippingOption[]
 	cart: Omit<Cart, 'refundable_amount' | 'refunded_total'> | undefined
-	setRegion: (regionId: string, countryCode: string, callbacks?: Partial<MutationCallbacks>) => void
+	setRegion: (regionId: string, regionName: string, callbacks?: Partial<MutationCallbacks>) => void
+	getRegion: () => { regionId: string; countryCode: string } | null
 	addItem: (item: VariantInfoProps, callbacks?: Partial<MutationCallbacks>) => void
 	updateItem: (item: LineInfoProps, callbacks?: Partial<MutationCallbacks>) => void
 	deleteItem: (lineId: string, callbacks?: Partial<MutationCallbacks>) => void
 	resetCart: (callbacks?: Partial<MutationCallbacks>) => void
 	updateShippingAddress: (address: StorePostCartsCartReq['shipping_address'], callbacks?: Partial<MutationCallbacks>) => void
 	updateBillingAddress: (address: StorePostCartsCartReq['billing_address'], callbacks?: Partial<MutationCallbacks>) => void
+	updateShippingMethod: (shippingMethodId: string, callbacks?: Partial<MutationCallbacks>) => void
 	updateCheckoutEmail: (email: string, callbacks?: Partial<MutationCallbacks>) => void
 	initPayment: (callbacks?: Partial<MutationCallbacks>) => void
 	completePayment: (callbacks?: Partial<MutationCallbacks>) => void
@@ -89,7 +91,7 @@ const deleteRegion = () => {
  * which ensures that the cart is defined and updated after each operation.
  */
 export const StoreProvider = ({ children }: StoreProps) => {
-	const { cart, setCart, createCart, updateCart } = useCart()
+	const { cart, setCart, createCart, updateCart, addShippingMethod } = useCart()
 	const { shipping_options: shippingOptions } = useCartShippingOptions(cart!.id)
 	const addLineItem = useCreateLineItem(cart!.id)
 	const removeLineItem = useDeleteLineItem(cart!.id)
@@ -98,9 +100,9 @@ export const StoreProvider = ({ children }: StoreProps) => {
 
 	const [countryCode, setCountryCode] = useState<string | undefined>(undefined)
 
-	const storeRegion = (regionId: string, storeCountryCode: string) => {
+	const storeRegion = (regionId: string, regionName: string) => {
 		if (!IS_SERVER) {
-			localStorage.setItem(REGION_KEY, JSON.stringify({ regionId, countryCode: storeCountryCode }))
+			localStorage.setItem(REGION_KEY, JSON.stringify({ regionId, countryCode: regionName }))
 
 			setCountryCode(countryCode)
 		}
@@ -116,7 +118,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 		return null
 	}
 
-	const setRegion = async (regionId: string, countryISO: string, callbacks?: Partial<MutationCallbacks>) => {
+	const setRegion = async (regionId: string, regionName: string, callbacks?: Partial<MutationCallbacks>) => {
 		await updateCart.mutateAsync(
 			{
 				region_id: regionId
@@ -125,7 +127,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				onSuccess: ({ cart: newCart }) => {
 					setCart(newCart)
 					storeCart(newCart.id)
-					storeRegion(regionId, countryISO)
+					storeRegion(regionId, regionName)
 					if (callbacks?.onSuccess) {
 						callbacks?.onSuccess()
 					}
@@ -352,6 +354,28 @@ export const StoreProvider = ({ children }: StoreProps) => {
 		)
 	}
 
+	const updateShippingMethod = async (shippingMethodId: string, callbacks?: Partial<MutationCallbacks>) => {
+		await addShippingMethod.mutateAsync(
+			{ option_id: shippingMethodId },
+			{
+				onSuccess: ({ cart: newCart }) => {
+					setCart(newCart)
+					storeCart(newCart.id)
+					if (callbacks?.onSuccess) {
+						callbacks?.onSuccess()
+					}
+				},
+				onError: (error) => {
+					// eslint-disable-next-line no-console
+					console.error(error)
+					if (callbacks?.onError) {
+						callbacks?.onError()
+					}
+				}
+			}
+		)
+	}
+
 	const initPayment = (callbacks?: Partial<MutationCallbacks>) => {
 		const cartId = getCart()
 
@@ -496,6 +520,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 			value={{
 				countryCode,
 				setRegion,
+				getRegion,
 				addItem,
 				deleteItem,
 				updateItem,
@@ -503,6 +528,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
 				isUpdatingCart,
 				updateShippingAddress,
 				updateBillingAddress,
+				updateShippingMethod,
 				shippingOptions: shippingOptions || [],
 				updateCheckoutEmail,
 				initPayment,

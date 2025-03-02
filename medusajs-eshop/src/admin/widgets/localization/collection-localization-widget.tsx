@@ -4,7 +4,7 @@ import type {
     WidgetConfig,
     ProductCollectionDetailsWidgetProps,
 } from "@medusajs/admin";
-import { QUERY_KEYS } from "../../utils/queryKeys";
+import { QUERY_KEYS } from "../../utils/query-keys";
 import useGetRegions from "../../hooks/useGetRegions";
 import useGetCollection from "../../hooks/useGetCollection";
 import Error from "../../components/shared/error";
@@ -52,16 +52,18 @@ const ProductLocalizationWidget = ({
                     return (
                         <LocalizationDrawer
                             key={region.id}
-                            title={`Localize ${collection.title}`}
+                            title={`Localize ${collection?.title}`}
                             subtitle={`Region ${region.name}`}
                             triggerText={region.name}
                             form={
-                                <CollectionLocalizationForm
-                                    collection={collection}
-                                    regionId={region.id}
-                                    onSuccess={handleSuccess}
-                                    onError={handleError}
-                                />
+                                collection && (
+                                    <CollectionLocalizationForm
+                                        collection={collection}
+                                        languageCode={region.name}
+                                        onSuccess={handleSuccess}
+                                        onError={handleError}
+                                    />
+                                )
                             }
                         />
                     );

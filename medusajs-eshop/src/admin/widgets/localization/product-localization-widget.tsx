@@ -1,7 +1,7 @@
 import { Container } from "@medusajs/ui";
 import { useQueryClient } from "@tanstack/react-query";
 import type { WidgetConfig, ProductDetailsWidgetProps } from "@medusajs/admin";
-import { QUERY_KEYS } from "../../utils/queryKeys";
+import { QUERY_KEYS } from "../../utils/query-keys";
 import useGetRegions from "../../hooks/useGetRegions";
 import useGetProduct from "../../hooks/useGetProduct";
 import LocalizationDrawer from "../../components/localization/localization-drawer";
@@ -57,13 +57,13 @@ const ProductLocalizationWidget = ({
                                 <>
                                     <ProductLocalizationForm
                                         product={pricedProduct}
-                                        regionId={region.id}
+                                        languageCode={region.name}
                                         onSuccess={handleSuccess}
                                         onError={handleError}
                                     />
                                     <VariantsLocalizationForm
                                         product={pricedProduct}
-                                        regionId={region.id}
+                                        languageCode={region.name}
                                         onSuccess={handleSuccess}
                                         onError={handleError}
                                     />

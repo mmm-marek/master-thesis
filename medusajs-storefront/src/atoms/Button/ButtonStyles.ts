@@ -24,6 +24,7 @@ export const Button = styled(AriaButton)<{ $size: ButtonSize; $variant: ButtonVa
 		border: none;
 		border-radius: ${theme.borderRadius.circle};
 		width: fit-content;
+		height: fit-content;
 
 		${$isFullWidth &&
 		css`

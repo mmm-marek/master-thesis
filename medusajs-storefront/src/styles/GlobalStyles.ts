@@ -1,8 +1,32 @@
-import styled, { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle, css, keyframes } from 'styled-components'
 
 import { WRAPPER_MAX_WIDTH, WRAPPER_PADDING_DESKTOP, WRAPPER_PADDING_MOBILE, breakpoints, screenReaderOnly } from './helpers'
 
 import 'nprogress/nprogress.css'
+
+export const shimmer = keyframes`
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+`
+
+export const skeletonBase = css`
+	${({ theme }) => css`
+		border-radius: 4px;
+		background: ${theme.tokens['color-base-surface-secondary']};
+		background-image: linear-gradient(
+			90deg,
+			${theme.tokens['color-base-surface-secondary']} 0,
+			${theme.tokens['color-base-surface-tertiary']} 40px,
+			${theme.tokens['color-base-surface-secondary']} 80px
+		);
+		background-size: 200px 100%;
+		animation: ${shimmer} 1.5s infinite linear;
+	`}
+`
 
 export const GlobalStyle = createGlobalStyle<{ $isDarkMode?: boolean }>`
 	/*

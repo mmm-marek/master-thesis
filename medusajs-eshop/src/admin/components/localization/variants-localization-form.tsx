@@ -6,36 +6,62 @@ import {
     variantsLocalizationSchema,
     VariantsLocalizationSchemaType,
 } from "../../schemas/localization-schemas";
-import useLocalizeVaraint from "../../hooks/useLocalizeVaraint";
+import { useQueryClient } from "@tanstack/react-query";
+import { QUERY_KEYS } from "../../utils/query-keys";
+import {
+    useGetLocalizedVariants,
+    useLocalizeVariant,
+} from "../../hooks/localization/variant";
 
 type VariantsLocalizationFormProps = {
     product: PricedProduct;
-    regionId: string;
+    languageCode: string;
     onSuccess: () => void;
     onError: () => void;
 };
 
 const VariantsLocalizationForm = ({
     product,
-    regionId,
+    languageCode,
     onSuccess,
     onError,
 }: VariantsLocalizationFormProps) => {
+    const queryClient = useQueryClient();
+
+    const localizedVariants = useGetLocalizedVariants({
+        variantIds: product.variants.map((v) => v.id!),
+        languageCode,
+    });
+
+    const { mutate: updateVariants } = useLocalizeVariant({
+        languageCode,
+    });
+
     const { register, handleSubmit } = useForm<VariantsLocalizationSchemaType>({
         resolver: zodResolver(variantsLocalizationSchema),
-        defaultValues: {
+        values: {
             variants: product.variants.map((variant) => ({
-                variant_id: variant.id,
-                title: variant.metadata?.localization?.[regionId]?.title,
+                variant_id: variant.id!,
+                title:
+                    localizedVariants.data?.find(
+                        (v) => v.variant_id === variant.id
+                    )?.title ?? "",
             })),
         },
     });
 
-    const { mutate: updateVariants } = useLocalizeVaraint(product, regionId);
-
-    const onSubmitHandler = (data: VariantsLocalizationSchemaType) => {
+    const handleFormSubmit = (data: VariantsLocalizationSchemaType) => {
         updateVariants(data, {
-            onSuccess,
+            onSuccess: () => {
+                queryClient.invalidateQueries({
+                    queryKey: [
+                        QUERY_KEYS.API_GET_LOCALIZED_VARIANTS,
+                        product.id,
+                        languageCode,
+                    ],
+                });
+                onSuccess();
+            },
             onError,
         });
     };
@@ -45,16 +71,16 @@ const VariantsLocalizationForm = ({
             <h4 className="inter-large-semibold">Variants</h4>
             <form
                 className="flex flex-col gap-4"
-                onSubmit={handleSubmit(onSubmitHandler)}>
+                onSubmit={handleSubmit(handleFormSubmit)}>
                 {product.variants.map((variant, index) => (
                     <div key={index}>
                         <label
                             className="text-grey-90 inter-xsmall-semibold"
-                            htmlFor={`${regionId}-variants.${index}.title`}>
+                            htmlFor={`${languageCode}-variants.${index}.title`}>
                             Variant {variant.title}
                         </label>
                         <Input
-                            id={`${regionId}-variants.${index}.title`}
+                            id={`${languageCode}-variants.${index}.title`}
                             {...register(`variants.${index}.title`)}
                             placeholder={"Title"}
                         />

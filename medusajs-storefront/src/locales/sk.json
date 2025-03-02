@@ -174,7 +174,8 @@
 			"countryCode": "Krajina",
 			"orderConfirmedTitle": "Objednávka potvrdená",
 			"orderConfirmedDescription": "Vaša objednávka bola potvrdená a čoskoro bude odoslaná.",
-			"submit": "Odoslať objednávku"
+			"submit": "Odoslať objednávku",
+			"shippingMethod": "Spôsob doručenia"
 		},
 		"profile": {
 			"order": "Objednávka",

@@ -6,99 +6,114 @@ import {
     productLocalizationSchema,
     ProductLocalizationSchemaType,
 } from "../../schemas/localization-schemas";
-import useLocalizeProduct from "../../hooks/useLocalizeProduct";
+import { useQueryClient } from "@tanstack/react-query";
+import { QUERY_KEYS } from "../../utils/query-keys";
+import {
+    useGetLocalizedProduct,
+    useLocalizeProduct,
+} from "../../hooks/localization/product";
 
-type RegionLocalizationFormProps = {
+type ProductLocalizationFormProps = {
     product: PricedProduct;
-    regionId: string;
+    languageCode: string;
     onSuccess: () => void;
     onError: () => void;
 };
 
 const ProductLocalizationForm = ({
     product,
-    regionId,
+    languageCode,
     onError,
     onSuccess,
-}: RegionLocalizationFormProps) => {
-    const { mutate: updateProduct } = useLocalizeProduct(product);
+}: ProductLocalizationFormProps) => {
+    const queryClient = useQueryClient();
 
-    const getDefaultValues = (regionId: string) => {
-        const localization = product.metadata?.localization;
-        if (localization && localization[regionId]) {
-            return localization[regionId];
-        }
-        return {};
-    };
+    const localizedProduct = useGetLocalizedProduct({
+        productId: product.id!,
+        languageCode,
+    });
+
+    const { mutate: updateProduct } = useLocalizeProduct({
+        productId: product.id!,
+        languageCode,
+    });
 
     const { register, handleSubmit } = useForm<ProductLocalizationSchemaType>({
         resolver: zodResolver(productLocalizationSchema),
-        defaultValues: getDefaultValues(regionId),
+        values: {
+            title: localizedProduct.data?.title ?? "",
+            subtitle: localizedProduct.data?.subtitle ?? "",
+            description: localizedProduct.data?.description ?? "",
+            material: localizedProduct.data?.material ?? "",
+        },
     });
 
-    const onSubmitHandler = (data: ProductLocalizationSchemaType) => {
-        updateProduct(
-            {
-                regionId,
-                ...data,
+    const handleFormSubmit = (data: ProductLocalizationSchemaType) => {
+        updateProduct(data, {
+            onSuccess: () => {
+                queryClient.invalidateQueries({
+                    queryKey: [
+                        QUERY_KEYS.API_GET_LOCALIZED_PRODUCT,
+                        product.id,
+                        languageCode,
+                    ],
+                });
+                onSuccess();
             },
-            {
-                onSuccess,
-                onError,
-            }
-        );
+            onError,
+        });
     };
 
     return (
         <form
-            onSubmit={handleSubmit(onSubmitHandler)}
+            onSubmit={handleSubmit(handleFormSubmit)}
             className="flex flex-col gap-4">
             <div>
                 <label
                     className="text-grey-90 inter-xsmall-semibold"
-                    htmlFor={`${regionId}-title`}>
+                    htmlFor={`${languageCode}-title`}>
                     Title
                 </label>
                 <Input
                     placeholder="Title"
                     {...register("title")}
-                    id={`${regionId}-title`}
+                    id={`${languageCode}-title`}
                 />
             </div>
             <div>
                 <label
                     className="text-grey-90 inter-xsmall-semibold"
-                    htmlFor={`${regionId}-subtitle`}>
+                    htmlFor={`${languageCode}-subtitle`}>
                     Subtitle
                 </label>
                 <Input
                     placeholder="Subtitle"
                     {...register("subtitle")}
-                    id={`${regionId}-subtitle`}
+                    id={`${languageCode}-subtitle`}
                 />
             </div>
             <div>
                 <label
                     className="text-grey-90 inter-xsmall-semibold"
-                    htmlFor={`${regionId}-description`}>
+                    htmlFor={`${languageCode}-description`}>
                     Description
                 </label>
                 <Textarea
                     placeholder="Description"
                     {...register("description")}
-                    id={`${regionId}-description`}
+                    id={`${languageCode}-description`}
                 />
             </div>
             <div>
                 <label
                     className="text-grey-90 inter-xsmall-semibold"
-                    htmlFor={`${regionId}-material`}>
+                    htmlFor={`${languageCode}-material`}>
                     Material
                 </label>
                 <Input
                     placeholder="Material"
                     {...register("material")}
-                    id={`${regionId}-material`}
+                    id={`${languageCode}-material`}
                 />
             </div>
             <div className="w-full flex justify-end">

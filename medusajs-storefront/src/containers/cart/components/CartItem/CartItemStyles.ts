@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import styled, { css } from 'styled-components'
 
+import { skeletonBase } from '@/styles/GlobalStyles'
 import { textLgBold, textMdMedium, textMdSemibold, textXxlSemibold } from '@/styles/helpers'
 
 export const Wrapper = styled.div`
@@ -74,4 +75,42 @@ export const QuantityWrapper = styled.div`
 
 export const ContentWrapper = styled.div`
 	flex: 1;
+`
+
+export const ThumbnailSkeleton = styled.div`
+	width: 164px;
+	height: 164px;
+	${skeletonBase}
+`
+
+export const TitleSkeleton = styled.div`
+	width: 60%;
+	height: 24px;
+	${skeletonBase}
+`
+
+export const PriceSkeleton = styled.div`
+	width: 70px;
+	height: 28px;
+	${skeletonBase}
+`
+
+export const VariantSkeleton = styled.div`
+	margin: 8px 0;
+	width: 40%;
+	height: 20px;
+	${skeletonBase}
+`
+
+export const QuantityWrapperSkeleton = styled.div`
+	margin-bottom: 16px;
+	width: 120px;
+	height: 32px;
+	${skeletonBase}
+`
+
+export const ButtonSkeleton = styled.div`
+	width: 32px;
+	height: 32px;
+	${skeletonBase}
 `

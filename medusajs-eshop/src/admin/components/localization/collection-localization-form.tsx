@@ -1,44 +1,44 @@
 import { useForm } from "react-hook-form";
 import { Button, Input } from "@medusajs/ui";
 import { ProductCollection } from "@medusajs/medusa";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { CollectionLocalizationSchemaType } from "../../schemas/localization-schemas";
 import {
-    collectionLocalizationSchema,
-    CollectionLocalizationSchemaType,
-} from "../../schemas/localization-schemas";
-import useLocalizeCollection from "../../hooks/useLocalizeCollection";
+    useGetLocalizedCollection,
+    useLocalizeCollection,
+} from "../../hooks/localization/collection";
+import { useQueryClient } from "@tanstack/react-query";
+import { QUERY_KEYS } from "../../utils/query-keys";
 
 type RegionLocalizationFormProps = {
     collection: ProductCollection;
-    regionId: string;
+    languageCode: string;
     onSuccess: () => void;
     onError: () => void;
 };
 
 export const CollectionLocalizationForm = ({
     collection,
-    regionId,
+    languageCode,
     onSuccess,
     onError,
 }: RegionLocalizationFormProps) => {
-    const { mutate: updateCollection } = useLocalizeCollection(
-        collection,
-        regionId
-    );
+    const queryClient = useQueryClient();
 
-    const getDefaultValues = (regionId: string) => {
-        const localization = collection.metadata?.localization;
-        if (localization && localization[regionId]) {
-            return localization[regionId];
-        }
-        return {};
-    };
+    const localizedCollection = useGetLocalizedCollection({
+        collectionId: collection.id,
+        languageCode: languageCode,
+    });
+
+    const { mutate: updateCollection } = useLocalizeCollection({
+        collectionId: collection.id,
+        languageCode: languageCode,
+    });
 
     const { register, handleSubmit } =
         useForm<CollectionLocalizationSchemaType>({
-            mode: "onChange",
-            resolver: zodResolver(collectionLocalizationSchema),
-            defaultValues: getDefaultValues(regionId),
+            values: {
+                title: localizedCollection.data?.title ?? "",
+            },
         });
 
     const handleFormSubmit = (data: CollectionLocalizationSchemaType) => {
@@ -47,7 +47,16 @@ export const CollectionLocalizationForm = ({
                 title: data.title,
             },
             {
-                onSuccess,
+                onSuccess: () => {
+                    queryClient.invalidateQueries({
+                        queryKey: [
+                            QUERY_KEYS.API_GET_LOCALIZED_COLLECTION,
+                            collection.id,
+                            languageCode,
+                        ],
+                    });
+                    onSuccess();
+                },
                 onError,
             }
         );
@@ -60,13 +69,13 @@ export const CollectionLocalizationForm = ({
             <div>
                 <label
                     className="text-grey-90 inter-xsmall-semibold"
-                    htmlFor={`${regionId}-title`}>
+                    htmlFor={`${languageCode}-title`}>
                     Title
                 </label>
                 <Input
                     placeholder="Title"
                     {...register("title")}
-                    id={`${regionId}-title`}
+                    id={`${languageCode}-title`}
                 />
             </div>
             <div className="w-full flex justify-end">

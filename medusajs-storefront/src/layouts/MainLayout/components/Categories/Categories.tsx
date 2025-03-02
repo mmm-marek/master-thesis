@@ -1,13 +1,11 @@
 import Error from '@/components/Error/Error'
 import Loading from '@/components/Loading/Loading'
 import useGetLocalizedCategories from '@/hooks/categories/useGetLocalizedCategories'
-import { useStore } from '@/providers/StoreProvider'
 
 import * as SC from './CategoriesStyles'
 
 const Categories = () => {
-	const { cart } = useStore()
-	const { data: categories, isError, isLoading } = useGetLocalizedCategories(cart?.region_id)
+	const { data: categories, isError, isLoading } = useGetLocalizedCategories()
 
 	if (isLoading) {
 		return <Loading />

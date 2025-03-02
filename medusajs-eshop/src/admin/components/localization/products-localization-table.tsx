@@ -7,7 +7,7 @@ import useGetRegions from "../../hooks/useGetRegions";
 import useGetProducts, { PRODUCTS_LIMIT } from "../../hooks/useGetProducts";
 import Loading from "../shared/loading";
 import Error from "../shared/error";
-import { QUERY_KEYS } from "../../utils/queryKeys";
+import { QUERY_KEYS } from "../../utils/query-keys";
 import LocalizationDrawer from "./localization-drawer";
 import ProductLocalizationForm from "./product-localization-form";
 import VariantsLocalizationForm from "./variants-localization-form";
@@ -67,7 +67,7 @@ const ProductLocalizationTable = ({
         return <Error />;
     }
 
-    const pageCount = Math.ceil(productsData.count / PRODUCTS_LIMIT);
+    const pageCount = Math.ceil((productsData?.count ?? 1) / PRODUCTS_LIMIT);
 
     return (
         <div className="relative">
@@ -89,7 +89,7 @@ const ProductLocalizationTable = ({
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {productsData.products.map((product) => {
+                    {productsData?.products.map((product) => {
                         return (
                             <Table.Row key={product.id}>
                                 <Table.Cell className="truncate max-w-[3500px]">
@@ -107,7 +107,9 @@ const ProductLocalizationTable = ({
                                                     <>
                                                         <ProductLocalizationForm
                                                             product={product}
-                                                            regionId={region.id}
+                                                            languageCode={
+                                                                region.name
+                                                            }
                                                             onSuccess={
                                                                 handleSuccess
                                                             }
@@ -117,7 +119,9 @@ const ProductLocalizationTable = ({
                                                         />
                                                         <VariantsLocalizationForm
                                                             product={product}
-                                                            regionId={region.id}
+                                                            languageCode={
+                                                                region.name
+                                                            }
                                                             onSuccess={
                                                                 handleSuccess
                                                             }
@@ -137,7 +141,7 @@ const ProductLocalizationTable = ({
                 </Table.Body>
             </Table>
             <Table.Pagination
-                count={productsData.count}
+                count={productsData?.count ?? 0}
                 pageSize={PRODUCTS_LIMIT}
                 pageIndex={page}
                 pageCount={pageCount}

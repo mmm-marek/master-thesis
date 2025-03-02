@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl'
 
+import CheckoutProductItem from '../CheckoutProductItem/CheckoutProductItem'
 import { useStore } from '@/providers/StoreProvider'
 
 import * as SC from './CheckoutSummaryStyles'
@@ -25,17 +26,7 @@ const CheckoutSummary = () => {
 	return (
 		<SC.Container>
 			<SC.Title>{t('summary')}</SC.Title>
-			<SC.CartItemsList>
-				{cart?.items.map((item) => (
-					<li key={item.id}>
-						<SC.LineItemHeader>
-							<div>{item.title}</div>
-							<SC.Quantity>{item.quantity}</SC.Quantity>
-						</SC.LineItemHeader>
-						<SC.Variant>{item.variant.title}</SC.Variant>
-					</li>
-				))}
-			</SC.CartItemsList>
+			<SC.CartItemsList>{cart?.items.map((item) => <CheckoutProductItem key={item.id} item={item} />)}</SC.CartItemsList>
 			{hasPersonalInfo && (
 				<>
 					<SC.Divider />

@@ -8,7 +8,7 @@ import useGetCollections, {
 import useGetRegions from "../../hooks/useGetRegions";
 import Loading from "../shared/loading";
 import Error from "../shared/error";
-import { QUERY_KEYS } from "../../utils/queryKeys";
+import { QUERY_KEYS } from "../../utils/query-keys";
 import LocalizationDrawer from "./localization-drawer";
 import CollectionLocalizationForm from "./collection-localization-form";
 
@@ -53,7 +53,9 @@ const CollectionLocalizationTable = ({
         notify.error("error", "category localization update failed");
     };
 
-    const pageCount = Math.ceil(categoriesData.count / COLLECTIONS_LIMIT);
+    const pageCount = Math.ceil(
+        (categoriesData?.count ?? 1) / COLLECTIONS_LIMIT
+    );
 
     return (
         <div>
@@ -69,7 +71,7 @@ const CollectionLocalizationTable = ({
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {categoriesData.collections.map((collection) => {
+                    {categoriesData?.collections.map((collection) => {
                         return (
                             <Table.Row key={collection.id}>
                                 <Table.Cell className="truncate max-w-[350px]">
@@ -86,7 +88,9 @@ const CollectionLocalizationTable = ({
                                                 form={
                                                     <CollectionLocalizationForm
                                                         collection={collection}
-                                                        regionId={region.id}
+                                                        languageCode={
+                                                            region.name
+                                                        }
                                                         onSuccess={
                                                             handleSuccess
                                                         }
@@ -103,7 +107,7 @@ const CollectionLocalizationTable = ({
                 </Table.Body>
             </Table>
             <Table.Pagination
-                count={categoriesData.count}
+                count={categoriesData?.count ?? 0}
                 pageSize={COLLECTIONS_LIMIT}
                 pageIndex={page}
                 pageCount={pageCount}

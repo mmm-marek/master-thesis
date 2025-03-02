@@ -174,7 +174,8 @@
 			"countryCode": "Country code",
 			"orderConfirmedTitle": "Order Confirmed",
 			"orderConfirmedDescription": "Your order has been confirmed and will be shipped soon.",
-			"submit": "Submit"
+			"submit": "Submit",
+			"shippingMethod": "Shipping method"
 		},
 		"profile": {
 			"order": "Order",

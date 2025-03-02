@@ -1,6 +1,7 @@
 import { formatVariantPrice } from 'medusa-react'
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
+import { RadioGroup } from 'react-aria-components'
 
 import Breadcrumb from '@/atoms/Breadcrumb/Breadcrumb'
 import Button from '@/atoms/Button/Button'
@@ -21,14 +22,7 @@ const Product = ({ id }: ProductProps) => {
 	const t = useTranslations('containers.products')
 
 	const { addItem, isUpdatingCart, cart } = useStore()
-	const {
-		data: product,
-		isError,
-		isLoading
-	} = useGetLocalizedProduct({
-		handle: id,
-		regionID: cart?.region_id
-	})
+	const { data: product, isError, isLoading } = useGetLocalizedProduct(id)
 
 	const defaultVariant = product?.variants[0]
 	const [selectedVariant, setSelectedVariant] = useState(defaultVariant)
@@ -75,29 +69,31 @@ const Product = ({ id }: ProductProps) => {
 						href: PATHS.PRODUCTS
 					},
 					{
-						title: product?.localizedTitle ?? ''
+						title: product?.title ?? ''
 					}
 				]}
 			/>
 			<SC.Wrapper>
 				<SC.ProductContainer>
-					{product?.thumbnail && <SC.Thumbnail src={product.thumbnail} alt={product?.localizedTitle ?? t('productTitle')} width={500} height={500} />}
+					{product?.thumbnail && <SC.Thumbnail src={product.thumbnail} alt={product?.title ?? t('productTitle')} width={500} height={500} />}
 					<SC.InfoWrapper>
 						<SC.TextWrapper>
-							<SC.ProductTitle>{product?.localizedTitle}</SC.ProductTitle>
-							<SC.Material>{product?.localizedMaterial}</SC.Material>
+							<SC.ProductTitle>{product?.title}</SC.ProductTitle>
+							<SC.Material>{product?.material}</SC.Material>
 						</SC.TextWrapper>
 						<SC.VariantsSection>
-							<SC.VariantsRadioGroup onChange={handleVariantChange} defaultValue={defaultVariant?.id}>
+							<RadioGroup onChange={handleVariantChange} defaultValue={defaultVariant?.id}>
 								<SC.VariantsTitle>{t('variants')}</SC.VariantsTitle>
-								{product?.variants.map((variant) => (
-									<SC.RadioWrapper key={variant.id} $selected={selectedVariant?.id === variant.id}>
-										<SC.RadioVariant value={variant.id ?? ''} isDisabled={variant.inventory_quantity === 0}>
-											{variant.title}
-										</SC.RadioVariant>
-									</SC.RadioWrapper>
-								))}
-							</SC.VariantsRadioGroup>
+								<SC.VariantsWrapper>
+									{product?.variants.map((variant) => (
+										<SC.RadioWrapper key={variant.id} $selected={selectedVariant?.id === variant.id}>
+											<SC.RadioVariant value={variant.id ?? ''} isDisabled={variant.inventory_quantity === 0}>
+												{variant.title}
+											</SC.RadioVariant>
+										</SC.RadioWrapper>
+									))}
+								</SC.VariantsWrapper>
+							</RadioGroup>
 							<SC.QuantityInfo>
 								{t('inStock')}: <SC.Strong>{selectedVariant?.inventory_quantity ?? 0}</SC.Strong>
 							</SC.QuantityInfo>
@@ -116,7 +112,7 @@ const Product = ({ id }: ProductProps) => {
 							</SC.PriceWrapper>
 						)}
 						<SC.Divider />
-						<SC.Description>{product?.localizedDescription}</SC.Description>
+						<SC.Description>{product?.description}</SC.Description>
 					</SC.InfoWrapper>
 				</SC.ProductContainer>
 				<SC.ReviewsWrapper>

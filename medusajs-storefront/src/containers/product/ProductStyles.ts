@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Label, Radio, RadioGroup } from 'react-aria-components'
+import { Label, Radio } from 'react-aria-components'
 import styled, { css } from 'styled-components'
 
 import { breakpoints, headingSmSemibold, textMdRegular, textSmRegular, textXxlSemibold } from '@/styles/helpers'
@@ -42,10 +42,11 @@ export const VariantsTitle = styled(Label)`
 	`}
 `
 
-export const VariantsRadioGroup = styled(RadioGroup)`
+export const VariantsWrapper = styled.div`
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
 	gap: 8px;
+	margin-top: 8px;
 	max-width: 400px;
 `
 

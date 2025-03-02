@@ -14,7 +14,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 	const pathsPromise = await Promise.all(
 		regions.map(async (region) => {
-			const localizedCategories = await getLocalizedCategories(region.id)
+			const localizedCategories = await getLocalizedCategories(region.name)
 			return localizedCategories.map((category) => [
 				{
 					params: {
