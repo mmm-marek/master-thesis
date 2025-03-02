@@ -13,11 +13,12 @@ export async function GET(
     req: MedusaRequest,
     res: MedusaResponse<
         | {
-              variantLocalization: VariantLocalization | null;
+              variantLocalization: VariantLocalization[] | null;
           }
         | ApiError
     >
 ): Promise<void> {
+    console.log(req.query);
     const parsed = getVariantLocalizationSchema.safeParse(req.query);
 
     const variantLocalizationService: VariantLocalizationService =
@@ -28,8 +29,8 @@ export async function GET(
         return;
     }
 
-    const variantLocalization = await variantLocalizationService.getOne(
-        parsed.data.variant_id,
+    const variantLocalization = await variantLocalizationService.getAll(
+        parsed.data.variant_ids,
         parsed.data.language_code
     );
 

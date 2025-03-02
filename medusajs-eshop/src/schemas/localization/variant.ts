@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const getVariantLocalizationSchema = z.object({
-    variant_id: z.string().min(1),
+    variant_ids: z.array(z.string().min(1)),
     language_code: z.string().min(1).max(5),
 });
 

@@ -29,12 +29,11 @@ const VariantsLocalizationForm = ({
     const queryClient = useQueryClient();
 
     const localizedVariants = useGetLocalizedVariants({
-        productId: product.id!,
+        variantIds: product.variants.map((v) => v.id!),
         languageCode,
     });
 
     const { mutate: updateVariants } = useLocalizeVariant({
-        productId: product.id!,
         languageCode,
     });
 

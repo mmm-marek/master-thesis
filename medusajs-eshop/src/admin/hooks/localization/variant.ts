@@ -4,22 +4,25 @@ import { VariantLocalization } from "../../../models/variant-localization";
 import { VariantsLocalizationSchemaType } from "../../schemas/localization-schemas";
 import { QUERY_KEYS } from "../../utils/query-keys";
 
-type LocalizeVariantArgs = {
-    productId: string;
+type PostLocalizeVariantArgs = {
+    languageCode: string;
+};
+
+type GetLocalizedVariantArgs = {
+    variantIds: string[];
     languageCode: string;
 };
 
 export const useLocalizeVariant = ({
-    productId,
     languageCode,
-}: LocalizeVariantArgs) => {
+}: PostLocalizeVariantArgs) => {
     return useMutation({
         mutationFn: async (data: VariantsLocalizationSchemaType) => {
             const response = await medusa.client.request(
                 "POST",
                 `/admin/variant-localization`,
                 {
-                    ...data,
+                    variants: data.variants.filter((v) => !!v.title),
                     language_code: languageCode,
                 }
             );
@@ -29,22 +32,24 @@ export const useLocalizeVariant = ({
 };
 
 export const useGetLocalizedVariants = ({
-    productId,
+    variantIds,
     languageCode,
-}: LocalizeVariantArgs) => {
+}: GetLocalizedVariantArgs) => {
     return useQuery({
         queryKey: [
             QUERY_KEYS.API_GET_LOCALIZED_VARIANTS,
-            productId,
+            variantIds,
             languageCode,
         ],
         queryFn: async () => {
             const response = await medusa.client.request(
                 "GET",
-                `/admin/variant-localization?product_id=${productId}&language_code=${languageCode}`
+                `/admin/variant-localization?language_code=${languageCode}&variant_ids[]=${variantIds.join(
+                    "&variant_ids[]="
+                )}`
             );
 
-            return response.variantLocalizations as VariantLocalization[];
+            return response.variantLocalization as VariantLocalization[];
         },
     });
 };

@@ -1,7 +1,7 @@
 import { TransactionBaseService } from "@medusajs/medusa";
 import { VariantLocalization } from "../models/variant-localization";
 import { VariantLocalizationRepository } from "../repositories/variant-localization";
-import { EntityManager } from "typeorm";
+import { EntityManager, In } from "typeorm";
 
 class VariantLocalizationService extends TransactionBaseService {
     protected repository_: typeof VariantLocalizationRepository;
@@ -76,6 +76,17 @@ class VariantLocalizationService extends TransactionBaseService {
 
         return await repo.findOne({
             where: { variant_id, language_code },
+        });
+    }
+
+    async getAll(variant_ids: string[], language_code: string) {
+        const repo = this.activeManager_.withRepository(this.repository_);
+
+        return await repo.find({
+            where: {
+                variant_id: In(variant_ids),
+                language_code,
+            },
         });
     }
 }
