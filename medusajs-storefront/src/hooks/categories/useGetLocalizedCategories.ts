@@ -17,7 +17,7 @@ export const getLocalizedCategories = async (regionId?: string) => {
 
 export const useGetLocalizedCategories = () => {
 	const { getRegion } = useStore()
-	const languageCode = getRegion()?.countryCode.toUpperCase()
+	const languageCode = getRegion()?.countryCode
 
 	return useQuery({
 		queryKey: getLocalizedCategoriesQueryKey(languageCode!),

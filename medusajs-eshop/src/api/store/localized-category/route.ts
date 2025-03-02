@@ -18,7 +18,7 @@ export async function GET(
     const localizedCategoryService: LocalizedCategoryService =
         req.scope.resolve("localizedCategoryService");
 
-    const language_code = req.headers["accept-language"] || "EN";
+    const language_code = req.headers["accept-language"]?.toUpperCase() ?? "EN";
 
     const localizedCategories = await localizedCategoryService.getAll(
         language_code
